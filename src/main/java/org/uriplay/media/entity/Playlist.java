@@ -83,6 +83,7 @@ public class Playlist extends Description {
 			item.removeFrom(this);
 		}
     	this.items.clear();
+    	this.itemUris.clear();
         for (Item item : items) {
             addItem(item);
         }
