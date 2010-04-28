@@ -52,6 +52,9 @@ public class Playlist extends Description {
     private Set<Playlist> containedIn = Sets.newLinkedHashSet();
     private Set<String> containedInUris = Sets.newLinkedHashSet();
     
+    private Set<String> genres = Sets.newHashSet();
+    private Set<String> tags = Sets.newHashSet();
+    
     private DateTime firstSeen;
     private DateTime lastFetched;
 
@@ -195,4 +198,20 @@ public class Playlist extends Description {
     public String getPublisher() {
 		return publisher;
 	}
+
+    public Set<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<String> genres) {
+        this.genres = genres;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
 }

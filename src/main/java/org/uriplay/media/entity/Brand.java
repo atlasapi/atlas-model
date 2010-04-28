@@ -16,13 +16,10 @@ permissions and limitations under the License. */
 package org.uriplay.media.entity;
 
 import java.util.List;
-import java.util.Set;
 
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
 import org.uriplay.media.vocabulary.PO;
-
-import com.google.common.collect.Sets;
 
 /**
  * 
@@ -31,8 +28,6 @@ import com.google.common.collect.Sets;
  */
 @RdfClass(namespace = PO.NS)
 public class Brand extends Playlist {
-
-    private Set<String> genres = Sets.newHashSet();
 
     @Override
     @RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
@@ -47,15 +42,6 @@ public class Brand extends Playlist {
         if (item instanceof Episode) {
             ((Episode) item).setBrand(this);
         }
-    }
-
-    @RdfProperty(relation = true, namespace = PO.NS, uri = "genre")
-    public Set<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
     }
 
     public Brand toSummary() {
