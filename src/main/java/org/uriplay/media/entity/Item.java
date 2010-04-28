@@ -18,6 +18,7 @@ package org.uriplay.media.entity;
 import java.util.List;
 import java.util.Set;
 
+import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
 import org.uriplay.media.TransportType;
@@ -34,6 +35,7 @@ import com.hp.hpl.jena.vocabulary.DC;
  * @author Lee Denison (lee@metabroadcast.com)
  * @author John Ayres (john@metabroadcast.com)
  */
+@RdfClass(namespace = PO.NS)
 public class Item extends Description {
 	private String title;
 	private String description;
