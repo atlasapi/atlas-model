@@ -66,6 +66,8 @@ public class Attributes {
 	
 	public static final Attribute<String> PLAYLIST_GENRE = stringListAttribute("genre",  Playlist.class);
     public static final Attribute<String> PLAYLIST_TAG = stringListAttribute("tag", Playlist.class);
+	public static final Attribute<String> BRAND_GENRE = stringListAttribute("genre", Brand.class);
+    public static final Attribute<String> BRAND_TAG = stringListAttribute("tag", Brand.class);
 	
 	// enums
 	public static final Attribute<Enum<TransportType>> LOCATION_TRANSPORT_TYPE = new EnumValuedAttribute<TransportType>("transportType", TransportType.class, Location.class).allowShortMatches();
@@ -86,7 +88,7 @@ public class Attributes {
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
 		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, 
 								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
-								    ITEM_TAG, 
+								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
 								    VERSION_DURATION,
 								    BROADCAST_TRANSMISSION_TIME,
