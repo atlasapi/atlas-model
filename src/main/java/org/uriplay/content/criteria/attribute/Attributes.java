@@ -64,6 +64,9 @@ public class Attributes {
 	public static final Attribute<String> ITEM_GENRE = stringListAttribute("genre",  Item.class);
 	public static final Attribute<String> ITEM_TAG = stringListAttribute("tag", Item.class);
 	
+	public static final Attribute<String> PLAYLIST_GENRE = stringListAttribute("genre",  Playlist.class);
+    public static final Attribute<String> PLAYLIST_TAG = stringListAttribute("tag", Playlist.class);
+	
 	// enums
 	public static final Attribute<Enum<TransportType>> LOCATION_TRANSPORT_TYPE = new EnumValuedAttribute<TransportType>("transportType", TransportType.class, Location.class).allowShortMatches();
 
