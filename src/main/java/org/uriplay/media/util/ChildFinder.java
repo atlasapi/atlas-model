@@ -38,7 +38,7 @@ public class ChildFinder implements Predicate<Object> {
 	
 	private final Set<Object> notToBeConsideredRoot = Sets.newHashSet();
 
-	public ChildFinder(Set<?> beans) {
+	public ChildFinder(Collection<?> beans) {
 		
 		if (beans != null) {
 		
