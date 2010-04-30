@@ -26,20 +26,22 @@ public class Item extends Description {
 	private Set<String> genres = Sets.newHashSet();
 	private Set<String> tags = Sets.newHashSet();
 	
-	private Set<Playlist> containedIn = Sets.newHashSet();
+	private Set<String> containedIn = Sets.newHashSet();
 	private Set<Location> locations = Sets.newHashSet();
 	
+	private Playlist brand;
+	
 	@XmlElementWrapper(namespace=PLAY.NS, name="containedIn")
-	@XmlElement(namespace=PLAY.NS, name="list")
-	public Set<Playlist> getContainedIn() {
+	@XmlElement(name="uri")
+	public Set<String> getContainedIn() {
 		return containedIn;
 	}
 	
-	public void addContainedIn(Playlist list) {
-		containedIn .add(list);
+	public void addContainedIn(String playlistUri) {
+		containedIn.add(playlistUri);
 	}
 	
-	public void setContainedIn(Set<Playlist> containedIn) {
+	public void setContainedIn(Set<String> containedIn) {
 		this.containedIn = containedIn;
 	}
 	
@@ -135,26 +137,13 @@ public class Item extends Description {
 		return false;
 	}
 
-	public Playlist primaryBrand() {
-		Set<Playlist> playlists = getContainedIn();
-		if (playlists == null) {
-			return null;
-		}
-		for (Playlist playlist : playlists) {
-			if (isABrand(playlist)) {
-				return playlist;
-			}
-		}
-		return null;
+	@XmlElement(namespace=PLAY.NS, name="brand")
+	public Playlist getBrand() {
+		return brand;
 	}
-
-	/**
-	 * FIXME There is currently no way using the simple XML 
-	 * format to work out if a playlist is also a brand.  This is
-	 * a stop-gap solution and is _very_ fragile; 
-	 */
-	private boolean isABrand(Playlist playlist) {
-		return playlist.getCurie() != null;
+	
+	public void setBrand(Playlist brand) {
+		this.brand = brand;
 	}
 
 }

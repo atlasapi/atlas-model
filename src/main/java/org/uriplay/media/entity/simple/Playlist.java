@@ -17,6 +17,7 @@ public class Playlist extends Description {
 
 	private Set<Item> items = Sets.newHashSet();
 	private Set<Playlist> playlists = Sets.newHashSet();
+	private String publisher;
 
 	public void addItem(Item item) {
 		items.add(item);
@@ -39,14 +40,18 @@ public class Playlist extends Description {
 	@XmlElementWrapper(namespace=PLAY.NS, name="playlists")
 	@XmlElement(namespace=PLAY.NS, name="playlist")
 	public Set<Playlist> getPlaylists() {
-		if (playlists.isEmpty()) {
-			return null;
-		}
 		return playlists;
 	}
 	
 	public void setPlaylists(Set<Playlist> playlists) {
 		this.playlists = playlists;
 	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 	
+	public String getPublisher() {
+		return publisher;
+	}
 }
