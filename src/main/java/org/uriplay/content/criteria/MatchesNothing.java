@@ -69,7 +69,7 @@ public class MatchesNothing implements ContentQuery {
 			}
 			
 			@Override
-			protected Boolean defaultValue() {
+			protected Boolean defaultValue(ContentQuery query) {
 				return false;
 			}
 		});

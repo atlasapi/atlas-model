@@ -16,6 +16,8 @@ package org.uriplay.content.criteria;
 
 import java.util.List;
 
+import com.google.soy.common.collect.Lists;
+
 
 public class ConjunctiveQuery extends LogicalOperatorQuery {
 
@@ -38,5 +40,18 @@ public class ConjunctiveQuery extends LogicalOperatorQuery {
 		ConjunctiveQuery conjunctiveQuery = new ConjunctiveQuery(newConjucts);
 		conjunctiveQuery.withSelection(selection);
 		return conjunctiveQuery;
+	}
+
+	public static ContentQuery joinTo(ContentQuery original,ContentQuery toAdd) {
+		List<ContentQuery> allConjucts = Lists.newArrayList(conjunctsFrom(original));
+		allConjucts.addAll(conjunctsFrom(toAdd));
+		return new ConjunctiveQuery(allConjucts).withSelection(original.getSelection());
+	}
+
+	private static List<ContentQuery> conjunctsFrom(ContentQuery original) {
+		if (original instanceof ConjunctiveQuery) {
+			return ((ConjunctiveQuery) original).operands();
+		}
+		return Lists.newArrayList(original);
 	}
 }

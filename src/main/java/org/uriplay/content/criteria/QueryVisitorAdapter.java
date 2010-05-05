@@ -25,27 +25,27 @@ public abstract class QueryVisitorAdapter<V> implements QueryVisitor<V> {
 	
 	@Override
 	public V visit(IntegerAttributeQuery query) {
-		return defaultValue();
+		return defaultValue(query);
 	}
 
 	@Override
 	public V visit(StringAttributeQuery query) {
-		return defaultValue();
+		return defaultValue(query);
 	}
 
 	@Override
 	public V visit(DateTimeAttributeQuery dateTimeAttributeQuery) {
-		return defaultValue();
+		return defaultValue(dateTimeAttributeQuery);
 	}
 
 	@Override
 	public V visit(EnumAttributeQuery<?> query) {
-		return defaultValue();
+		return defaultValue(query);
 	}
 	
 	@Override
 	public V visit(BooleanAttributeQuery query) {
-		return defaultValue();
+		return defaultValue(query);
 	}
 		
 	@Override
@@ -53,16 +53,16 @@ public abstract class QueryVisitorAdapter<V> implements QueryVisitor<V> {
 		for (ContentQuery operand : conjunctiveQuery.operands()) {
 			operand.accept(this);
 		}
-		return defaultValue();
+		return defaultValue(conjunctiveQuery);
 	}
 	
 	@Override
 	public V visit(MatchesNothing nothing) {
-		return defaultValue();
+		return defaultValue(nothing);
 		
 	}
 	
-	protected V defaultValue() {
+	protected V defaultValue(ContentQuery query) {
 		return null;
 	}
 }
