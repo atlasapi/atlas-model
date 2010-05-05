@@ -77,7 +77,7 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 	}
 	
 	public Attribute<T> allowShortMatches() {
-		this.alias = javaAttributeName;
+		this.alias = name;
 		return this;
 	}
 	
