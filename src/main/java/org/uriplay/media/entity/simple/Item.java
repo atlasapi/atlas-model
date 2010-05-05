@@ -82,7 +82,9 @@ public class Item extends Description {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-
+	
+	@XmlElementWrapper(namespace=PLAY.NS, name="genres")
+	@XmlElement(namespace=PLAY.NS, name="genre")
 	public Set<String> getGenres() {
 		return genres;
 	}
@@ -91,6 +93,8 @@ public class Item extends Description {
 		this.genres = genres;
 	}
 
+	@XmlElementWrapper(namespace=PLAY.NS, name="tags")
+	@XmlElement(namespace=PLAY.NS, name="tag")
 	public Set<String> getTags() {
 		return tags;
 	}
