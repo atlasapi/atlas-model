@@ -169,7 +169,7 @@ public class Item extends Description {
 
 	public boolean isEmbeddable() {
 		for (Location location : locations()) {
-			if (location.getTransportType() != null && TransportType.EMBEDOBJECT.toString().toLowerCase().equals(location.getTransportType().toLowerCase())) {
+			if (location.getTransportType() != null && TransportType.EMBEDOBJECT.equals(location.getTransportType())) {
 				return true;
 			}
 		}

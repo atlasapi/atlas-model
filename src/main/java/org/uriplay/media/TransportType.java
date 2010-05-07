@@ -5,5 +5,13 @@ public enum TransportType {
 	DOWNLOAD,
 	STREAM,
 	BITTORRENT, 
-	EMBEDOBJECT,
+	EMBEDOBJECT;
+	
+	public String toString() {
+		return name().toLowerCase();
+	}
+
+	public static TransportType fromString(String s) {
+		return valueOf(s.toUpperCase());
+	};
 }

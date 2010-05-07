@@ -18,6 +18,7 @@ package org.uriplay.media.entity;
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
+import org.uriplay.media.TransportType;
 import org.uriplay.media.vocabulary.PLAY;
 
 /**
@@ -39,7 +40,7 @@ public class Location extends Description {
 
     private String transportSubType;
 
-    private String transportType;
+    private TransportType transportType;
     
     private String uri;
 
@@ -73,7 +74,7 @@ public class Location extends Description {
     }
 
     @RdfProperty
-    public String getTransportType() { 
+    public TransportType getTransportType() { 
         return this.transportType; 
     }
     
@@ -120,13 +121,8 @@ public class Location extends Description {
         }
     }
 
-    public void setTransportType(String transportType) { 
-        if (transportType != null) {
-            this.transportType = transportType.toLowerCase(); 
-        }
-        else {
-            this.transportType = null;
-        }
+    public void setTransportType(TransportType transportType) {
+		this.transportType = transportType; 
     }
 
     @RdfProperty(relation=true)
