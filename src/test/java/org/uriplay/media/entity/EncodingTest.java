@@ -17,7 +17,6 @@ package org.uriplay.media.entity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import junit.framework.TestCase;
 
 /**
@@ -30,18 +29,6 @@ public class EncodingTest extends TestCase {
 	Encoding encoding = new Encoding();
 	Location location = new Location();
 	Item item = new Episode();
-
-	public void testMapsMimeTypesToUriplayListForDataContainer() throws Exception {
-		
-		encoding.setDataContainerFormat("audio/mp3");
-		assertThat(encoding.getDataContainerFormat(), is("audio/mpeg"));
-	}
-	
-	public void testSetsDataContainerFormatToNullForUnknownMimeType() throws Exception {
-		
-		encoding.setDataContainerFormat("fishing/rod");
-		assertThat(encoding.getDataContainerFormat(), is(nullValue()));
-	}
 	
 	public void testMapsMimeTypesToUriplayListForAudioCoding() throws Exception {
 		

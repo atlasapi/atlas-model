@@ -22,7 +22,6 @@ import org.jherd.core.MimeType;
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
 import org.uriplay.media.reference.entity.AudioFormat;
-import org.uriplay.media.reference.entity.ContainerFormat;
 import org.uriplay.media.reference.entity.VideoFormat;
 import org.uriplay.media.vocabulary.PLAY;
 
@@ -48,8 +47,7 @@ public class Encoding extends Description {
 
     private Boolean containsAdvertising;
 
-//    private ContainerFormat dataContainerFormat;
-    private String dataContainerFormat;
+    private MimeType dataContainerFormat;
 
     private Long dataSize;
 
@@ -149,15 +147,9 @@ public class Encoding extends Description {
     public Boolean getContainsAdvertising() { 
         return this.containsAdvertising;
     }
-
-//    @RdfProperty
-//    @ManyToOne
-//    public ContainerFormat getDataContainerFormat() { 
-//        return this.dataContainerFormat; 
-//    }
     
     @RdfProperty
-    public String getDataContainerFormat() { 
+    public MimeType getDataContainerFormat() { 
         return this.dataContainerFormat; 
     }
     
@@ -249,17 +241,8 @@ public class Encoding extends Description {
         this.containsAdvertising = containsAdvertising;
     }
 
-//    public void setDataContainerFormat(ContainerFormat dataContainerFormat) { 
-//        this.dataContainerFormat = dataContainerFormat; 
-//    }
-    public void setDataContainerFormat(String dataContainerFormat) { 
-    	
-    	MimeType type = ContainerFormat.fromAltName(dataContainerFormat);
-		if (type != null) {
-			this.dataContainerFormat = type.toString();
-		} else {
-			this.dataContainerFormat = null;
-		}
+    public void setDataContainerFormat(MimeType dataContainerFormat) { 
+    	this.dataContainerFormat = dataContainerFormat;
     }
 
     public void setDataSize(Long dataSize) {
@@ -322,7 +305,7 @@ public class Encoding extends Description {
 
 	public boolean hasDataContainerFormat(MimeType... mimeTypes) {
 		for (MimeType mimeType : mimeTypes) {
-			if (mimeType.toString().equalsIgnoreCase(getDataContainerFormat())) {
+			if (mimeType.equals(getDataContainerFormat())) {
 				return true;
 			}
 		}
