@@ -17,6 +17,7 @@ package org.uriplay.media.entity;
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.uriplay.media.vocabulary.PLAY;
 import org.uriplay.media.vocabulary.PO;
 
@@ -34,7 +35,7 @@ public class Broadcast extends Description {
 
     private String broadcastOn;
 
-    private String scheduleDate;
+    private LocalDate scheduleDate;
 
     @RdfProperty(namespace = PLAY.NS, relation = false)
     public DateTime getTransmissionTime() {
@@ -64,11 +65,11 @@ public class Broadcast extends Description {
     }
 
     @RdfProperty(namespace = PO.NS, relation = false)
-    public String getScheduleDate() {
+    public LocalDate getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(String scheduleDate) {
+    public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
