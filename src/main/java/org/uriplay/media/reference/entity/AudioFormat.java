@@ -25,13 +25,10 @@ import static org.jherd.core.MimeType.AUDIO_XPNREALAUDIO;
 
 import java.util.Map;
 
-import javax.persistence.Entity;
-
 import org.jherd.core.MimeType;
 
 import com.google.common.collect.Maps;
 
-@Entity
 public class AudioFormat {
     private static Map<String, MimeType> alternatives = Maps.newHashMap();
 

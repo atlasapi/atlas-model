@@ -21,8 +21,6 @@ import java.util.Set;
 import org.jherd.core.MimeType;
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
-import org.uriplay.media.reference.entity.AudioFormat;
-import org.uriplay.media.reference.entity.VideoFormat;
 import org.uriplay.media.vocabulary.PLAY;
 
 /**
@@ -40,8 +38,7 @@ public class Encoding extends Description {
 
     private Integer audioChannels;
 
-    // private AudioFormat audioCoding;
-    private String audioCoding;
+    private MimeType audioCoding;
 
     private Integer bitRate;
 
@@ -63,7 +60,7 @@ public class Encoding extends Description {
 
     private Integer videoBitRate;
 
-    private String videoCoding;
+    private MimeType videoCoding;
     
     private Float videoFrameRate;
 
@@ -126,15 +123,9 @@ public class Encoding extends Description {
     public Integer getAudioChannels() { 
         return this.audioChannels;
     }
-    
-//    @RdfProperty
-//    @ManyToOne
-//    public AudioFormat getAudioCoding() { 
-//        return this.audioCoding; 
-//    }
-    
+        
     @RdfProperty
-    public String getAudioCoding() { 
+    public MimeType getAudioCoding() { 
         return this.audioCoding; 
     }
 
@@ -184,7 +175,7 @@ public class Encoding extends Description {
     }
 
     @RdfProperty
-    public String getVideoCoding() { 
+    public MimeType getVideoCoding() { 
         return this.videoCoding; 
     }
 
@@ -220,17 +211,8 @@ public class Encoding extends Description {
         this.audioChannels = audioChannels;
     }
 
-//    public void setAudioCoding(AudioFormat audioCoding) { 
-//        this.audioCoding = audioCoding; 
-//    }
-
-    public void setAudioCoding(String audioCoding) { 
-    	MimeType type = AudioFormat.fromAltName(audioCoding);
-		if (type != null) {
-			this.audioCoding = type.toString();
-		} else {
-			this.audioCoding = null;
-		}
+    public void setAudioCoding(MimeType audioCoding) { 
+        this.audioCoding = audioCoding; 
     }
     
     public void setBitRate(Integer bitRate) {
@@ -269,13 +251,8 @@ public class Encoding extends Description {
         this.videoBitRate = videoBitRate;
     }
 
-    public void setVideoCoding(String videoCoding) { 
-    	MimeType type = VideoFormat.fromAltName(videoCoding);
-		if (type != null) {
-			this.videoCoding = type.toString();
-		} else {
-			this.videoCoding = null;
-		}
+    public void setVideoCoding(MimeType videoCoding) {
+		this.videoCoding = videoCoding; 
     }
 
     public void setVideoFrameRate(Float videoFrameRate) {
@@ -296,7 +273,7 @@ public class Encoding extends Description {
 
 	public boolean hasVideoCoding(MimeType... mimeTypes) {
 		for (MimeType mimeType : mimeTypes) {
-			if (mimeType.toString().equalsIgnoreCase(getVideoCoding())) {
+			if (mimeType.equals(getVideoCoding())) {
 				return true;
 			}
 		}
@@ -314,7 +291,7 @@ public class Encoding extends Description {
 
 	public boolean hasAudioCoding(MimeType... mimeTypes) {
 		for (MimeType mimeType : mimeTypes) {
-			if (getAudioCoding().equalsIgnoreCase(mimeType.toString())) {
+			if (mimeType.equals(getAudioCoding())) {
 				return true;
 			}
 		}
@@ -346,12 +323,12 @@ public class Encoding extends Description {
 		return this;
 	}
 
-	public Encoding withAudioCoding(String audioCoding) {
+	public Encoding withAudioCoding(MimeType audioCoding) {
 		setAudioCoding(audioCoding);
 		return this;
 	}
 	
-	public Encoding withVideoCoding(String videoCoding) {
+	public Encoding withVideoCoding(MimeType videoCoding) {
 		setVideoCoding(videoCoding);
 		return this;
 	}
