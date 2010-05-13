@@ -17,7 +17,6 @@ package org.uriplay.media.entity;
 
 import org.jherd.rdf.annotations.RdfClass;
 import org.jherd.rdf.annotations.RdfProperty;
-import org.joda.time.DateTime;
 import org.uriplay.media.TransportType;
 import org.uriplay.media.vocabulary.PLAY;
 
@@ -28,13 +27,7 @@ import org.uriplay.media.vocabulary.PLAY;
 @RdfClass(namespace = PLAY.NS)
 public class Location extends Description {
 
-	private DateTime availabilityStart;
-
-	private DateTime availabilityEnd;
-	
-    private DateTime drmPlayableFrom;
-    
-    private String restrictedBy;
+    private boolean available = true;
 
     private Boolean transportIsLive;
 
@@ -46,21 +39,11 @@ public class Location extends Description {
 
     private String embedCode;
     
-    private boolean available = true;
+    private Policy policy;
     
-    @RdfProperty(relation=false)
-    public DateTime getAvailabilityStart() { 
-        return availabilityStart;
-    }
-
-    @RdfProperty
-    public DateTime getDrmPlayableFrom() { 
-        return drmPlayableFrom;
-    }
-
-    @RdfProperty(relation = true)
-    public String getRestrictedBy() { 
-        return this.restrictedBy; 
+    @RdfProperty(relation=true)
+    public Policy getPolicy() { 
+        return this.policy; 
     }
 
     @RdfProperty
@@ -77,15 +60,7 @@ public class Location extends Description {
     public TransportType getTransportType() { 
         return this.transportType; 
     }
-    
-    @RdfProperty
-    public DateTime getAvailabilityEnd() {
-		return availabilityEnd;
-	}
-    
-    public void setAvailabilityEnd(DateTime availabilityEnd) {
-		this.availabilityEnd = availabilityEnd;
-	}
+
     
     @RdfProperty
     public boolean getAvailable() {
@@ -96,16 +71,8 @@ public class Location extends Description {
     	this.available = available;
 	}
     
-    public void setAvailabilityStart(DateTime availabilityStart) {
-        this.availabilityStart = availabilityStart;
-    }
-
-    public void setDrmPlayableFrom(DateTime drmPlayableFrom) {
-        this.drmPlayableFrom = drmPlayableFrom;
-    }
-
-    public void setRestrictedBy(String restrictedBy) { 
-        this.restrictedBy = restrictedBy; 
+    public void setPolicy(Policy policy) { 
+        this.policy = policy; 
     }
 
     public void setTransportIsLive(Boolean transportIsLive) {

@@ -1,11 +1,27 @@
 package org.uriplay.media.entity.simple;
 
 import java.util.Date;
+/* Copyright 2010 Meta Broadcast Ltd
 
+Licensed under the Apache License, Version 2.0 (the "License"); you
+may not use this file except in compliance with the License. You may
+obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License. */
+
+import java.util.Set;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.uriplay.media.entity.Encoding;
 import org.uriplay.media.vocabulary.PLAY;
 
 @XmlRootElement(namespace=PLAY.NS)
@@ -39,8 +55,10 @@ public class Location {
     
 	private Date availabilityStart;
     private Date drmPlayableFrom;
-    private Encoding encoding;
+    private Set<String> availableCountries; 
+    
     private String restrictedBy;
+    
     private Boolean transportIsLive;
     private String transportSubType;
     private String transportType;
@@ -83,6 +101,16 @@ public class Location {
 
 	public Integer getPublishedDuration() {
 		return publishedDuration;
+	}
+
+	@XmlElementWrapper(namespace=PLAY.NS, name="availableCountries")
+	@XmlElement(name="code")
+	public Set<String> getAvailableCountries() {
+		return availableCountries;
+	}
+
+	public void setAvailableCountries(Set<String> availableCountries) {
+		this.availableCountries = availableCountries;
 	}
 
 	public void setPublishedDuration(Integer publishedDuration) {
@@ -255,14 +283,6 @@ public class Location {
 
 	public void setDrmPlayableFrom(Date drmPlayableFrom) {
 		this.drmPlayableFrom = drmPlayableFrom;
-	}
-
-	public Encoding getEncoding() {
-		return encoding;
-	}
-
-	public void setEncoding(Encoding encoding) {
-		this.encoding = encoding;
 	}
 
 	public String getRestrictedBy() {
