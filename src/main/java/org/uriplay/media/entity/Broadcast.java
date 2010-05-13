@@ -31,6 +31,8 @@ public class Broadcast extends Description {
 
     private DateTime transmissionTime;
 
+    private DateTime transmissionEndTime;
+
     private Integer broadcastDuration;
 
     private String broadcastOn;
@@ -42,6 +44,11 @@ public class Broadcast extends Description {
         return this.transmissionTime;
     }
 
+    @RdfProperty(namespace = PLAY.NS, relation = false)
+    public DateTime getTransmissionEndTime() {
+		return transmissionEndTime;
+	}
+    
     public void setTransmissionTime(DateTime transmissionTime) {
         this.transmissionTime = transmissionTime;
     }
@@ -72,6 +79,10 @@ public class Broadcast extends Description {
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
+    
+    public void setTransmissionEndTime(DateTime transmissionEndTime) {
+		this.transmissionEndTime = transmissionEndTime;
+	}
 
     @Override
     public boolean equals(Object object) {
