@@ -89,14 +89,14 @@ public abstract class AttributeQuery<T> implements ContentQuery {
 		return this;
 	}
 	
-	@Deprecated
-	@Override
-	public ContentQuery withSelection(org.jherd.util.Selection selection) {
-	    if (selection != null) {
-	        this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
-	    }
-	    return this;
-	}
+//	@Deprecated
+//	@Override
+//	public ContentQuery withSelection(org.jherd.util.Selection selection) {
+//	    if (selection != null) {
+//	        this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
+//	    }
+//	    return this;
+//	}
 	
 	@Override
 	public Selection getSelection() {
