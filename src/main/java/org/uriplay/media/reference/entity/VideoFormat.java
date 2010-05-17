@@ -14,45 +14,27 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.reference.entity;
 
-import static org.jherd.core.MimeType.VIDEO_H263;
-import static org.jherd.core.MimeType.VIDEO_H264;
-import static org.jherd.core.MimeType.VIDEO_MP4;
-import static org.jherd.core.MimeType.VIDEO_MPEG;
-import static org.jherd.core.MimeType.VIDEO_XDIRAC;
-import static org.jherd.core.MimeType.VIDEO_XDIVX;
-import static org.jherd.core.MimeType.VIDEO_XMSWMV;
-import static org.jherd.core.MimeType.VIDEO_XPNREALVIDEO;
-import static org.jherd.core.MimeType.VIDEO_XSVQ;
-import static org.jherd.core.MimeType.VIDEO_XTHEORA;
-import static org.jherd.core.MimeType.VIDEO_XVP6;
-import static org.jherd.core.MimeType.VIDEO_XXVID;
-
 import java.util.Map;
-
-import javax.persistence.Entity;
-
-import org.jherd.core.MimeType;
 
 import com.google.common.collect.Maps;
 
-@Entity
 public class VideoFormat {
     private static Map<String, MimeType> alternatives = Maps.newHashMap();
 
 	static {
-		alternatives.put("video/H263", VIDEO_H263);
-		alternatives.put("video/H264", VIDEO_H264);
-		alternatives.put("video/mpeg", VIDEO_MPEG);
-		alternatives.put("video/x-dirac", VIDEO_XDIRAC);
-		alternatives.put("video/x-divx", VIDEO_XDIVX);
-		alternatives.put("video/x-m4v", VIDEO_MP4);
-		alternatives.put("video/x-ms-wmv", VIDEO_XMSWMV);
-		alternatives.put("video/x-pn-realvideo", VIDEO_XPNREALVIDEO);
-		alternatives.put("video/x-realvideo", VIDEO_XPNREALVIDEO);
-		alternatives.put("video/x-svq", VIDEO_XSVQ);
-		alternatives.put("video/x-theora", VIDEO_XTHEORA);
-		alternatives.put("video/x-vp6", VIDEO_XVP6);
-		alternatives.put("video/x-xvid", VIDEO_XXVID);
+		alternatives.put("video/H263", MimeType.VIDEO_H263);
+		alternatives.put("video/H264", MimeType.VIDEO_H264);
+		alternatives.put("video/mpeg", MimeType.VIDEO_MPEG);
+		alternatives.put("video/x-dirac", MimeType.VIDEO_XDIRAC);
+		alternatives.put("video/x-divx", MimeType.VIDEO_XDIVX);
+		alternatives.put("video/x-m4v", MimeType.VIDEO_MP4);
+		alternatives.put("video/x-ms-wmv", MimeType.VIDEO_XMSWMV);
+		alternatives.put("video/x-pn-realvideo", MimeType.VIDEO_XPNREALVIDEO);
+		alternatives.put("video/x-realvideo", MimeType.VIDEO_XPNREALVIDEO);
+		alternatives.put("video/x-svq", MimeType.VIDEO_XSVQ);
+		alternatives.put("video/x-theora", MimeType.VIDEO_XTHEORA);
+		alternatives.put("video/x-vp6", MimeType.VIDEO_XVP6);
+		alternatives.put("video/x-xvid", MimeType.VIDEO_XXVID);
 	}
     
 	public static MimeType fromAltName(String alternativeString) {

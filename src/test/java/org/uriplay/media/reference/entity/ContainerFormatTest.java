@@ -14,11 +14,9 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.reference.entity;
 
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
-import org.jherd.core.MimeType;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import junit.framework.TestCase;
 
 /**

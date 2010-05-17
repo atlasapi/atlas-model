@@ -18,9 +18,10 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.jherd.util.Selection;
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.Operator;
+
+import com.metabroadcast.common.query.Selection;
 
 public abstract class AttributeQuery<T> implements ContentQuery {
 

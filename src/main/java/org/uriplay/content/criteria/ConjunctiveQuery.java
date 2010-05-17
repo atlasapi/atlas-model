@@ -16,7 +16,7 @@ package org.uriplay.content.criteria;
 
 import java.util.List;
 
-import com.google.soy.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 
 public class ConjunctiveQuery extends LogicalOperatorQuery {

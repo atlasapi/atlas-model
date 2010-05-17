@@ -14,7 +14,7 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import org.jherd.util.Selection;
+import com.metabroadcast.common.query.Selection;
 
 public interface ContentQuery {
 

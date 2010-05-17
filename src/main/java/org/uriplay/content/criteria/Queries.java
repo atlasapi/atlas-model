@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
 import org.uriplay.content.criteria.attribute.QueryFactory;
 import org.uriplay.content.criteria.operator.Operators;
 
-import com.google.soy.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 public class Queries {
 

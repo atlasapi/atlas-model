@@ -14,18 +14,7 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.reference.entity;
 
-import static org.jherd.core.MimeType.AUDIO_AC3;
-import static org.jherd.core.MimeType.AUDIO_AMR;
-import static org.jherd.core.MimeType.AUDIO_MP4;
-import static org.jherd.core.MimeType.AUDIO_MPEG;
-import static org.jherd.core.MimeType.AUDIO_VORBIS;
-import static org.jherd.core.MimeType.AUDIO_XFLAC;
-import static org.jherd.core.MimeType.AUDIO_XMSWMA;
-import static org.jherd.core.MimeType.AUDIO_XPNREALAUDIO;
-
 import java.util.Map;
-
-import org.jherd.core.MimeType;
 
 import com.google.common.collect.Maps;
 
@@ -33,17 +22,17 @@ public class AudioFormat {
     private static Map<String, MimeType> alternatives = Maps.newHashMap();
 
 	static {
-		alternatives.put("audio/ac3)", AUDIO_AC3);
-		alternatives.put("audio/AMR", AUDIO_AMR);
-		alternatives.put("audio/mpeg", AUDIO_MPEG);
-		alternatives.put("audio/mp3", AUDIO_MPEG);
-		alternatives.put("audio/mp4", AUDIO_MP4);
-		alternatives.put("audio/vorbis", AUDIO_VORBIS);
-		alternatives.put("audio/x-flac", AUDIO_XFLAC);
-		alternatives.put("audio/x-ms-wma", AUDIO_XMSWMA);
-		alternatives.put("audio/x-rn-realaudio", AUDIO_XPNREALAUDIO);
-		alternatives.put("audio/vnd.rn-realaudio", AUDIO_XPNREALAUDIO);
-		alternatives.put("audio/x-realaudio", AUDIO_XPNREALAUDIO);
+		alternatives.put("audio/ac3)", MimeType.AUDIO_AC3);
+		alternatives.put("audio/AMR", MimeType.AUDIO_AMR);
+		alternatives.put("audio/mpeg", MimeType.AUDIO_MPEG);
+		alternatives.put("audio/mp3", MimeType.AUDIO_MPEG);
+		alternatives.put("audio/mp4", MimeType.AUDIO_MP4);
+		alternatives.put("audio/vorbis", MimeType.AUDIO_VORBIS);
+		alternatives.put("audio/x-flac", MimeType.AUDIO_XFLAC);
+		alternatives.put("audio/x-ms-wma", MimeType.AUDIO_XMSWMA);
+		alternatives.put("audio/x-rn-realaudio", MimeType.AUDIO_XPNREALAUDIO);
+		alternatives.put("audio/vnd.rn-realaudio", MimeType.AUDIO_XPNREALAUDIO);
+		alternatives.put("audio/x-realaudio", MimeType.AUDIO_XPNREALAUDIO);
 	}		
     
 	public static MimeType fromAltName(String alternativeString) {

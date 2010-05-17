@@ -20,9 +20,9 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.jherd.util.Selection;
 
 import com.google.common.collect.Lists;
+import com.metabroadcast.common.query.Selection;
 
 public abstract class LogicalOperatorQuery implements ContentQuery {
 
