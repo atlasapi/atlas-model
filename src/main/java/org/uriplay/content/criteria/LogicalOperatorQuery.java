@@ -82,6 +82,13 @@ public abstract class LogicalOperatorQuery implements ContentQuery {
 		return this;
 	}
 	
+	@Deprecated
+    @Override
+    public ContentQuery withSelection(org.jherd.util.Selection selection) {
+        this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
+        return this;
+    }
+	
 	public Selection getSelection() {
 		return selection;
 	}

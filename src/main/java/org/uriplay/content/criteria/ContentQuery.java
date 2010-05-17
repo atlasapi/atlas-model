@@ -22,5 +22,7 @@ public interface ContentQuery {
 
 	ContentQuery withSelection(Selection selection);
 	
+	ContentQuery withSelection(org.jherd.util.Selection selection);
+	
 	Selection getSelection();
 }

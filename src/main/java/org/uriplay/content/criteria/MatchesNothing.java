@@ -48,6 +48,13 @@ public class MatchesNothing implements ContentQuery {
 		this.selection = selection;
 		return this;
 	}
+	
+	@Deprecated
+    @Override
+    public ContentQuery withSelection(org.jherd.util.Selection selection) {
+        this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
+        return this;
+    }
 
 	public static boolean isEquivalentTo(ContentQuery query) {
 		
