@@ -5,6 +5,7 @@
     <artifactId>uriplay-media-reference</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <description>uriplay media reference data types</description>
+    
     <build>
         <plugins>
             <plugin>
@@ -16,7 +17,16 @@
                 </configuration>
             </plugin>
         </plugins>
+        
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
     </build>
+    
     <dependencies>
         <dependency>
             <groupId>com.metabroadcast.common</groupId>
@@ -47,7 +57,39 @@
         <dependency>
             <groupId>org.jherd</groupId>
             <artifactId>jherd</artifactId>
-            <version>0.7.0-SNAPSHOT</version>
+            <version>${jherd.version}</version>
         </dependency>
     </dependencies>
+    
+    <scm>
+        <connection>scm:svn:https://uriplay.googlecode.com/svn/uriplay-media-reference/trunk/</connection>
+        <developerConnection>scm:svn:http://uriplay.googlecode.com/svn/uriplay-media-reference/trunk/</developerConnection>
+    </scm>
+    
+    <distributionManagement>
+        <repository>
+            <id>metabroadcast-mvn</id>
+            <name>Public Releases MetaBroadcast Repo</name>
+            <url>dav:http://mvn.metabroadcast.com:80/public-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>metabroadcast-mvn</id>
+            <name>Public Snapshots MetaBroadcast Repo</name>
+            <url>dav:http://mvn.metabroadcast.com:80/public-snapshots-local </url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>metabroadcast-mvn</id>
+            <name>Metabroadcast</name>
+            <url>http://mvn.metabroadcast.com/all</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    
+    <properties>
+    	<jherd.version>0.7.0-SNAPSHOT</jherd.version>
+    </properties>
 </project>
