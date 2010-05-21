@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>uriplay-media-reference</groupId>
+    <groupId>org.uriplay</groupId>
     <artifactId>uriplay-media-reference</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <description>uriplay media reference data types</description>
