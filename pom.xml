@@ -90,6 +90,6 @@
     </repositories>
     
     <properties>
-    	<jherd.version>0.7.0-SNAPSHOT</jherd.version>
+    	<jherd.version>0.7.1-SNAPSHOT</jherd.version>
     </properties>
 </project>
