@@ -15,7 +15,6 @@ permissions and limitations under the License. */
 package org.uriplay.content.criteria;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 import org.joda.time.DateTime;
 import org.uriplay.content.criteria.attribute.QueryFactory;
@@ -29,7 +28,7 @@ public class Queries {
 		return attribute.createQuery(Operators.EQUALS, Arrays.asList(values));
 	}
 	
-	public static ContentQuery equalTo(QueryFactory<String> attribute, Collection<String> values) {
+	public static ContentQuery equalTo(QueryFactory<String> attribute, Iterable<String> values) {
 		return attribute.createQuery(Operators.EQUALS, Lists.newArrayList(values));
 	}
 	
