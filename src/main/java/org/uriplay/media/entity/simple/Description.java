@@ -27,6 +27,12 @@ public class Description {
 	private String title;
 	private String description;
 	
+	public Description(String uri) {
+		this.uri = uri;
+	}
+	
+	public Description() { /* required for XML/JSON tools */	}
+
 	public String getUri() {
 		return uri;
 	}
@@ -86,5 +92,10 @@ public class Description {
 			return uri.equals(((Description) obj).uri);
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "(uri:"  + uri + ")";
 	}
 }

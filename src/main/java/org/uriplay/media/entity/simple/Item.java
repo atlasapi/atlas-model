@@ -31,6 +31,12 @@ public class Item extends Description {
 	
 	private Playlist brand;
 	
+	public Item() { /* required for XML/JSON tools */ }
+	
+	public Item(String uri) {
+		super(uri);
+	}
+	
 	@XmlElementWrapper(namespace=PLAY.NS, name="containedIn")
 	@XmlElement(name="uri")
 	public Set<String> getContainedIn() {
@@ -149,5 +155,4 @@ public class Item extends Description {
 	public void setBrand(Playlist brand) {
 		this.brand = brand;
 	}
-
 }
