@@ -18,17 +18,17 @@ package org.uriplay.media.entity;
 import java.util.List;
 import java.util.Set;
 
-import org.jherd.rdf.annotations.RdfClass;
-import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
+import org.uriplay.content.rdf.annotations.RdfClass;
+import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.TransportType;
+import org.uriplay.media.vocabulary.DC;
 import org.uriplay.media.vocabulary.PLAY;
 import org.uriplay.media.vocabulary.PO;
 import org.uriplay.media.vocabulary.SIOC;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.hp.hpl.jena.vocabulary.DC;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)

@@ -14,10 +14,10 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.entity;
 
-import org.jherd.rdf.annotations.RdfClass;
-import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.uriplay.content.rdf.annotations.RdfClass;
+import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.vocabulary.PLAY;
 import org.uriplay.media.vocabulary.PO;
 

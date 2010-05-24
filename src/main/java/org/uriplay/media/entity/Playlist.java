@@ -18,16 +18,16 @@ package org.uriplay.media.entity;
 import java.util.List;
 import java.util.Set;
 
-import org.jherd.rdf.annotations.RdfClass;
-import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
+import org.uriplay.content.rdf.annotations.RdfClass;
+import org.uriplay.content.rdf.annotations.RdfProperty;
+import org.uriplay.media.vocabulary.DC;
 import org.uriplay.media.vocabulary.DCTERMS;
 import org.uriplay.media.vocabulary.PLAY;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
-import com.google.soy.common.collect.Lists;
-import com.hp.hpl.jena.vocabulary.DC;
 
 /**
  * A play:List (playlist) - rough cut.

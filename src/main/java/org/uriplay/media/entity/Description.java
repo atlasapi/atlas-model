@@ -3,11 +3,11 @@ package org.uriplay.media.entity;
 import java.util.Collections;
 import java.util.Set;
 
-import org.jherd.rdf.annotations.RdfProperty;
+import org.uriplay.content.rdf.annotations.RdfProperty;
+import org.uriplay.media.vocabulary.OWL;
 import org.uriplay.media.vocabulary.PLAY;
 
 import com.google.common.collect.Sets;
-import com.hp.hpl.jena.vocabulary.OWL;
 
 /**
  * Base type for descriptions of resources.

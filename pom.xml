@@ -55,9 +55,9 @@
             <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.jherd</groupId>
-            <artifactId>jherd</artifactId>
-            <version>${jherd.version}</version>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
         </dependency>
     </dependencies>
     
@@ -88,8 +88,4 @@
             <layout>default</layout>
         </repository>
     </repositories>
-    
-    <properties>
-    	<jherd.version>0.7.1-SNAPSHOT</jherd.version>
-    </properties>
 </project>

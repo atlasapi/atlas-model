@@ -60,20 +60,20 @@ public abstract class LogicalOperatorQuery implements ContentQuery {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj, excluding("selection"));
+	    return EqualsBuilder.reflectionEquals(this, obj, excluding("selection"));
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, excluding("selection"));
-	}
-
-	private String[] excluding(String fieldName) {
-		return new String[] {fieldName};
+	    return HashCodeBuilder.reflectionHashCode(this, excluding("selection"));
 	}
 	
 	public void setOperands(List<ContentQuery> operands) {
 		this.operands = operands;
+	}
+	
+	private String[] excluding(String fieldName) {
+	    return new String[] {fieldName};
 	}
 	
 	@Override
@@ -81,15 +81,6 @@ public abstract class LogicalOperatorQuery implements ContentQuery {
 		this.selection = selection;
 		return this;
 	}
-	
-//	@Deprecated
-//    @Override
-//    public ContentQuery withSelection(org.jherd.util.Selection selection) {
-//	    if (selection != null) {
-//            this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
-//	    }
-//        return this;
-//    }
 	
 	public Selection getSelection() {
 		return selection;

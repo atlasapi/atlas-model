@@ -64,14 +64,14 @@ public abstract class AttributeQuery<T> implements ContentQuery {
 		this.values = value;
 	}
 	
-	@Override
+    @Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+	    return EqualsBuilder.reflectionEquals(this, obj);
 	}
 	
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+	    return HashCodeBuilder.reflectionHashCode(this);
 	}
 	
 	@Override
@@ -88,15 +88,6 @@ public abstract class AttributeQuery<T> implements ContentQuery {
 		this.selection = selection;
 		return this;
 	}
-	
-//	@Deprecated
-//	@Override
-//	public ContentQuery withSelection(org.jherd.util.Selection selection) {
-//	    if (selection != null) {
-//	        this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
-//	    }
-//	    return this;
-//	}
 	
 	@Override
 	public Selection getSelection() {

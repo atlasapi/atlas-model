@@ -15,8 +15,8 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.entity;
 
-import org.jherd.rdf.annotations.RdfClass;
-import org.jherd.rdf.annotations.RdfProperty;
+import org.uriplay.content.rdf.annotations.RdfClass;
+import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.TransportType;
 import org.uriplay.media.vocabulary.PLAY;
 

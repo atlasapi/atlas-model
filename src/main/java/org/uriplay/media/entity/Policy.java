@@ -16,9 +16,9 @@ package org.uriplay.media.entity;
 
 import java.util.Set;
 
-import org.jherd.rdf.annotations.RdfClass;
-import org.jherd.rdf.annotations.RdfProperty;
 import org.joda.time.DateTime;
+import org.uriplay.content.rdf.annotations.RdfClass;
+import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.vocabulary.PO;
 
 import com.google.common.collect.Sets;
