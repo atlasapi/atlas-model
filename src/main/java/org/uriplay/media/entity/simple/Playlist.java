@@ -1,6 +1,6 @@
 package org.uriplay.media.entity.simple;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -9,14 +9,14 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.uriplay.media.vocabulary.PLAY;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 
 @XmlRootElement(namespace=PLAY.NS)
 @XmlType(name="list", namespace=PLAY.NS)
 public class Playlist extends Description {
 
-	private Set<Item> items = Sets.newHashSet();
-	private Set<Playlist> playlists = Sets.newHashSet();
+	private List<Item> items = Lists.newArrayList();
+	private List<Playlist> playlists = Lists.newArrayList();
 	private String publisher;
 
 	public void addItem(Item item) {
@@ -25,11 +25,11 @@ public class Playlist extends Description {
 	
 	@XmlElementWrapper(namespace=PLAY.NS, name="items")
 	@XmlElement(namespace=PLAY.NS, name="item")
-	public Set<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 	
-	public void setItems(Set<Item> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 
@@ -39,11 +39,11 @@ public class Playlist extends Description {
 	
 	@XmlElementWrapper(namespace=PLAY.NS, name="playlists")
 	@XmlElement(namespace=PLAY.NS, name="playlist")
-	public Set<Playlist> getPlaylists() {
+	public List<Playlist> getPlaylists() {
 		return playlists;
 	}
 	
-	public void setPlaylists(Set<Playlist> playlists) {
+	public void setPlaylists(List<Playlist> playlists) {
 		this.playlists = playlists;
 	}
 
