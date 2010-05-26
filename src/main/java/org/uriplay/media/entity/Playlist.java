@@ -16,12 +16,9 @@ permissions and limitations under the License. */
 package org.uriplay.media.entity;
 
 import java.util.List;
-import java.util.Set;
 
-import org.joda.time.DateTime;
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
-import org.uriplay.media.vocabulary.DC;
 import org.uriplay.media.vocabulary.DCTERMS;
 import org.uriplay.media.vocabulary.PLAY;
 
@@ -35,29 +32,27 @@ import com.google.common.collect.Sets.SetView;
  * @author Robert Chatley (robert@metabroadcast.com)
  */
 @RdfClass(namespace = PLAY.NS, uri = "List")
-public class Playlist extends Description {
+public class Playlist extends Content {
 	
-    private String title;
 
-    private String description;
-    
-    private String publisher;
+	private List<Playlist> playlists = Lists.newArrayList();
+    private List<String> playlistUris = Lists.newArrayList();
 
     private List<Item> items = Lists.newArrayList();
     private List<String> itemUris = Lists.newArrayList();
 
-    private List<Playlist> playlists = Lists.newArrayList();
-    private List<String> playlistUris = Lists.newArrayList();
-
-    private Set<Playlist> containedIn = Sets.newLinkedHashSet();
-    private Set<String> containedInUris = Sets.newLinkedHashSet();
+    public Playlist(String uri, String curie) {
+    	super(uri, curie);
+    }
     
-    private Set<String> genres = Sets.newHashSet();
-    private Set<String> tags = Sets.newHashSet();
+    public Playlist(String uri) {
+    	super(uri);
+    }
     
-    private DateTime firstSeen;
-    private DateTime lastFetched;
-
+    public Playlist() {
+    	/* some legacy code still requires a default constructor */
+    }
+    
     @RdfProperty(relation = true, namespace = DCTERMS.NS, uri = "hasPart")
     public List<Item> getItems() { 
         return this.items; 
@@ -109,7 +104,7 @@ public class Playlist extends Description {
         return this.playlists; 
     }
 
-    public void setPlaylists(List<Playlist> playlists) { 
+    public void setPlaylists(Iterable<? extends Playlist> playlists) { 
         for (Playlist playlist : playlists) {
         	addPlaylist(playlist);
         }
@@ -137,81 +132,5 @@ public class Playlist extends Description {
        this.playlistUris.add(playlist.getCanonicalUri());
        playlist.containedIn.add(this);
        playlist.containedInUris.add(this.getCanonicalUri());
-    }
-
-    @RdfProperty(namespace = DC.NS)
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @RdfProperty(namespace = DC.NS)
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<String> getContainedInUris() {
-        Set<String> uris = Sets.newHashSet();
-        for (Playlist playlist : containedIn) {
-            uris.add(playlist.getCanonicalUri());
-        }
-        uris.addAll(containedInUris);
-        return uris;
-    }
-
-    public void setContainedInUris(Set<String> containedInUris) {
-        this.containedInUris = containedInUris;
-    }
-
-    public Set<Playlist> getContainedIn() {
-        return containedIn;
-    }
-    
-    public DateTime getLastFetched() {
-        return lastFetched;
-    }
-
-    public void setLastFetched(DateTime lastFetched) {
-        this.lastFetched = lastFetched;
-    }
-    
-    public DateTime getFirstSeen() {
-        return this.firstSeen;
-    }
-
-    public void setFirstSeen(DateTime firstSeen) {
-        this.firstSeen = firstSeen;
-    }
-    
-    public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-    
-    @RdfProperty(namespace = DC.NS)
-    public String getPublisher() {
-		return publisher;
-	}
-
-    public Set<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<String> tags) {
-        this.tags = tags;
     }
 }

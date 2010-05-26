@@ -17,7 +17,6 @@ public class Playlist extends Description {
 
 	private List<Item> items = Lists.newArrayList();
 	private List<Playlist> playlists = Lists.newArrayList();
-	private String publisher;
 
 	public void addItem(Item item) {
 		items.add(item);
@@ -45,13 +44,5 @@ public class Playlist extends Description {
 	
 	public void setPlaylists(List<Playlist> playlists) {
 		this.playlists = playlists;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-	
-	public String getPublisher() {
-		return publisher;
 	}
 }

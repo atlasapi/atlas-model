@@ -26,10 +26,16 @@ import org.uriplay.media.vocabulary.PO;
  */
 @RdfClass(namespace = PO.NS)
 public class Episode extends Item {
-	
+
 	private Integer episodeNumber;
 	private Integer seriesNumber;
 	private Brand brand;
+
+	public Episode(String uri, String curie) {
+		super(uri, curie);
+	}
+	
+	public Episode() { }
 
 	@RdfProperty(namespace=PO.NS, uri="position")
 	public Integer getEpisodeNumber() {

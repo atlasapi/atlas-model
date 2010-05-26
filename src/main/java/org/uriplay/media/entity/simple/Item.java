@@ -16,17 +16,9 @@ import com.google.common.collect.Sets;
 @XmlType(name="item", namespace=PLAY.NS)
 public class Item extends Description {
 
-	private String publisher;
-	private String image;
-	private String thumbnail;
-	
 	private Integer episodeNumber;
 	private Integer seriesNumber;
-	
-	private Set<String> genres = Sets.newHashSet();
-	private Set<String> tags = Sets.newHashSet();
-	
-	private Set<String> containedIn = Sets.newHashSet();
+		
 	private Set<Location> locations = Sets.newHashSet();
 	
 	private Playlist brand;
@@ -35,20 +27,6 @@ public class Item extends Description {
 	
 	public Item(String uri) {
 		super(uri);
-	}
-	
-	@XmlElementWrapper(namespace=PLAY.NS, name="containedIn")
-	@XmlElement(name="uri")
-	public Set<String> getContainedIn() {
-		return containedIn;
-	}
-	
-	public void addContainedIn(String playlistUri) {
-		containedIn.add(playlistUri);
-	}
-	
-	public void setContainedIn(Set<String> containedIn) {
-		this.containedIn = containedIn;
 	}
 	
 	public void addLocation(Location location) {
@@ -65,50 +43,6 @@ public class Item extends Description {
 		this.locations = locations;
 	}
 	
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-	
-	@XmlElementWrapper(namespace=PLAY.NS, name="genres")
-	@XmlElement(namespace=PLAY.NS, name="genre")
-	public Set<String> getGenres() {
-		return genres;
-	}
-
-	public void setGenres(Set<String> genres) {
-		this.genres = genres;
-	}
-
-	@XmlElementWrapper(namespace=PLAY.NS, name="tags")
-	@XmlElement(namespace=PLAY.NS, name="tag")
-	public Set<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
-	}
-
 	public Integer getEpisodeNumber() {
 		return episodeNumber;
 	}

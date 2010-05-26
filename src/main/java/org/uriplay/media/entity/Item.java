@@ -18,14 +18,11 @@ package org.uriplay.media.entity;
 import java.util.List;
 import java.util.Set;
 
-import org.joda.time.DateTime;
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.TransportType;
 import org.uriplay.media.vocabulary.DC;
-import org.uriplay.media.vocabulary.PLAY;
 import org.uriplay.media.vocabulary.PO;
-import org.uriplay.media.vocabulary.SIOC;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -36,81 +33,18 @@ import com.google.common.collect.Sets;
  * @author John Ayres (john@metabroadcast.com)
  */
 @RdfClass(namespace = PO.NS)
-public class Item extends Description {
-	private String title;
-	private String description;
+public class Item extends Content {
 	
-	private transient Set<String> genres = Sets.newHashSet();
-	
-	private Set<String> tags = Sets.newHashSet();
 	private Set<Version> versions = Sets.newHashSet();
-	
-	private Set<Playlist> containedIn = Sets.newHashSet();
-	private Set<String> containedInUris = Sets.newHashSet();
-	
-	private String publisher;
-	private String image;
-	private String thumbnail;
 	
 	private boolean isLongForm = false;
 	
-	private DateTime firstSeen;
-    private DateTime lastFetched;
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	@RdfProperty(namespace = DC.NS)
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@RdfProperty(relation = true, namespace=SIOC.NS, uri="topic")
-	public Set<String> getTags() {
-		return tags;
+	public Item(String uri, String curie) {
+		super(uri, curie);
 	}
 	
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
-	}
+	public Item() { }
 	
-	@RdfProperty(namespace = DC.NS)
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-	    
-    @RdfProperty(namespace = PLAY.NS)
-    public String getImage() {
-		return image;
-	}
-    
-    @RdfProperty(namespace = PLAY.NS)
-    public String getThumbnail() {
-		return thumbnail;
-	}
-    
-    public void setImage(String image) {
-		this.image = image;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	@RdfProperty(namespace = DC.NS)
-	public String getTitle() {
-		return this.title;
-	}
-
 	@RdfProperty(namespace = DC.NS)
 	public boolean getIsLongForm() {
 		return isLongForm;
@@ -137,25 +71,11 @@ public class Item extends Description {
 		return versions.remove(version);
 	}
 	
-	@RdfProperty(relation = true)
-	public Set<Playlist> getContainedIn() {
-		return containedIn;
-	}
 	
 	public void setContainedIn(Set<Playlist> containedIn) {
 		for (Playlist parent : containedIn) {
 			parent.addItem(this);
 		}
-	}
-	
-	void addContainedIn(Playlist playlist) {
-		containedIn.add(playlist);
-		containedInUris.add(playlist.getCanonicalUri());
-	}
-
-	public void removeFrom(Playlist playlist) {
-		containedIn.remove(playlist);
-		containedInUris.remove(playlist.getCanonicalUri());
 	}
 
 	public boolean isAvailable() {
@@ -201,46 +121,4 @@ public class Item extends Description {
 		}
 		return null;
 	}
-
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
-    }
-
-	@RdfProperty(relation = true, namespace=PO.NS, uri = "genre")
-	public Set<String> getGenres() {
-		return this.genres;
-	}
-
-	public Set<String> getContainedInUris() {
-		Set<String> merged = Sets.newHashSet();
-		for (Playlist playlist : containedIn) {
-			merged.add(playlist.getCanonicalUri());
-		}
-		merged.addAll(this.containedInUris);
-		return merged;
-	}
-	
-	public void setContainedInUris(Set<String> containedInUris) {
-	    this.containedInUris = containedInUris;
-	}
-	
-	public String getType() {
-	    return this.getClass().getSimpleName();
-	}
-
-	public DateTime getLastFetched() {
-        return lastFetched;
-    }
-
-    public void setLastFetched(DateTime lastFetched) {
-        this.lastFetched = lastFetched;
-    }
-    
-    public DateTime getFirstSeen() {
-        return this.firstSeen;
-    }
-
-    public void setFirstSeen(DateTime firstSeen) {
-        this.firstSeen = firstSeen;
-    }
 }

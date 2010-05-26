@@ -19,13 +19,41 @@ public class Description {
 
 	private String canonicalUri;
 
+	private String curie;
+
 	private Set<String> aliases = Sets.newHashSet();
 	
-	private String curie;
+	
+	public Description(String uri, String curie) {
+		if (uri == null) {
+			throw new IllegalArgumentException("Null uri specified");
+		}
+		this.canonicalUri = uri;
+		this.curie = curie;
+	}
+	
+	public Description() { 
+		/* allow anonymous entities */ 
+		this.canonicalUri = null;
+		this.curie = null;
+	}
+	
+	public Description(String uri) { 
+		this(uri, null);
+	}
+	
 	
 	@RdfProperty(relation = true, namespace=OWL.NS, uri="sameAs")
 	public Set<String> getAliases() {
 		return aliases;
+	}
+	
+	public void setCanonicalUri(String canonicalUri) {
+		this.canonicalUri = canonicalUri;
+	}
+	
+	public void setCurie(String curie) {
+		this.curie = curie;
 	}
 	
 	public void setAliases(Set<String> uris) {
@@ -42,19 +70,11 @@ public class Description {
 		return canonicalUri;
 	}
 	
-	public void setCanonicalUri(String uri) {
-		this.canonicalUri = uri;
-	}
-	
 	@RdfProperty(relation = false, namespace=PLAY.NS, uri="curie")
 	public String getCurie() {
 		return curie;
 	}
-	
-	public void setCurie(String curie) {
-		this.curie = curie;
-	}
-	
+
 	public Set<String> getAllUris() {
 		Set<String> allUris = Sets.newHashSet(getAliases());
 		allUris.add(getCanonicalUri());

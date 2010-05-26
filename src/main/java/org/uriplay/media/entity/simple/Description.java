@@ -27,12 +27,79 @@ public class Description {
 	private String title;
 	private String description;
 	
+	private String publisher;
+	private String image;
+	private String thumbnail;
+	
+	private Set<String> genres = Sets.newHashSet();
+	private Set<String> tags = Sets.newHashSet();
+	
+	private Set<String> containedIn = Sets.newHashSet();
+	
 	public Description(String uri) {
 		this.uri = uri;
 	}
 	
 	public Description() { /* required for XML/JSON tools */	}
 
+	@XmlElementWrapper(namespace=PLAY.NS, name="genres")
+	@XmlElement(namespace=PLAY.NS, name="genre")
+	public Set<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(Set<String> genres) {
+		this.genres = genres;
+	}
+
+	@XmlElementWrapper(namespace=PLAY.NS, name="tags")
+	@XmlElement(namespace=PLAY.NS, name="tag")
+	public Set<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<String> tags) {
+		this.tags = tags;
+	}
+	
+	@XmlElementWrapper(namespace=PLAY.NS, name="containedIn")
+	@XmlElement(name="uri")
+	public Set<String> getContainedIn() {
+		return containedIn;
+	}
+	
+	public void addContainedIn(String playlistUri) {
+		containedIn.add(playlistUri);
+	}
+	
+	public void setContainedIn(Set<String> containedIn) {
+		this.containedIn = containedIn;
+	}
+	
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	
 	public String getUri() {
 		return uri;
 	}

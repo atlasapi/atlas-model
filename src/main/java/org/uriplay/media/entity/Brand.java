@@ -29,7 +29,13 @@ import org.uriplay.media.vocabulary.PO;
 @RdfClass(namespace = PO.NS)
 public class Brand extends Playlist {
 
-    @Override
+    public Brand(String uri, String curie) {
+		super(uri, curie);
+	}
+    
+    public Brand() { /* some legacy code still requires a default constructor */ }
+
+	@Override
     @RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
     public List<Item> getItems() {
         return super.getItems();
@@ -45,9 +51,7 @@ public class Brand extends Playlist {
     }
 
     public Brand toSummary() {
-        Brand summary = new Brand();
-        summary.setCanonicalUri(this.getCanonicalUri());
-        summary.setCurie(this.getCurie());
+        Brand summary = new Brand(this.getCanonicalUri(), this.getCurie());
         summary.setTitle(this.getTitle());
         summary.setDescription(this.getDescription());
         return summary;
