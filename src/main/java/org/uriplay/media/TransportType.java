@@ -1,11 +1,11 @@
 package org.uriplay.media;
 
 public enum TransportType {
-	HTMLEMBED,
+	LINK,
 	DOWNLOAD,
 	STREAM,
 	BITTORRENT, 
-	EMBEDOBJECT;
+	EMBED;
 	
 	public String toString() {
 		return name().toLowerCase();

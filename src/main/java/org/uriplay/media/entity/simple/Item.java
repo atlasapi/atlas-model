@@ -74,7 +74,7 @@ public class Item extends Description {
 		}
 		for (Location location : locations) {
 			String transportType = location.getTransportType();
-			if (transportType != null && TransportType.EMBEDOBJECT.toString().toLowerCase().equals(transportType.toLowerCase())) {
+			if (transportType != null && TransportType.EMBED.toString().toLowerCase().equals(transportType.toLowerCase())) {
 				return true;
 			}
 		}

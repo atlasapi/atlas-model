@@ -89,7 +89,7 @@ public class Item extends Content {
 
 	public boolean isEmbeddable() {
 		for (Location location : locations()) {
-			if (location.getTransportType() != null && TransportType.EMBEDOBJECT.equals(location.getTransportType())) {
+			if (location.getTransportType() != null && TransportType.EMBED.equals(location.getTransportType())) {
 				return true;
 			}
 		}
