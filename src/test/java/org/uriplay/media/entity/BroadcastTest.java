@@ -19,7 +19,8 @@ import org.joda.time.DateTime;
 import junit.framework.TestCase;
 
 public class BroadcastTest extends TestCase {
-    public void testEqualBroadcasts() throws Exception {
+    
+	public void testEqualBroadcasts() throws Exception {
         Broadcast broadcast1 = new Broadcast();
         Broadcast broadcast2 = new Broadcast();
         DateTime time = new DateTime();
