@@ -17,6 +17,7 @@ package org.uriplay.media.entity;
 
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
+import org.uriplay.media.TransportSubType;
 import org.uriplay.media.TransportType;
 import org.uriplay.media.vocabulary.PLAY;
 
@@ -31,7 +32,7 @@ public class Location extends Description {
 
     private Boolean transportIsLive;
 
-    private String transportSubType;
+    private TransportSubType transportSubType;
 
     private TransportType transportType;
     
@@ -52,7 +53,7 @@ public class Location extends Description {
     }
     
     @RdfProperty
-    public String getTransportSubType() { 
+    public TransportSubType getTransportSubType() { 
         return this.transportSubType; 
     }
 
@@ -79,13 +80,8 @@ public class Location extends Description {
         this.transportIsLive = transportIsLive;
     }
     
-    public void setTransportSubType(String transportSubType) { 
-        if (transportSubType != null) {
-            this.transportSubType = transportSubType.toLowerCase(); 
-        }
-        else {
-            this.transportSubType = null;
-        }
+    public void setTransportSubType(TransportSubType transportSubType) {
+		this.transportSubType = transportSubType; 
     }
 
     public void setTransportType(TransportType transportType) {
