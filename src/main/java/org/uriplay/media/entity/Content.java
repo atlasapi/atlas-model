@@ -102,7 +102,6 @@ public class Content extends Description {
 		return containedIn;
 	}
 	
-	
 	void addContainedIn(Playlist playlist) {
 		containedIn.add(playlist);
 		containedInUris.add(playlist.getCanonicalUri());
