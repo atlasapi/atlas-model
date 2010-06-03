@@ -45,10 +45,6 @@ public class Playlist extends Content {
     	super(uri, curie);
     }
     
-    public Playlist(String uri) {
-    	super(uri);
-    }
-    
     public Playlist() {
     	/* some legacy code still requires a default constructor */
     }
