@@ -21,7 +21,7 @@ public class Item extends Description {
 		
 	private Set<Location> locations = Sets.newHashSet();
 	
-	private Playlist brand;
+	private BrandSummary brand;
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -81,12 +81,12 @@ public class Item extends Description {
 		return false;
 	}
 
-	@XmlElement(namespace=PLAY.NS, name="brand")
-	public Playlist getBrand() {
+	@XmlElement(namespace=PLAY.NS, name="brandSummary")
+	public BrandSummary getBrand() {
 		return brand;
 	}
 	
-	public void setBrand(Playlist brand) {
+	public void setBrand(BrandSummary brand) {
 		this.brand = brand;
 	}
 }

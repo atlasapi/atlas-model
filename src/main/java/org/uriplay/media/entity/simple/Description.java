@@ -18,11 +18,9 @@ import com.google.common.collect.Sets;
  */
 @XmlRootElement(namespace=PLAY.NS)
 @XmlType(name="description", namespace=PLAY.NS)
-public class Description {
+public class Description extends Identified {
 
-	private String uri;
 	private Set<String> aliases = Sets.newHashSet();
-	private String curie;
 	
 	private String title;
 	private String description;
@@ -37,7 +35,7 @@ public class Description {
 	private Set<String> containedIn = Sets.newHashSet();
 	
 	public Description(String uri) {
-		this.uri = uri;
+		super(uri);
 	}
 	
 	public Description() { /* required for XML/JSON tools */	}
@@ -100,14 +98,6 @@ public class Description {
 		this.thumbnail = thumbnail;
 	}
 	
-	public String getUri() {
-		return uri;
-	}
-	
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-	
 	public void setAliases(Set<String> aliases) {
 		this.aliases = aliases;
 	}
@@ -126,43 +116,11 @@ public class Description {
 		return title;
 	}
 	
-	public void setCurie(String curie) {
-		this.curie = curie;
-	}
-
-	public String getCurie() {
-		return curie;
-	}
-	
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	@Override
-	public int hashCode() {
-		if (uri == null) {
-			return super.hashCode();
-		}
-		return uri.hashCode();
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (uri != null && obj instanceof Description) {
-			return uri.equals(((Description) obj).uri);
-		}
-		return false;
-	}
-	
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "(uri:"  + uri + ")";
 	}
 }
