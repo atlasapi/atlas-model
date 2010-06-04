@@ -30,6 +30,7 @@ public class Countries {
 
 	public static Country GB = new Country("GB", "United Kingdom");
 	public static Country IE = new Country("IE", "Ireland");
+	public static Country US = new Country("US", "United States");
 
 	private static Multimap<Country, String> aliases = aliases();
 	private static Map<String, Country> directory = buildDirectory();
