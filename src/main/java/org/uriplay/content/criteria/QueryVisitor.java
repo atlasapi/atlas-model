@@ -26,8 +26,6 @@ public interface QueryVisitor<T> {
 
 	T visit(DateTimeAttributeQuery dateTimeAttributeQuery);
 	
-	T visit(ConjunctiveQuery conjunctiveQuery);
-
 	T visit(MatchesNothing noOp);
 	
 }

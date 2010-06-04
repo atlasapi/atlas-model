@@ -14,8 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria.attribute;
 
-import java.util.List;
-
 import org.uriplay.content.criteria.AttributeQuery;
 import org.uriplay.content.criteria.EnumAttributeQuery;
 import org.uriplay.content.criteria.operator.EnumOperator;
@@ -50,7 +48,7 @@ public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
 	}
 
 	@Override
-	public AttributeQuery<Enum<T>> createQuery(Operator op, List<?> values) {
+	public AttributeQuery<Enum<T>> createQuery(Operator op, Iterable<?> values) {
 		if (!(op instanceof EnumOperator)) {
 			throw new IllegalArgumentException();
 		}

@@ -14,8 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import java.util.List;
-
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.StringOperator;
 import org.uriplay.content.criteria.operator.StringOperatorVisitor;
@@ -25,7 +23,7 @@ public class StringAttributeQuery extends AttributeQuery<String> {
 
 	private final StringOperator op;
 
-	public StringAttributeQuery(Attribute<String> attribute, StringOperator op,  List<?> values) {
+	public StringAttributeQuery(Attribute<String> attribute, StringOperator op,  Iterable<?> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

@@ -14,8 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import java.util.List;
-
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.BooleanOperator;
 import org.uriplay.content.criteria.operator.BooleanOperatorVisitor;
@@ -24,7 +22,7 @@ public class BooleanAttributeQuery extends AttributeQuery<Boolean> {
 
 	private final BooleanOperator op;
 
-	public BooleanAttributeQuery(Attribute<Boolean> attribute, BooleanOperator op, List<?> values) {
+	public BooleanAttributeQuery(Attribute<Boolean> attribute, BooleanOperator op, 	Iterable<?> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}
@@ -35,5 +33,9 @@ public class BooleanAttributeQuery extends AttributeQuery<Boolean> {
 	
 	public <V> V accept(BooleanOperatorVisitor<V> v) {
 		return op.accept(v);
+	}
+	
+	public boolean isUnconditionallyTrue() {
+		return getValue().contains(Boolean.TRUE) && getValue().contains(Boolean.FALSE);
 	}
 }

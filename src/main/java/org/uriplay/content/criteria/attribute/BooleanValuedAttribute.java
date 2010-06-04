@@ -1,7 +1,5 @@
 package org.uriplay.content.criteria.attribute;
 
-import java.util.List;
-
 import org.uriplay.content.criteria.AttributeQuery;
 import org.uriplay.content.criteria.BooleanAttributeQuery;
 import org.uriplay.content.criteria.operator.BooleanOperator;
@@ -24,7 +22,7 @@ public class BooleanValuedAttribute extends Attribute<Boolean> {
 	}
 
 	@Override
-	public AttributeQuery<Boolean> createQuery(Operator op, List<?> values) {
+	public AttributeQuery<Boolean> createQuery(Operator op, Iterable<?> values) {
 		if (!(op instanceof BooleanOperator)) {
 			throw new IllegalArgumentException();
 		}

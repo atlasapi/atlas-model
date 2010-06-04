@@ -14,8 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria.attribute;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.uriplay.content.criteria.AttributeQuery;
 import org.uriplay.content.criteria.DateTimeAttributeQuery;
@@ -35,7 +33,7 @@ public class DateTimeValuedAttribute extends Attribute<DateTime> {
 	}
 
 	@Override
-	public AttributeQuery<DateTime> createQuery(Operator op, List<?> values) {
+	public AttributeQuery<DateTime> createQuery(Operator op, Iterable<?> values) {
 		if (!(op instanceof DateTimeOperator)) {
 			throw new IllegalArgumentException();
 		}

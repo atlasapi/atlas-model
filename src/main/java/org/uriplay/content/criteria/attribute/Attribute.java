@@ -14,10 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria.attribute;
 
-import java.util.List;
-
-import org.uriplay.content.criteria.AttributeQuery;
-import org.uriplay.content.criteria.operator.Operator;
 import org.uriplay.media.entity.Description;
 
 public abstract class Attribute<T> implements QueryFactory<T> {
@@ -61,7 +57,6 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 		return javaAttributeName;
 	}
 
-	public abstract AttributeQuery<T> createQuery(Operator op, List<?> values);
 
 	public Class<? extends Description> target() {
 		return target;

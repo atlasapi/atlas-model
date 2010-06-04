@@ -14,7 +14,9 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import com.metabroadcast.common.query.Selection;
+import java.util.Collections;
+import java.util.List;
+
 
 /**
  * I represent a query that is never satisfied by any 
@@ -24,14 +26,16 @@ import com.metabroadcast.common.query.Selection;
  *   
  * @author John Ayres (john@metabroadcast.com)
  */
-public class MatchesNothing implements ContentQuery {
+public class MatchesNothing extends AtomicQuery {
 
-	private Selection selection;
-	
 	private static MatchesNothing INSTANCE = new MatchesNothing();
 	
 	public static MatchesNothing get() {
 		return INSTANCE;
+	}
+	
+	public static ContentQuery asQuery() {
+		return new ContentQuery(Collections.<AtomicQuery>singleton(INSTANCE));
 	}
 	
 	private MatchesNothing() { /* SINGLETON */ }
@@ -39,38 +43,10 @@ public class MatchesNothing implements ContentQuery {
 	public <V> V accept(QueryVisitor<V> visitor) {
 		return visitor.visit(this);
 	}
-
-	public Selection getSelection() {
-		return selection;
-	}
-
-	public ContentQuery withSelection(Selection selection) {
-		this.selection = selection;
-		return this;
-	}
 	
-//	@Deprecated
-//    @Override
-//    public ContentQuery withSelection(org.jherd.util.Selection selection) {
-//	    if (selection != null) {
-//            this.selection = new Selection(selection.getStartIndex(), selection.getLimit());
-//	    }
-//        return this;
-//    }
-
 	public static boolean isEquivalentTo(ContentQuery query) {
 		
-		return query.accept(new QueryVisitorAdapter<Boolean>() {
-			
-			@Override
-			public Boolean visit(ConjunctiveQuery conjunctiveQuery) {
-				for (ContentQuery subquery : conjunctiveQuery.operands()) {
-					if (isEquivalentTo(subquery)) {
-						return true;
-					}
-				}
-				return false;
-			}
+		 List<Boolean> result = query.accept(new QueryVisitorAdapter<Boolean>() {
 			
 			@Override
 			public Boolean visit(MatchesNothing nothing) {
@@ -78,9 +54,11 @@ public class MatchesNothing implements ContentQuery {
 			}
 			
 			@Override
-			protected Boolean defaultValue(ContentQuery query) {
+			protected Boolean defaultValue(AtomicQuery query) {
 				return false;
 			}
 		});
+		 
+		return result.contains(Boolean.TRUE);
 	}
 }

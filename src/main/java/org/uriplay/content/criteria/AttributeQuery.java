@@ -21,17 +21,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.Operator;
 
-import com.metabroadcast.common.query.Selection;
+import com.google.common.collect.ImmutableList;
 
-public abstract class AttributeQuery<T> implements ContentQuery {
+public abstract class AttributeQuery<T> extends AtomicQuery {
 
 	private Attribute<T> attribute;
 	private List<?> values;
 	private final Operator op;
 	
-	private Selection selection;
-	
-	public AttributeQuery(Attribute<T> attribute, Operator op,  List<?> values) {
+	public AttributeQuery(Attribute<T> attribute, Operator op,  Iterable<?> values) {
 		this.op = op;
 		for (Object value : values) {
 			Class<?> lhs = attribute.requiresOperandOfType();
@@ -41,7 +39,7 @@ public abstract class AttributeQuery<T> implements ContentQuery {
 			}
 		}
 		this.attribute = attribute;
-		this.values = values;
+		this.values = ImmutableList.copyOf(values);
 	}
 
 	public Attribute<T> getAttribute() {
@@ -81,16 +79,5 @@ public abstract class AttributeQuery<T> implements ContentQuery {
 	
 	public Operator getOperator() {
 		return op;
-	}
-	
-	@Override
-	public ContentQuery withSelection(Selection selection) {
-		this.selection = selection;
-		return this;
-	}
-	
-	@Override
-	public Selection getSelection() {
-		return selection;
 	}
 }

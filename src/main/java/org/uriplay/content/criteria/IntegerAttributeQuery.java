@@ -14,8 +14,6 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import java.util.List;
-
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.IntegerOperator;
 import org.uriplay.content.criteria.operator.IntegerOperatorVisitor;
@@ -24,7 +22,7 @@ public class IntegerAttributeQuery extends AttributeQuery<Integer> {
 
 	private final IntegerOperator op;
 
-	public IntegerAttributeQuery(Attribute<Integer> attribute, IntegerOperator op, List<?> values) {
+	public IntegerAttributeQuery(Attribute<Integer> attribute, IntegerOperator op, Iterable<?> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

@@ -15,17 +15,23 @@ permissions and limitations under the License. */
 package org.uriplay.content.criteria;
 
 import static org.uriplay.content.criteria.MatchesNothing.isEquivalentTo;
-import static org.uriplay.content.criteria.Queries.*;
 import static org.uriplay.content.criteria.attribute.Attributes.*;
 
+import java.util.Collections;
+
+import static org.uriplay.content.criteria.ContentQueryBuilder.query;
+
 import org.jmock.integration.junit3.MockObjectTestCase;
+import org.uriplay.content.criteria.operator.Operators;
+
+import com.google.common.collect.ImmutableList;
 
 public class MatchesNothingTest extends MockObjectTestCase {
 
 	public void test() throws Exception {
 		
-		assertTrue(isEquivalentTo(MatchesNothing.get()));
-		assertFalse(isEquivalentTo(equalTo(BRAND_TITLE, "test")));
-		assertTrue(isEquivalentTo(and(MatchesNothing.get(), equalTo(BRAND_TITLE, "test"))));
+		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));
+		assertFalse(isEquivalentTo(query().equalTo(BRAND_TITLE, "test").build()));
+		assertTrue(isEquivalentTo(new ContentQuery(ImmutableList.of(MatchesNothing.get(), BRAND_TITLE.createQuery(Operators.EQUALS, Collections.singletonList("test"))))));
 	}
 }

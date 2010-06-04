@@ -47,22 +47,13 @@ public abstract class QueryVisitorAdapter<V> implements QueryVisitor<V> {
 	public V visit(BooleanAttributeQuery query) {
 		return defaultValue(query);
 	}
-		
-	@Override
-	public V visit(ConjunctiveQuery conjunctiveQuery) {
-		for (ContentQuery operand : conjunctiveQuery.operands()) {
-			operand.accept(this);
-		}
-		return defaultValue(conjunctiveQuery);
-	}
 	
 	@Override
 	public V visit(MatchesNothing nothing) {
 		return defaultValue(nothing);
-		
 	}
 	
-	protected V defaultValue(ContentQuery query) {
+	protected V defaultValue(AtomicQuery query) {
 		return null;
 	}
 }
