@@ -82,6 +82,7 @@ public class Attributes {
 	// Time based attributes
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
+	public static final Attribute<String> BROADCAST_ON = stringAttribute("broadcastOn", Broadcast.class).allowShortMatches();
 	
 	// booleans
 	public static final Attribute<Boolean> LOCATION_AVAILABLE = new BooleanValuedAttribute("available", Location.class).allowShortMatches();
@@ -93,6 +94,7 @@ public class Attributes {
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
 								    VERSION_DURATION,
 								    BROADCAST_TRANSMISSION_TIME,
+								    BROADCAST_ON,
 								    LOCATION_TRANSPORT_TYPE,
 								    EPISODE_POSITION,
 								    EPISODE_SEASON_POSITION,
