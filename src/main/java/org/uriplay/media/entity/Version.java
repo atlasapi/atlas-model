@@ -17,6 +17,7 @@ package org.uriplay.media.entity;
 
 import java.util.Set;
 
+import org.joda.time.Duration;
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
 import org.uriplay.media.vocabulary.PLAY;
@@ -101,7 +102,7 @@ public class Version extends Description {
         return this.duration;
     }
  
-    public void setDuration(Integer duration) {
-		this.duration = duration;
+    public void setDuration(Duration duration) {
+		this.duration = (int) duration.getStandardSeconds();
 	}
 }

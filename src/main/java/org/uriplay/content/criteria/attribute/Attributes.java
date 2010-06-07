@@ -81,6 +81,7 @@ public class Attributes {
 
 	// Time based attributes
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
+	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
 	
 	// booleans
 	public static final Attribute<Boolean> LOCATION_AVAILABLE = new BooleanValuedAttribute("available", Location.class).allowShortMatches();
@@ -100,18 +101,18 @@ public class Attributes {
 								    ITEM_CURIE, BRAND_CURIE, PLAYLIST_CURIE,
 								    ITEM_IS_LONG_FORM);
 	
-	public static final Map<String, QueryFactory<?>> lookup = lookupTable();
+	public static final Map<String, Attribute<?>> lookup = lookupTable();
 	
-	public static QueryFactory<?> lookup(String name, Class<? extends Description> queryContext) {
-		QueryFactory<?> attribute = lookup.get(name);
+	public static Attribute<?> lookup(String name, Class<? extends Description> queryContext) {
+		Attribute<?> attribute = lookup.get(name);
 		if (attribute == null && name.indexOf('.') < 0) {
 			attribute = lookup.get(queryContext.getSimpleName().toLowerCase() + "." + name);
 		}
 		return attribute;
 	}
 
-	private static Map<String, QueryFactory<?>> lookupTable() {
-		Map<String, QueryFactory<?>> table = Maps.newHashMap();
+	private static Map<String, Attribute<?>> lookupTable() {
+		Map<String, Attribute<?>> table = Maps.newHashMap();
 		
 		for (Attribute<?> attribute : ALL_ATTRIBUTES) {
 			addToTable(table, attribute.externalName(), attribute);
@@ -123,7 +124,7 @@ public class Attributes {
 	}
 
 	
-	private static void addToTable(Map<String, QueryFactory<?>> table, String key, Attribute<?> attribute) {
+	private static void addToTable(Map<String, Attribute<?>> table, String key, Attribute<?> attribute) {
 		if (table.containsKey(key)) {
 			throw new IllegalArgumentException("Duplicate name: " + key);
 		}

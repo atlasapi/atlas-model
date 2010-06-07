@@ -15,6 +15,7 @@ permissions and limitations under the License. */
 package org.uriplay.media.entity;
 
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
@@ -29,16 +30,30 @@ import org.uriplay.media.vocabulary.PO;
 @RdfClass(namespace = PO.NS)
 public class Broadcast extends Description {
 
-    private DateTime transmissionTime;
+    private final DateTime transmissionTime;
 
-    private DateTime transmissionEndTime;
+    private final DateTime transmissionEndTime;
 
-    private Integer broadcastDuration;
+    private final Integer broadcastDuration;
 
-    private String broadcastOn;
+    private final String broadcastOn;
 
     private LocalDate scheduleDate;
 
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
+		this.broadcastOn = broadcastOn;
+		this.transmissionTime = transmissionTime;
+		this.transmissionEndTime = transmissionEndTime;
+		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
+	}
+    
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, Duration duration) {
+    	this.broadcastOn = broadcastOn;
+		this.transmissionTime = transmissionTime;
+		this.transmissionEndTime = transmissionTime.plus(duration);
+		this.broadcastDuration = (int) duration.getStandardSeconds();
+	}
+    
     @RdfProperty(namespace = PLAY.NS, relation = false)
     public DateTime getTransmissionTime() {
         return this.transmissionTime;
@@ -48,27 +63,15 @@ public class Broadcast extends Description {
     public DateTime getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
-    
-    public void setTransmissionTime(DateTime transmissionTime) {
-        this.transmissionTime = transmissionTime;
-    }
 
     @RdfProperty(namespace = PLAY.NS, relation = false)
     public Integer getBroadcastDuration() {
         return this.broadcastDuration;
     }
 
-    public void setBroadcastDuration(Integer broadcastDuration) {
-        this.broadcastDuration = broadcastDuration;
-    }
-
     @RdfProperty(namespace = PO.NS, relation = false)
     public String getBroadcastOn() {
         return broadcastOn;
-    }
-
-    public void setBroadcastOn(String broadcastOn) {
-        this.broadcastOn = broadcastOn;
     }
 
     @RdfProperty(namespace = PO.NS, relation = false)
@@ -79,11 +82,7 @@ public class Broadcast extends Description {
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
-    
-    public void setTransmissionEndTime(DateTime transmissionEndTime) {
-		this.transmissionEndTime = transmissionEndTime;
-	}
-
+ 
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Broadcast)) {
@@ -96,12 +95,7 @@ public class Broadcast extends Description {
             return true;
         }
 
-        if (((null == broadcastOn && null == broadcast.getBroadcastOn()) || (null != broadcastOn && null != broadcast.getBroadcastOn() && broadcastOn.equals(broadcast.getBroadcastOn())))
-                && ((null == getTransmissionTime() && null == broadcast.getTransmissionTime()) || (null != getTransmissionTime() && null != broadcast.getTransmissionTime() && getTransmissionTime()
-                        .equals(broadcast.getTransmissionTime())))) {
-            return true;
-        }
+        return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
 
-        return false;
     }
 }
