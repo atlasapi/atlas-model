@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.uriplay.media.vocabulary.PLAY;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet.Builder;
 
 /**
  * Description supertype for simple model.
@@ -122,5 +124,15 @@ public class Description extends Identified {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public ImmutableSet<String> identifiers() {
+		Builder<String> ids = ImmutableSet.builder();
+		ids.addAll(aliases);
+		ids.add(uri);
+		if (curie != null) {
+			ids.add(curie);
+		}
+		return ids.build();
 	}
 }

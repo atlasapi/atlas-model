@@ -2,8 +2,8 @@ package org.uriplay.media.entity.simple;
 
 public class Identified {
 
-	private String uri;
-	private String curie;
+	protected String uri;
+	protected String curie;
 	
 	public Identified(String uri) {
 		this.uri = uri;
