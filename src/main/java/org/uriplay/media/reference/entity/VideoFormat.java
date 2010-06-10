@@ -17,6 +17,7 @@ package org.uriplay.media.reference.entity;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.metabroadcast.common.media.MimeType;
 
 public class VideoFormat {
     private static Map<String, MimeType> alternatives = Maps.newHashMap();

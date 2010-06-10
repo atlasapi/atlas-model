@@ -18,6 +18,7 @@ package org.uriplay.media.reference.entity;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.metabroadcast.common.media.MimeType;
 
 public class ContainerFormat {
     private static Map<String, MimeType> alternatives = Maps.newHashMap();

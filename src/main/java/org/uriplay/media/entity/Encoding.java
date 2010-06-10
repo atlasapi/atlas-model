@@ -20,8 +20,9 @@ import java.util.Set;
 
 import org.uriplay.content.rdf.annotations.RdfClass;
 import org.uriplay.content.rdf.annotations.RdfProperty;
-import org.uriplay.media.reference.entity.MimeType;
 import org.uriplay.media.vocabulary.PLAY;
+
+import com.metabroadcast.common.media.MimeType;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)

@@ -19,6 +19,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import junit.framework.TestCase;
 
+import com.metabroadcast.common.media.MimeType;
+
 /**
  * Unit test for {@link ContainerFormat}.
  * @author Robert Chatley (robert@metabroadcast.com)
