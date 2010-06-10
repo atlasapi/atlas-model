@@ -82,11 +82,11 @@ public class Item extends Description {
 	}
 
 	@XmlElement(namespace=PLAY.NS, name="brandSummary")
-	public BrandSummary getBrand() {
+	public BrandSummary getBrandSummary() {
 		return brand;
 	}
 	
-	public void setBrand(BrandSummary brand) {
+	public void setBrandSummary(BrandSummary brand) {
 		this.brand = brand;
 	}
 }
