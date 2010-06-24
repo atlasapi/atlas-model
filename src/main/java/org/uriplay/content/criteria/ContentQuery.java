@@ -26,7 +26,7 @@ import com.metabroadcast.common.query.Selection;
 
 public class ContentQuery {
 
-	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of());
+	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);
 
 	private ImmutableList<AtomicQuery> operands;
 
