@@ -26,13 +26,7 @@ import org.uriplay.media.vocabulary.PLAY;
 
 @XmlRootElement(namespace=PLAY.NS)
 @XmlType(name="location", namespace=PLAY.NS)
-public class Location {
-	
-	private Integer duration;
-	private Integer publishedDuration;
-	private String rating;
-	private String ratingText;
-	private Date transmissionTime;
+public class Location extends Version {
 	
     private Integer advertisingDuration;
     private Integer audioBitRate;
@@ -83,26 +77,6 @@ public class Location {
 		this.dataContainerFormat = dataContainerFormat;
 	}
 
-	public String getRatingText() {
-		return ratingText;
-	}
-	
-	public void setRatingText(String ratingText) {
-		this.ratingText = ratingText;
-	}
-
-	public Integer getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
-	public Integer getPublishedDuration() {
-		return publishedDuration;
-	}
-
 	@XmlElementWrapper(namespace=PLAY.NS, name="availableCountries")
 	@XmlElement(name="code")
 	public Set<String> getAvailableCountries() {
@@ -113,25 +87,6 @@ public class Location {
 		this.availableCountries = availableCountries;
 	}
 
-	public void setPublishedDuration(Integer publishedDuration) {
-		this.publishedDuration = publishedDuration;
-	}
-
-	public String getRating() {
-		return rating;
-	}
-
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-
-	public Date getTransmissionTime() {
-		return transmissionTime;
-	}
-
-	public void setTransmissionTime(Date transmissionTime) {
-		this.transmissionTime = transmissionTime;
-	}
 
 	public Integer getAdvertisingDuration() {
 		return advertisingDuration;
