@@ -1,7 +1,7 @@
 package org.uriplay.media.entity.simple;
 
 
-abstract class Version {
+public abstract class Version {
 	
 	private Integer duration;
 	private Integer publishedDuration;
