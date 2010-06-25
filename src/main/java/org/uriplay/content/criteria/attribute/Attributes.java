@@ -48,12 +48,6 @@ public class Attributes {
 	
 	public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
 	
-	public static final Attribute<String> ITEM_CURIE = stringAttribute("curie", Item.class);
-	public static final Attribute<String> BRAND_CURIE = stringAttribute("curie", Brand.class);
-	public static final Attribute<String> DESCRIPTION_CURIE = stringAttribute("curie", Description.class);
-	
-	public static final Attribute<String> PLAYLIST_CURIE = stringAttribute("curie", Playlist.class);;
-
 	public static final Attribute<String> ITEM_PUBLISHER = stringAttribute("publisher", Item.class);
 	public static final Attribute<String> PLAYLIST_PUBLISHER = stringAttribute("publisher", Playlist.class);
 	public static final Attribute<String> BRAND_PUBLISHER = stringAttribute("publisher", Brand.class);
@@ -100,7 +94,6 @@ public class Attributes {
 								    EPISODE_SEASON_POSITION,
 								    LOCATION_AVAILABLE,
 								    ENCODING_DATA_CONTAINER_FORMAT,
-								    ITEM_CURIE, BRAND_CURIE, PLAYLIST_CURIE,
 								    ITEM_IS_LONG_FORM);
 	
 	public static final Map<String, Attribute<?>> lookup = lookupTable();
