@@ -14,12 +14,16 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.entity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+
 import com.google.common.collect.Sets;
 
-import junit.framework.TestCase;
+public class CountriesTest {
 
-public class CountriesTest extends TestCase {
-
+	@Test
 	public void testResolvingCodes() throws Exception {
 		assertEquals(Countries.GB, Countries.fromCode("gb"));
 		assertEquals(Countries.GB, Countries.fromCode("uk"));
@@ -28,6 +32,7 @@ public class CountriesTest extends TestCase {
 		assertNull(Countries.fromCode("5"));
 	}
 	
+	@Test
 	public void testFromList() throws Exception {
 		assertEquals(Sets.newHashSet(Countries.GB), Countries.fromDelimtedList("gb"));
 		assertEquals(Sets.newHashSet(Countries.GB, Countries.IE), Countries.fromDelimtedList("uk ie"));

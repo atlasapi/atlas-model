@@ -16,7 +16,6 @@ package org.uriplay.content.criteria.operator;
 
 import java.util.Map;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.Maps;
@@ -65,7 +64,18 @@ public class Operators {
 		
 		@Override
 		public boolean equals(Object obj) {
-			return EqualsBuilder.reflectionEquals(this, obj);
+			if (this == obj) {
+				return true;
+			}
+			if (obj instanceof BaseOperator) {
+				return name.equals(((BaseOperator) obj).name);
+			}
+			return false;
+		}
+		
+		@Override
+		public int hashCode() {
+			return name.hashCode();
 		}
 		
 		@Override

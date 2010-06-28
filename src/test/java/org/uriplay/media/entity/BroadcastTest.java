@@ -14,17 +14,20 @@ permissions and limitations under the License. */
 
 package org.uriplay.media.entity;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.joda.time.Duration;
+import org.junit.Test;
 
 import com.metabroadcast.common.time.Clock;
 import com.metabroadcast.common.time.TimeMachine;
 
-public class BroadcastTest extends TestCase {
+public class BroadcastTest {
     
 	private final Clock clock = new TimeMachine();
 	
+	@Test
 	public void testEqualBroadcasts() throws Exception {
         
         assertEquals(new Broadcast("on", clock.now(), clock.now().plusHours(1)), new Broadcast("on", clock.now(), clock.now().plusHours(1)));
@@ -33,9 +36,9 @@ public class BroadcastTest extends TestCase {
 
         assertEquals(new Broadcast("on", clock.now(), Duration.standardHours(1)), new Broadcast("on", clock.now(), Duration.standardHours(1)));
 
-        
     }
     
+	@Test
     public void testUnequalBroadcasts() throws Exception {
     	
         assertFalse(new Broadcast("on", clock.now(), Duration.standardHours(1)).equals(new Broadcast("on2", clock.now(), Duration.standardHours(1))));

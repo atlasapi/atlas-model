@@ -28,7 +28,7 @@ import com.metabroadcast.common.query.Selection;
 public class ContentQueryBuilder {
 
 	private final List<AtomicQuery> queries;
-	private Selection selection;
+	private Selection selection = Selection.ALL;
 	
 	public ContentQueryBuilder(Iterable<AtomicQuery> queries) {
 		this.queries = Lists.newArrayList(queries);

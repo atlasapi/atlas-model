@@ -16,8 +16,6 @@ package org.uriplay.content.criteria;
 
 import java.util.List;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.uriplay.content.criteria.attribute.Attribute;
 import org.uriplay.content.criteria.operator.Operator;
 
@@ -64,12 +62,19 @@ public abstract class AttributeQuery<T> extends AtomicQuery {
 	
     @Override
 	public boolean equals(Object obj) {
-	    return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    	if (this == obj) {
+    		return true;
+    	}
+    	if (obj instanceof AttributeQuery<?>) {
+    		AttributeQuery<?> other = (AttributeQuery<?>) obj;
+    		return attribute.equals(other.attribute) && op.equals(other.op) && values.equals(other.values);
+    	}
+    	return false;
+    }
 	
 	@Override
 	public int hashCode() {
-	    return HashCodeBuilder.reflectionHashCode(this);
+	    return attribute.hashCode() ^ op.hashCode() ^ values.hashCode();
 	}
 	
 	@Override

@@ -14,20 +14,22 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.uriplay.content.criteria.ContentQueryBuilder.query;
 import static org.uriplay.content.criteria.MatchesNothing.isEquivalentTo;
-import static org.uriplay.content.criteria.attribute.Attributes.*;
+import static org.uriplay.content.criteria.attribute.Attributes.BRAND_TITLE;
 
 import java.util.Collections;
 
-import static org.uriplay.content.criteria.ContentQueryBuilder.query;
-
-import org.jmock.integration.junit3.MockObjectTestCase;
+import org.junit.Test;
 import org.uriplay.content.criteria.operator.Operators;
 
 import com.google.common.collect.ImmutableList;
 
-public class MatchesNothingTest extends MockObjectTestCase {
+public class MatchesNothingTest {
 
+	@Test
 	public void test() throws Exception {
 		
 		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));

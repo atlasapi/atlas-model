@@ -17,19 +17,22 @@ package org.uriplay.media.entity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import junit.framework.TestCase;
+
+import org.junit.Test;
 
 /**
  * Unit test for {@link Episode}.
  *
  * @author Robert Chatley (robert@metabroadcast.com)
  */
-public class EpisodeTest extends TestCase {
+public class EpisodeTest {
 
 	Episode episode = new Episode();
 	Version version = new Version();
 	
+	@Test
 	public void testManagesRelationshipWithVersion() {
 		
 		episode.addVersion(version);
@@ -39,7 +42,8 @@ public class EpisodeTest extends TestCase {
 		assertThat(episode.getVersions(), not(hasItem(version)));
 	}
 	
+	@Test
 	public void testReturnsFalseForRemoveWhenNoVersionsAdded() throws Exception {
-		assertFalse(episode.removeVersion(version));
+		assertThat(episode.removeVersion(version), is(false));
 	}
 }

@@ -14,13 +14,10 @@ permissions and limitations under the License. */
 
 package org.uriplay.content.criteria;
 
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.query.Selection;
 
@@ -28,58 +25,56 @@ public class ContentQuery {
 
 	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);
 
-	private ImmutableList<AtomicQuery> operands;
+	private ImmutableSet<AtomicQuery> operands;
 
 	private final Selection selection;
 	
 	public ContentQuery(AtomicQuery operand) {
-		this(ImmutableList.of(operand), null);
+		this(ImmutableList.of(operand), Selection.ALL);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, null);
+		this(operands, Selection.ALL);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
 		this.selection = selection;
-		this.operands = ImmutableList.copyOf(operands);
+		this.operands = ImmutableSet.copyOf(operands);
 	}
 
-	public List<AtomicQuery> operands() {
-		return Collections.unmodifiableList(operands);
+	public ImmutableSet<AtomicQuery> operands() {
+		return operands;
 	}
 	
 	@Override
 	public final String toString() {
 		StringBuilder b = new StringBuilder();
-		b.append(name() + " (");
+		b.append("query=");
 		for (AtomicQuery operand : operands) {
-			b.append(operand.toString()).append(",");
+			b.append(operand.toString()).append(" and ");
 		}
-		b.append(")");
 		return b.toString();
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-	    return EqualsBuilder.reflectionEquals(this, obj, excluding("selection"));
+		if (this == obj) {
+			return true;
+		}
+		if (this instanceof ContentQuery) {
+			ContentQuery other = (ContentQuery) obj;
+			return this.operands.equals(other.operands) && this.selection.equals(other.selection);
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-	    return HashCodeBuilder.reflectionHashCode(this, excluding("selection"));
-	}
-	
-	private String[] excluding(String fieldName) {
-	    return new String[] {fieldName};
+	    return operands.hashCode();
 	}
 	
 	public Selection getSelection() {
 		return selection;
-	}
-
-	public String name() {
-		return "AND";
 	}
 	
 	public ContentQuery copyWithOperands(Iterable<AtomicQuery> newConjucts) {
