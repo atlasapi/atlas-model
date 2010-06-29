@@ -67,6 +67,11 @@ public class ContentQueryBuilder {
 		return this;
 	}
 	
+	public ContentQueryBuilder equalTo(QueryFactory<DateTime> attribute, DateTime... values) {
+		queries.add(attribute.createQuery(Operators.EQUALS, Arrays.asList(values)));
+		return this;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T extends Enum<T>> ContentQueryBuilder equalTo(QueryFactory<Enum<T>> attribute, Enum<T> value) {
 		queries.add(attribute.createQuery(Operators.EQUALS, Arrays.asList(value)));
