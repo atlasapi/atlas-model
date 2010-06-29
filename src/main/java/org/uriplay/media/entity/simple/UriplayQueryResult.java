@@ -46,4 +46,21 @@ public class UriplayQueryResult {
 	public void setPlaylists(List<Playlist> playlists) {
 		this.playlists = playlists;
 	}
+	
+	@Override
+	public int hashCode() {
+		return items.hashCode() ^ playlists.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (this instanceof UriplayQueryResult) {
+			UriplayQueryResult other = (UriplayQueryResult) obj;
+			return items.equals(other.items) && playlists.equals(other.playlists);
+		}
+		return false;
+	}
 }
