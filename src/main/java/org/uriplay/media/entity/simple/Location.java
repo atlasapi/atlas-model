@@ -48,6 +48,7 @@ public class Location extends Version {
     private Integer videoVerticalSize;
     
 	private Date availabilityStart;
+	private Date availabilityEnd;
     private Date drmPlayableFrom;
     private Set<String> availableCountries; 
     
@@ -286,5 +287,13 @@ public class Location extends Version {
 
 	public void setAvailable(boolean available) {
 		this.available = available;
+	}
+	
+	public void setAvailabilityEnd(Date availabilityEnd) {
+		this.availabilityEnd = availabilityEnd;
+	}
+	
+	public Date getAvailabilityEnd() {
+		return availabilityEnd;
 	}
 }
