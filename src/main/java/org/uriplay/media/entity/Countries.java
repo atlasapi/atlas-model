@@ -32,6 +32,10 @@ public class Countries {
 	public static Country IE = new Country("IE", "Ireland");
 	public static Country US = new Country("US", "United States");
 
+	private static Set<Country> countries = Sets.newHashSet(GB, IE, US);
+
+	public static Country  ALL = new Country("ALL", "All");
+	
 	private static Multimap<Country, String> aliases = aliases();
 	private static Map<String, Country> directory = buildDirectory();
 
@@ -53,13 +57,13 @@ public class Countries {
 	
 	private static Map<String, Country> buildDirectory() {
 		Map<String, Country> dir = Maps.newHashMap();
-		Set<Country> countries = Sets.newHashSet(GB, IE);
 		for (Country country : countries) {
 			dir.put(country.code(), country);
 			for (String alias : aliases.get(country)) {
 				dir.put(alias, country);
 			}
 		}
+		dir.put(ALL.code(), ALL);
 		return dir;
 	}
 
