@@ -24,7 +24,7 @@ import org.uriplay.media.vocabulary.PO;
 import com.google.common.collect.Sets;
 
 @RdfClass(namespace = PO.NS)
-public class Policy {
+public class Policy extends Description {
 
 	private DateTime availabilityStart;
 

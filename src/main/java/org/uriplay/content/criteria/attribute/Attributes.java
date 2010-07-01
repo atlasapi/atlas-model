@@ -28,6 +28,7 @@ import org.uriplay.media.entity.Episode;
 import org.uriplay.media.entity.Item;
 import org.uriplay.media.entity.Location;
 import org.uriplay.media.entity.Playlist;
+import org.uriplay.media.entity.Policy;
 import org.uriplay.media.entity.Version;
 
 import com.google.common.collect.Maps;
@@ -78,8 +79,9 @@ public class Attributes {
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
 	public static final Attribute<String> BROADCAST_ON = stringAttribute("broadcastOn", Broadcast.class).allowShortMatches();
 	
-	// booleans
 	public static final Attribute<Boolean> LOCATION_AVAILABLE = new BooleanValuedAttribute("available", Location.class).allowShortMatches();
+
+	public static final Attribute<String> POLICY_AVAILABLE_COUNTRY = new StringValuedAttribute("availableCountries", Policy.class, true).allowShortMatches();
 	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
 		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, 
@@ -90,6 +92,7 @@ public class Attributes {
 								    BROADCAST_TRANSMISSION_TIME,
 								    BROADCAST_ON,
 								    LOCATION_TRANSPORT_TYPE,
+								    POLICY_AVAILABLE_COUNTRY,
 								    EPISODE_POSITION,
 								    EPISODE_SEASON_POSITION,
 								    LOCATION_AVAILABLE,
