@@ -42,10 +42,10 @@
     </dependencies>
     
     <scm>
-        <connection>scm:svn:https://uriplay.googlecode.com/svn/uriplay-media-reference/trunk/</connection>
-        <developerConnection>scm:svn:http://uriplay.googlecode.com/svn/uriplay-media-reference/trunk/</developerConnection>
+        <connection>scm:git:git://github.com/atlas/atlas-model.git</connection>
+        <developerConnection>scm:git:git://github.com/atlas/atlas-model.git</developerConnection>
     </scm>
-    
+
     <distributionManagement>
         <repository>
             <id>metabroadcast-mvn</id>
