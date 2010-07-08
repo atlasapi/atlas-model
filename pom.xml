@@ -5,7 +5,7 @@
     <groupId>org.atlasapi</groupId>
     <artifactId>atlas-model</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <description>uriplay media reference data types</description>
+    <description>atlas data types</description>
     
     <build>
         <plugins>
