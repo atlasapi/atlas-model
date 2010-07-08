@@ -27,7 +27,7 @@ public class Description extends Identified {
 	private String title;
 	private String description;
 	
-	private String publisher;
+	private PublisherDetails publisher;
 	private String image;
 	private String thumbnail;
 	
@@ -76,11 +76,11 @@ public class Description extends Identified {
 		this.containedIn = containedIn;
 	}
 	
-	public String getPublisher() {
+	public PublisherDetails getPublisher() {
 		return publisher;
 	}
 
-	public void setPublisher(String publisher) {
+	public void setPublisher(PublisherDetails publisher) {
 		this.publisher = publisher;
 	}
 
