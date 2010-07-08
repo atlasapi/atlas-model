@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity;
 
+import com.metabroadcast.common.hashing.Hashers;
+
 
 public class Equiv {
 
@@ -55,6 +57,7 @@ public class Equiv {
     }
 
     private String toKey() {
-        return String.valueOf(left.hashCode() ^ right.hashCode());
+    	String combined = left.compareTo(right) < 0 ? left + right : right + left;
+    	return Hashers.MD5.hashToString(combined);
     }
 }
