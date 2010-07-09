@@ -32,6 +32,7 @@ import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.Maps;
+import com.metabroadcast.common.media.MimeType;
 
 public class Attributes {
 
@@ -53,7 +54,7 @@ public class Attributes {
 	public static final Attribute<String> PLAYLIST_PUBLISHER = stringAttribute("publisher", Playlist.class);
 	public static final Attribute<String> BRAND_PUBLISHER = stringAttribute("publisher", Brand.class);
 	
-	public static final Attribute<String> ENCODING_DATA_CONTAINER_FORMAT = stringAttribute("dataContainerFormat",  Encoding.class).allowShortMatches();
+	public static final  Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
 	
 	// Lists of strings
 	public static final Attribute<String> ITEM_GENRE = stringListAttribute("genre",  Item.class);
