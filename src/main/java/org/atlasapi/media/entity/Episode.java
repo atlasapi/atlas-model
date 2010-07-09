@@ -31,8 +31,8 @@ public class Episode extends Item {
 	private Integer seriesNumber;
 	private Brand brand;
 
-	public Episode(String uri, String curie) {
-		super(uri, curie);
+	public Episode(String uri, String curie, Publisher publisher) {
+		super(uri, curie, publisher);
 	}
 	
 	public Episode() { }

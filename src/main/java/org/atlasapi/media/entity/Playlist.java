@@ -41,6 +41,10 @@ public class Playlist extends Content {
     private List<Item> items = Lists.newArrayList();
     private List<String> itemUris = Lists.newArrayList();
 
+    public Playlist(String uri, String curie, Publisher publisher) {
+    	super(uri, curie, publisher);
+    }
+    
     public Playlist(String uri, String curie) {
     	super(uri, curie);
     }

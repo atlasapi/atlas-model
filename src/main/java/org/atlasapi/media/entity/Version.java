@@ -44,6 +44,16 @@ public class Version extends Description {
 	
 	private String ratingText;
 
+	private Publisher provider;
+	
+	public void setProvider(Publisher provider) {
+		this.provider = provider;
+	}
+	
+	public Publisher getProvider() {
+		return provider;
+	}
+	
     @RdfProperty(namespace = PLAY.NS, relation=true)
 	public String getRating() {
 		return rating;

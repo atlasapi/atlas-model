@@ -3,12 +3,18 @@ package org.atlasapi.media.entity;
 import com.metabroadcast.common.base.Maybe;
 
 public enum Publisher {
-    BBC("BBC", "bbc.co.uk", Countries.GB),
+    
+	BBC("BBC", "bbc.co.uk", Countries.GB),
     C4("Channel 4", "channel4.com", Countries.GB),
     HULU("Hulu", "hulu.com", Countries.US),
     YOUTUBE("YouTube", "youtube.com", Countries.ALL),
     TED("TED", "ted.com", Countries.ALL),
-    VIMEO("VIMEO", "vimeo.com", Countries.ALL);
+    VIMEO("VIMEO", "vimeo.com", Countries.ALL),
+    ITV("ITV", "itv.com", Countries.GB), 
+    BLIP("blip.tv", "blip.tv", Countries.ALL), 
+    DAILYMOTION("Dailymotion", "dailymotion.com", Countries.ALL), 
+    FLICKR("Flickr", "flickr.com", Countries.ALL), 
+    FIVE("Five", "five.tv", Countries.GB) ;
     
     private final String key;
     private final Country country;
@@ -19,6 +25,7 @@ public enum Publisher {
         this.key = key;
         this.country = country;
     }
+    
     public String title() {
         return title;
     }
@@ -36,5 +43,10 @@ public enum Publisher {
             }
         }
         return Maybe.nothing();
+    }
+    
+    @Override
+    public String toString() {
+    	return key();
     }
 }

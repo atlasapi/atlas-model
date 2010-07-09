@@ -39,8 +39,8 @@ public class Item extends Content {
 	
 	private boolean isLongForm = false;
 	
-	public Item(String uri, String curie) {
-		super(uri, curie);
+	public Item(String uri, String curie, Publisher publisher) {
+		super(uri, curie, publisher);
 	}
 	
 	public Item() { }
@@ -55,6 +55,9 @@ public class Item extends Content {
 	}
 
 	public void addVersion(Version version) {
+		if (version.getProvider() == null) {
+			version.setProvider(publisher);
+		}
 		versions.add(version);
 	}
 
@@ -64,13 +67,19 @@ public class Item extends Content {
 	}
 	
 	public void setVersions(Set<Version> versions) {
-		this.versions = versions;
+		this.versions = Sets.newHashSet();
+		addVersions(versions);
+	}
+
+	public void addVersions(Set<Version> versions) {
+		for (Version version : versions) {
+			addVersion(version);
+		}
 	}
 
 	public boolean removeVersion(Version version) {
 		return versions.remove(version);
 	}
-	
 	
 	public void setContainedIn(Set<Playlist> containedIn) {
 		for (Playlist parent : containedIn) {

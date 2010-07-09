@@ -38,15 +38,20 @@ public class Content extends Description {
 	protected Set<Playlist> containedIn = Sets.newHashSet();
 	protected Set<String> containedInUris = Sets.newHashSet();
 	
-	private String publisher;
+	protected Publisher publisher;
 	private String image;
 	private String thumbnail;
 	
 	private DateTime firstSeen;
 	private DateTime lastFetched;
 	
-	public Content(String uri, String curie) {
+	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
+		this.publisher = publisher;
+	}
+	
+	public Content(String uri, String curie) {
+		this(uri, curie, null);
 	}
 	
 	public Content(String uri) {
@@ -135,11 +140,11 @@ public class Content extends Description {
 	}
 	
 	@RdfProperty(namespace = DC.NS)
-	public String getPublisher() {
+	public Publisher getPublisher() {
 		return publisher;
 	}
 
-	public void setPublisher(String publisher) {
+	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
 	}
 	    

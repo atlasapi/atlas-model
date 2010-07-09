@@ -3,7 +3,6 @@ package org.atlasapi.media.entity.simple;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.entity.Country;
 import org.atlasapi.media.vocabulary.PLAY;
 
 @XmlRootElement(namespace=PLAY.NS)

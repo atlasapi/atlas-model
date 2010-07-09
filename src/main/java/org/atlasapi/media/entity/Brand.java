@@ -29,8 +29,8 @@ import org.atlasapi.media.vocabulary.PO;
 @RdfClass(namespace = PO.NS)
 public class Brand extends Playlist {
 
-    public Brand(String uri, String curie) {
-		super(uri, curie);
+    public Brand(String uri, String curie, Publisher publisher) {
+		super(uri, curie, publisher);
 	}
     
     public Brand() { /* some legacy code still requires a default constructor */ }
@@ -51,7 +51,7 @@ public class Brand extends Playlist {
     }
 
     public Brand toSummary() {
-        Brand summary = new Brand(this.getCanonicalUri(), this.getCurie());
+        Brand summary = new Brand(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
         summary.setTitle(this.getTitle());
         summary.setDescription(this.getDescription());
         return summary;
