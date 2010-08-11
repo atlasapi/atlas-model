@@ -18,7 +18,7 @@ public class Series extends Playlist {
        return summary;
 	}
 
-	private Series withSeriesNumber(Integer seriesNumber) {
+	public Series withSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
 		return this;
 	}
