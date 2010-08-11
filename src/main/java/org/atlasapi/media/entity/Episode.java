@@ -68,6 +68,9 @@ public class Episode extends Item {
     }
     
     public Series getSeriesSummary() {
+    	if (series == null) {
+    		return null;
+    	}
         return series.toSummary();
     }
     
