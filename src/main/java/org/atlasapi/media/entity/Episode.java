@@ -30,6 +30,7 @@ public class Episode extends Item {
 	private Integer episodeNumber;
 	private Integer seriesNumber;
 	private Brand brand;
+	private Series series;
 
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -66,8 +67,19 @@ public class Episode extends Item {
         return this.brand.toSummary();
     }
     
+    public Series getSeries() {
+		if (series == null) {
+			return null;
+		}
+        return series.toSummary();
+    }
+    
     @Override
     public String getType() {
         return this.getClass().getSimpleName();
     }
+    
+    public void setSeries(Series series) {
+		this.series = series;
+	}
 }

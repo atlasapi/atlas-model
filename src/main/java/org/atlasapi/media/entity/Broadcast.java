@@ -22,6 +22,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Objects;
+
 /**
  * A time and channel at which a Version is/was receivable.
  * 
@@ -88,14 +90,12 @@ public class Broadcast extends Description {
         if (!(object instanceof Broadcast)) {
             return false;
         }
-
         Broadcast broadcast = (Broadcast) object;
-
-        if (null != getCanonicalUri() && null != broadcast.getCanonicalUri() && getCanonicalUri().equals(broadcast.getCanonicalUri())) {
-            return true;
-        }
-
         return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
-
+    }
+    
+    @Override
+    public int hashCode() {
+    	return Objects.hashCode(broadcastOn, transmissionTime);
     }
 }

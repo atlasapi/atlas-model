@@ -25,6 +25,7 @@ public class Item extends Description {
 	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
 	
 	private BrandSummary brandSummary;
+	private SeriesSummary seriesSummary;
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -97,7 +98,6 @@ public class Item extends Description {
 		broadcasts.add(broadcast);
 	}
 	
-
 	@XmlElementWrapper(namespace=PLAY.NS, name="broadcasts")
 	@XmlElement(namespace=PLAY.NS, name="broadcast")
 	public SortedSet<Broadcast> getBroadcasts() {
@@ -106,5 +106,14 @@ public class Item extends Description {
 
 	public void setBroadcasts(SortedSet<Broadcast> broadcasts) {
 		this.broadcasts = broadcasts;
+	}
+
+	@XmlElement(namespace=PLAY.NS, name="seriesSummary")
+	public SeriesSummary getSeriesSummary() {
+		return seriesSummary;
+	}
+	
+	public void setSeriesSummary(SeriesSummary seriesSummary) {
+		this.seriesSummary = seriesSummary;
 	}
 }
