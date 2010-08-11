@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 public class Series extends Playlist {
 	
 	private Integer seriesNumber;
+	private boolean isASummary = false;
 	
 	public Series() {}
 	
@@ -15,7 +16,16 @@ public class Series extends Playlist {
        summary.setTitle(this.getTitle());
        summary.setDescription(this.getDescription());
        summary.withSeriesNumber(seriesNumber);
+       summary.markAsSummary();
        return summary;
+	}
+
+	public void markAsSummary() {
+		this.isASummary = true;
+	}
+	
+	public boolean isASummary() {
+		return isASummary;
 	}
 
 	public Series withSeriesNumber(Integer seriesNumber) {

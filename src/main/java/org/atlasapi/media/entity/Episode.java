@@ -67,10 +67,7 @@ public class Episode extends Item {
         return this.brand.toSummary();
     }
     
-    public Series getSeries() {
-		if (series == null) {
-			return null;
-		}
+    public Series getSeriesSummary() {
         return series.toSummary();
     }
     
@@ -81,5 +78,12 @@ public class Episode extends Item {
     
     public void setSeries(Series series) {
 		this.series = series;
+	}
+
+	public Series getHydratedSeries() {
+		if (series != null && !series.isASummary()) {
+			return series;
+		}
+		return null;
 	}
 }
