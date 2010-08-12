@@ -6,6 +6,7 @@ import java.util.Set;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.OWL;
 import org.atlasapi.media.vocabulary.PLAY;
+import org.joda.time.DateTime;
 
 import com.google.common.collect.Sets;
 
@@ -23,6 +24,11 @@ public class Description {
 
 	private Set<String> aliases = Sets.newHashSet();
 	
+	/**
+	 * Records the time that the 3rd party reported that the
+	 * {@link Description} was last modified
+	 */
+	private DateTime lastUpdated;
 	
 	public Description(String uri, String curie) {
 		if (uri == null) {
@@ -103,5 +109,13 @@ public class Description {
 			return canonicalUri.equals(((Description) obj).canonicalUri);
 		}
 		return false;
+	}
+	
+	public void setLastUpdated(DateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+	
+	public DateTime getLastUpdated() {
+		return lastUpdated;
 	}
 }
