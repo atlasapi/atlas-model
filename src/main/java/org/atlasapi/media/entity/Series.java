@@ -16,6 +16,7 @@ public class Series extends Playlist {
        summary.setTitle(this.getTitle());
        summary.setDescription(this.getDescription());
        summary.withSeriesNumber(seriesNumber);
+       summary.setLastUpdated(this.getLastUpdated());
        summary.markAsSummary();
        return summary;
 	}
