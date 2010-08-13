@@ -44,6 +44,7 @@ public class Content extends Description {
 	
 	private DateTime firstSeen;
 	private DateTime lastFetched;
+	private DateTime thisOrChildLastUpdated;
 	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -170,4 +171,12 @@ public class Content extends Description {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	public DateTime getThisOrChildLastUpdated() {
+        return thisOrChildLastUpdated;
+    }
+	
+	public void setThisOrChildLastUpdated(DateTime thisOrChildLastUpdated) {
+        this.thisOrChildLastUpdated = thisOrChildLastUpdated;
+    }
 }
