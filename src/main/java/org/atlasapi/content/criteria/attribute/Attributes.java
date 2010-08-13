@@ -78,6 +78,8 @@ public class Attributes {
 	// Time based attributes
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
+	public static final Attribute<DateTime> ITEM_LAST_UPDATED = dateTimeAttribute("lastUpdated", Item.class).allowShortMatches();
+	public static final Attribute<DateTime> BRAND_LAST_UPDATED = dateTimeAttribute("lastUpdated", Brand.class).allowShortMatches();
 	public static final Attribute<String> BROADCAST_ON = stringAttribute("broadcastOn", Broadcast.class).allowShortMatches();
 	
 	public static final Attribute<Boolean> LOCATION_AVAILABLE = new BooleanValuedAttribute("available", Location.class).allowShortMatches();
