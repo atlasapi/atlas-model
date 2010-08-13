@@ -78,8 +78,8 @@ public class Attributes {
 	// Time based attributes
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
-	public static final Attribute<DateTime> ITEM_LAST_UPDATED = dateTimeAttribute("lastUpdated", Item.class).allowShortMatches();
-	public static final Attribute<DateTime> BRAND_LAST_UPDATED = dateTimeAttribute("lastUpdated", Brand.class).allowShortMatches();
+	public static final Attribute<DateTime> ITEM_THIS_OR_CHILD_LAST_UPDATED = dateTimeAttribute("thisOrChildLastUpdated", Item.class).allowShortMatches();
+	public static final Attribute<DateTime> PLAYLIST_THIS_OR_CHILD_LAST_UPDATED = dateTimeAttribute("thisOrChildLastUpdated", Playlist.class).allowShortMatches();
 	public static final Attribute<String> BROADCAST_ON = stringAttribute("broadcastOn", Broadcast.class).allowShortMatches();
 	
 	public static final Attribute<Boolean> LOCATION_AVAILABLE = new BooleanValuedAttribute("available", Location.class).allowShortMatches();
@@ -91,6 +91,7 @@ public class Attributes {
 								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
 								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
+								    ITEM_THIS_OR_CHILD_LAST_UPDATED, PLAYLIST_THIS_OR_CHILD_LAST_UPDATED,
 								    VERSION_DURATION,
 								    BROADCAST_TRANSMISSION_TIME,
 								    BROADCAST_ON,
