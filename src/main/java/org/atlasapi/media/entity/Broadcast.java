@@ -41,19 +41,31 @@ public class Broadcast extends Description {
     private final String broadcastOn;
 
     private LocalDate scheduleDate;
+    
+    private Boolean activelyPublished;
 
-    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
 		this.transmissionEndTime = transmissionEndTime;
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
+		this.activelyPublished = activelyPublished;
 	}
     
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
+        this(broadcastOn, transmissionTime, transmissionEndTime, true);
+    }
+    
     public Broadcast(String broadcastOn,  DateTime transmissionTime, Duration duration) {
+        this(broadcastOn, transmissionTime, duration, true);
+    }
+    
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, Duration duration, Boolean activelyPublished) {
     	this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
 		this.transmissionEndTime = transmissionTime.plus(duration);
 		this.broadcastDuration = (int) duration.getStandardSeconds();
+		this.activelyPublished = activelyPublished;
 	}
     
     @RdfProperty(namespace = PLAY.NS, relation = false)
@@ -83,6 +95,14 @@ public class Broadcast extends Description {
 
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
+    }
+    
+    public Boolean isActivelyPublished() {
+        return activelyPublished;
+    }
+    
+    public void setIsActivelyPublished(Boolean activelyPublished) {
+        this.activelyPublished = activelyPublished;
     }
  
     @Override
