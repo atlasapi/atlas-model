@@ -14,7 +14,8 @@ public enum Publisher {
     BLIP("blip.tv", "blip.tv", Countries.ALL), 
     DAILYMOTION("Dailymotion", "dailymotion.com", Countries.ALL), 
     FLICKR("Flickr", "flickr.com", Countries.ALL), 
-    FIVE("Five", "five.tv", Countries.GB) ;
+    FIVE("Five", "five.tv", Countries.GB),
+    TVBLOB("TV Blob", "tvblob.com", Countries.IT);
     
     private final String key;
     private final Country country;
