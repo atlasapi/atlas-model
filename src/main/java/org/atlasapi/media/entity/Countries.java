@@ -31,6 +31,7 @@ public class Countries {
 	public static Country GB = new Country("GB", "United Kingdom");
 	public static Country IE = new Country("IE", "Ireland");
 	public static Country US = new Country("US", "United States");
+	public static Country IT = new Country("IT", "Italy");
 
 	private static Set<Country> countries = Sets.newHashSet(GB, IE, US);
 
