@@ -58,6 +58,7 @@ public class Episode extends Item {
 
 	public void setBrand(Brand brand) {
         this.brand = brand;
+        this.addContainedIn(brand);
     }
     
     public Brand getBrand() {
