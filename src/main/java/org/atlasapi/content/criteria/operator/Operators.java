@@ -84,7 +84,7 @@ public class Operators {
 		}
 	}
 	
-	public static class Equals extends BaseOperator implements StringOperator, IntegerOperator, EnumOperator, BooleanOperator {
+	public static class Equals extends BaseOperator implements StringOperator, IntegerOperator, EnumOperator, BooleanOperator, DateTimeOperator {
 		
 		private Equals() { 
 			super("equals");
@@ -108,6 +108,11 @@ public class Operators {
 		
 		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
 			return lhs.equals(rhs);
+		}
+
+		@Override
+		public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
+			return visitor.visit(this);
 		}
 		
 	}
