@@ -51,6 +51,9 @@ public class Location extends Version {
 	private Date availabilityEnd;
     private Date drmPlayableFrom;
     private Set<String> availableCountries; 
+    private String currency;
+    private Integer price;
+    private String revenueContract;
     
     private String restrictedBy;
     
@@ -88,6 +91,29 @@ public class Location extends Version {
 		this.availableCountries = availableCountries;
 	}
 
+	public String getCurrency() {
+        return currency;
+    }
+	
+	public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+	
+	public Integer getPrice() {
+        return price;
+    }
+	
+	public void setPrice(Integer price) {
+        this.price = price;
+    }
+	
+	public String getRevenueContract() {
+        return revenueContract;
+    }
+	
+	public void setRevenueContract(String revenueContract) {
+        this.revenueContract = revenueContract;
+    }
 
 	public Integer getAdvertisingDuration() {
 		return advertisingDuration;

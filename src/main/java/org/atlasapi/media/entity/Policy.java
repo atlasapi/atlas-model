@@ -22,6 +22,7 @@ import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.currency.Price;
 
 @RdfClass(namespace = PO.NS)
 public class Policy extends Description {
@@ -35,6 +36,10 @@ public class Policy extends Description {
     private Set<Country> availableCountries;
 
 	private Integer availabilityLength;
+	
+	private RevenueContract revenueContract;
+	
+	private Price price;
     
 	@RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
     public Set<Country> getAvailableCountries() {
@@ -88,6 +93,32 @@ public class Policy extends Description {
 		setAvailabilityEnd(start);
 		return this;
 	}
+	
+	public void setRevenueContract(RevenueContract revenueContract) {
+        this.revenueContract = revenueContract;
+    }
+	
+	public Policy withRevenueContract(RevenueContract revenueContract) {
+	    setRevenueContract(revenueContract);
+	    return this;
+	}
+	
+	public RevenueContract getRevenueContract() {
+        return revenueContract;
+    }
+	
+	public void setPrice(Price price) {
+        this.price = price;
+    }
+	
+	public Policy withPrice(Price price) {
+	    setPrice(price);
+	    return this;
+	}
+	
+	public Price getPrice() {
+        return price;
+    }
 
 	public Policy withDrmPlayableFrom(DateTime from) {
 		setDrmPlayableFrom(from);
@@ -106,5 +137,26 @@ public class Policy extends Description {
 	public Policy withAvailableCountries(Country... countries) {
 		setAvailableCountries(Sets.newHashSet(countries));
 		return this;
+	}
+	
+	public enum RevenueContract {
+	    PAY_TO_BUY,
+	    PAY_TO_RENT,
+	    SUBSCRIPTION,
+	    FREE_TO_VIEW,
+	    VOLUNTARY_DONATION;
+	    
+	    public String key() {
+	        return name().toLowerCase();
+	    }
+	    
+	    public static RevenueContract fromKey(String key) {
+	        for (RevenueContract contract: values()) {
+	            if (contract.key().equals(key)) {
+	                return contract;
+	            }
+	        }
+	        return FREE_TO_VIEW;
+	    }
 	}
 }
