@@ -67,6 +67,10 @@ public class ContentQueryBuilder {
 		return this;
 	}
 	
+	public ContentQueryBuilder anyValue(QueryFactory<Boolean> attribute) {
+		return equalTo(attribute, true, false);
+	}
+	
 	public ContentQueryBuilder equalTo(QueryFactory<DateTime> attribute, DateTime... values) {
 		queries.add(attribute.createQuery(Operators.EQUALS, Arrays.asList(values)));
 		return this;
