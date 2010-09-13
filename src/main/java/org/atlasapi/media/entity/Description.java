@@ -26,7 +26,7 @@ public class Description {
 	
 	/**
 	 * Records the time that the 3rd party reported that the
-	 * {@link Description} was last modified
+	 * {@link Description} was last updated
 	 */
 	private DateTime lastUpdated;
 	
