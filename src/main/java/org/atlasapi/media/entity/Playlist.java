@@ -64,7 +64,7 @@ public class Playlist extends Content {
             uris.add(item.getCanonicalUri());
         }
         for (String itemUri: itemUris) {
-            if (! uris.contains(itemUri)) {
+            if (!uris.contains(itemUri)) {
                 uris.add(itemUri);
             }
         }
