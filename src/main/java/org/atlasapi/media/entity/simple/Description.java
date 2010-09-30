@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,6 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.atlasapi.media.vocabulary.PLAY;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.ImmutableSet.Builder;
 
@@ -35,6 +37,8 @@ public class Description extends Identified {
 	private Set<String> tags = Sets.newHashSet();
 	
 	private Set<String> containedIn = Sets.newHashSet();
+	
+	private List<Item> clips = Lists.newArrayList();
 	
 	public Description(String uri) {
 		super(uri);
@@ -104,10 +108,16 @@ public class Description extends Identified {
 		this.aliases = aliases;
 	}
 	
-	@XmlElementWrapper( name="aliases")
+	@XmlElementWrapper(name="aliases")
 	@XmlElement(name="alias")
 	public Set<String> getAliases() {
 		return aliases;
+	}
+	
+	@XmlElementWrapper(name="clips")
+	@XmlElement(name="clip")
+	public List<Item> getClips() {
+		return clips;
 	}
 	
 	public void setTitle(String title) {
@@ -134,5 +144,9 @@ public class Description extends Identified {
 			ids.add(curie);
 		}
 		return ids.build();
+	}
+		
+	public void setClips(List<Item> clips) {
+		this.clips = clips;
 	}
 }

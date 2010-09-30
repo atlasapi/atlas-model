@@ -8,6 +8,7 @@ import org.atlasapi.media.vocabulary.OWL;
 import org.atlasapi.media.vocabulary.PLAY;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
 /**
@@ -118,4 +119,12 @@ public class Description {
 	public DateTime getLastUpdated() {
 		return lastUpdated;
 	}
+	
+	public static final Function<Description, String> TO_URI = new Function<Description, String>() {
+
+		@Override
+		public String apply(Description description) {
+			return description.getCanonicalUri();
+		}
+	};
 }

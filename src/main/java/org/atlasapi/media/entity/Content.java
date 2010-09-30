@@ -14,6 +14,7 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
@@ -23,6 +24,7 @@ import org.atlasapi.media.vocabulary.PO;
 import org.atlasapi.media.vocabulary.SIOC;
 import org.joda.time.DateTime;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 public class Content extends Description {
@@ -37,6 +39,8 @@ public class Content extends Description {
 	
 	protected Set<Playlist> containedIn = Sets.newHashSet();
 	protected Set<String> containedInUris = Sets.newHashSet();
+	
+	private ImmutableList<Clip> clips  = ImmutableList.of();
 	
 	protected Publisher publisher;
 	private String image;
@@ -179,4 +183,15 @@ public class Content extends Description {
 	public void setThisOrChildLastUpdated(DateTime thisOrChildLastUpdated) {
         this.thisOrChildLastUpdated = thisOrChildLastUpdated;
     }
+
+	public List<Clip> getClips() {
+		return clips;
+	}
+	
+	public void setClips(Iterable<Clip> clips) {
+		this.clips = ImmutableList.copyOf(clips);
+		for (Clip clip : clips) {
+			clip.setClipOf(this);
+		}
+	}
 }
