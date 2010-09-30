@@ -25,6 +25,7 @@ import org.atlasapi.media.vocabulary.SIOC;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class Content extends Description {
@@ -193,5 +194,11 @@ public class Content extends Description {
 		for (Clip clip : clips) {
 			clip.setClipOf(this);
 		}
+	}
+	
+	public void addClip(Clip clip) {
+		List<Clip> all = Lists.newArrayList(clips);
+		all.add(clip);
+		setClips(all);
 	}
 }
