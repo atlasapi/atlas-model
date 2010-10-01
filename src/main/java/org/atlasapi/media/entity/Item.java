@@ -24,6 +24,7 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -64,6 +65,15 @@ public class Item extends Content {
 	@RdfProperty(relation = true, uri="version")
 	public Set<Version> getVersions() {
 		return versions;
+	}
+	
+	public Set<Version> nativeVersions() {
+		return Sets.filter(versions, new Predicate<Version>() {
+			@Override
+			public boolean apply(Version v) {
+				return publisher.equals(v.getProvider());
+			}
+		});
 	}
 	
 	public void setVersions(Set<Version> versions) {
