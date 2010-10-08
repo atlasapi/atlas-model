@@ -1,11 +1,15 @@
 package org.atlasapi.application;
 
 import java.net.InetAddress;
+import java.util.Collections;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 public class ApplicationCredentials {
 
 	private String apiKey;
-	private InetAddress ipAddress;
+	private List<InetAddress> ipAddresses = Collections.emptyList();
 	
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
@@ -15,12 +19,12 @@ public class ApplicationCredentials {
 		return apiKey;
 	}
 	
-	public void setIpAddress(InetAddress ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setIpAddresses(Iterable<InetAddress> ipAddresses) {
+		this.ipAddresses = ImmutableList.copyOf(ipAddresses);
 	}
 	
-	public InetAddress getIpAddress() {
-		return ipAddress;
+	public List<InetAddress> getIpAddresses() {
+		return ipAddresses;
 	}
 	
 }

@@ -34,7 +34,7 @@ public class ApplicationConfiguration {
 	}
 
 	public void setIncludedPublishers(Iterable<Publisher> includedPublishers) {
-		this.includedPublishers = Sets.newHashSet(includedPublishers);
+		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 	}
 
 	public Set<Publisher> getIncludedPublishers() {
