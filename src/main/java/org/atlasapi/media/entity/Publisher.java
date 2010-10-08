@@ -16,7 +16,9 @@ public enum Publisher {
     FLICKR("Flickr", "flickr.com", Countries.ALL), 
     FIVE("Five", "five.tv", Countries.GB),
 	SEESAW("SeeSaw", "seesaw.com", Countries.GB),
-    TVBLOB("TV Blob", "tvblob.com", Countries.IT);
+    TVBLOB("TV Blob", "tvblob.com", Countries.IT),
+    ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB);
+	
     
     private final String key;
     private final Country country;
