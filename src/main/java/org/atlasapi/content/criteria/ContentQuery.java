@@ -16,6 +16,8 @@ package org.atlasapi.content.criteria;
 
 import java.util.List;
 
+import org.atlasapi.application.ApplicationConfiguration;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -28,18 +30,25 @@ public class ContentQuery {
 	private ImmutableSet<AtomicQuery> operands;
 
 	private final Selection selection;
+
+	private final ApplicationConfiguration configuration;
 	
 	public ContentQuery(AtomicQuery operand) {
 		this(ImmutableList.of(operand), Selection.ALL);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL);
+		this(operands, Selection.ALL, ApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this.selection = selection;
+		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+	}
+
+	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
 		this.operands = ImmutableSet.copyOf(operands);
+		this.selection = selection;
+		this.configuration = configuration;
 	}
 
 	public ImmutableSet<AtomicQuery> operands() {
@@ -77,6 +86,10 @@ public class ContentQuery {
 		return selection;
 	}
 	
+	public ApplicationConfiguration getConfiguration() {
+		return configuration;
+	}
+
 	public ContentQuery copyWithOperands(Iterable<AtomicQuery> newConjucts) {
 		ContentQuery conjunctiveQuery = new ContentQuery(newConjucts, selection);
 		return conjunctiveQuery;
@@ -98,5 +111,9 @@ public class ContentQuery {
 
 	public ContentQuery copyWithSelection(Selection newSelection) {
 		return new ContentQuery(operands, newSelection);
+	}
+	
+	public ContentQuery copyWithApplicationConfiguration(ApplicationConfiguration configuration){
+		return new ContentQuery(operands, getSelection(), configuration);
 	}
 }
