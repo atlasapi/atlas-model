@@ -38,11 +38,11 @@ public class ContentQuery {
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, Selection.ALL, ApplicationConfiguration.defaultConfiguration());
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, selection, ApplicationConfiguration.defaultConfiguration());
 	}
 
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
@@ -98,7 +98,7 @@ public class ContentQuery {
 	public static ContentQuery joinTo(ContentQuery original, ContentQuery toAdd) {
 		List<AtomicQuery> allConjucts = Lists.newArrayList(original.operands());
 		allConjucts.addAll(toAdd.operands());
-		return new ContentQuery(allConjucts, original.getSelection());
+		return new ContentQuery(allConjucts, original.getSelection(), original.getConfiguration());
 	}
 	
 	public <V> List<V> accept(QueryVisitor<V> v) {

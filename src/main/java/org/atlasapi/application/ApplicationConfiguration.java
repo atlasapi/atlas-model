@@ -17,13 +17,12 @@ public class ApplicationConfiguration {
 		ApplicationConfiguration defaultApp = new ApplicationConfiguration();
 		
 		defaultApp.setIncludedPublishers(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
-
 			@Override
 			public boolean apply(Publisher input) {
 				return !input.equals(Publisher.C4);
 			}
 		}));
-		
+
 		return defaultApp;
 	}
 
