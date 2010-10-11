@@ -28,6 +28,7 @@ import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Location;
 import org.atlasapi.media.entity.Playlist;
 import org.atlasapi.media.entity.Policy;
+import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
 
@@ -74,6 +75,7 @@ public class Attributes {
 	public static final Attribute<Integer> EPISODE_SEASON_POSITION = integerAttribute("seasonPosition", "seriesNumber",  Episode.class).allowShortMatches();
 	
 	public static final Attribute<Integer> VERSION_DURATION = integerAttribute("duration", Version.class).allowShortMatches();
+	public static final Attribute<Enum<Publisher>> VERSION_PROVIDER = new EnumValuedAttribute<Publisher>("provider", Publisher.class, Version.class);
 
 	// Time based attributes
 	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
@@ -92,6 +94,7 @@ public class Attributes {
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
 								    BRAND_THIS_OR_CHILD_LAST_UPDATED,
 								    VERSION_DURATION,
+								    VERSION_PROVIDER,
 								    BROADCAST_TRANSMISSION_TIME,
 								    BROADCAST_ON,
 								    LOCATION_TRANSPORT_TYPE,
