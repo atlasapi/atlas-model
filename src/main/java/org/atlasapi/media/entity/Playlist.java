@@ -133,4 +133,8 @@ public class Playlist extends Content {
        playlist.containedIn.add(this);
        playlist.containedInUris.add(this.getCanonicalUri());
     }
+
+	public void addPlaylistUri(String uri) {
+		playlistUris.add(uri);
+	}
 }

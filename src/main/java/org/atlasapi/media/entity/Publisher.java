@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity;
 
+import com.google.common.base.Function;
 import com.metabroadcast.common.base.Maybe;
 
 public enum Publisher {
@@ -54,4 +55,11 @@ public enum Publisher {
     public String toString() {
     	return key();
     }
+    
+    public static Function<Publisher,String> TO_KEY = new Function<Publisher, String>() {
+		@Override
+		public String apply(Publisher from) {
+			return from.key();
+		}
+	};
 }
