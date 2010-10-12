@@ -20,6 +20,7 @@ import org.atlasapi.application.ApplicationConfiguration;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.query.Selection;
 
@@ -28,6 +29,12 @@ public class ContentQuery {
 	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);
 
 	private ImmutableSet<AtomicQuery> operands;
+	
+	/*
+	 * Added by ApplicationConfigurationQueryExecutor to describe restrictions which don't apply if the restricted attribute is not set.
+	 * e.g. versions = [] || ∃version s.t. constraint holds.
+	 */
+	private ImmutableSet<AtomicQuery> softConstraints;
 
 	private final Selection selection;
 
@@ -49,8 +56,9 @@ public class ContentQuery {
 		this.operands = ImmutableSet.copyOf(operands);
 		this.selection = selection;
 		this.configuration = configuration;
+		this.softConstraints = ImmutableSet.of();
 	}
-
+	
 	public ImmutableSet<AtomicQuery> operands() {
 		return operands;
 	}
@@ -98,7 +106,9 @@ public class ContentQuery {
 	public static ContentQuery joinTo(ContentQuery original, ContentQuery toAdd) {
 		List<AtomicQuery> allConjucts = Lists.newArrayList(original.operands());
 		allConjucts.addAll(toAdd.operands());
-		return new ContentQuery(allConjucts, original.getSelection(), original.getConfiguration());
+		ContentQuery contentQuery = new ContentQuery(allConjucts, original.getSelection(), original.getConfiguration());
+		contentQuery.setSoftConstraints(Iterables.concat(original.getSoftConstraints(),toAdd.getSoftConstraints()));
+		return contentQuery;
 	}
 	
 	public <V> List<V> accept(QueryVisitor<V> v) {
@@ -110,10 +120,27 @@ public class ContentQuery {
 	}
 
 	public ContentQuery copyWithSelection(Selection newSelection) {
-		return new ContentQuery(operands, newSelection);
+		ContentQuery contentQuery = new ContentQuery(operands, newSelection, getConfiguration());
+		contentQuery.setSoftConstraints(getSoftConstraints());
+		return contentQuery;
 	}
 	
 	public ContentQuery copyWithApplicationConfiguration(ApplicationConfiguration configuration){
-		return new ContentQuery(operands, getSelection(), configuration);
+		ContentQuery contentQuery = new ContentQuery(operands, getSelection(), configuration);
+		contentQuery.setSoftConstraints(getSoftConstraints());
+		return contentQuery;
+	}
+	
+	public ContentQuery copyWithSoftConstraintsApplied() {
+		ContentQuery contentQuery = new ContentQuery(Iterables.concat(operands(),getSoftConstraints()), getSelection(), configuration);
+		return contentQuery;
+	}
+	
+	public void setSoftConstraints(Iterable<AtomicQuery> softConstraints) {
+		this.softConstraints = ImmutableSet.copyOf(softConstraints);
+	}
+
+	public ImmutableSet<AtomicQuery> getSoftConstraints() {
+		return softConstraints;
 	}
 }

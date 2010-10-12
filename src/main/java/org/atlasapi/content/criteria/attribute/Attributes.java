@@ -51,9 +51,9 @@ public class Attributes {
 	
 	public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
 	
-	public static final Attribute<String> ITEM_PUBLISHER = stringAttribute("publisher", Item.class);
-	public static final Attribute<String> PLAYLIST_PUBLISHER = stringAttribute("publisher", Playlist.class);
-	public static final Attribute<String> BRAND_PUBLISHER = stringAttribute("publisher", Brand.class);
+	public static final Attribute<Enum<Publisher>> ITEM_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Item.class);
+	public static final Attribute<Enum<Publisher>> PLAYLIST_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Playlist.class);
+	public static final Attribute<Enum<Publisher>> BRAND_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Brand.class);
 	
 	public static final  Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
 	

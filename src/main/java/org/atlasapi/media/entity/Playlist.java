@@ -104,7 +104,8 @@ public class Playlist extends Content {
         return this.playlists; 
     }
 
-    public void setPlaylists(Iterable<? extends Playlist> playlists) { 
+    public void setPlaylists(Iterable<? extends Playlist> playlists) {
+    	this.playlists.clear();
         for (Playlist playlist : playlists) {
         	addPlaylist(playlist);
         }
