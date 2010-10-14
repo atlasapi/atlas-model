@@ -15,13 +15,17 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.content.criteria.attribute.Attribute;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.metabroadcast.common.query.Selection;
 
 public class ContentQuery {
@@ -142,5 +146,49 @@ public class ContentQuery {
 
 	public ImmutableSet<AtomicQuery> getSoftConstraints() {
 		return softConstraints;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<Attribute<?>,List<?>> operandMap() {
+		final Map<Attribute<?>,List<?>> operandMap = Maps.newHashMap();
+		for (AtomicQuery atom : operands()) {
+			atom.accept(new QueryVisitor(){
+
+				@Override
+				public Object visit(IntegerAttributeQuery query) {
+					operandMap.put(query.getAttribute(), query.getValue());
+					return null;
+				}
+
+				@Override
+				public Object visit(StringAttributeQuery query) {
+					operandMap.put(query.getAttribute(), query.getValue());
+					return null;
+				}
+
+				@Override
+				public Object visit(BooleanAttributeQuery query) {
+					operandMap.put(query.getAttribute(), query.getValue());
+					return null;
+				}
+
+				@Override
+				public Object visit(EnumAttributeQuery query) {
+					operandMap.put(query.getAttribute(), query.getValue());
+					return null;
+				}
+
+				@Override
+				public Object visit(DateTimeAttributeQuery dateTimeAttributeQuery) {
+					operandMap.put(dateTimeAttributeQuery.getAttribute(), dateTimeAttributeQuery.getValue());
+					return null;
+				}
+
+				@Override
+				public Object visit(MatchesNothing noOp) {
+					return null;
+				}});
+		}
+		return operandMap;
 	}
 }
