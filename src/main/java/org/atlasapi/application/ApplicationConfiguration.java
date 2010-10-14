@@ -19,8 +19,8 @@ public class ApplicationConfiguration {
 		defaultApp.setIncludedPublishers(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
-				return true; // allow all until the admin app is finished
-				//return !input.equals(Publisher.C4);
+				//return true; // allow all until the admin app is finished
+				return !input.equals(Publisher.C4);
 			}
 		}));
 
