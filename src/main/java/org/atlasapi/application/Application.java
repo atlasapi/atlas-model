@@ -56,4 +56,8 @@ public class Application {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s (%s)", getSlug(), getTitle());
+	}
 }
