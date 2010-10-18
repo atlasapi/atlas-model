@@ -39,6 +39,8 @@ public class Description extends Identified {
 	private Set<String> containedIn = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
+
+	private Set<String> sameAs;
 	
 	public Description(String uri) {
 		super(uri);
@@ -148,5 +150,15 @@ public class Description extends Identified {
 		
 	public void setClips(List<Item> clips) {
 		this.clips = clips;
+	}
+
+	public void setSameAs(Set<String> sameAs) {
+		this.sameAs = sameAs;
+	}
+	
+	@XmlElementWrapper(namespace=PLAY.NS, name="sameAs")
+	@XmlElement(name="uri")
+	public Set<String> getSameAs() {
+		return sameAs;
 	}
 }

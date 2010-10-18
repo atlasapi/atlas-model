@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.Set;
 
@@ -24,6 +26,8 @@ public class Description {
 	private String curie;
 
 	private Set<String> aliases = Sets.newHashSet();
+	
+	private Set<String> equivalentTo = Sets.newHashSet();
 	
 	/**
 	 * Records the time that the 3rd party reported that the
@@ -120,6 +124,16 @@ public class Description {
 		return lastUpdated;
 	}
 	
+	public void addEquivalentTo(Content content) {
+		checkNotNull(content.getCanonicalUri());
+		this.equivalentTo.add(content.getCanonicalUri());
+		this.aliases.add(content.getCanonicalUri());
+	}
+	
+	public Set<String> getEquivalentTo() {
+		return equivalentTo;
+	}
+	
 	public static final Function<Description, String> TO_URI = new Function<Description, String>() {
 
 		@Override
@@ -127,4 +141,8 @@ public class Description {
 			return description.getCanonicalUri();
 		}
 	};
+
+	public void setEquivalentTo(Set<String> uris) {
+		this.equivalentTo = uris;
+	}
 }
