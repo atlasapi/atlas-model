@@ -16,7 +16,6 @@ package org.atlasapi.content.criteria;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.atlasapi.application.ApplicationConfiguration;
 import org.atlasapi.content.criteria.attribute.Attribute;
@@ -49,11 +48,11 @@ public class ContentQuery {
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, ApplicationConfiguration.defaultConfiguration());
+		this(operands, Selection.ALL, ApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, ApplicationConfiguration.defaultConfiguration());
+		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
 
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {

@@ -7,16 +7,15 @@ import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 
 public class ApplicationConfiguration {
 	
 	public static final ApplicationConfiguration DEFAULT_CONFIGURATION = defaultConfiguration();
 	
-	public static ApplicationConfiguration defaultConfiguration() {
+	private static ApplicationConfiguration defaultConfiguration() {
 		ApplicationConfiguration defaultApp = new ApplicationConfiguration();
 		
-		defaultApp.setIncludedPublishers(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
+		defaultApp.includedPublishers = ImmutableSet.copyOf(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
 				//return true; // allow all until the admin app is finished
@@ -27,14 +26,16 @@ public class ApplicationConfiguration {
 		return defaultApp;
 	}
 
-	private Set<Publisher> includedPublishers = Sets.newHashSet();
+	private Set<Publisher> includedPublishers = ImmutableSet.of();
 	
 	public ApplicationConfiguration() {
 		
 	}
-
-	public void setIncludedPublishers(Iterable<Publisher> includedPublishers) {
-		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
+	
+	public ApplicationConfiguration copyWithIncludedPublishers(Iterable<Publisher> publishers) {
+		ApplicationConfiguration config = new ApplicationConfiguration();
+		config.includedPublishers = ImmutableSet.copyOf(publishers);
+		return config;
 	}
 
 	public Set<Publisher> getIncludedPublishers() {
