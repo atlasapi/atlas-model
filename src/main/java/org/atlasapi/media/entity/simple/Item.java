@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.TransportType;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.collect.Sets;
 
-@XmlRootElement(namespace=PLAY.NS)
-@XmlType(name="item", namespace=PLAY.NS)
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="item", namespace=PLAY_SIMPLE_XML.NS)
 public class Item extends Description {
 
 	private Integer episodeNumber;
@@ -37,8 +37,8 @@ public class Item extends Description {
 		locations .add(location);
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="locations")
-	@XmlElement(namespace=PLAY.NS, name="location")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="locations")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="location")
 	public Set<Location> getLocations() {
 		return locations;
 	}
@@ -85,7 +85,7 @@ public class Item extends Description {
 		return false;
 	}
 
-	@XmlElement(namespace=PLAY.NS, name="brandSummary")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="brandSummary")
 	public BrandSummary getBrandSummary() {
 		return brandSummary;
 	}
@@ -98,8 +98,8 @@ public class Item extends Description {
 		broadcasts.add(broadcast);
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="broadcasts")
-	@XmlElement(namespace=PLAY.NS, name="broadcast")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="broadcasts")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="broadcast")
 	public SortedSet<Broadcast> getBroadcasts() {
 		return broadcasts;
 	}
@@ -108,7 +108,7 @@ public class Item extends Description {
 		this.broadcasts = broadcasts;
 	}
 
-	@XmlElement(namespace=PLAY.NS, name="seriesSummary")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="seriesSummary")
 	public SeriesSummary getSeriesSummary() {
 		return seriesSummary;
 	}

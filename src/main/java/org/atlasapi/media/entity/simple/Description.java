@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -20,8 +20,8 @@ import com.google.common.collect.ImmutableSet.Builder;
  *  
  * @author Robert Chatley (robert@metabroadcast.com)
  */
-@XmlRootElement(namespace=PLAY.NS)
-@XmlType(name="description", namespace=PLAY.NS)
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
 public class Description extends Identified {
 
 	private Set<String> aliases = Sets.newHashSet();
@@ -48,8 +48,8 @@ public class Description extends Identified {
 	
 	public Description() { /* required for XML/JSON tools */	}
 
-	@XmlElementWrapper(namespace=PLAY.NS, name="genres")
-	@XmlElement(namespace=PLAY.NS, name="genre")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="genres")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="genre")
 	public Set<String> getGenres() {
 		return genres;
 	}
@@ -58,8 +58,8 @@ public class Description extends Identified {
 		this.genres = genres;
 	}
 
-	@XmlElementWrapper(namespace=PLAY.NS, name="tags")
-	@XmlElement(namespace=PLAY.NS, name="tag")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="tags")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="tag")
 	public Set<String> getTags() {
 		return tags;
 	}
@@ -68,7 +68,7 @@ public class Description extends Identified {
 		this.tags = tags;
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="containedIn")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="containedIn")
 	@XmlElement(name="uri")
 	public Set<String> getContainedIn() {
 		return containedIn;
@@ -156,7 +156,7 @@ public class Description extends Identified {
 		this.sameAs = sameAs;
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="sameAs")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="sameAs")
 	@XmlElement(name="uri")
 	public Set<String> getSameAs() {
 		return sameAs;

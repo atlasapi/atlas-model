@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.collect.Lists;
 
-@XmlRootElement(namespace=PLAY.NS)
-@XmlType(name="list", namespace=PLAY.NS)
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="list", namespace=PLAY_SIMPLE_XML.NS)
 public class Playlist extends Description {
 
 	private List<Item> items = Lists.newArrayList();
@@ -22,8 +22,8 @@ public class Playlist extends Description {
 		items.add(item);
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="items")
-	@XmlElement(namespace=PLAY.NS, name="item")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="items")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="item")
 	public List<Item> getItems() {
 		return items;
 	}
@@ -36,8 +36,8 @@ public class Playlist extends Description {
 		playlists.add(playlist);
 	}
 	
-	@XmlElementWrapper(namespace=PLAY.NS, name="playlists")
-	@XmlElement(namespace=PLAY.NS, name="playlist")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="playlists")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="playlist")
 	public List<Playlist> getPlaylists() {
 		return playlists;
 	}

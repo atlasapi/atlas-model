@@ -17,12 +17,11 @@ package org.atlasapi.media.vocabulary;
  
 /**
  */
-@Deprecated
-public class PLAY {
+public class PLAY_SIMPLE_XML {
 
     /** The namespace of the vocabalary as a string ({@value}).
      */
-    public static final String NS = "http://uriplay.org/elements/";
+    public static final String NS = "http://ref.atlasapi.org/";
     
     /** The default prefix ({@value}) for the PLAY namespace.
      */

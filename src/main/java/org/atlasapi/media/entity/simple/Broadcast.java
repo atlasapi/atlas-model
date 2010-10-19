@@ -5,13 +5,13 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
-@XmlRootElement(namespace=PLAY.NS)
-@XmlType(name="broadcast", namespace=PLAY.NS)
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
 public class Broadcast extends Version implements Comparable<Broadcast> {
 	
     private Date transmissionTime;

@@ -1,6 +1,4 @@
 package org.atlasapi.media.entity.simple;
-
-import java.util.Date;
 /* Copyright 2010 Meta Broadcast Ltd
 
 Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -15,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
 permissions and limitations under the License. */
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -22,10 +21,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
-@XmlRootElement(namespace=PLAY.NS)
-@XmlType(name="location", namespace=PLAY.NS)
+
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="location", namespace=PLAY_SIMPLE_XML.NS)
 public class Location extends Version {
 	
     private Integer advertisingDuration;
@@ -81,7 +81,7 @@ public class Location extends Version {
 		this.dataContainerFormat = dataContainerFormat;
 	}
 
-	@XmlElementWrapper(namespace=PLAY.NS, name="availableCountries")
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="availableCountries")
 	@XmlElement(name="code")
 	public Set<String> getAvailableCountries() {
 		return availableCountries;
