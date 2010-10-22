@@ -19,6 +19,7 @@ public enum Publisher {
 	SEESAW("SeeSaw", "seesaw.com", Countries.GB),
     TVBLOB("TV Blob", "tvblob.com", Countries.IT),
     ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB),
+    HBO("HBO", "hbo.com", Countries.US),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     
