@@ -30,7 +30,7 @@ import com.google.common.collect.Sets;
 public abstract class GenreMap {
 
 	// initialise this in subclass to provide mapping.
-	protected static final Map<String, String> genres = Maps.newHashMap();
+	protected static final Map<String, AtlasGenre> genres = Maps.newHashMap();
 
 	public Set<String> map(Set<String> sourceGenres) {
 		
@@ -39,9 +39,9 @@ public abstract class GenreMap {
 		if (sourceGenres == null) { return mappedGenres; }
 		
 		for (String sourceGenre : sourceGenres) {
-			String mappedGenre = genres.get(sourceGenre.toLowerCase());
+			AtlasGenre mappedGenre = genres.get(sourceGenre.toLowerCase());
 			if (mappedGenre != null) { 
-				mappedGenres.add(mappedGenre); 
+				mappedGenres.add(mappedGenre.getUri()); 
 			}
 		}
 		
@@ -56,10 +56,10 @@ public abstract class GenreMap {
         if (sourceGenres == null) { return mappedGenres; }
         
         for (String sourceGenre : sourceGenres) {
-            String mappedGenre = genres.get(sourceGenre.toLowerCase());
+            AtlasGenre mappedGenre = genres.get(sourceGenre.toLowerCase());
             if (mappedGenre != null) { 
                 mappedGenres.add(sourceGenre); 
-                mappedGenres.add(mappedGenre); 
+                mappedGenres.add(mappedGenre.getUri()); 
             }
         }
         
