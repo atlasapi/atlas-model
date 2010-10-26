@@ -21,6 +21,7 @@ import java.util.Map;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Broadcast;
+import org.atlasapi.media.entity.ContentType;
 import org.atlasapi.media.entity.Description;
 import org.atlasapi.media.entity.Encoding;
 import org.atlasapi.media.entity.Episode;
@@ -55,7 +56,11 @@ public class Attributes {
 	public static final Attribute<Enum<Publisher>> PLAYLIST_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Playlist.class);
 	public static final Attribute<Enum<Publisher>> BRAND_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Brand.class);
 	
-	public static final  Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
+	public static final Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
+	
+	public static final Attribute<Enum<ContentType>> ITEM_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Item.class).withAlias("type"); 
+	public static final Attribute<Enum<ContentType>> BRAND_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Brand.class).withAlias("type"); 
+	public static final Attribute<Enum<ContentType>> PLAYLIST_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Playlist.class).withAlias("type"); 
 	
 	// Lists of strings
 	public static final Attribute<String> ITEM_GENRE = stringListAttribute("genre",  Item.class);
@@ -92,6 +97,7 @@ public class Attributes {
 								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
 								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
+								    ITEM_TYPE, BRAND_TYPE, PLAYLIST_TYPE,
 								    BRAND_THIS_OR_CHILD_LAST_UPDATED,
 								    VERSION_DURATION,
 								    VERSION_PROVIDER,
