@@ -76,6 +76,11 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 		return this;
 	}
 	
+	public Attribute<T> withAlias(String alias) {
+		this.alias = alias;
+		return this;
+	}
+	
 	public String alias() {
 		return alias;
 	}
