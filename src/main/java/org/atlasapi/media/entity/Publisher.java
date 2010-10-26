@@ -20,6 +20,7 @@ public enum Publisher {
     TVBLOB("TV Blob", "tvblob.com", Countries.IT),
     ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB),
     HBO("HBO", "hbo.com", Countries.US),
+    ITUNES("iTunes", "itunes.com", Countries.ALL),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     

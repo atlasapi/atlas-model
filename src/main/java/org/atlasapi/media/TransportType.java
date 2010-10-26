@@ -5,7 +5,8 @@ public enum TransportType {
 	DOWNLOAD,
 	STREAM,
 	BITTORRENT, 
-	EMBED;
+	EMBED,
+	APPLICATION;
 	
 	public String toString() {
 		return name().toLowerCase();

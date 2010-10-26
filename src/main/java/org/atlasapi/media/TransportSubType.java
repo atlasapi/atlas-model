@@ -3,7 +3,8 @@ package org.atlasapi.media;
 public enum TransportSubType {
 	
 	HTTP, 
-	RTSP;
+	RTSP,
+	ITUNES;
 	
 	public String toString() {
 		return name().toLowerCase();
