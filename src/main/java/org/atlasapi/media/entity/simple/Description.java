@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.common.collect.ImmutableSet.Builder;
 
 /**
  * Description supertype for simple model.
@@ -41,6 +41,8 @@ public class Description extends Identified {
 	private List<Item> clips = Lists.newArrayList();
 
 	private Set<String> sameAs;
+
+	private String contentType;
 	
 	public Description(String uri) {
 		super(uri);
@@ -160,5 +162,13 @@ public class Description extends Identified {
 	@XmlElement(name="uri")
 	public Set<String> getSameAs() {
 		return sameAs;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
+	public String getContentType() {
+		return contentType;
 	}
 }
