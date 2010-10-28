@@ -56,6 +56,7 @@ public class Attributes {
 	public static final Attribute<Enum<Publisher>> ITEM_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Item.class);
 	public static final Attribute<Enum<Publisher>> PLAYLIST_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Playlist.class);
 	public static final Attribute<Enum<Publisher>> BRAND_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Brand.class);
+	public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Description.class);
 	
 	public static final Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
 	
@@ -64,6 +65,7 @@ public class Attributes {
 	public static final Attribute<Enum<ContentType>> PLAYLIST_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Playlist.class).withAlias("type"); 
 	
 	// Lists of strings
+	public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre",  Description.class);
 	public static final Attribute<String> ITEM_GENRE = stringListAttribute("genre",  Item.class);
 	public static final Attribute<String> ITEM_TAG = stringListAttribute("tag", Item.class);
 	
