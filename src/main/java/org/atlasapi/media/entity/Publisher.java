@@ -21,6 +21,7 @@ public enum Publisher {
     ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB),
     HBO("HBO", "hbo.com", Countries.US),
     ITUNES("iTunes", "itunes.com", Countries.ALL),
+    MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     
