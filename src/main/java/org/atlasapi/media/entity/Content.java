@@ -34,7 +34,7 @@ public class Content extends Description {
 	
 	private String description;
 	
-	private ContentType contentType;
+	private ContentType contentType = ContentType.VIDEO;
 	
 	private Set<String> genres = Sets.newHashSet();
 	
