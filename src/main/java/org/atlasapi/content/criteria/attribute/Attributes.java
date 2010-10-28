@@ -39,6 +39,7 @@ import com.metabroadcast.common.media.MimeType;
 public class Attributes {
 
 	// Simple string-valued attributes
+    public static final Attribute<String> DESCRIPTION_TITLE = stringAttribute("title", Description.class);
 	public static final Attribute<String> ITEM_TITLE = stringAttribute("title", Item.class);
 	public static final Attribute<String> PLAYLIST_TITLE = stringAttribute("title", Playlist.class);
 	public static final Attribute<String> BRAND_TITLE = stringAttribute("title", Brand.class);
@@ -93,7 +94,7 @@ public class Attributes {
 	public static final Attribute<String> POLICY_AVAILABLE_COUNTRY = new StringValuedAttribute("availableCountries", Policy.class, true).allowShortMatches();
 	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
-		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, 
+		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, DESCRIPTION_TITLE,
 								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
 								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
