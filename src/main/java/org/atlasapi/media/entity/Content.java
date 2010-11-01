@@ -194,7 +194,7 @@ public class Content extends Description {
 	public void setClips(Iterable<Clip> clips) {
 		this.clips = ImmutableList.copyOf(clips);
 		for (Clip clip : clips) {
-			clip.setClipOf(this);
+			clip.setClipOf(this.getCanonicalUri());
 		}
 	}
 	
