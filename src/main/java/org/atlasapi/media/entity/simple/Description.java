@@ -22,10 +22,8 @@ import com.google.common.collect.Sets;
  */
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
-public class Description extends Identified {
+public class Description extends Aliased {
 
-	private Set<String> aliases = Sets.newHashSet();
-	
 	private String title;
 	private String description;
 	
@@ -106,16 +104,6 @@ public class Description extends Identified {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
-	}
-	
-	public void setAliases(Set<String> aliases) {
-		this.aliases = aliases;
-	}
-	
-	@XmlElementWrapper(name="aliases")
-	@XmlElement(name="alias")
-	public Set<String> getAliases() {
-		return aliases;
 	}
 	
 	@XmlElementWrapper(name="clips")
