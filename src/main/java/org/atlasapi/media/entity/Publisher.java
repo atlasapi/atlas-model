@@ -22,6 +22,7 @@ public enum Publisher {
     HBO("HBO", "hbo.com", Countries.US),
     ITUNES("iTunes", "itunes.com", Countries.ALL),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB),
+    PA("PA", "pressassiciation.com", Countries.GB),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     
