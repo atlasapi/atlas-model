@@ -40,6 +40,10 @@ public class ItemTestDataBuilder {
     private String thumbnail;
     private String title;
     
+    public static ItemTestDataBuilder item() {
+    	return new ItemTestDataBuilder();
+    }
+    
     public ItemTestDataBuilder() {
         resetAttributes();
     }
@@ -129,5 +133,10 @@ public class ItemTestDataBuilder {
         item.setTitle(title);
         
         return item;
+    }
+    
+    public ItemTestDataBuilder withBroadcasts(Broadcast... broadcasts) {
+    	this.broadcasts = ImmutableSortedSet.copyOf(broadcasts);
+    	return this;
     }
 }
