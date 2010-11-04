@@ -44,13 +44,19 @@ public class ItemTestDataBuilder {
     	return new ItemTestDataBuilder();
     }
     
-    public ItemTestDataBuilder() {
+    private ItemTestDataBuilder() {
         resetAttributes();
     }
     
-    public void resetAttributes() {
+    private void resetAttributes() {
+    	
         uri = "http://test.metabroadcast.com/item/default";
         curie = "mbtest:i-default";
+        
+        int id = uniqueId++;
+        uri = "http://test.metabroadcast.com/unique/items/" + id;
+        curie = "mbtest:i-" + id;
+        
         aliases = ImmutableSet.of();
         brand = defaultBrand();
         broadcasts = ImmutableSortedSet.of();
@@ -96,20 +102,7 @@ public class ItemTestDataBuilder {
     }
     
     public Item build() {
-        Item item = new Item();
-        item.setUri(uri);
-        item.setCurie(curie);
-        
-        return buildItemAttributes(item);
-    }
-    
-    public Item buildUnique() {
-        Item item = new Item();
-        int id = uniqueId++;
-        item.setUri("http://test.metabroadcast.com/unique/items/" + id);
-        item.setCurie("mbtest:i-" + id);
-        
-        return buildItemAttributes(item);
+        return buildItemAttributes(new Item());
     }
     
     private Item buildItemAttributes(Item item) {
@@ -131,7 +124,8 @@ public class ItemTestDataBuilder {
         item.setTags(tags);
         item.setThumbnail(thumbnail);
         item.setTitle(title);
-        
+        item.setUri(uri);
+        item.setCurie(curie);
         return item;
     }
     
