@@ -1,0 +1,133 @@
+package org.atlasapi.media.entity.testing;
+
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+
+import org.atlasapi.media.entity.simple.BrandSummary;
+import org.atlasapi.media.entity.simple.Broadcast;
+import org.atlasapi.media.entity.simple.Item;
+import org.atlasapi.media.entity.simple.Location;
+import org.atlasapi.media.entity.simple.PublisherDetails;
+import org.atlasapi.media.entity.simple.SeriesSummary;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
+
+public class ItemTestDataBuilder {
+    private static Integer uniqueId = 1;
+    
+    private String uri;
+    private String curie;
+    
+    private Set<String> aliases;
+    private BrandSummary brand;
+    private SortedSet<Broadcast> broadcasts;
+    private List<Item> clips;
+    private Set<String> containedIn;
+    private String contentType;
+    private String description;
+    private Integer episodeNumber;
+    private Set<String> genres;
+    private String image;
+    private Set<Location> locations;
+    private PublisherDetails publisher;
+    private Set<String> sameAs;
+    private Integer seriesNumber;
+    private SeriesSummary seriesSummary;
+    private Set<String> tags;
+    private String thumbnail;
+    private String title;
+    
+    public ItemTestDataBuilder() {
+        resetAttributes();
+    }
+    
+    public void resetAttributes() {
+        uri = "http://test.metabroadcast.com/item/default";
+        curie = "mbtest:i-default";
+        aliases = ImmutableSet.of();
+        brand = defaultBrand();
+        broadcasts = ImmutableSortedSet.of();
+        clips = ImmutableList.of();
+        containedIn = ImmutableSet.of();
+        contentType = null;
+        description = "Default test item created by ItemTestDataBuilder";
+        episodeNumber = 1;
+        genres = ImmutableSet.of("http://test.metabroadcast.com/genres/default");
+        image = "http://test.metabroadcast.com/images/default";
+        locations = ImmutableSet.of();
+        publisher = defaultPublisher();
+        sameAs = ImmutableSet.of();
+        seriesNumber = 1;
+        seriesSummary = defaultSeriesSummary();
+        tags = ImmutableSet.of();
+        thumbnail = "http://test.metabroadcast.com/thumbnails/default";
+        title = "Default Test Item";
+    }
+    
+    private SeriesSummary defaultSeriesSummary() {
+        SeriesSummary series = new SeriesSummary("http://test.metabroadcast.com/series/default");
+        series.setCurie("mbtest:s-default");
+        series.setDescription("Default test series created by ItemTestDataBuilder");
+        series.setSeriesNumber(1);
+        series.setTitle("Series 1");
+        return series;
+    }
+    
+    private BrandSummary defaultBrand() {
+        BrandSummary brand = new BrandSummary("http://test.metabroadcast.com/brand/default");
+        brand.setCurie("mbtest:b-default");
+        brand.setDescription("The default brand created by the ItemTestDataBuilder");
+        brand.setTitle("Metabroadcast Test Default Brand");
+        return brand;
+    }
+    
+    private PublisherDetails defaultPublisher() {
+        PublisherDetails publisher = new PublisherDetails("http://test.metabroadcast.com/publishers/default");
+        publisher.setName("Metabroadcast Test");
+        publisher.setCountry("UK");
+        return publisher;
+    }
+    
+    public Item build() {
+        Item item = new Item();
+        item.setUri(uri);
+        item.setCurie(curie);
+        
+        return buildItemAttributes(item);
+    }
+    
+    public Item buildUnique() {
+        Item item = new Item();
+        int id = uniqueId++;
+        item.setUri("http://test.metabroadcast.com/unique/items/" + id);
+        item.setCurie("mbtest:i-" + id);
+        
+        return buildItemAttributes(item);
+    }
+    
+    private Item buildItemAttributes(Item item) {
+        item.setAliases(aliases);
+        item.setBrandSummary(brand);
+        item.setBroadcasts(broadcasts);
+        item.setClips(clips);
+        item.setContainedIn(containedIn);
+        item.setContentType(contentType);
+        item.setDescription(description);
+        item.setEpisodeNumber(episodeNumber);
+        item.setGenres(genres);
+        item.setImage(image);
+        item.setLocations(locations);
+        item.setPublisher(publisher);
+        item.setSameAs(sameAs);
+        item.setSeriesNumber(seriesNumber);
+        item.setSeriesSummary(seriesSummary);
+        item.setTags(tags);
+        item.setThumbnail(thumbnail);
+        item.setTitle(title);
+        
+        return item;
+    }
+}
