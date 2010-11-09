@@ -133,4 +133,19 @@ public class ItemTestDataBuilder {
     	this.broadcasts = ImmutableSortedSet.copyOf(broadcasts);
     	return this;
     }
+    
+    public ItemTestDataBuilder withSameAs(String... sameAs) {
+        this.sameAs = ImmutableSortedSet.copyOf(sameAs);
+        return this;
+    }
+    
+    public ItemTestDataBuilder withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+    
+    public ItemTestDataBuilder withUri(String uri) {
+        this.uri = uri;
+        return this;
+    }
 }
