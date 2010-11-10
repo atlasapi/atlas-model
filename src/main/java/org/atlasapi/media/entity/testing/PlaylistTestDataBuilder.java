@@ -29,6 +29,7 @@ public class PlaylistTestDataBuilder {
     private Set<String> tags;
     private String thumbnail;
     private String title;
+    private String id;
     
     private List<Item> items;
     private List<Playlist> playlists;
@@ -46,7 +47,7 @@ public class PlaylistTestDataBuilder {
         uri = "http://test.metabroadcast.com/item/default";
         curie = "mbtest:i-default";
         
-        int id = uniqueId++;
+        id = String.valueOf(uniqueId++);
         uri = "http://test.metabroadcast.com/unique/items/" + id;
         curie = "mbtest:i-" + id;
         
@@ -78,6 +79,7 @@ public class PlaylistTestDataBuilder {
     }
     
     private Playlist buildPlaylistAttributes(Playlist playlist) {
+        playlist.setId(id);
         playlist.setAliases(aliases);
         playlist.setClips(clips);
         playlist.setContainedIn(containedIn);

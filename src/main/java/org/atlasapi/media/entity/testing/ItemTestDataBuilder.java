@@ -39,6 +39,7 @@ public class ItemTestDataBuilder {
     private Set<String> tags;
     private String thumbnail;
     private String title;
+    private String id;
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -53,7 +54,7 @@ public class ItemTestDataBuilder {
         uri = "http://test.metabroadcast.com/item/default";
         curie = "mbtest:i-default";
         
-        int id = uniqueId++;
+        id = String.valueOf(uniqueId++);
         uri = "http://test.metabroadcast.com/unique/items/" + id;
         curie = "mbtest:i-" + id;
         
@@ -106,6 +107,7 @@ public class ItemTestDataBuilder {
     }
     
     private Item buildItemAttributes(Item item) {
+        item.setId(id);
         item.setAliases(aliases);
         item.setBrandSummary(brand);
         item.setBroadcasts(broadcasts);
