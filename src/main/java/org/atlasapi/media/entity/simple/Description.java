@@ -24,8 +24,6 @@ import com.google.common.collect.Sets;
 @XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
 public class Description extends Aliased {
 
-	private String id;
-    
     private String title;
 	private String description;
 	
@@ -160,13 +158,5 @@ public class Description extends Aliased {
 	
 	public String getContentType() {
 		return contentType;
-	}
-	
-	public void setId(String id) {
-	    this.id = id;
-	}
-	
-	public String getId() {
-	    return id;
 	}
 }

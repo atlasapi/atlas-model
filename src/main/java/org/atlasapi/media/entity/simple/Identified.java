@@ -4,6 +4,7 @@ public class Identified {
 
 	protected String uri;
 	protected String curie;
+	protected String id;
 	
 	public Identified(String uri) {
 		this.uri = uri;
@@ -50,4 +51,12 @@ public class Identified {
 	public String getCurie() {
 		return curie;
 	}
+	
+	public String getId() {
+        return id;
+    }
+	
+	public void setId(String id) {
+        this.id = id;
+    }
 }
