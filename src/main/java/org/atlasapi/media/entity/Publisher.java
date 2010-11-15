@@ -1,6 +1,11 @@
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;
 
 public enum Publisher {
@@ -22,11 +27,12 @@ public enum Publisher {
     HBO("HBO", "hbo.com", Countries.US),
     ITUNES("iTunes", "itunes.com", Countries.ALL),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB),
-    PA("PA", "pressassiciation.com", Countries.GB),
+    PA("PA", "pressassociation.com", Countries.GB),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
+    private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     
-    private final String key;
+	private final String key;
     private final Country country;
     private final String title;
 
@@ -66,4 +72,17 @@ public enum Publisher {
 			return from.key();
 		}
 	};
+	
+	 public static Function<String, Publisher> FROM_KEY = new Function<String, Publisher>() {
+			@Override
+			public Publisher apply(String key) {
+				Maybe<Publisher> found = fromKey(key);
+				checkArgument(found.hasValue(), "Not a valid publisher key: " + key);
+				return found.requireValue();
+			}
+		};
+
+	public static ImmutableList<Publisher> fromCsv(String csv) {
+		return ImmutableList.copyOf(Iterables.transform(CSV_SPLITTER.split(csv), FROM_KEY));
+	}
 }
