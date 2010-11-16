@@ -145,4 +145,13 @@ public class Description {
 	public void setEquivalentTo(Set<String> uris) {
 		this.equivalentTo = uris;
 	}
+	
+	 /**
+     * This method attempts to preserve symmetry of
+     * equivalence (since content is persisted independently
+     * there is often a window of inconsistency)
+     */
+	public boolean isEquivalentTo(Description content) {
+		return equivalentTo.contains(content.getCanonicalUri()) || content.equivalentTo.contains(canonicalUri);
+	}
 }

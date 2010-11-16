@@ -102,7 +102,8 @@ public class ContentQuery {
 	}
 
 	public ContentQuery copyWithOperands(Iterable<AtomicQuery> newConjucts) {
-		ContentQuery conjunctiveQuery = new ContentQuery(newConjucts, selection);
+		ContentQuery conjunctiveQuery = new ContentQuery(newConjucts, selection, configuration);
+		conjunctiveQuery.setSoftConstraints(softConstraints);
 		return conjunctiveQuery;
 	}
 

@@ -7,7 +7,7 @@ public class Application {
 	private final String slug;
 	private String title;
 
-	private ApplicationConfiguration configuration = new ApplicationConfiguration();
+	private ApplicationConfiguration configuration = ApplicationConfiguration.DEFAULT_CONFIGURATION;
 	private ApplicationCredentials credentials = new ApplicationCredentials();
 
 	public Application(String slug) {
