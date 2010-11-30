@@ -150,4 +150,9 @@ public class ItemTestDataBuilder {
         this.uri = uri;
         return this;
     }
+    
+    public ItemTestDataBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
 }
