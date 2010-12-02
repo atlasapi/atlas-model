@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList.Builder;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.model.SelfModelling;
 import com.metabroadcast.common.model.SimpleModel;
@@ -91,6 +92,19 @@ public enum Channel implements SelfModelling {
             }
         }
         return Maybe.nothing();
+    }
+    
+    public static List<Channel> fromKeys(Iterable<String> keys) {
+        Builder<Channel> builder = ImmutableList.builder();
+        
+        for (String key: keys) {
+            Maybe<Channel> channel = fromKey(key);
+            if (channel.hasValue()) {
+                builder.add(channel.requireValue());
+            }
+        }
+        
+        return builder.build();
     }
 
     public static List<Map<String, ?>> mapList() {
