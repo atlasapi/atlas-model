@@ -97,7 +97,7 @@ public class Attributes {
 	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
 		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, DESCRIPTION_TITLE,
-								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
+								    ITEM_URI, BRAND_URI, PLAYLIST_URI, DESCRIPTION_URI, LOCATION_URI, ITEM_GENRE, 
 								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
 								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
 								    ITEM_TYPE, BRAND_TYPE, PLAYLIST_TYPE,
@@ -120,6 +120,10 @@ public class Attributes {
 		Attribute<?> attribute = lookup.get(name);
 		if (attribute == null && name.indexOf('.') < 0) {
 			attribute = lookup.get(queryContext.getSimpleName().toLowerCase() + "." + name);
+		}
+		if (attribute == null && name.startsWith("description.")) {
+		    name = name.replace("description.", "");
+		    attribute = lookup.get(queryContext.getSimpleName().toLowerCase() + "." + name);
 		}
 		return attribute;
 	}
