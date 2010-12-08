@@ -19,7 +19,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.Duration;
 
@@ -54,7 +54,7 @@ public class Version extends Description {
 		return provider;
 	}
 	
-    @RdfProperty(namespace = PLAY.NS, relation=true)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=true)
 	public String getRating() {
 		return rating;
 	}
@@ -63,7 +63,7 @@ public class Version extends Description {
 		this.rating = rating;
 	}
 
-    @RdfProperty(namespace = PLAY.NS, relation=false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=false)
 	public String getRatingText() {
 		return ratingText;
 	}
@@ -72,7 +72,7 @@ public class Version extends Description {
 		this.ratingText = ratingText;
 	}
 	
-	@RdfProperty(namespace = PLAY.NS, uri = "manifestedAs", relation = true)
+	@RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "manifestedAs", relation = true)
     public Set<Encoding> getManifestedAs() {
 		return manifestedAs;
 	}
@@ -85,7 +85,7 @@ public class Version extends Description {
 		manifestedAs.add(encoding);
 	}
 	
-	@RdfProperty(namespace = PLAY.NS, uri = "transmittedAt", relation = true)
+	@RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "transmittedAt", relation = true)
     public Set<Broadcast> getBroadcasts() {
 		return broadcasts;
 	}
@@ -98,7 +98,7 @@ public class Version extends Description {
 		broadcasts.add(broadcast);
 	}
 	
-    @RdfProperty(namespace = PLAY.NS, relation=false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=false)
     public Integer getPublishedDuration() { 
         return this.publishedDuration;
     }
@@ -107,7 +107,7 @@ public class Version extends Description {
 		this.publishedDuration = publishedDuration;
 	}
     
-    @RdfProperty(namespace = PLAY.NS, relation=false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=false)
     public Integer getDuration() { 
         return this.duration;
     }

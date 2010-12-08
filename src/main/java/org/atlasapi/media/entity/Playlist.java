@@ -20,7 +20,7 @@ import java.util.List;
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DCTERMS;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -31,7 +31,7 @@ import com.google.common.collect.Sets.SetView;
  * 
  * @author Robert Chatley (robert@metabroadcast.com)
  */
-@RdfClass(namespace = PLAY.NS, uri = "List")
+@RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "List")
 public class Playlist extends Content {
 	
 

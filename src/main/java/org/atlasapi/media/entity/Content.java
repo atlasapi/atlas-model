@@ -19,7 +19,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DC;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.atlasapi.media.vocabulary.SIOC;
 import org.joda.time.DateTime;
@@ -156,12 +156,12 @@ public class Content extends Description {
 		this.publisher = publisher;
 	}
 	    
-    @RdfProperty(namespace = PLAY.NS)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
     public String getImage() {
 		return image;
 	}
     
-    @RdfProperty(namespace = PLAY.NS)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
     public String getThumbnail() {
 		return thumbnail;
 	}

@@ -17,7 +17,7 @@ package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 
 /**
@@ -43,7 +43,7 @@ public class Episode extends Item {
 		return episodeNumber;
 	}
 	
-	@RdfProperty(namespace=PLAY.NS, uri="seasonPosition")
+	@RdfProperty(namespace=PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri="seasonPosition")
 	public Integer getSeriesNumber() {
 		return seriesNumber;
 	}

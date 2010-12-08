@@ -16,7 +16,7 @@ package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -68,17 +68,17 @@ public class Broadcast extends Description {
 		this.activelyPublished = activelyPublished;
 	}
     
-    @RdfProperty(namespace = PLAY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public DateTime getTransmissionTime() {
         return this.transmissionTime;
     }
 
-    @RdfProperty(namespace = PLAY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public DateTime getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
 
-    @RdfProperty(namespace = PLAY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public Integer getBroadcastDuration() {
         return this.broadcastDuration;
     }

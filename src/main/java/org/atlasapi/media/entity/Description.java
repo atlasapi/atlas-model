@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.OWL;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
@@ -81,7 +81,7 @@ public class Description {
 		return canonicalUri;
 	}
 	
-	@RdfProperty(relation = false, namespace=PLAY.NS, uri="curie")
+	@RdfProperty(relation = false, namespace=PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri="curie")
 	public String getCurie() {
 		return curie;
 	}

@@ -22,6 +22,7 @@ import org.atlasapi.content.criteria.attribute.QueryFactory;
 import org.atlasapi.content.criteria.operator.Operators;
 import org.joda.time.DateTime;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.query.Selection;
 
@@ -76,8 +77,12 @@ public class ContentQueryBuilder {
 		return this;
 	}
 	
-	public <T extends Enum<T>> ContentQueryBuilder equalTo(QueryFactory<Enum<T>> attribute, Enum<T>... value) {
-		queries.add(attribute.createQuery(Operators.EQUALS, Arrays.asList(value)));
+	public <T extends Enum<T>> ContentQueryBuilder equalTo(QueryFactory<Enum<T>> attribute, Enum<T> value) {
+		return isAnEnumIn(attribute, ImmutableList.of(value));
+	}
+	
+	public <T extends Enum<T>> ContentQueryBuilder isAnEnumIn(QueryFactory<Enum<T>> attribute, List<Enum<T>> value) {
+		queries.add(attribute.createQuery(Operators.EQUALS, ImmutableList.copyOf(value)));
 		return this;
 	}
 	

@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.PLAY;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.metabroadcast.common.media.MimeType;
 
@@ -28,7 +28,7 @@ import com.metabroadcast.common.media.MimeType;
  * @author Robert Chatley (robert@metabroadcast.com)
  * @author Lee Denison (lee@metabroadcast.com)
  */
-@RdfClass(namespace = PLAY.NS)
+@RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
 public class Encoding extends Description {
 
 	public static final String[] sizeUnits = {"bytes", "kB", "MB", "GB", "TB"};

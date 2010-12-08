@@ -17,8 +17,7 @@ package org.atlasapi.media.vocabulary;
  
 /**
  */
-@Deprecated
-public class PLAY {
+public class PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY {
 
     /** The namespace of the vocabalary as a string ({@value}).
      */
