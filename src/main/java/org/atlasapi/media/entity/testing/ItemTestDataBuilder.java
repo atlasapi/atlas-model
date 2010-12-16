@@ -146,6 +146,11 @@ public class ItemTestDataBuilder {
         return this;
     }
     
+    public ItemTestDataBuilder withClips(Item... clips) {
+        this.clips = ImmutableList.copyOf(clips);
+        return this;
+    }
+    
     public ItemTestDataBuilder withTitle(String title) {
         this.title = title;
         return this;
