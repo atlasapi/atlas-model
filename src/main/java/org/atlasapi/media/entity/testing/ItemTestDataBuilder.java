@@ -141,6 +141,11 @@ public class ItemTestDataBuilder {
         return this;
     }
     
+    public ItemTestDataBuilder withLocations(Location... locations) {
+        this.locations = ImmutableSet.copyOf(locations);
+        return this;
+    }
+    
     public ItemTestDataBuilder withTitle(String title) {
         this.title = title;
         return this;
