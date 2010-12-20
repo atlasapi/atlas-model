@@ -332,8 +332,10 @@ public class Location extends Version {
 	        Location target = (Location) obj;
 	        if (isEmbed()) {
 	            return transportType.equals(target.transportType) && embedCode.equals(target.embedCode);
-	        } else {
+	        } else if (! Strings.isNullOrEmpty(uri)){
 	            return transportType.equals(target.transportType) && uri.equals(target.uri);
+	        } else {
+	            return super.equals(obj);
 	        }
 	    }
 	    return false;
@@ -343,8 +345,10 @@ public class Location extends Version {
 	public int hashCode() {
 	    if (isEmbed()) {
             return embedCode.hashCode();
-        } else {
+        } else if (! Strings.isNullOrEmpty(uri)){
             return uri.hashCode();
+        } else {
+            return super.hashCode();
         }
 	}
 	
