@@ -21,7 +21,10 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
+
+import com.google.common.base.Strings;
 
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -321,5 +324,40 @@ public class Location extends Version {
 	
 	public Date getAvailabilityEnd() {
 		return availabilityEnd;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (obj instanceof Location) {
+	        Location target = (Location) obj;
+	        if (isEmbed()) {
+	            return transportType.equals(target.transportType) && embedCode.equals(target.embedCode);
+	        } else {
+	            return transportType.equals(target.transportType) && uri.equals(target.uri);
+	        }
+	    }
+	    return false;
+	}
+	
+	@Override
+	public int hashCode() {
+	    if (isEmbed()) {
+            return embedCode.hashCode();
+        } else {
+            return uri.hashCode();
+        }
+	}
+	
+	@Override
+	public String toString() {
+	    if (isEmbed()) {
+            return "embed location: "+embedCode;
+        } else {
+            return transportType+" location: "+uri;
+        }
+	}
+	
+	private boolean isEmbed() {
+	    return TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedCode);
 	}
 }
