@@ -75,7 +75,7 @@ public class Playlist extends Content {
         this.itemUris = itemUris;
     }
 
-    public void setItems(List<? extends Item> items) { 
+    public void setItems(Iterable<? extends Item> items) { 
     	SetView<Item> evictedItems = Sets.difference(Sets.newHashSet(this.items), Sets.newHashSet(items));
     	for (Item item : evictedItems) {
 			item.removeFrom(this);
