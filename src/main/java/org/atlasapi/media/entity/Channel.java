@@ -16,7 +16,7 @@ public enum Channel implements SelfModelling {
     HULU("Hulu", "http://www.hulu.com", "hulu"), 
     YOUTUBE("YouTube", "http://www.youtube.com", "youtube"), 
     SEESAW("Seesaw", "http://www.seesaw.com", "seesaw"), 
-    C4_4OD("4oD", "http://www.channel4.com", "4od"), 
+    C4_4OD("4oD", "http://www.channel4.com/programmes/4od", "4od"), 
     
     BBC_ONE("BBC One", "http://www.bbc.co.uk/services/bbcone/london", "bbcone"),
     BBC_ONE_LONDON("BBC One London", "http://www.bbc.co.uk/services/bbcone/london", "bbcone-london"), 
@@ -50,8 +50,42 @@ public enum Channel implements SelfModelling {
     BBC_THREE("BBC Three", "http://www.bbc.co.uk/services/bbcthree", "bbcthree"),
     BBC_FOUR("BBC Four", "http://www.bbc.co.uk/services/bbcfour", "bbcfour"),
     BBC_NEWS("BBC News", "http://www.bbc.co.uk/services/bbcnews", "bbcnews"), 
-    BBC_PARLIMENT("BBC Parliment", "http://www.bbc.co.uk/services/parliament", "bbcparliment");
-
+    BBC_PARLIMENT("BBC Parliment", "http://www.bbc.co.uk/services/parliament", "bbcparliment"),
+    BBC_HD("BBC HD", "http://www.bbc.co.uk/services/bbchd", "bbchd"),
+    
+    CHANNEL_FOUR("Channel 4", "http://www.channel4.com", "channel4"),
+    MORE_FOUR("More 4", "http://www.channel4.com/more4", "more4"),
+    FILM_4("Film 4", "http://film4.com", "film4"),
+    E_FOUR("E4", "http://www.e4.com", "e4"),
+    FOUR_MUSIC("4 Music", "http://www.4music.com", "4music"),
+    
+    FIVE("Five", "http://www.five.tv", "five"),
+    FIVER("Fiver", "http://www.five.tv/channels/fiver", "fiver"),
+    FIVE_USA("Five USA", "http://www.five.tv/channels/five-usa", "fiveusa"),
+    
+    ITV1_LONDON("ITV1 London", "http://www.itv.com/channels/itv1/london", "itv1london"),
+    ITV1_GRANADA("ITV1 Granada", "http://www.itv.com/channels/itv1/granada", "itv1granada"),
+    ITV1_TYNE_TEES("ITV1 Tyne Tees", "http://www.itv.com/channels/itv1/tynetees", "itv1tynetees"),
+    ITV1_BORDER_SOUTH("ITV1 Border South", "http://www.itv.com/channels/itv1/bordersouth", "itv1bordersouth"),
+    ITV1_MERIDIAN("ITV1 Meridian", "http://www.itv.com/channels/itv1/meridian", "itv1meridian"),
+    ITV1_ANGLIA("ITV1 Anglia", "http://www.itv.com/channels/itv1/anglia", "itv1anglia"),
+    ITV1_CHANNEL("ITV1 Channel", "http://www.itv.com/channels/itv1/channel", "itv1channel"),
+    ITV1_WALES("ITV1 Wales", "http://www.itv.com/channels/itv1/wales", "itv1wales"),
+    ITV1_WEST("ITV1 West", "http://www.itv.com/channels/itv1/west", "itv1west"),
+    ITV1_CARLTON_CENTRAL("ITV1 Carlton-Central", "http://www.itv.com/channels/itv1/carltoncentral", "itv1carltoncentral"),
+    ITV1_CARLTON_WESTCOUNTRY("ITV1 Carlton-Westcountry", "http://www.itv.com/channels/itv1/carltonwestcountry", "itv1carltonwestcountry"),
+    ITV1_BORDER_NORTH("ITV1 Border North", "http://www.itv.com/channels/itv1/bordernorth", "itv1bordernorth"),
+    ITV1_THAMES_VALLEY_NORTH("ITV1 Thames Valley North", "http://www.itv.com/channels/itv1/thamesvalleynorth", "itv1thamesvalleynorth"),
+    ITV1_THAMES_VALLEY_SOUTH("ITV1 Thames Valley South", "http://www.itv.com/channels/itv1/thamesvalleysouth", "itv1thamesvalleysouth"),
+    ITV1_HD("ITV1 HD", "http://www.itv.com/channels/itv1/hd", "itv1hd"),
+    
+    ITV2("ITV2", "http://www.itv.com/channels/itv2", "itv2"),
+    ITV2_HD("ITV2 HD", "http://www.itv.com/channels/itv2/hd", "itv2hd"),
+    ITV3("ITV3", "http://www.itv.com/channels/itv3", "itv3"),
+    ITV3_HD("ITV3 HD", "http://www.itv.com/channels/itv3/hd", "itv3hd"),
+    ITV4("ITV4", "http://www.itv.com/channels/itv4", "itv4"),
+    ITV4_HD("ITV4 HD", "http://www.itv.com/channels/itv4/hd", "itv4hd");
+    
     private final String uri;
     private final String title;
 
