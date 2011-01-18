@@ -43,6 +43,8 @@ public class Broadcast extends Description {
     private LocalDate scheduleDate;
     
     private Boolean activelyPublished;
+    
+    private String id;  
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
@@ -92,9 +94,18 @@ public class Broadcast extends Description {
     public LocalDate getScheduleDate() {
         return scheduleDate;
     }
+    
+    public String getId() {
+        return id;
+    }
 
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
+    }
+    
+    public Broadcast withId(String id) {
+        this.id = id;
+        return this;
     }
     
     public Boolean isActivelyPublished() {
