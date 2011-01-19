@@ -23,12 +23,19 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private String broadcastOn;
 
     private LocalDate scheduleDate;
-
+    
+    private String id;
+    
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
+        this(broadcastOn, transmissionTime, transmissionEndTime, null);
+    }
+
+    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, String id) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime.toDate();
 		this.transmissionEndTime = transmissionEndTime.toDate();
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
+		this.id = id;
 	}
     
     public Broadcast() {
@@ -54,6 +61,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public void setScheduleDate(LocalDate scheduleDate) {
 		this.scheduleDate = scheduleDate;
 	}
+	
+	public void setId(String id) {
+	    this.id = id;
+	}
 
 	public Date getTransmissionTime() {
 		return transmissionTime;
@@ -73,6 +84,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
 	public LocalDate getScheduleDate() {
 		return scheduleDate;
+	}
+	
+	public String getId() {
+	    return id;
 	}
 
 	@Override

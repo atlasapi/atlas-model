@@ -5,28 +5,7 @@ public abstract class Version {
 	
 	private Integer duration;
 	private Integer publishedDuration;
-	private String rating;
-	private String ratingText;
-	
-	public void setPublishedDuration(Integer publishedDuration) {
-		this.publishedDuration = publishedDuration;
-	}
-
-	public String getRating() {
-		return rating;
-	}
-
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-	
-	public String getRatingText() {
-		return ratingText;
-	}
-	
-	public void setRatingText(String ratingText) {
-		this.ratingText = ratingText;
-	}
+	private Restriction restriction;
 
 	public Integer getDuration() {
 		return duration;
@@ -38,6 +17,18 @@ public abstract class Version {
 
 	public Integer getPublishedDuration() {
 		return publishedDuration;
+	}
+	
+	public void setPublishedDuration(Integer publishedDuration) {
+		this.publishedDuration = publishedDuration;
+	}
+
+	public Restriction getRestriction() {
+		return restriction;
+	}
+	
+	public void setRestriction(Restriction restriction) {
+		this.restriction = restriction;
 	}
 
 }

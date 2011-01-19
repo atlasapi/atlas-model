@@ -40,11 +40,9 @@ public class Version extends Identified {
 	
 	private Integer duration;
 	
-	private String rating;
-	
-	private String ratingText;
-
 	private Publisher provider;
+	
+	private Restriction restriction;
 	
 	public void setProvider(Publisher provider) {
 		this.provider = provider;
@@ -52,24 +50,6 @@ public class Version extends Identified {
 	
 	public Publisher getProvider() {
 		return provider;
-	}
-	
-    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=true)
-	public String getRating() {
-		return rating;
-	}
-    
-    public void setRating(String rating) {
-		this.rating = rating;
-	}
-
-    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=false)
-	public String getRatingText() {
-		return ratingText;
-	}
-    
-    public void setRatingText(String ratingText) {
-		this.ratingText = ratingText;
 	}
 	
 	@RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "manifestedAs", relation = true)
@@ -114,5 +94,13 @@ public class Version extends Identified {
  
     public void setDuration(Duration duration) {
 		this.duration = (int) duration.getStandardSeconds();
+	}
+
+	public void setRestriction(Restriction restriction) {
+		this.restriction = restriction;
+	}
+
+	public Restriction getRestriction() {
+		return restriction;
 	}
 }

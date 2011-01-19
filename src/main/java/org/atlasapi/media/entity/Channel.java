@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.ImmutableList.Builder;
@@ -50,6 +51,7 @@ public enum Channel implements SelfModelling {
     BBC_THREE("BBC Three", "http://www.bbc.co.uk/services/bbcthree", "bbcthree"),
     BBC_FOUR("BBC Four", "http://www.bbc.co.uk/services/bbcfour", "bbcfour"),
     BBC_NEWS("BBC News", "http://www.bbc.co.uk/services/bbcnews", "bbcnews"), 
+    BBC_WORLD_NEWS("BBC World News", "http://www.bbc.co.uk/services/bbcworldnews", "bbcworldnews"), 
     BBC_PARLIMENT("BBC Parliment", "http://www.bbc.co.uk/services/parliament", "bbcparliment"),
     BBC_HD("BBC HD", "http://www.bbc.co.uk/services/bbchd", "bbchd"),
     
