@@ -29,7 +29,6 @@ public class Episode extends Item {
 
 	private Integer episodeNumber;
 	private Integer seriesNumber;
-	private Brand brand;
 	private Series series;
 
 	public Episode(String uri, String curie, Publisher publisher) {
@@ -38,6 +37,12 @@ public class Episode extends Item {
 	
 	public Episode() { }
 
+	@Override
+	public Brand getContainer() {
+		// episodes can only be contained in brands
+		return (Brand) super.getContainer();
+	}
+	
 	@RdfProperty(namespace=PO.NS, uri="position")
 	public Integer getEpisodeNumber() {
 		return episodeNumber;
@@ -56,18 +61,6 @@ public class Episode extends Item {
 		this.seriesNumber = position;
 	}
 
-	public void setBrand(Brand brand) {
-        this.brand = brand;
-        this.addContainedIn(brand);
-    }
-    
-    public Brand getBrand() {
-		if (brand == null) {
-			return null;
-		}
-        return this.brand.toSummary();
-    }
-    
     public Series getSeriesSummary() {
     	if (series == null) {
     		return null;

@@ -25,7 +25,7 @@ import com.google.common.collect.Sets;
 import com.metabroadcast.common.currency.Price;
 
 @RdfClass(namespace = PO.NS)
-public class Policy extends Description {
+public class Policy extends Identified {
 
 	private DateTime availabilityStart;
 

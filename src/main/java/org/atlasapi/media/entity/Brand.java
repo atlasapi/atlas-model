@@ -15,19 +15,19 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import java.util.List;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * 
  * @author Robert Chatley (robert@metabroadcast.com)
  * @author Chris Jackson
  */
-@RdfClass(namespace = PO.NS)
-public class Brand extends Playlist {
+@RdfClass(namespace = PO.NS, uri = "List")
+public class Brand extends Container<Episode> {
 
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -36,20 +36,20 @@ public class Brand extends Playlist {
     public Brand() { /* some legacy code still requires a default constructor */ }
 
 	@Override
-    @RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
-    public List<Item> getItems() {
-        return super.getItems();
-    }
+	@RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
+	public ImmutableList<Episode> getContents() {
+		return (ImmutableList<Episode>) super.getContents();
+	}
+	
+	@Override
+	public void setContents(Iterable<? extends Episode> contents) {
+		super.setContents(contents);
+		for (Episode episode : contents) {
+			episode.setContainer(this);
+		}
+	}
 
-    @Override
-    public void addItem(Item item) {
-        super.addItem(item);
-        
-        if (item instanceof Episode) {
-            ((Episode) item).setBrand(this);
-        }
-    }
-
+	@Override
     public Brand toSummary() {
         Brand summary = new Brand(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
         summary.setTitle(this.getTitle());

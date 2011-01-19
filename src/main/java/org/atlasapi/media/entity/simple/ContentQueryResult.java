@@ -3,7 +3,6 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -15,40 +14,24 @@ import com.google.common.collect.Lists;
 @XmlType(name="content", namespace=PLAY_SIMPLE_XML.NS)
 public class ContentQueryResult {
 
-	private List<Item> items = Lists.newArrayList();
-	private List<Playlist> playlists = Lists.newArrayList();
+	private List<Description> contents = Lists.newArrayList();
 
-	public void addItem(Item item) {
-		items.add(item);
-	}
-	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="items")
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="item")
-	public List<Item> getItems() {
-		return items;
-	}
-	
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void add(Description content) {
+		contents.add(content);
 	}
 
-	public void addPlaylist(Playlist playlist) {
-		playlists.add(playlist);
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="contents")
+	public List<Description> getContents() {
+		return contents;
 	}
 	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="playlists")
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="playlist")
-	public List<Playlist> getPlaylists() {
-		return playlists;
+	public void setContents(List<Description> items) {
+		this.contents = items;
 	}
-	
-	public void setPlaylists(List<Playlist> playlists) {
-		this.playlists = playlists;
-	}
-	
+
 	@Override
 	public int hashCode() {
-		return items.hashCode() ^ playlists.hashCode();
+		return contents.hashCode();
 	}
 	
 	@Override
@@ -58,7 +41,7 @@ public class ContentQueryResult {
 		}
 		if (this instanceof ContentQueryResult) {
 			ContentQueryResult other = (ContentQueryResult) obj;
-			return items.equals(other.items) && playlists.equals(other.playlists);
+			return contents.equals(other.contents);
 		}
 		return false;
 	}

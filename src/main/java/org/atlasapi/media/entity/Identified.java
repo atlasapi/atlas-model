@@ -11,6 +11,9 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 /**
@@ -19,7 +22,7 @@ import com.google.common.collect.Sets;
  * @author Robert Chatley
  * @author Lee Denison
  */
-public class Description {
+public class Identified {
 
 	private String canonicalUri;
 
@@ -31,11 +34,11 @@ public class Description {
 	
 	/**
 	 * Records the time that the 3rd party reported that the
-	 * {@link Description} was last updated
+	 * {@link Identified} was last updated
 	 */
 	private DateTime lastUpdated;
 	
-	public Description(String uri, String curie) {
+	public Identified(String uri, String curie) {
 		if (uri == null) {
 			throw new IllegalArgumentException("Null uri specified");
 		}
@@ -43,13 +46,13 @@ public class Description {
 		this.curie = curie;
 	}
 	
-	public Description() { 
+	public Identified() { 
 		/* allow anonymous entities */ 
 		this.canonicalUri = null;
 		this.curie = null;
 	}
 	
-	public Description(String uri) { 
+	public Identified(String uri) { 
 		this(uri, null);
 	}
 	
@@ -67,14 +70,16 @@ public class Description {
 		this.curie = curie;
 	}
 	
-	public void setAliases(Set<String> uris) {
-		this.aliases = uris;
+	public void setAliases(Iterable<String> uris) {
+		this.aliases = ImmutableSortedSet.copyOf(uris);
 	}
 	
 	public void addAlias(String uri) {
-		if (!aliases.contains(uri)) {
-			this.aliases.add(uri);
-		}
+		addAliases(ImmutableList.of(uri));
+	}
+	
+	public void addAliases(Iterable<String> uris) {
+		setAliases(Iterables.concat(this.aliases, ImmutableList.copyOf(uris)));
 	}
 	
 	public String getCanonicalUri() {
@@ -110,8 +115,8 @@ public class Description {
 		if (this == obj) {
 			return true;
 		}
-		if (canonicalUri != null && obj instanceof Description) {
-			return canonicalUri.equals(((Description) obj).canonicalUri);
+		if (canonicalUri != null && obj instanceof Identified) {
+			return canonicalUri.equals(((Identified) obj).canonicalUri);
 		}
 		return false;
 	}
@@ -134,10 +139,10 @@ public class Description {
 		return equivalentTo;
 	}
 	
-	public static final Function<Description, String> TO_URI = new Function<Description, String>() {
+	public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {
 
 		@Override
-		public String apply(Description description) {
+		public String apply(Identified description) {
 			return description.getCanonicalUri();
 		}
 	};
@@ -151,7 +156,7 @@ public class Description {
      * equivalence (since content is persisted independently
      * there is often a window of inconsistency)
      */
-	public boolean isEquivalentTo(Description content) {
+	public boolean isEquivalentTo(Identified content) {
 		return equivalentTo.contains(content.getCanonicalUri()) || content.equivalentTo.contains(canonicalUri);
 	}
 }

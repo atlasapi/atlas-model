@@ -26,7 +26,7 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
  * @author Lee Denison (lee@metabroadcast.com)
  */
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
-public class Location extends Description {
+public class Location extends Identified {
 
     private boolean available = true;
 

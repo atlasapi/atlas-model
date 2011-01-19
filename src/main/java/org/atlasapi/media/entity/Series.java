@@ -1,6 +1,6 @@
 package org.atlasapi.media.entity;
 
-public class Series extends Playlist {
+public class Series extends ContentGroup {
 	
 	private Integer seriesNumber;
 	private boolean isASummary = false;
@@ -37,13 +37,9 @@ public class Series extends Playlist {
 	}
 	
 	@Override
-    public void addItem(Item item) {
-        super.addItem(item);
-        
-        if (item instanceof Episode) {
-            ((Episode) item).setSeries(this);
-        }
-    }
+	protected void contentAdded(Content content) {
+        ((Episode) content).setSeries(this);
+	}
 
 	public Integer getSeriesNumber() {
 		return seriesNumber;

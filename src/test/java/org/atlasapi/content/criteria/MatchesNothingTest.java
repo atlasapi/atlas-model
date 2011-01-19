@@ -16,7 +16,7 @@ package org.atlasapi.content.criteria;
 
 import static org.atlasapi.content.criteria.ContentQueryBuilder.query;
 import static org.atlasapi.content.criteria.MatchesNothing.isEquivalentTo;
-import static org.atlasapi.content.criteria.attribute.Attributes.BRAND_TITLE;
+import static org.atlasapi.content.criteria.attribute.Attributes.DESCRIPTION_TITLE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -35,7 +35,7 @@ public class MatchesNothingTest {
 	public void test() throws Exception {
 		
 		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));
-		assertFalse(isEquivalentTo(query().equalTo(BRAND_TITLE, "test").build()));
-		assertTrue(isEquivalentTo(new ContentQuery(ImmutableList.of(MatchesNothing.get(), BRAND_TITLE.createQuery(Operators.EQUALS, Collections.singletonList("test"))))));
+		assertFalse(isEquivalentTo(query().equalTo(DESCRIPTION_TITLE, "test").build()));
+		assertTrue(isEquivalentTo(new ContentQuery(ImmutableList.of(MatchesNothing.get(), DESCRIPTION_TITLE.createQuery(Operators.EQUALS, Collections.singletonList("test"))))));
 	}
 }

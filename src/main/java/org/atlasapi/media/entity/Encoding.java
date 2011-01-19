@@ -29,7 +29,7 @@ import com.metabroadcast.common.media.MimeType;
  * @author Lee Denison (lee@metabroadcast.com)
  */
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
-public class Encoding extends Description {
+public class Encoding extends Identified {
 
 	public static final String[] sizeUnits = {"bytes", "kB", "MB", "GB", "TB"};
 

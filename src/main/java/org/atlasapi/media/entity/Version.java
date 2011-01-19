@@ -30,7 +30,7 @@ import com.google.common.collect.Sets;
  * @author Lee Denison (lee@metabroadcast.com)
  */
 @RdfClass(namespace = PO.NS)
-public class Version extends Description {
+public class Version extends Identified {
 
 	private Set<Encoding> manifestedAs = Sets.newHashSet();
 
