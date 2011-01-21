@@ -35,8 +35,9 @@ public class Content extends Description {
 	private String description;
 	
 	private MediaType mediaType = MediaType.VIDEO;
+	private Specialization sepecialization;
 	
-	private Set<String> genres = Sets.newHashSet();
+    private Set<String> genres = Sets.newHashSet();
 	
 	private Set<String> tags = Sets.newHashSet();
 	
@@ -211,4 +212,12 @@ public class Content extends Description {
 	public MediaType getMediaType() {
 		return this.mediaType;
 	}
+	
+	public Specialization getSepecialisation() {
+        return sepecialization;
+    }
+
+    public void setSepecialisation(Specialization sepecialization) {
+        this.sepecialization = sepecialization;
+    }
 }
