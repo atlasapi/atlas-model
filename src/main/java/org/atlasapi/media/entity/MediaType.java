@@ -1,6 +1,6 @@
 package org.atlasapi.media.entity;
 
-public enum ContentType {
+public enum MediaType {
 
 	AUDIO,
 	VIDEO;

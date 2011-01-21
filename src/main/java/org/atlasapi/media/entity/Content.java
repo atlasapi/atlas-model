@@ -34,7 +34,7 @@ public class Content extends Description {
 	
 	private String description;
 	
-	private ContentType contentType = ContentType.VIDEO;
+	private MediaType mediaType = MediaType.VIDEO;
 	
 	private Set<String> genres = Sets.newHashSet();
 	
@@ -204,11 +204,11 @@ public class Content extends Description {
 		setClips(all);
 	}
 	
-	public void setContentType(ContentType contentType) {
-		this.contentType = contentType;
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
 	}
 	
-	public ContentType getContentType() {
-		return this.contentType;
+	public MediaType getMediaType() {
+		return this.mediaType;
 	}
 }

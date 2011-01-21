@@ -21,7 +21,7 @@ import java.util.Map;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.ContentType;
+import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Description;
 import org.atlasapi.media.entity.Encoding;
 import org.atlasapi.media.entity.Episode;
@@ -60,9 +60,9 @@ public class Attributes {
 	
 	public static final Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
 	
-	public static final Attribute<Enum<ContentType>> ITEM_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Item.class).withAlias("type"); 
-	public static final Attribute<Enum<ContentType>> BRAND_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Brand.class).withAlias("type"); 
-	public static final Attribute<Enum<ContentType>> PLAYLIST_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Playlist.class).withAlias("type"); 
+	public static final Attribute<Enum<MediaType>> ITEM_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Item.class).withAlias("type"); 
+	public static final Attribute<Enum<MediaType>> BRAND_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Brand.class).withAlias("type"); 
+	public static final Attribute<Enum<MediaType>> PLAYLIST_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Playlist.class).withAlias("type"); 
 	
 	// Lists of strings
 	public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre",  Description.class);

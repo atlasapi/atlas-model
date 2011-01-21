@@ -20,7 +20,7 @@ public class PlaylistTestDataBuilder {
     private Set<String> aliases;
     private List<Item> clips;
     private Set<String> containedIn;
-    private String contentType;
+    private String mediaType;
     private String description;
     private Set<String> genres;
     private String image;
@@ -54,7 +54,7 @@ public class PlaylistTestDataBuilder {
         aliases = ImmutableSet.of();
         clips = ImmutableList.of();
         containedIn = ImmutableSet.of();
-        contentType = null;
+        mediaType = null;
         description = "Default test item created by PlaylistTestDataBuilder";
         genres = ImmutableSet.of("http://test.metabroadcast.com/genres/default");
         image = "http://test.metabroadcast.com/images/default";
@@ -83,7 +83,7 @@ public class PlaylistTestDataBuilder {
         playlist.setAliases(aliases);
         playlist.setClips(clips);
         playlist.setContainedIn(containedIn);
-        playlist.setContentType(contentType);
+        playlist.setMediaType(mediaType);
         playlist.setDescription(description);
         playlist.setGenres(genres);
         playlist.setImage(image);

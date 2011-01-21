@@ -26,7 +26,7 @@ public class ItemTestDataBuilder {
     private SortedSet<Broadcast> broadcasts;
     private List<Item> clips;
     private Set<String> containedIn;
-    private String contentType;
+    private String mediaType;
     private String description;
     private Integer episodeNumber;
     private Set<String> genres;
@@ -63,7 +63,7 @@ public class ItemTestDataBuilder {
         broadcasts = ImmutableSortedSet.of();
         clips = ImmutableList.of();
         containedIn = ImmutableSet.of();
-        contentType = null;
+        mediaType = null;
         description = "Default test item created by ItemTestDataBuilder";
         episodeNumber = 1;
         genres = ImmutableSet.of("http://test.metabroadcast.com/genres/default");
@@ -113,7 +113,7 @@ public class ItemTestDataBuilder {
         item.setBroadcasts(broadcasts);
         item.setClips(clips);
         item.setContainedIn(containedIn);
-        item.setContentType(contentType);
+        item.setMediaType(mediaType);
         item.setDescription(description);
         item.setEpisodeNumber(episodeNumber);
         item.setGenres(genres);
