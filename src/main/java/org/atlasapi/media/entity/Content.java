@@ -213,11 +213,11 @@ public class Content extends Description {
 		return this.mediaType;
 	}
 	
-	public Specialization getSepecialisation() {
+	public Specialization getSepecialization() {
         return sepecialization;
     }
 
-    public void setSepecialisation(Specialization sepecialization) {
+    public void setSepecialization(Specialization sepecialization) {
         this.sepecialization = sepecialization;
     }
 }
