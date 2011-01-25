@@ -21,6 +21,10 @@ import com.google.common.collect.Lists;
 
 public class Content extends Described {
 
+	private MediaType mediaType = MediaType.VIDEO;
+	
+	private Specialization specialization;
+	
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	
 	public Content(String uri, String curie, Publisher publisher) {
@@ -45,4 +49,20 @@ public class Content extends Described {
 		all.add(clip);
 		setClips(all);
 	}
+	
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
+	}
+	
+	public MediaType getMediaType() {
+		return this.mediaType;
+	}
+	
+	public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
 }

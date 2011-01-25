@@ -3,7 +3,6 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
-import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.simple.Description;
 import org.atlasapi.media.entity.simple.Item;
 import org.atlasapi.media.entity.simple.Playlist;
@@ -21,7 +20,8 @@ public class PlaylistTestDataBuilder {
     
     private Set<String> aliases;
     private List<Item> clips;
-    private String contentType;
+    
+    private String mediaType;
     private String description;
     private Set<String> genres;
     private String image;
@@ -53,7 +53,7 @@ public class PlaylistTestDataBuilder {
         
         aliases = ImmutableSet.of();
         clips = ImmutableList.of();
-        contentType = null;
+        mediaType = null;
         description = "Default test item created by PlaylistTestDataBuilder";
         genres = ImmutableSet.of("http://test.metabroadcast.com/genres/default");
         image = "http://test.metabroadcast.com/images/default";
@@ -80,7 +80,7 @@ public class PlaylistTestDataBuilder {
         playlist.setId(id);
         playlist.setAliases(aliases);
         playlist.setClips(clips);
-        playlist.setContentType(contentType);
+        playlist.setMediaType(mediaType);
         playlist.setDescription(description);
         playlist.setGenres(genres);
         playlist.setImage(image);

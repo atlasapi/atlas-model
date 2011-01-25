@@ -36,7 +36,8 @@ public class Description extends Aliased {
 
 	private Set<String> sameAs;
 
-	private String contentType;
+	private String mediaType;
+	private String specialization;
 	
 	public Description(String uri) {
 		super(uri);
@@ -134,11 +135,19 @@ public class Description extends Aliased {
 		return sameAs;
 	}
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
+	public void setMediaType(String mediaType) {
+		this.mediaType = mediaType;
 	}
 	
-	public String getContentType() {
-		return contentType;
+	public String getMediaType() {
+		return mediaType;
 	}
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
 }

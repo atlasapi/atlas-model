@@ -21,12 +21,12 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.ContentType;
 import org.atlasapi.media.entity.Encoding;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Location;
+import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
@@ -41,14 +41,14 @@ public class Attributes {
 	// Simple string-valued attributes
     public static final Attribute<String> DESCRIPTION_TITLE = stringAttribute("title", Content.class);
     public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
-    public static final Attribute<Enum<ContentType>> DESCRIPTION_TYPE = new EnumValuedAttribute<ContentType>("contentType", ContentType.class, Content.class).withAlias("type"); 
     public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
     public static final Attribute<String> DESCRIPTION_TAG = stringListAttribute("tag", Content.class);
+    public static final Attribute<Enum<MediaType>> DESCRIPTION_TYPE = new EnumValuedAttribute<MediaType>("mediaType", MediaType.class, Item.class);
 	
 	public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
 	
 	public static final Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
-	
+
 	// enums
 	public static final Attribute<Enum<TransportType>> LOCATION_TRANSPORT_TYPE = new EnumValuedAttribute<TransportType>("transportType", TransportType.class, Location.class).allowShortMatches();
 
@@ -114,12 +114,6 @@ public class Attributes {
 		}
 		table.put(key, attribute);
 		
-	}
-
-	private static StringValuedAttribute stringAttribute(String name, String javaAttribute, Class<? extends Identified> target) {
-		StringValuedAttribute attribute = new StringValuedAttribute(name, target);
-		attribute.withJavaAttribute(javaAttribute);
-		return attribute;
 	}
 	
 	private static StringValuedAttribute stringAttribute(String name, Class<? extends Identified> target) {
