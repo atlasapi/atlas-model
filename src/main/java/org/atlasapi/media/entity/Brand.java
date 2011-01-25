@@ -40,14 +40,6 @@ public class Brand extends Container<Episode> {
 	public ImmutableList<Episode> getContents() {
 		return (ImmutableList<Episode>) super.getContents();
 	}
-	
-	@Override
-	public void setContents(Iterable<? extends Episode> contents) {
-		super.setContents(contents);
-		for (Episode episode : contents) {
-			episode.setContainer(this);
-		}
-	}
 
 	@Override
     public Brand toSummary() {

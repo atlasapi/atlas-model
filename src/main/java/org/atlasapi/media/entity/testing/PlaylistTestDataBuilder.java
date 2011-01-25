@@ -3,6 +3,8 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
+import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.simple.Description;
 import org.atlasapi.media.entity.simple.Item;
 import org.atlasapi.media.entity.simple.Playlist;
 import org.atlasapi.media.entity.simple.PublisherDetails;
@@ -19,7 +21,6 @@ public class PlaylistTestDataBuilder {
     
     private Set<String> aliases;
     private List<Item> clips;
-    private Set<String> containedIn;
     private String contentType;
     private String description;
     private Set<String> genres;
@@ -31,8 +32,7 @@ public class PlaylistTestDataBuilder {
     private String title;
     private String id;
     
-    private List<Item> items;
-    private List<Playlist> playlists;
+    private List<Description> contents;
     
     public static PlaylistTestDataBuilder playlist() {
         return new PlaylistTestDataBuilder();
@@ -53,7 +53,6 @@ public class PlaylistTestDataBuilder {
         
         aliases = ImmutableSet.of();
         clips = ImmutableList.of();
-        containedIn = ImmutableSet.of();
         contentType = null;
         description = "Default test item created by PlaylistTestDataBuilder";
         genres = ImmutableSet.of("http://test.metabroadcast.com/genres/default");
@@ -63,8 +62,7 @@ public class PlaylistTestDataBuilder {
         tags = ImmutableSet.of();
         thumbnail = "http://test.metabroadcast.com/thumbnails/default";
         title = "Default Test Item";
-        items = ImmutableList.of();
-        playlists = ImmutableList.of();
+        contents = ImmutableList.of();
     }
     
     private PublisherDetails defaultPublisher() {
@@ -82,7 +80,6 @@ public class PlaylistTestDataBuilder {
         playlist.setId(id);
         playlist.setAliases(aliases);
         playlist.setClips(clips);
-        playlist.setContainedIn(containedIn);
         playlist.setContentType(contentType);
         playlist.setDescription(description);
         playlist.setGenres(genres);
@@ -94,8 +91,7 @@ public class PlaylistTestDataBuilder {
         playlist.setTitle(title);
         playlist.setUri(uri);
         playlist.setCurie(curie);
-        playlist.setItems(items);
-        playlist.setPlaylists(playlists);
+        playlist.setContent(contents);
         return playlist;
     }
     
@@ -114,8 +110,8 @@ public class PlaylistTestDataBuilder {
         return this;
     }
     
-    public PlaylistTestDataBuilder withItems(Item... items) {
-        this.items = ImmutableList.copyOf(items);
+    public PlaylistTestDataBuilder withContent(Description... content) {
+        this.contents = ImmutableList.copyOf(content);
         return this;
     }
 }

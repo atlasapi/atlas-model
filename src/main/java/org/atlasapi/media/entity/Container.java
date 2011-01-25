@@ -30,7 +30,10 @@ public class Container<T extends Item> extends Content implements MutableContent
     
     public void setContents(Iterable<? extends T> contents) {
 		this.contents = ImmutableList.copyOf(contents);
-	}
+		for (Item item : this.contents) {
+			item.setContainer(this);
+		}
+    }
     
     public final void setContents(T... contents) {
     	setContents(ImmutableList.copyOf(contents));
@@ -39,7 +42,7 @@ public class Container<T extends Item> extends Content implements MutableContent
     public final void addContents(T... contents) {
     	addContents(ImmutableList.copyOf(contents));
     }
-
+    
     @Override
 	public void addContents(Iterable<? extends T> contents) {
 		setContents(Iterables.concat(this.contents, contents));

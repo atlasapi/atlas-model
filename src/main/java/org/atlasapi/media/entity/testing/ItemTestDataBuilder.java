@@ -25,7 +25,6 @@ public class ItemTestDataBuilder {
     private BrandSummary brand;
     private SortedSet<Broadcast> broadcasts;
     private List<Item> clips;
-    private Set<String> containedIn;
     private String contentType;
     private String description;
     private Integer episodeNumber;
@@ -62,7 +61,6 @@ public class ItemTestDataBuilder {
         brand = defaultBrand();
         broadcasts = ImmutableSortedSet.of();
         clips = ImmutableList.of();
-        containedIn = ImmutableSet.of();
         contentType = null;
         description = "Default test item created by ItemTestDataBuilder";
         episodeNumber = 1;
@@ -112,7 +110,6 @@ public class ItemTestDataBuilder {
         item.setBrandSummary(brand);
         item.setBroadcasts(broadcasts);
         item.setClips(clips);
-        item.setContainedIn(containedIn);
         item.setContentType(contentType);
         item.setDescription(description);
         item.setEpisodeNumber(episodeNumber);

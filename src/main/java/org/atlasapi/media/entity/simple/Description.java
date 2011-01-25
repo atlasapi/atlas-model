@@ -5,22 +5,20 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet.Builder;
 
 /**
  * Description supertype for simple model.
  *  
  * @author Robert Chatley (robert@metabroadcast.com)
  */
-@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
 public class Description extends Aliased {
 
@@ -33,8 +31,6 @@ public class Description extends Aliased {
 	
 	private Set<String> genres = Sets.newHashSet();
 	private Set<String> tags = Sets.newHashSet();
-	
-	private Set<String> containedIn = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
 
@@ -66,20 +62,6 @@ public class Description extends Aliased {
 
 	public void setTags(Set<String> tags) {
 		this.tags = tags;
-	}
-	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="containedIn")
-	@XmlElement(name="uri")
-	public Set<String> getContainedIn() {
-		return containedIn;
-	}
-	
-	public void addContainedIn(String playlistUri) {
-		containedIn.add(playlistUri);
-	}
-	
-	public void setContainedIn(Set<String> containedIn) {
-		this.containedIn = containedIn;
 	}
 	
 	public PublisherDetails getPublisher() {

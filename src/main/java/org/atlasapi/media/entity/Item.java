@@ -58,6 +58,10 @@ public class Item extends Content {
 		}
         return this.container.toSummary();
     }
+    
+    public Container<?> getFullContainer() {
+		return container;
+    }
 	
 	@RdfProperty(namespace = DC.NS)
 	public boolean getIsLongForm() {

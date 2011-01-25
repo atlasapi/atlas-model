@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -20,7 +21,10 @@ public class ContentQueryResult {
 		contents.add(content);
 	}
 
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="contents")
+	@XmlElements({ 
+		@XmlElement(name = "item", type = Item.class, namespace=PLAY_SIMPLE_XML.NS),
+		@XmlElement(name = "playlist", type = Playlist.class, namespace=PLAY_SIMPLE_XML.NS) 
+	})
 	public List<Description> getContents() {
 		return contents;
 	}
