@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity;
 
+
 public class Series extends ContentGroup {
 	
 	private Integer seriesNumber;

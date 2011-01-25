@@ -31,8 +31,9 @@ public class Described extends Identified {
 	private String title;
 	
 	private String description;
-	
-	private ContentType contentType = ContentType.VIDEO;
+		
+	private MediaType mediaType = MediaType.VIDEO;
+	private Specialization specialization;
 	
 	private ImmutableSet<String> genres = ImmutableSet.of();
 	private Set<String> tags = Sets.newHashSet();
@@ -151,11 +152,19 @@ public class Described extends Identified {
         this.thisOrChildLastUpdated = thisOrChildLastUpdated;
     }
 	
-	public void setContentType(ContentType contentType) {
-		this.contentType = contentType;
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
 	}
 	
-	public ContentType getContentType() {
-		return this.contentType;
+	public MediaType getMediaType() {
+		return this.mediaType;
 	}
+	
+	public Specialization getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        this.specialization = specialization;
+    }
 }
