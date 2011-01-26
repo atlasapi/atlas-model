@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 public class Container<T extends Item> extends Content implements MutableContentList<T> {
 
-	private ImmutableList<T> contents = ImmutableList.of();
+	protected ImmutableList<T> contents = ImmutableList.of();
 
 	public Container(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -28,10 +28,10 @@ public class Container<T extends Item> extends Content implements MutableContent
     	return Lists.transform(contents, Identified.TO_URI);
     }
     
-    public void setContents(Iterable<? extends T> contents) {
+    public final void setContents(Iterable<? extends T> contents) {
 		this.contents = ImmutableList.copyOf(contents);
-		for (Item item : this.contents) {
-			item.setContainer(this);
+		for (T content : this.contents) {
+			contentAdded(content);
 		}
     }
     
@@ -39,14 +39,18 @@ public class Container<T extends Item> extends Content implements MutableContent
     	setContents(ImmutableList.copyOf(contents));
     }
 
-    public final void addContents(T... contents) {
+    protected void contentAdded(T content) {
+    	content.setContainer(this);
+	}
+
+	public final void addContents(T... contents) {
     	addContents(ImmutableList.copyOf(contents));
     }
     
     @Override
 	public void addContents(Iterable<? extends T> contents) {
 		setContents(Iterables.concat(this.contents, contents));
-	}
+    }
     
     public Container<T> toSummary() {
         Container<T> summary = new Container<T>(this.getCanonicalUri(), this.getCurie(), this.getPublisher());

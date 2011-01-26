@@ -30,6 +30,8 @@ public class Episode extends Item {
 	private Integer episodeNumber;
 	private Integer seriesNumber;
 	private Series series;
+	
+	private String seriesUri;
 
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -37,12 +39,6 @@ public class Episode extends Item {
 	
 	public Episode() { }
 
-	@Override
-	public Brand getContainer() {
-		// episodes can only be contained in brands
-		return (Brand) super.getContainer();
-	}
-	
 	@RdfProperty(namespace=PO.NS, uri="position")
 	public Integer getEpisodeNumber() {
 		return episodeNumber;
@@ -72,15 +68,21 @@ public class Episode extends Item {
     public String getType() {
         return this.getClass().getSimpleName();
     }
-    
-    public void setSeries(Series series) {
+
+	void setSeries(Series series) {
 		this.series = series;
+		this.seriesUri = series.getCanonicalUri();
 	}
 
-	public Series getHydratedSeries() {
-		if (series != null && !series.isASummary()) {
-			return series;
-		}
-		return null;
+	public Series getSeries() {
+		return series;
+	}
+
+	public void setSeriesUri(String seriesUri) {
+		this.seriesUri = seriesUri;
+	}
+	
+	public String getSeriesUri() {
+		return seriesUri;
 	}
 }

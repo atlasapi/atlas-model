@@ -15,11 +15,14 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Set;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 /**
  * 
@@ -48,4 +51,15 @@ public class Brand extends Container<Episode> {
         summary.setDescription(this.getDescription());
         return summary;
     }
+	
+	public Set<Series> getSeries() {
+		Set<Series> all = Sets.newHashSet();
+		for (Episode episode : contents) {
+			Series series = episode.getSeries();
+			if (series != null) {
+				all.add(series);
+			}
+		}
+		return all;
+	}
 }
