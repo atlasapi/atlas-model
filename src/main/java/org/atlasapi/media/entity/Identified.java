@@ -132,7 +132,6 @@ public class Identified {
 	public void addEquivalentTo(Content content) {
 		checkNotNull(content.getCanonicalUri());
 		this.equivalentTo.add(content.getCanonicalUri());
-		this.aliases.add(content.getCanonicalUri());
 	}
 	
 	public Set<String> getEquivalentTo() {
