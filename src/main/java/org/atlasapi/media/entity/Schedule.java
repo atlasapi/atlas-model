@@ -1,14 +1,17 @@
 package org.atlasapi.media.entity;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.joda.time.Interval;
+
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -19,15 +22,18 @@ public final class Schedule {
 	private final Map<String, List<Item>> channelMap;
 
 	public List<Item> getItemsFromOnlyChannel() {
+		if (channelMap.size() == 0) {
+			throw new IllegalArgumentException("No channels in schedule");
+		}
 		if (channelMap.size() != 1) {
-			throw new IllegalArgumentException("Mutiple channels found");
+			throw new IllegalArgumentException("Multiple channels found");
 		}
 		return Iterables.getOnlyElement(channelMap.values());
 	}
 
-	public static Schedule fromItems(Iterable<? extends Item> items) {
+	public static Schedule fromItems(String channel, Interval interval, Iterable<? extends Item> items) {
 		HashMultimap<String, ItemAndBroadcast> map = HashMultimap.create();
-		for (Item item : items) {
+		for (Item item : filter(items, channel, interval)) {
 			for (Version version : item.getVersions()) {
 				for (Broadcast broadcast : version.getBroadcasts()) {
 					map.put(broadcast.getBroadcastOn(), new ItemAndBroadcast(item, broadcast));
@@ -81,5 +87,39 @@ public final class Schedule {
 			return channelMap.equals(((Schedule) obj).channelMap);
 		}
 		return false;
+	}
+	
+	private static final Predicate<Version> HAS_BROADCASTS = new Predicate<Version>() {
+		@Override
+		public boolean apply(Version version) {
+			return !version.getBroadcasts().isEmpty();
+		}
+	};
+
+	private static List<Item> filter(Iterable<? extends Item> items, final String service, final Interval localInterval) {
+		
+		final Predicate<Broadcast> validBroadcast = new Predicate<Broadcast>() {
+			@Override
+			public boolean apply(Broadcast broadcast) {
+				return service.equals(broadcast.getBroadcastOn())
+					&& localInterval.contains(broadcast.getTransmissionTime());
+			}
+		};
+		
+		final Function<Version, Version> broadcastFilter = new Function<Version, Version>() {
+			@Override
+			public Version apply(Version version) {
+				version.setBroadcasts(ImmutableSet.copyOf(Iterables.filter(version.getBroadcasts(), validBroadcast)));
+				return version;
+			}
+		};
+		
+		return ImmutableList.copyOf(Iterables.transform(items, new Function<Item, Item>() {
+			@Override
+			public Item apply(Item item) {
+				item.setVersions(ImmutableSet.copyOf(Iterables.filter(Iterables.transform(item.getVersions(), broadcastFilter), HAS_BROADCASTS)));
+				return item;
+			}
+		}));
 	}
 }
