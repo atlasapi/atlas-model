@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -116,4 +118,18 @@ public class Item extends Description {
 	public void setSeriesSummary(SeriesSummary seriesSummary) {
 		this.seriesSummary = seriesSummary;
 	}
+	
+	public static final Predicate<Item> HAS_AVAILABLE_LOCATION = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return !input.getLocations().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getLocations(), Location.IS_AVAILABLE));
+        }
+    };
+    
+    public static final Predicate<Item> HAS_CURRENT_OR_UPCOMING_BROADCAST = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return !input.getBroadcasts().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getBroadcasts(), Broadcast.IS_CURRENT_OR_UPCOMING));
+        }
+    };
 }

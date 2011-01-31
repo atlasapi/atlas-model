@@ -7,8 +7,11 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
+
+import com.google.common.base.Predicate;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
@@ -25,7 +28,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private LocalDate scheduleDate;
     
     private String id;
-    
+
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
     }
@@ -102,4 +105,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		}
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
+	
+	public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
+        @Override
+        public boolean apply(Broadcast input) {
+            return new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
+        }
+    };
 }
