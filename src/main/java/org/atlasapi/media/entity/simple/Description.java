@@ -10,12 +10,13 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet.Builder;
 
 /**
  * Description supertype for simple model.
@@ -195,4 +196,19 @@ public class Description extends Aliased {
         destination.setMediaType(getMediaType());
         destination.setSpecialization(getSpecialization());
     }
+    
+    public static Description copyOf(Description desc) {
+        if (desc instanceof Item) {
+            return ((Item) desc).copy();
+        } else {
+            return ((Playlist) desc).copy();
+        }
+    }
+    
+    public final static Function<Description, Description> COPY_OF = new Function<Description, Description>() {
+        @Override
+        public Description apply(Description input) {
+            return Description.copyOf(input);
+        }
+    };
 }
