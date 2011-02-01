@@ -26,9 +26,11 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 import com.metabroadcast.common.time.DateTimeZones;
 
 @XmlRootElement(namespace = PLAY_SIMPLE_XML.NS)
@@ -57,7 +59,7 @@ public class Location extends Version {
     private Date availabilityStart;
     private Date availabilityEnd;
     private Date drmPlayableFrom;
-    private Set<String> availableCountries;
+    private Set<String> availableCountries = Sets.newHashSet();
     private String currency;
     private Integer price;
     private String revenueContract;
@@ -94,8 +96,8 @@ public class Location extends Version {
         return availableCountries;
     }
 
-    public void setAvailableCountries(Set<String> availableCountries) {
-        this.availableCountries = availableCountries;
+    public void setAvailableCountries(Iterable<String> availableCountries) {
+        this.availableCountries = Sets.newHashSet(availableCountries);
     }
 
     public String getCurrency() {
@@ -368,6 +370,46 @@ public class Location extends Version {
     private boolean isEmbed() {
         return TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedCode);
     }
+    
+    public Location copy() {
+        Location copy = new Location();
+        
+        copyTo(copy);
+        
+        copy.setAdvertisingDuration(getAdvertisingDuration());
+        copy.setAudioBitRate(getAudioBitRate());
+        copy.setAudioChannels(getAudioChannels());
+        copy.setAudioCoding(getAudioCoding());
+        copy.setBitRate(getBitRate());
+        copy.setContainsAdvertising(getContainsAdvertising());
+        copy.setDataContainerFormat(getDataContainerFormat());
+        copy.setDataSize(getDataSize());
+        copy.setDistributor(getDistributor());
+        copy.setHasDOG(getHasDOG());
+        copy.setSource(getSource());
+        copy.setVideoAspectRatio(getVideoAspectRatio());
+        copy.setVideoBitRate(getVideoBitRate());
+        copy.setVideoCoding(getVideoCoding());
+        copy.setVideoFrameRate(getVideoFrameRate());
+        copy.setVideoHorizontalSize(getVideoHorizontalSize());
+        copy.setVideoProgressiveScan(getVideoProgressiveScan());
+        copy.setVideoVerticalSize(getVideoVerticalSize());
+        copy.setAvailabilityStart((Date) getAvailabilityStart().clone());
+        copy.setAvailabilityEnd((Date) getAvailabilityEnd().clone());
+        copy.setDrmPlayableFrom((Date) getDrmPlayableFrom().clone());
+        copy.setAvailableCountries(getAvailableCountries());
+        copy.setCurrency(getCurrency());
+        copy.setPrice(getPrice());
+        copy.setRevenueContract(getRevenueContract());
+        copy.setRestrictedBy(getRestrictedBy());
+        copy.setTransportIsLive(getTransportIsLive());
+        copy.setTransportSubType(getTransportSubType());
+        copy.setUri(getUri());
+        copy.setEmbedCode(getEmbedCode());
+        copy.setAvailable(isAvailable());
+        
+        return copy;
+    }
 
     public static final Predicate<Location> IS_AVAILABLE = new Predicate<Location>() {
         @Override
@@ -388,6 +430,13 @@ public class Location extends Version {
         @Override
         public int compare(Location left, Location right) {
             return left.getAvailabilityStart().compareTo(right.getAvailabilityStart());
+        }
+    };
+    
+    public static final Function<Location, Location> TO_COPY = new Function<Location, Location>() {
+        @Override
+        public Location apply(Location input) {
+            return input.copy();
         }
     };
     

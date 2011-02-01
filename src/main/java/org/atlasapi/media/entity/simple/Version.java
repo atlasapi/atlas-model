@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import com.google.common.base.Preconditions;
+
 
 public abstract class Version {
 	
@@ -30,5 +32,14 @@ public abstract class Version {
 	public void setRestriction(Restriction restriction) {
 		this.restriction = restriction;
 	}
-
+	
+	protected void copyTo(Version destination) {
+	    Preconditions.checkNotNull(destination);
+	    
+	    destination.setDuration(getDuration());
+	    destination.setPublishedDuration(getPublishedDuration());
+	    if (getRestriction() != null) {
+	        destination.setRestriction(getRestriction().copy());
+	    }
+	}
 }

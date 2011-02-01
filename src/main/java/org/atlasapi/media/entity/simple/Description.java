@@ -10,8 +10,10 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -55,8 +57,8 @@ public class Description extends Aliased {
 		return genres;
 	}
 
-	public void setGenres(Set<String> genres) {
-		this.genres = genres;
+	public void setGenres(Iterable<String> genres) {
+		this.genres = Sets.newHashSet(genres);
 	}
 
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="tags")
@@ -65,8 +67,8 @@ public class Description extends Aliased {
 		return tags;
 	}
 
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
+	public void setTags(Iterable<String> tags) {
+		this.tags = Sets.newHashSet(tags);
 	}
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="containedIn")
@@ -79,8 +81,8 @@ public class Description extends Aliased {
 		containedIn.add(playlistUri);
 	}
 	
-	public void setContainedIn(Set<String> containedIn) {
-		this.containedIn = containedIn;
+	public void setContainedIn(Iterable<String> containedIn) {
+		this.containedIn = Sets.newHashSet(containedIn);
 	}
 	
 	public PublisherDetails getPublisher() {
@@ -139,12 +141,12 @@ public class Description extends Aliased {
 		return ids.build();
 	}
 		
-	public void setClips(List<Item> clips) {
-		this.clips = clips;
+	public void setClips(Iterable<Item> clips) {
+		this.clips = Lists.newArrayList(clips);
 	}
 
-	public void setSameAs(Set<String> sameAs) {
-		this.sameAs = sameAs;
+	public void setSameAs(Iterable<String> sameAs) {
+		this.sameAs = Sets.newHashSet(sameAs);
 	}
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="sameAs")
@@ -167,5 +169,30 @@ public class Description extends Aliased {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+    
+    protected void copyTo(Description destination) {
+        Preconditions.checkNotNull(destination);
+        
+        super.copyTo(destination);
+        
+        destination.setUri(getUri());
+        destination.setTitle(getTitle());
+        
+        if (getPublisher() != null) {
+            destination.setPublisher(getPublisher().copy());
+        }
+        
+        destination.setImage(getImage());
+        destination.setThumbnail(getThumbnail());
+        destination.setGenres(getGenres());
+        destination.setTags(getTags());
+        
+        destination.setContainedIn(getContainedIn());
+        destination.setClips(Iterables.transform(getClips(), Item.TO_COPY));
+        
+        destination.setSameAs(getSameAs());
+        destination.setMediaType(getMediaType());
+        destination.setSpecialization(getSpecialization());
     }
 }

@@ -11,6 +11,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -92,6 +93,21 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public String getId() {
 	    return id;
 	}
+	
+	public Broadcast copy() {
+        Broadcast copy = new Broadcast();
+        
+        copyTo(copy);
+        
+        copy.setTransmissionTime((Date) getTransmissionTime().clone());
+        copy.setTransmissionEndTime((Date) getTransmissionEndTime().clone());
+        copy.setBroadcastDuration(getBroadcastDuration());
+        copy.setBroadcastOn(getBroadcastOn());
+        copy.setScheduleDate(getScheduleDate());
+        copy.setId(getId());
+        
+        return copy;
+    }
 
 	@Override
 	public int compareTo(Broadcast other) {
@@ -110,6 +126,13 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         @Override
         public boolean apply(Broadcast input) {
             return new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
+        }
+    };
+    
+    public static final Function<Broadcast, Broadcast> TO_COPY = new Function<Broadcast, Broadcast>() {
+        @Override
+        public Broadcast apply(Broadcast input) {
+            return input.copy();
         }
     };
 }

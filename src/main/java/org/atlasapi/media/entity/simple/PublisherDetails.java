@@ -47,4 +47,14 @@ public class PublisherDetails {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
+	public PublisherDetails copy() {
+        PublisherDetails copy = new PublisherDetails();
+        
+        copy.setKey(getKey());
+        copy.setName(getName());
+        copy.setCountry(getCountry());
+        
+        return copy;
+    }
 }

@@ -31,4 +31,14 @@ public class Restriction {
 	public String getMessage() {
 		return message;
 	}
+	
+	public Restriction copy() {
+	    Restriction copy = new Restriction();
+	    
+	    copy.setRestricted(isResctriction());
+	    copy.setMinimumAge(getMinimumAge());
+	    copy.setMessage(getMessage());
+	    
+	    return copy;
+	}
 }

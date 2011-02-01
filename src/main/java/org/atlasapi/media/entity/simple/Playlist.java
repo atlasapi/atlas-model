@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -28,8 +30,8 @@ public class Playlist extends Description {
 		return items;
 	}
 	
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setItems(Iterable<Item> items) {
+		this.items = Lists.newArrayList(items);
 	}
 
 	public void addPlaylist(Playlist playlist) {
@@ -42,7 +44,25 @@ public class Playlist extends Description {
 		return playlists;
 	}
 	
-	public void setPlaylists(List<Playlist> playlists) {
-		this.playlists = playlists;
+	public void setPlaylists(Iterable<Playlist> playlists) {
+		this.playlists = Lists.newArrayList(playlists);
 	}
+	
+	public Playlist copy() {
+	    Playlist copy = new Playlist();
+	    
+	    copyTo(copy);
+	    
+	    copy.setItems(Iterables.transform(getItems(), Item.TO_COPY));
+	    copy.setPlaylists(Iterables.transform(getPlaylists(), Playlist.TO_COPY));
+	    
+	    return copy;
+	}
+	
+	public static final Function<Playlist, Playlist> TO_COPY = new Function<Playlist, Playlist>() {
+        @Override
+        public Playlist apply(Playlist input) {
+            return input.copy();
+        }
+    };
 }
