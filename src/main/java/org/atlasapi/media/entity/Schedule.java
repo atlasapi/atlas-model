@@ -1,9 +1,8 @@
 package org.atlasapi.media.entity;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import org.joda.time.Interval;
 
@@ -31,43 +30,43 @@ public final class Schedule {
 		return Iterables.getOnlyElement(channelMap.values());
 	}
 
-	public static Schedule fromItems(String channel, Interval interval, Iterable<? extends Item> items) {
-		HashMultimap<String, ItemAndBroadcast> map = HashMultimap.create();
-		for (Item item : filter(items, channel, interval)) {
+	public static Schedule fromItems(Iterable<String> channels, Interval interval, Iterable<? extends Item> items) {
+		HashMultimap<String, ScheduleEntry> map = HashMultimap.create();
+		for (Item item : filter(items, ImmutableSet.copyOf(channels), interval)) {
 			for (Version version : item.getVersions()) {
 				for (Broadcast broadcast : version.getBroadcasts()) {
-					map.put(broadcast.getBroadcastOn(), new ItemAndBroadcast(item, broadcast));
+					map.put(broadcast.getBroadcastOn(), new ScheduleEntry(item, broadcast));
 				}
 			}
 		}
 		Map<String, List<Item>> mmap = Maps.newHashMap();
-		for (Entry<String, Collection<ItemAndBroadcast>> entry : map.asMap().entrySet()) {
-			ImmutableList<ItemAndBroadcast> sorted = Ordering.natural().immutableSortedCopy(entry.getValue());
-			mmap.put(entry.getKey(), Lists.transform(sorted, TO_ITEM));
+		for (String channel : channels) {
+			ImmutableList<ScheduleEntry> sorted = Ordering.natural().immutableSortedCopy(map.get(channel));
+			mmap.put(channel, Lists.transform(sorted, TO_ITEM));
 		}
 		return new Schedule(mmap);
 	}
 	
-	private static final class ItemAndBroadcast implements Comparable<ItemAndBroadcast> {
+	private static final class ScheduleEntry implements Comparable<ScheduleEntry> {
 		
 		private final Item item;
 		private final Broadcast broadcast;
 		
-		public ItemAndBroadcast(Item item, Broadcast broadcast) {
+		public ScheduleEntry(Item item, Broadcast broadcast) {
 			this.item = item;
 			this.broadcast = broadcast;
 		}
 
 		@Override
-		public int compareTo(ItemAndBroadcast other) {
+		public int compareTo(ScheduleEntry other) {
 			return broadcast.getTransmissionTime().compareTo(other.broadcast.getTransmissionTime());
 		}
 		
 	}
 	
-	private static Function<ItemAndBroadcast, Item> TO_ITEM =  new Function<ItemAndBroadcast, Item>() {
+	private static Function<ScheduleEntry, Item> TO_ITEM =  new Function<ScheduleEntry, Item>() {
 		@Override
-		public Item apply(ItemAndBroadcast input) {
+		public Item apply(ScheduleEntry input) {
 			return input.item;
 		}
 	};
@@ -96,12 +95,12 @@ public final class Schedule {
 		}
 	};
 
-	private static List<Item> filter(Iterable<? extends Item> items, final String service, final Interval localInterval) {
+	private static List<Item> filter(Iterable<? extends Item> items, final Set<String> services, final Interval localInterval) {
 		
 		final Predicate<Broadcast> validBroadcast = new Predicate<Broadcast>() {
 			@Override
 			public boolean apply(Broadcast broadcast) {
-				return service.equals(broadcast.getBroadcastOn())
+				return services.contains(broadcast.getBroadcastOn())
 					&& localInterval.contains(broadcast.getTransmissionTime());
 			}
 		};

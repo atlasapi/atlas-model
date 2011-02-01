@@ -149,6 +149,7 @@ public class ContentQuery {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Deprecated
 	public Map<Attribute<?>,List<?>> operandMap() {
 		final Map<Attribute<?>,List<?>> operandMap = Maps.newHashMap();
 		for (AtomicQuery atom : operands()) {
