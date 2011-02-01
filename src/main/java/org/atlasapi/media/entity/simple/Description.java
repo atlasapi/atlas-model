@@ -41,7 +41,7 @@ public class Description extends Aliased {
 	
 	private List<Item> clips = Lists.newArrayList();
 
-	private Set<String> sameAs;
+	private Set<String> sameAs = Sets.newHashSet();
 
 	private String mediaType;
 	private String specialization;
