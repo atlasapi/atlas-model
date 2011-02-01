@@ -408,6 +408,7 @@ public class Location extends Version {
         copy.setPrice(getPrice());
         copy.setRevenueContract(getRevenueContract());
         copy.setRestrictedBy(getRestrictedBy());
+        copy.setTransportType(getTransportType());
         copy.setTransportIsLive(getTransportIsLive());
         copy.setTransportSubType(getTransportSubType());
         copy.setUri(getUri());
