@@ -99,8 +99,12 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         
         copyTo(copy);
         
-        copy.setTransmissionTime((Date) getTransmissionTime().clone());
-        copy.setTransmissionEndTime((Date) getTransmissionEndTime().clone());
+        if (getTransmissionTime() != null) {
+            copy.setTransmissionTime((Date) getTransmissionTime().clone());
+        }
+        if (getTransmissionEndTime() != null) {
+            copy.setTransmissionEndTime((Date) getTransmissionEndTime().clone());
+        }
         copy.setBroadcastDuration(getBroadcastDuration());
         copy.setBroadcastOn(getBroadcastOn());
         copy.setScheduleDate(getScheduleDate());

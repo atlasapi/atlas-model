@@ -394,9 +394,15 @@ public class Location extends Version {
         copy.setVideoHorizontalSize(getVideoHorizontalSize());
         copy.setVideoProgressiveScan(getVideoProgressiveScan());
         copy.setVideoVerticalSize(getVideoVerticalSize());
-        copy.setAvailabilityStart((Date) getAvailabilityStart().clone());
-        copy.setAvailabilityEnd((Date) getAvailabilityEnd().clone());
-        copy.setDrmPlayableFrom((Date) getDrmPlayableFrom().clone());
+        if (getAvailabilityStart() != null) {
+            copy.setAvailabilityStart((Date) getAvailabilityStart().clone());
+        }
+        if (getAvailabilityEnd() != null) {
+            copy.setAvailabilityEnd((Date) getAvailabilityEnd().clone());
+        }
+        if (getDrmPlayableFrom() != null) {
+            copy.setDrmPlayableFrom((Date) getDrmPlayableFrom().clone());
+        }
         copy.setAvailableCountries(getAvailableCountries());
         copy.setCurrency(getCurrency());
         copy.setPrice(getPrice());
