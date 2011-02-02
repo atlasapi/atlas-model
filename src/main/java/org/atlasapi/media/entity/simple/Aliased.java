@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
 public abstract class Aliased extends Identified {
@@ -26,5 +27,13 @@ public abstract class Aliased extends Identified {
 	public Set<String> getAliases() {
 		return aliases;
 	}
+	
+	protected void copyTo(Aliased destination) {
+        Preconditions.checkNotNull(destination);
+        
+        super.copyTo(destination);
+        
+        destination.setAliases(getAliases());
+    }
 	
 }

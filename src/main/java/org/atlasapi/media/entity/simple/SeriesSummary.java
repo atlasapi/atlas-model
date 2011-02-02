@@ -42,4 +42,16 @@ public class SeriesSummary extends Identified {
 	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
 	}
+	
+	public SeriesSummary copy() {
+        SeriesSummary copy = new SeriesSummary();
+        
+        copyTo(copy);
+        
+        copy.setTitle(getTitle());
+        copy.setDescription(getDescription());
+        copy.setSeriesNumber(getSeriesNumber());
+        
+        return copy;
+    }
 }
