@@ -4,10 +4,12 @@ import com.metabroadcast.common.http.HttpStatusCode;
 
 public class SearchResultsError {
 
-	private final HttpStatusCode code;
+	private HttpStatusCode code;
 	
-	private final String message;
+	private String message;
 
+	public SearchResultsError() {}
+	
 	public SearchResultsError(HttpStatusCode code, String message) {
 		this.code = code;
 		this.message = message;
