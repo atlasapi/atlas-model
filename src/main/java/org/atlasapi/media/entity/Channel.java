@@ -470,6 +470,7 @@ public enum Channel implements SelfModelling {
         SimpleModel model = new SimpleModel();
         model.put("name", title);
         model.put("uri", uri);
+        model.put("key", key);
         
         return model;
     }
