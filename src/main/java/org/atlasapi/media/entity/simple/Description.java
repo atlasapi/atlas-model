@@ -179,6 +179,7 @@ public class Description extends Aliased {
         
         destination.setUri(getUri());
         destination.setTitle(getTitle());
+        destination.setDescription(getDescription());
         
         if (getPublisher() != null) {
             destination.setPublisher(getPublisher().copy());
