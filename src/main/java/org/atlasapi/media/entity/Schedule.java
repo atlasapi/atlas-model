@@ -33,7 +33,7 @@ public final class Schedule {
 	public static Schedule fromItems(Iterable<String> channels, Interval interval, Iterable<? extends Item> items) {
 		HashMultimap<String, ScheduleEntry> map = HashMultimap.create();
 		for (Item item : filter(items, ImmutableSet.copyOf(channels), interval)) {
-			for (Version version : item.getVersions()) {
+			for (Version version : item.nativeVersions()) {
 				for (Broadcast broadcast : version.getBroadcasts()) {
 					map.put(broadcast.getBroadcastOn(), new ScheduleEntry(item, broadcast));
 				}
