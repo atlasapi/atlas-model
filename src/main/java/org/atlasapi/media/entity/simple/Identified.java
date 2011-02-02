@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import com.google.common.base.Preconditions;
+
 public class Identified {
 
 	protected String uri;
@@ -58,5 +60,13 @@ public class Identified {
 	
 	public void setId(String id) {
         this.id = id;
+    }
+	
+	protected void copyTo(Identified destination) {
+        Preconditions.checkNotNull(destination);
+        
+        destination.setUri(getUri());
+        destination.setCurie(getCurie());
+        destination.setId(getId());
     }
 }

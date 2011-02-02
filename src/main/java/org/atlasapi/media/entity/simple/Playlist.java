@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -31,7 +33,19 @@ public class Playlist extends Description {
 		return content;
 	}
 	
-	public void setContent(List<Description> items) {
-		this.content = items;
+	public void setContent(Iterable<Description> items) {
+		this.content = Lists.newArrayList(items);
+	}
+	
+	public Playlist copy() {
+	    Playlist copy = new Playlist();
+	    copyTo(copy);
+	    copy.setContent(Iterables.transform(getContent(), new Function<Description, Description>() {
+			@Override
+			public Description apply(Description input) {
+				return input.copy();
+			}
+	    }));
+	    return copy;
 	}
 }

@@ -9,7 +9,10 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.collect.ImmutableSet.Builder;
@@ -20,7 +23,7 @@ import com.google.common.collect.ImmutableSet.Builder;
  * @author Robert Chatley (robert@metabroadcast.com)
  */
 @XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
-public class Description extends Aliased {
+public abstract class Description extends Aliased {
 
     private String title;
 	private String description;
@@ -34,7 +37,7 @@ public class Description extends Aliased {
 	
 	private List<Item> clips = Lists.newArrayList();
 
-	private Set<String> sameAs;
+	private Set<String> sameAs = Sets.newHashSet();
 
 	private String mediaType;
 	private String specialization;
@@ -51,8 +54,8 @@ public class Description extends Aliased {
 		return genres;
 	}
 
-	public void setGenres(Set<String> genres) {
-		this.genres = genres;
+	public void setGenres(Iterable<String> genres) {
+		this.genres = Sets.newHashSet(genres);
 	}
 
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="tags")
@@ -61,8 +64,8 @@ public class Description extends Aliased {
 		return tags;
 	}
 
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
+	public void setTags(Iterable<String> tags) {
+		this.tags = Sets.newHashSet(tags);
 	}
 	
 	public PublisherDetails getPublisher() {
@@ -121,12 +124,12 @@ public class Description extends Aliased {
 		return ids.build();
 	}
 		
-	public void setClips(List<Item> clips) {
-		this.clips = clips;
+	public void setClips(Iterable<Item> clips) {
+		this.clips = Lists.newArrayList(clips);
 	}
 
-	public void setSameAs(Set<String> sameAs) {
-		this.sameAs = sameAs;
+	public void setSameAs(Iterable<String> sameAs) {
+		this.sameAs = Sets.newHashSet(sameAs);
 	}
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="sameAs")
@@ -150,4 +153,45 @@ public class Description extends Aliased {
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+    
+    protected void copyTo(Description destination) {
+        Preconditions.checkNotNull(destination);
+        
+        super.copyTo(destination);
+        
+        destination.setUri(getUri());
+        destination.setTitle(getTitle());
+        
+        if (getPublisher() != null) {
+            destination.setPublisher(getPublisher().copy());
+        }
+        
+        destination.setImage(getImage());
+        destination.setThumbnail(getThumbnail());
+        destination.setGenres(getGenres());
+        destination.setTags(getTags());
+        
+        destination.setClips(Iterables.transform(getClips(), Item.TO_COPY));
+        
+        destination.setSameAs(getSameAs());
+        destination.setMediaType(getMediaType());
+        destination.setSpecialization(getSpecialization());
+    }
+    
+    public static Description copyOf(Description desc) {
+        if (desc instanceof Item) {
+            return ((Item) desc).copy();
+        } else {
+            return ((Playlist) desc).copy();
+        }
+    }
+    
+    public abstract Description copy();
+    
+    public final static Function<Description, Description> COPY_OF = new Function<Description, Description>() {
+        @Override
+        public Description apply(Description input) {
+            return Description.copyOf(input);
+        }
+    };
 }

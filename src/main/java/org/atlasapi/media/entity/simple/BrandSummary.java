@@ -33,4 +33,16 @@ public class BrandSummary extends Identified {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public BrandSummary copy() {
+
+	    BrandSummary copy = new BrandSummary();
+        
+        copyTo(copy);
+        
+        copy.setTitle(getTitle());
+        copy.setDescription(getDescription());
+        
+        return copy;
+    }
 }

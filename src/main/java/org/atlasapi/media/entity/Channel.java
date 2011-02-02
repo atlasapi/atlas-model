@@ -436,6 +436,16 @@ public enum Channel implements SelfModelling {
         
         return builder.build();
     }
+    
+    public static List<String> toKeys(Iterable<Channel> channels) {
+        Builder<String> keys = ImmutableList.builder();
+        
+        for (Channel channel : channels) {
+            keys.add(channel.key());
+        }
+        
+        return keys.build();
+    }
 
     public static List<Map<String, ?>> mapList() {
         List<Map<String, ?>> channelList = Lists.newArrayList();

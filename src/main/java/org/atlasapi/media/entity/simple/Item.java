@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 @XmlType(name="item", namespace=PLAY_SIMPLE_XML.NS)
@@ -41,8 +44,8 @@ public class Item extends Description {
 		return locations;
 	}
 	
-	public void setLocations(Set<Location> locations) {
-		this.locations = locations;
+	public void setLocations(Iterable<Location> locations) {
+		this.locations = Sets.newHashSet(locations);
 	}
 	
 	public Integer getEpisodeNumber() {
@@ -102,8 +105,8 @@ public class Item extends Description {
 		return broadcasts;
 	}
 
-	public void setBroadcasts(SortedSet<Broadcast> broadcasts) {
-		this.broadcasts = broadcasts;
+	public void setBroadcasts(Iterable<Broadcast> broadcasts) {
+		this.broadcasts = Sets.newTreeSet(broadcasts);
 	}
 
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="seriesSummary")
@@ -114,4 +117,45 @@ public class Item extends Description {
 	public void setSeriesSummary(SeriesSummary seriesSummary) {
 		this.seriesSummary = seriesSummary;
 	}
+	
+	public Item copy() {
+        Item copy = new Item();
+        
+        copyTo(copy);
+        
+        copy.setEpisodeNumber(getEpisodeNumber());
+        copy.setSeriesNumber(getSeriesNumber());
+        copy.setLocations(Iterables.transform(getLocations(), Location.TO_COPY));
+        copy.setBroadcasts(Iterables.transform(getBroadcasts(), Broadcast.TO_COPY));
+        
+        if (getBrandSummary() != null) {
+            copy.setBrandSummary(getBrandSummary().copy());
+        }
+        if (getSeriesSummary() != null) {
+            copy.setSeriesSummary(getSeriesSummary().copy());
+        }
+        
+        return copy;
+    }
+	
+	public static final Predicate<Item> HAS_AVAILABLE_LOCATION = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return !input.getLocations().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getLocations(), Location.IS_AVAILABLE));
+        }
+    };
+    
+    public static final Predicate<Item> HAS_CURRENT_OR_UPCOMING_BROADCAST = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return !input.getBroadcasts().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getBroadcasts(), Broadcast.IS_CURRENT_OR_UPCOMING));
+        }
+    };
+    
+    public static final Function<Item, Item> TO_COPY = new Function<Item, Item>() {
+        @Override
+        public Item apply(Item input) {
+            return input.copy();
+        }
+    };
 }
