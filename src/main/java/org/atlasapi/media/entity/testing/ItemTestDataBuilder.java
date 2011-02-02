@@ -165,4 +165,19 @@ public class ItemTestDataBuilder {
         this.id = id;
         return this;
     }
+    
+    public ItemTestDataBuilder withTags(String... tags) {
+        this.tags = ImmutableSet.copyOf(tags);
+        return this;
+    }
+    
+    public ItemTestDataBuilder withContainedIn(String... containedIn) {
+        this.containedIn = ImmutableSet.copyOf(containedIn);
+        return this;
+    }
+    
+    public ItemTestDataBuilder withAliases(String... aliases) {
+        this.aliases = ImmutableSet.copyOf(aliases);
+        return this;
+    }
 }
