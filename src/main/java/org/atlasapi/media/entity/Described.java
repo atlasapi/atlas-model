@@ -103,7 +103,6 @@ public class Described extends Identified {
 		this.description = description;
 	}
 
-	@RdfProperty(relation = true, namespace=SIOC.NS, uri="topic")
 	public Set<String> getTags() {
 		return tags;
 	}
