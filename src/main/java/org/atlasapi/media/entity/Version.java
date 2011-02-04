@@ -15,6 +15,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
@@ -62,6 +64,7 @@ public class Version extends Identified {
 	}
 	
 	public void addManifestedAs(Encoding encoding) {
+	    checkNotNull(encoding);
 		manifestedAs.add(encoding);
 	}
 	
@@ -75,6 +78,7 @@ public class Version extends Identified {
 	}
 	
 	public void addBroadcast(Broadcast broadcast) {
+		checkNotNull(broadcast);
 		broadcasts.add(broadcast);
 	}
 	
