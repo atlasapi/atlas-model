@@ -170,11 +170,6 @@ public class ItemTestDataBuilder {
         return this;
     }
     
-    public ItemTestDataBuilder withContainedIn(String... containedIn) {
-        this.containedIn = ImmutableSet.copyOf(containedIn);
-        return this;
-    }
-    
     public ItemTestDataBuilder withAliases(String... aliases) {
         this.aliases = ImmutableSet.copyOf(aliases);
         return this;

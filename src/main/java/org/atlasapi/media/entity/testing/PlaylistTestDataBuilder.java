@@ -114,9 +114,4 @@ public class PlaylistTestDataBuilder {
         this.contents = ImmutableList.copyOf(content);
         return this;
     }
-    
-    public PlaylistTestDataBuilder withPlaylists(Playlist... playlists) {
-        this.playlists = ImmutableList.copyOf(playlists);
-        return this;
-    }
 }
