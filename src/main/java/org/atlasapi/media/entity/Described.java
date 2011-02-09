@@ -20,11 +20,12 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
-import org.atlasapi.media.vocabulary.SIOC;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.text.MoreStrings;
 
 public class Described extends Identified {
 
@@ -108,7 +109,11 @@ public class Described extends Identified {
 	}
 	
 	public void setTags(Set<String> tags) {
-		this.tags = tags;
+	    if (tags != null && ! tags.isEmpty()) {
+	        this.tags = Sets.newHashSet(Iterables.transform(tags, MoreStrings.TO_LOWER));
+	    } else {
+	        this.tags = tags;
+	    }
 	}
 	
 	@RdfProperty(namespace = DC.NS)
