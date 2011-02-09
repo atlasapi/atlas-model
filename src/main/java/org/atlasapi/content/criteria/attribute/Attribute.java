@@ -14,21 +14,21 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.attribute;
 
-import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Identified;
 
 public abstract class Attribute<T> implements QueryFactory<T> {
 
 	protected final String name;
 	private String javaAttributeName;
-	private final Class<? extends Description> target;
+	private final Class<? extends Identified> target;
 	private final boolean isCollectionOfValues;
 	private String alias;
 	
-	Attribute(String name, Class<? extends Description> target) {
+	Attribute(String name, Class<? extends Identified> target) {
 		this(name, target, false);
 	}
 	
-	Attribute(String name, Class<? extends Description> target, boolean isCollectionOfValues) {
+	Attribute(String name, Class<? extends Identified> target, boolean isCollectionOfValues) {
 		this.name = name;
 		this.target = target;
 		this.isCollectionOfValues = isCollectionOfValues;
@@ -50,7 +50,7 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 	}
 	
 	public String externalName() {
-		return target.getSimpleName().toLowerCase() + "." + name;
+		return name;
 	}
 	
 	public String javaAttributeName() {
@@ -58,7 +58,7 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 	}
 
 
-	public Class<? extends Description> target() {
+	public Class<? extends Identified> target() {
 		return target;
 	}
 

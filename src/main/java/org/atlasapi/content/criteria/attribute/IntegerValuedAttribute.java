@@ -18,15 +18,15 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.IntegerAttributeQuery;
 import org.atlasapi.content.criteria.operator.IntegerOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Identified;
 
 public class IntegerValuedAttribute extends Attribute<Integer> {
 
-	IntegerValuedAttribute(String name, Class<? extends Description> target) {
+	IntegerValuedAttribute(String name, Class<? extends Identified> target) {
 		super(name, target);
 	}
 	
-	IntegerValuedAttribute(String name, Class<? extends Description> target, boolean isCollection) {
+	IntegerValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 

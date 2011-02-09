@@ -18,15 +18,15 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.StringAttributeQuery;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.content.criteria.operator.StringOperator;
-import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Identified;
 
 public class StringValuedAttribute extends Attribute<String> {
 	
-	StringValuedAttribute(String name, Class<? extends Description> target) {
+	StringValuedAttribute(String name, Class<? extends Identified> target) {
 		super(name, target);
 	}
 	
-	StringValuedAttribute(String name, Class<? extends Description> target, boolean isCollection) {
+	StringValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 	

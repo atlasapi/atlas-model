@@ -18,17 +18,17 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.EnumAttributeQuery;
 import org.atlasapi.content.criteria.operator.EnumOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Identified;
 
 public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
 	
 	private final Class<T> type;
 
-	EnumValuedAttribute(String name, Class<T> type, Class<? extends Description> target) {
+	EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target) {
 		this(name, type, target, false);
 	}
 	
-	EnumValuedAttribute(String name, Class<T> type, Class<? extends Description> target, boolean isCollection) {
+	EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 		this.type = type;
 	}

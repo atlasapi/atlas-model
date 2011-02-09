@@ -15,16 +15,15 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 import java.util.List;
-import java.util.Map;
 
 import org.atlasapi.application.ApplicationConfiguration;
-import org.atlasapi.content.criteria.attribute.Attribute;
+import org.atlasapi.content.criteria.attribute.Attributes;
+import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.metabroadcast.common.query.Selection;
 
 public class ContentQuery {
@@ -148,47 +147,24 @@ public class ContentQuery {
 		return softConstraints;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Map<Attribute<?>,List<?>> operandMap() {
-		final Map<Attribute<?>,List<?>> operandMap = Maps.newHashMap();
-		for (AtomicQuery atom : operands()) {
-			atom.accept(new QueryVisitor(){
+	public ImmutableSet<Publisher> includedPublishers() {
+		
+		List<List<Publisher>> publishers = accept(new QueryVisitorAdapter<List<Publisher>>() {
 
-				@Override
-				public Object visit(IntegerAttributeQuery query) {
-					operandMap.put(query.getAttribute(), query.getValue());
-					return null;
+			@Override
+			@SuppressWarnings("unchecked")
+			public List<Publisher> visit(EnumAttributeQuery<?> query) {
+				if (!Attributes.DESCRIPTION_PUBLISHER.equals(query.getAttribute())) {
+					return defaultValue(query);
 				}
+				return (List<Publisher>) query.getValue();
+			}
 
-				@Override
-				public Object visit(StringAttributeQuery query) {
-					operandMap.put(query.getAttribute(), query.getValue());
-					return null;
-				}
+			protected List<Publisher> defaultValue(AtomicQuery query) {
+				return ImmutableList.of();
+			}
+		});
 
-				@Override
-				public Object visit(BooleanAttributeQuery query) {
-					operandMap.put(query.getAttribute(), query.getValue());
-					return null;
-				}
-
-				@Override
-				public Object visit(EnumAttributeQuery query) {
-					operandMap.put(query.getAttribute(), query.getValue());
-					return null;
-				}
-
-				@Override
-				public Object visit(DateTimeAttributeQuery dateTimeAttributeQuery) {
-					operandMap.put(dateTimeAttributeQuery.getAttribute(), dateTimeAttributeQuery.getValue());
-					return null;
-				}
-
-				@Override
-				public Object visit(MatchesNothing noOp) {
-					return null;
-				}});
-		}
-		return operandMap;
+		return ImmutableSet.copyOf(Iterables.concat(publishers));
 	}
 }

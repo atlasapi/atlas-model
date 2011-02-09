@@ -29,8 +29,9 @@ public class Episode extends Item {
 
 	private Integer episodeNumber;
 	private Integer seriesNumber;
-	private Brand brand;
 	private Series series;
+	
+	private String seriesUri;
 
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -56,18 +57,6 @@ public class Episode extends Item {
 		this.seriesNumber = position;
 	}
 
-	public void setBrand(Brand brand) {
-        this.brand = brand;
-        this.addContainedIn(brand);
-    }
-    
-    public Brand getBrand() {
-		if (brand == null) {
-			return null;
-		}
-        return this.brand.toSummary();
-    }
-    
     public Series getSeriesSummary() {
     	if (series == null) {
     		return null;
@@ -79,15 +68,21 @@ public class Episode extends Item {
     public String getType() {
         return this.getClass().getSimpleName();
     }
-    
-    public void setSeries(Series series) {
+
+	void setSeries(Series series) {
 		this.series = series;
+		this.seriesUri = series.getCanonicalUri();
 	}
 
-	public Series getHydratedSeries() {
-		if (series != null && !series.isASummary()) {
-			return series;
-		}
-		return null;
+	public Series getSeries() {
+		return series;
+	}
+
+	public void setSeriesUri(String seriesUri) {
+		this.seriesUri = seriesUri;
+	}
+	
+	public String getSeriesUri() {
+		return seriesUri;
 	}
 }

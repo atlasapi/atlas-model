@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
@@ -23,9 +22,8 @@ import com.google.common.collect.ImmutableSet.Builder;
  *  
  * @author Robert Chatley (robert@metabroadcast.com)
  */
-@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="description", namespace=PLAY_SIMPLE_XML.NS)
-public class Description extends Aliased {
+public abstract class Description extends Aliased {
 
     private String title;
 	private String description;
@@ -36,8 +34,6 @@ public class Description extends Aliased {
 	
 	private Set<String> genres = Sets.newHashSet();
 	private Set<String> tags = Sets.newHashSet();
-	
-	private Set<String> containedIn = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
 
@@ -70,20 +66,6 @@ public class Description extends Aliased {
 
 	public void setTags(Iterable<String> tags) {
 		this.tags = Sets.newHashSet(tags);
-	}
-	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="containedIn")
-	@XmlElement(name="uri")
-	public Set<String> getContainedIn() {
-		return containedIn;
-	}
-	
-	public void addContainedIn(String playlistUri) {
-		containedIn.add(playlistUri);
-	}
-	
-	public void setContainedIn(Iterable<String> containedIn) {
-		this.containedIn = Sets.newHashSet(containedIn);
 	}
 	
 	public PublisherDetails getPublisher() {
@@ -190,7 +172,6 @@ public class Description extends Aliased {
         destination.setGenres(getGenres());
         destination.setTags(getTags());
         
-        destination.setContainedIn(getContainedIn());
         destination.setClips(Iterables.transform(getClips(), Item.TO_COPY));
         
         destination.setSameAs(getSameAs());
@@ -205,6 +186,8 @@ public class Description extends Aliased {
             return ((Playlist) desc).copy();
         }
     }
+    
+    public abstract Description copy();
     
     public final static Function<Description, Description> COPY_OF = new Function<Description, Description>() {
         @Override

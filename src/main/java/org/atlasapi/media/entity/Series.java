@@ -1,34 +1,25 @@
 package org.atlasapi.media.entity;
 
-public class Series extends Playlist {
+
+public class Series extends Container<Episode> {
 	
 	private Integer seriesNumber;
-	private boolean isASummary = false;
 	
 	public Series() {}
 	
-	public Series(String uri, String curie) {
-		super(uri, curie);
+	public Series(String uri, String curie, Publisher publisher) {
+		 super(uri, curie, publisher);
 	}
 	
 	public Series toSummary() {
-	   Series summary = new Series(this.getCanonicalUri(), this.getCurie());
+	   Series summary = new Series(this.getCanonicalUri(), this.getCurie(), this.publisher);
        summary.setTitle(this.getTitle());
        summary.setDescription(this.getDescription());
        summary.withSeriesNumber(seriesNumber);
        summary.setLastUpdated(this.getLastUpdated());
        summary.setThumbnail(this.getThumbnail());
        summary.setImage(this.getImage());
-       summary.markAsSummary();
        return summary;
-	}
-
-	public void markAsSummary() {
-		this.isASummary = true;
-	}
-	
-	public boolean isASummary() {
-		return isASummary;
 	}
 
 	public Series withSeriesNumber(Integer seriesNumber) {
@@ -37,13 +28,12 @@ public class Series extends Playlist {
 	}
 	
 	@Override
-    public void addItem(Item item) {
-        super.addItem(item);
-        
-        if (item instanceof Episode) {
-            ((Episode) item).setSeries(this);
-        }
-    }
+	protected void contentAdded(Episode content) {
+		if (content.getContainer() == null) {
+			super.contentAdded(content);
+		}
+        content.setSeries(this);
+	}
 
 	public Integer getSeriesNumber() {
 		return seriesNumber;

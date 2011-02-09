@@ -14,7 +14,7 @@ permissions and limitations under the License. */
 
 package org.atlasapi.persistence.content;
 
-import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.Identified;
 
 /**
  * Simple interface to the store of available content.
@@ -24,6 +24,6 @@ import org.atlasapi.media.entity.Content;
  */
 public interface ContentResolver {
 
-	Content findByUri(String uri);
+	Identified findByCanonicalUri(String uri);
 
 }

@@ -5,7 +5,6 @@ import java.util.SortedSet;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.TransportType;
@@ -16,7 +15,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
-@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="item", namespace=PLAY_SIMPLE_XML.NS)
 public class Item extends Description {
 

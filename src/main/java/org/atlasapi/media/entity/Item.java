@@ -36,6 +36,8 @@ import com.google.common.collect.Sets;
 @RdfClass(namespace = PO.NS)
 public class Item extends Content {
 	
+	private Container<?> container;
+	
 	private Set<Version> versions = Sets.newHashSet();
 	
 	private boolean isLongForm = false;
@@ -45,6 +47,21 @@ public class Item extends Content {
 	}
 	
 	public Item() { }
+	
+	public void setContainer(Container<?> container) {
+        this.container = container;
+    }
+    
+    public Container<?> getContainer() {
+		if (container == null) {
+			return null;
+		}
+        return this.container.toSummary();
+    }
+    
+    public Container<?> getFullContainer() {
+		return container;
+    }
 	
 	@RdfProperty(namespace = DC.NS)
 	public boolean getIsLongForm() {
@@ -90,12 +107,6 @@ public class Item extends Content {
 	public boolean removeVersion(Version version) {
 		return versions.remove(version);
 	}
-	
-	public void setContainedIn(Set<Playlist> containedIn) {
-		for (Playlist parent : containedIn) {
-			parent.addItem(this);
-		}
-	}
 
 	public boolean isAvailable() {
 		for (Location location : locations()) {
@@ -126,18 +137,5 @@ public class Item extends Content {
 		}
 		
 		return locations;
-	}
-
-	public Brand primaryBrand() {
-		Set<Playlist> playlists = getContainedIn();
-		if (playlists == null || playlists.isEmpty()) {
-			return null;
-		}
-		for (Playlist playlist : playlists) {
-			if (playlist instanceof Brand) {
-				return (Brand) playlist;
-			}
-		}
-		return null;
 	}
 }

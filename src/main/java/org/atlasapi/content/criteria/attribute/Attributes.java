@@ -14,66 +14,41 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.attribute;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.MediaType;
-import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Encoding;
 import org.atlasapi.media.entity.Episode;
+import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Location;
-import org.atlasapi.media.entity.Playlist;
+import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.metabroadcast.common.media.MimeType;
 
 public class Attributes {
 
 	// Simple string-valued attributes
-    public static final Attribute<String> DESCRIPTION_TITLE = stringAttribute("title", Description.class);
-	public static final Attribute<String> ITEM_TITLE = stringAttribute("title", Item.class);
-	public static final Attribute<String> PLAYLIST_TITLE = stringAttribute("title", Playlist.class);
-	public static final Attribute<String> BRAND_TITLE = stringAttribute("title", Brand.class);
-	
-	public static final Attribute<String> DESCRIPTION_URI = stringAttribute("uri", "canonicalUri", Description.class);
-	public static final Attribute<String> ITEM_URI = stringAttribute("uri", "canonicalUri", Item.class);
-	public static final Attribute<String> PLAYLIST_URI = stringAttribute("uri", "canonicalUri", Playlist.class);
-	public static final Attribute<String> EPISODE_URI = stringAttribute("uri", "canonicalUri", Episode.class);
-	public static final Attribute<String> BRAND_URI = stringAttribute("uri", "canonicalUri", Brand.class);
-	public static final Attribute<String> LOCATION_URI = stringAttribute("uri", Location.class);
+    public static final Attribute<String> DESCRIPTION_TITLE = stringAttribute("title", Content.class);
+    public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
+    public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
+    public static final Attribute<String> DESCRIPTION_TAG = stringListAttribute("tag", Content.class);
+    public static final Attribute<Enum<MediaType>> DESCRIPTION_TYPE = new EnumValuedAttribute<MediaType>("mediaType", MediaType.class, Item.class);
 	
 	public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
 	
-	public static final Attribute<Enum<Publisher>> ITEM_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Item.class);
-	public static final Attribute<Enum<Publisher>> PLAYLIST_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Playlist.class);
-	public static final Attribute<Enum<Publisher>> BRAND_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Brand.class);
-	public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Description.class);
-	
 	public static final Attribute<Enum<MimeType>> ENCODING_DATA_CONTAINER_FORMAT = new EnumValuedAttribute<MimeType>("dataContainerFormat", MimeType.class, Encoding.class).allowShortMatches();
-	
-	public static final Attribute<Enum<MediaType>> ITEM_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Item.class).withAlias("type"); 
-	public static final Attribute<Enum<MediaType>> BRAND_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Brand.class).withAlias("type"); 
-	public static final Attribute<Enum<MediaType>> PLAYLIST_TYPE = new EnumValuedAttribute<MediaType>("contentType", MediaType.class, Playlist.class).withAlias("type"); 
-	
-	// Lists of strings
-	public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre",  Description.class);
-	public static final Attribute<String> ITEM_GENRE = stringListAttribute("genre",  Item.class);
-	public static final Attribute<String> ITEM_TAG = stringListAttribute("tag", Item.class);
-	
-	public static final Attribute<String> PLAYLIST_GENRE = stringListAttribute("genre",  Playlist.class);
-    public static final Attribute<String> PLAYLIST_TAG = stringListAttribute("tag", Playlist.class);
-	public static final Attribute<String> BRAND_GENRE = stringListAttribute("genre", Brand.class);
-    public static final Attribute<String> BRAND_TAG = stringListAttribute("tag", Brand.class);
-	
+
 	// enums
 	public static final Attribute<Enum<TransportType>> LOCATION_TRANSPORT_TYPE = new EnumValuedAttribute<TransportType>("transportType", TransportType.class, Location.class).allowShortMatches();
 
@@ -96,11 +71,11 @@ public class Attributes {
 	public static final Attribute<String> POLICY_AVAILABLE_COUNTRY = new StringValuedAttribute("availableCountries", Policy.class, true).allowShortMatches();
 	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
-		Arrays.<Attribute<?>>asList(ITEM_TITLE, BRAND_TITLE, PLAYLIST_TITLE, DESCRIPTION_TITLE,
-								    ITEM_URI, BRAND_URI, PLAYLIST_URI, LOCATION_URI, ITEM_GENRE, 
-								    ITEM_TAG, PLAYLIST_TAG, PLAYLIST_GENRE, BRAND_TAG, BRAND_GENRE,
-								    ITEM_PUBLISHER, BRAND_PUBLISHER, PLAYLIST_PUBLISHER,
-								    ITEM_TYPE, BRAND_TYPE, PLAYLIST_TYPE,
+		ImmutableList.<Attribute<?>>of(DESCRIPTION_TITLE,
+								    DESCRIPTION_TAG,
+								    DESCRIPTION_GENRE,
+								    DESCRIPTION_PUBLISHER,
+								    DESCRIPTION_TYPE,
 								    BRAND_THIS_OR_CHILD_LAST_UPDATED,
 								    VERSION_DURATION,
 								    VERSION_PROVIDER,
@@ -116,16 +91,8 @@ public class Attributes {
 	
 	public static final Map<String, Attribute<?>> lookup = lookupTable();
 	
-	public static Attribute<?> lookup(String name, Class<? extends Description> queryContext) {
-		Attribute<?> attribute = lookup.get(name);
-		if (attribute == null && name.indexOf('.') < 0) {
-			attribute = lookup.get(queryContext.getSimpleName().toLowerCase() + "." + name);
-		}
-		if (attribute == null && name.startsWith("description.")) {
-		    name = name.replace("description.", "");
-		    attribute = lookup.get(queryContext.getSimpleName().toLowerCase() + "." + name);
-		}
-		return attribute;
+	public static Attribute<?> lookup(String name) {
+		return lookup.get(name);
 	}
 
 	private static Map<String, Attribute<?>> lookupTable() {
@@ -148,32 +115,26 @@ public class Attributes {
 		table.put(key, attribute);
 		
 	}
-
-	private static StringValuedAttribute stringAttribute(String name,  String javaAttribute, Class<? extends Description> target) {
-		StringValuedAttribute attribute = new StringValuedAttribute(name, target);
-		attribute.withJavaAttribute(javaAttribute);
-		return attribute;
-	}
 	
-	private static StringValuedAttribute stringAttribute(String name, Class<? extends Description> target) {
+	private static StringValuedAttribute stringAttribute(String name, Class<? extends Identified> target) {
 		return new StringValuedAttribute(name, target);
 	}
 	
-	private static IntegerValuedAttribute integerAttribute(String name,  String javaAttribute, Class<? extends Description> target) {
+	private static IntegerValuedAttribute integerAttribute(String name,  String javaAttribute, Class<? extends Identified> target) {
 		IntegerValuedAttribute attribute = new IntegerValuedAttribute(name, target);
 		attribute.withJavaAttribute(javaAttribute);
 		return attribute;
 	}
 	
-	private static IntegerValuedAttribute integerAttribute(String name, Class<? extends Description> target) {
+	private static IntegerValuedAttribute integerAttribute(String name, Class<? extends Identified> target) {
 		return new IntegerValuedAttribute(name, target);
 	}
 	
-	private static DateTimeValuedAttribute dateTimeAttribute(String name, Class<? extends Description> target) {
+	private static DateTimeValuedAttribute dateTimeAttribute(String name, Class<? extends Identified> target) {
 		return new DateTimeValuedAttribute(name, target);
 	}
 
-	private static StringValuedAttribute stringListAttribute(String name, Class<? extends Description> target) {
+	private static StringValuedAttribute stringListAttribute(String name, Class<? extends Identified> target) {
 		return new StringValuedAttribute(name, target, true);
 	}
 }

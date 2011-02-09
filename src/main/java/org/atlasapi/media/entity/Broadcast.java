@@ -30,7 +30,7 @@ import com.google.common.base.Objects;
  * @author Robert Chatley (robert@metabroadcast.com)
  */
 @RdfClass(namespace = PO.NS)
-public class Broadcast extends Description {
+public class Broadcast extends Identified {
 
     private final DateTime transmissionTime;
 

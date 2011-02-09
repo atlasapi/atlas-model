@@ -17,16 +17,16 @@ package org.atlasapi.persistence.content.query;
 import java.util.List;
 
 import org.atlasapi.content.criteria.ContentQuery;
-import org.atlasapi.media.entity.Brand;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Playlist;
+import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.Schedule;
 
 public interface KnownTypeQueryExecutor {
 
-	List<Item> executeItemQuery(ContentQuery query);
+	List<Content> discover(ContentQuery query);
+
+	Schedule schedule(ContentQuery query);
 	
-	List<Playlist> executePlaylistQuery(ContentQuery query);
-	
-	List<Brand> executeBrandQuery(ContentQuery query);
+	List<Identified> executeUriQuery(Iterable<String> uris, ContentQuery query);
 
 }

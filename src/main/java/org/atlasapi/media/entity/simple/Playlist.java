@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -17,52 +18,34 @@ import com.google.common.collect.Lists;
 @XmlType(name="list", namespace=PLAY_SIMPLE_XML.NS)
 public class Playlist extends Description {
 
-	private List<Item> items = Lists.newArrayList();
-	private List<Playlist> playlists = Lists.newArrayList();
+	private List<Description> content = Lists.newArrayList();
 
-	public void addItem(Item item) {
-		items.add(item);
+	public void add(Description c) {
+		content.add(c);
 	}
 	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="items")
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="item")
-	public List<Item> getItems() {
-		return items;
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="content")
+	@XmlElements({ 
+		@XmlElement(name = "item", type = Item.class, namespace=PLAY_SIMPLE_XML.NS),
+		@XmlElement(name = "playlist", type = Playlist.class, namespace=PLAY_SIMPLE_XML.NS) 
+	})
+	public List<Description> getContent() {
+		return content;
 	}
 	
-	public void setItems(Iterable<Item> items) {
-		this.items = Lists.newArrayList(items);
-	}
-
-	public void addPlaylist(Playlist playlist) {
-		playlists.add(playlist);
-	}
-	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="playlists")
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="playlist")
-	public List<Playlist> getPlaylists() {
-		return playlists;
-	}
-	
-	public void setPlaylists(Iterable<Playlist> playlists) {
-		this.playlists = Lists.newArrayList(playlists);
+	public void setContent(Iterable<Description> items) {
+		this.content = Lists.newArrayList(items);
 	}
 	
 	public Playlist copy() {
 	    Playlist copy = new Playlist();
-	    
 	    copyTo(copy);
-	    
-	    copy.setItems(Iterables.transform(getItems(), Item.TO_COPY));
-	    copy.setPlaylists(Iterables.transform(getPlaylists(), Playlist.TO_COPY));
-	    
+	    copy.setContent(Iterables.transform(getContent(), new Function<Description, Description>() {
+			@Override
+			public Description apply(Description input) {
+				return input.copy();
+			}
+	    }));
 	    return copy;
 	}
-	
-	public static final Function<Playlist, Playlist> TO_COPY = new Function<Playlist, Playlist>() {
-        @Override
-        public Playlist apply(Playlist input) {
-            return input.copy();
-        }
-    };
 }

@@ -1,6 +1,6 @@
 package org.atlasapi.media.entity;
 
-public class Restriction extends Description {
+public class Restriction extends Identified {
 
 	private Boolean restricted = null;
 

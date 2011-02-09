@@ -1,6 +1,6 @@
 package org.atlasapi.media.entity;
 
-public class Person extends Description {
+public class Person extends Identified {
 
 	private String name;
 	
