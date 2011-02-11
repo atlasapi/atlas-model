@@ -32,6 +32,10 @@ public class ContentQueryResult {
 	public void setContents(List<Description> items) {
 		this.contents = items;
 	}
+	
+	public boolean isEmpty() {
+	    return contents.isEmpty();
+	}
 
 	@Override
 	public int hashCode() {
