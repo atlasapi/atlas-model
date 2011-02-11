@@ -3,10 +3,13 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.joda.time.Interval;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
@@ -45,6 +48,56 @@ public final class Schedule {
 			mmap.put(channel, Lists.transform(sorted, TO_ITEM));
 		}
 		return new Schedule(mmap);
+	}
+	
+	public List<ScheduleChannel> toScheduleChannels() {
+	    ImmutableList.Builder<ScheduleChannel> builder = ImmutableList.builder();
+	    
+	    for (Entry<String, List<Item>> entry: channelMap.entrySet()) {
+	        builder.add(new ScheduleChannel(entry.getKey(), entry.getValue()));
+	    }
+	    
+	    return builder.build();
+	}
+	
+	public static class ScheduleChannel {
+	    private final String channel;
+        private final List<Item> items;
+
+        public ScheduleChannel(String channel, List<Item> items) {
+            Preconditions.checkNotNull(channel);
+            Preconditions.checkNotNull(items);
+            
+            this.channel = channel;
+            this.items = items;
+        }
+        
+        public String channel() {
+            return channel;
+        }
+        
+        public List<Item> items() {
+            return items;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof ScheduleChannel) {
+                ScheduleChannel scheduleChannel = (ScheduleChannel) obj;
+                return channel.equals(scheduleChannel.channel) && items.equals(scheduleChannel.items);
+            }
+            return false;
+        }
+        
+        @Override
+        public int hashCode() {
+            return channel.hashCode();
+        }
+        
+        @Override
+        public String toString() {
+            return Objects.toStringHelper(ScheduleChannel.class).addValue(channel).addValue(items).toString();
+        }
 	}
 	
 	private static final class ScheduleEntry implements Comparable<ScheduleEntry> {
