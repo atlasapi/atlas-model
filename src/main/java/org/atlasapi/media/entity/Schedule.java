@@ -32,6 +32,18 @@ public final class Schedule {
 		}
 		return Iterables.getOnlyElement(channelMap.values());
 	}
+	
+	public static Schedule fromItems(Interval interval, Iterable<? extends Item> items) {
+        ImmutableSet.Builder<String> channels = ImmutableSet.builder();
+        for (Item item: items) {
+            for (Version version: item.getVersions()) {
+                for (Broadcast broadcast: version.getBroadcasts()) {
+                    channels.add(broadcast.getBroadcastOn());
+                }
+            }
+        }
+        return fromItems(channels.build(), interval, items);
+    }
 
 	public static Schedule fromItems(Iterable<String> channels, Interval interval, Iterable<? extends Item> items) {
 		HashMultimap<String, ScheduleEntry> map = HashMultimap.create();
