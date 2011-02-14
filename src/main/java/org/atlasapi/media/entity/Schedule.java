@@ -92,6 +92,10 @@ public final class Schedule {
             return items;
         }
         
+        public void removeItem(Item item) {
+            items.remove(item);
+        }
+        
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof ScheduleChannel) {
