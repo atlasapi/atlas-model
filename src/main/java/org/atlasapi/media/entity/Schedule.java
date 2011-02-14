@@ -22,6 +22,7 @@ import com.google.common.collect.Ordering;
 public final class Schedule {
 
 	private final Map<String, List<Item>> channelMap;
+    private final Interval interval;
 
 	public List<Item> getItemsFromOnlyChannel() {
 		if (channelMap.size() == 0) {
@@ -59,7 +60,7 @@ public final class Schedule {
 			ImmutableList<ScheduleEntry> sorted = Ordering.natural().immutableSortedCopy(map.get(channel));
 			mmap.put(channel, Lists.transform(sorted, TO_ITEM));
 		}
-		return new Schedule(mmap);
+		return new Schedule(mmap, interval);
 	}
 	
 	public List<ScheduleChannel> toScheduleChannels() {
@@ -140,8 +141,13 @@ public final class Schedule {
 		}
 	};
 	
-	private Schedule(Map<String, List<Item>> channelMap) {
+	private Schedule(Map<String, List<Item>> channelMap, Interval interval) {
 		this.channelMap = channelMap;
+        this.interval = interval;
+	}
+	
+	public Interval interval() {
+	    return interval;
 	}
 	
 	@Override
