@@ -16,4 +16,11 @@ public class CrewMember extends Person {
         this.role = role;
         return this;
     }
+    
+    public CrewMember copy() {
+        CrewMember crew = new CrewMember();
+        this.copyTo(crew);
+        crew.role = role;
+        return crew;
+    }
 }
