@@ -21,7 +21,9 @@ import com.google.common.collect.Ordering;
 
 public final class Schedule {
 
-    public static Schedule fromItems(Interval interval, Iterable<? extends Item> items) {
+    private final Interval interval;
+
+	public static Schedule fromItems(Interval interval, Iterable<? extends Item> items) {
         ImmutableSet.Builder<String> channels = ImmutableSet.builder();
         for (Item item : items) {
             for (Version version : item.getVersions()) {
@@ -47,13 +49,18 @@ public final class Schedule {
             ImmutableList<ScheduleEntry> sorted = Ordering.natural().immutableSortedCopy(map.get(channel));
             mmap.put(channel, new ScheduleChannel(channel, sorted));
         }
-        return new Schedule(mmap);
+        return new Schedule(mmap, interval);
     }
 
     private final Map<String, ScheduleChannel> channelMap;
 
-    private Schedule(Map<String, ScheduleChannel> channelMap) {
+    private Schedule(Map<String, ScheduleChannel> channelMap, Interval interval) {
         this.channelMap = channelMap;
+        this.interval = interval;
+    }
+    
+    public Interval interval() {
+        return interval;
     }
     
     @Deprecated
@@ -107,7 +114,11 @@ public final class Schedule {
         public List<ScheduleEntry> entries() {
             return entries;
         }
-
+        
+        public void removeItem(Item item) {
+//            items.remove(item);
+        }
+        
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof ScheduleChannel) {
