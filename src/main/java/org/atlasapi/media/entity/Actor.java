@@ -34,8 +34,27 @@ public class Actor extends Person {
     }
     
     public static Actor actor(String name, String character, Publisher publisher) {
-        return new Actor(String.format(BASE_URI, publisher.key(), formatForUri(name+':'+character)))
+        return new Actor(String.format(BASE_URI, publisher.key(), formatForUri(name)))
             .withCharacter(character)
             .withName(name);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Actor) {
+            Actor actor = (Actor) obj;
+            return this.getCanonicalUri().equals(actor.getCanonicalUri()) && name.equals(actor.name) && character.equals(character);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.getCanonicalUri().hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return "Actor "+name+" plays "+character;
     }
 }

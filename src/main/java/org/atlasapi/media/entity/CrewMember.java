@@ -75,8 +75,27 @@ public class CrewMember extends Person {
     
     public static CrewMember crewMember(String name, String roleKey, Publisher publisher) {
         Role role = Role.fromKey(roleKey);
-        return new CrewMember(String.format(BASE_URI, publisher.key(), formatForUri(name+':'+role.key)))
+        return new CrewMember(String.format(BASE_URI, publisher.key(), formatForUri(name)))
             .withRole(role)
             .withName(name);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CrewMember) {
+            CrewMember crew = (CrewMember) obj;
+            return this.getCanonicalUri().equals(crew.getCanonicalUri()) && name.equals(crew.name) && role == crew.role;
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return getCanonicalUri().hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return "Crew "+name+" worked as a "+role.title;
     }
 }
