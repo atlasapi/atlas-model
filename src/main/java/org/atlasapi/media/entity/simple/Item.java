@@ -27,6 +27,7 @@ public class Item extends Description {
 	
 	private BrandSummary brandSummary;
 	private SeriesSummary seriesSummary;
+	private Set<Person> people = Sets.newHashSet();
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -42,6 +43,16 @@ public class Item extends Description {
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="location")
 	public Set<Location> getLocations() {
 		return locations;
+	}
+	
+	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="people")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="people")
+    public Set<Person> getPeople() {
+        return people;
+    }
+	
+	public void setPeople(Iterable<Person> people) {
+	    this.people = Sets.newHashSet(people);
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
@@ -133,6 +144,17 @@ public class Item extends Description {
         }
         if (getSeriesSummary() != null) {
             copy.setSeriesSummary(getSeriesSummary().copy());
+        }
+        
+        Set<Person> people = Sets.newHashSet();
+        for (Person person: this.people) {
+            if (person instanceof Actor) {
+                Actor actor = (Actor) person;
+                people.add(actor.copy());
+            } else if (person instanceof CrewMember) {
+                CrewMember crewMember = (CrewMember) person;
+                people.add(crewMember.copy());
+            }
         }
         
         return copy;

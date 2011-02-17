@@ -1,14 +1,11 @@
 package org.atlasapi.media.entity;
 
-import org.joda.time.DateTime;
-
 public class Person extends Identified {
     
     public static final String BASE_URI = "http://people.atlasapi.org/%s/%s";
 
-	private String name;
-	private String profileLink;
-	private DateTime lastUpdated;
+	protected String name;
+	protected String profileLink;
 	
 	public Person() { /* required for legacy code */ }
 	
@@ -24,15 +21,6 @@ public class Person extends Identified {
 	    return profileLink;
 	}
 	
-	public DateTime lastUpdated() {
-	    return lastUpdated;
-	}
-	
-	public Person withLastUpdated(DateTime lastUpdated) {
-	    this.lastUpdated = lastUpdated;
-	    return this;
-	}
-	
 	public Person withName(String name) {
 	    this.name = name;
 	    return this;
@@ -43,7 +31,7 @@ public class Person extends Identified {
 	    return this;
 	}
 	
-	public static String uriFor(String name, Publisher publisher) {
-	    return String.format(BASE_URI, publisher.key(), name.toLowerCase().replace(" ", "_"));
+	public static String formatForUri(String key) {
+	    return key.toLowerCase().replace(' ', '_');
 	}
 }

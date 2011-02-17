@@ -20,4 +20,22 @@ public class Actor extends Person {
         this.character = character;
         return this;
     }
+    
+    @Override
+    public Actor withName(String name) {
+        this.name = name;
+        return this;
+    }
+    
+    @Override
+    public Actor withProfileLink(String profileLink) {
+        this.profileLink = profileLink;
+        return this;
+    }
+    
+    public static Actor actor(String name, String character, Publisher publisher) {
+        return new Actor(String.format(BASE_URI, publisher.key(), formatForUri(name+':'+character)))
+            .withCharacter(character)
+            .withName(name);
+    }
 }

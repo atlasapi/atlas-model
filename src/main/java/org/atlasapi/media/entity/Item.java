@@ -25,6 +25,7 @@ import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -39,6 +40,7 @@ public class Item extends Content {
 	private Container<?> container;
 	
 	private Set<Version> versions = Sets.newHashSet();
+	private Set<Person> people = Sets.newHashSet();
 	
 	private boolean isLongForm = false;
 	
@@ -106,6 +108,26 @@ public class Item extends Content {
 
 	public boolean removeVersion(Version version) {
 		return versions.remove(version);
+	}
+	
+	public Set<Person> people() {
+	    return people;
+	}
+	
+	public Set<Person> actors() {
+	    return Sets.<Person>newHashSet(Iterables.filter(people, Actor.class));
+	}
+	
+	public Set<Person> crewMembers() {
+        return Sets.<Person>newHashSet(Iterables.filter(people, CrewMember.class));
+    }
+	
+	public void addPerson(Person person) {
+	    people.add(person);
+	}
+	
+	public void setPeople(Set<Person> people) {
+	    this.people = people;
 	}
 
 	public boolean isAvailable() {

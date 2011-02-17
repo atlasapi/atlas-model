@@ -38,7 +38,7 @@ public class CrewMember extends Person {
                     return role;
                 }
             }
-            return null;
+            throw new IllegalArgumentException("Unkown role: "+key);
         }
     }
     
@@ -59,5 +59,24 @@ public class CrewMember extends Person {
     public CrewMember withRole(Role role) {
         this.role = role;
         return this;
+    }
+    
+    @Override
+    public CrewMember withName(String name) {
+        this.name = name;
+        return this;
+    }
+    
+    @Override
+    public CrewMember withProfileLink(String profileLink) {
+        this.profileLink = profileLink;
+        return this;
+    }
+    
+    public static CrewMember crewMember(String name, String roleKey, Publisher publisher) {
+        Role role = Role.fromKey(roleKey);
+        return new CrewMember(String.format(BASE_URI, publisher.key(), formatForUri(name+':'+role.key)))
+            .withRole(role)
+            .withName(name);
     }
 }
