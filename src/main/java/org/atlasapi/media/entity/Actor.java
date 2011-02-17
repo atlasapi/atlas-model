@@ -8,8 +8,8 @@ public class Actor extends Person {
     
     private String character;
     
-    public Actor(String uri) {
-        super(uri);
+    public Actor(String uri, String curie, Publisher publisher) {
+         super(uri, curie, publisher);
     }
     
     public String character() {
@@ -34,7 +34,10 @@ public class Actor extends Person {
     }
     
     public static Actor actor(String name, String character, Publisher publisher) {
-        return new Actor(String.format(BASE_URI, publisher.key(), formatForUri(name)))
+        String key = formatForUri(name);
+        String uri = String.format(BASE_URI, publisher.key(), key);
+        String curie = publisher.key()+':'+key;
+        return new Actor(uri, curie, publisher)
             .withCharacter(character)
             .withName(name);
     }

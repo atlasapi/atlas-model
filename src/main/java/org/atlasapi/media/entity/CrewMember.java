@@ -48,8 +48,8 @@ public class CrewMember extends Person {
         super();
     }
     
-    public CrewMember(String uri) {
-        super(uri);
+    public CrewMember(String uri, String curie, Publisher publisher) {
+         super(uri, curie, publisher);
     }
     
     public Role role() {
@@ -75,7 +75,10 @@ public class CrewMember extends Person {
     
     public static CrewMember crewMember(String name, String roleKey, Publisher publisher) {
         Role role = Role.fromKey(roleKey);
-        return new CrewMember(String.format(BASE_URI, publisher.key(), formatForUri(name)))
+        String key = formatForUri(name);
+        String uri = String.format(BASE_URI, publisher.key(), key);
+        String curie = publisher.key()+':'+key;
+        return new CrewMember(uri, curie, publisher)
             .withRole(role)
             .withName(name);
     }

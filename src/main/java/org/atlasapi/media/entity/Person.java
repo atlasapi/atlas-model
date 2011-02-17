@@ -1,6 +1,6 @@
 package org.atlasapi.media.entity;
 
-public class Person extends Identified {
+public class Person extends Container<Item> {
     
     public static final String BASE_URI = "http://people.atlasapi.org/%s/%s";
 
@@ -9,9 +9,9 @@ public class Person extends Identified {
 	
 	public Person() { /* required for legacy code */ }
 	
-	public Person(String uri) {
-		super(uri);
-	}
+	public Person(String uri, String curie, Publisher publisher) {
+         super(uri, curie, publisher);
+    }
 	
 	public String name() {
 		return name;
