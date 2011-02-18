@@ -2,7 +2,7 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
-public class Person extends Container<Item> {
+public class Person extends ContentGroup {
     
     public static final String BASE_URI = "http://people.atlasapi.org/%s/%s";
 
