@@ -148,14 +148,9 @@ public class Item extends Description {
         
         Set<Person> people = Sets.newHashSet();
         for (Person person: this.people) {
-            if (person instanceof Actor) {
-                Actor actor = (Actor) person;
-                people.add(actor.copy());
-            } else if (person instanceof CrewMember) {
-                CrewMember crewMember = (CrewMember) person;
-                people.add(crewMember.copy());
-            }
+            people.add(person.copy());
         }
+        copy.setPeople(people);
         
         return copy;
     }

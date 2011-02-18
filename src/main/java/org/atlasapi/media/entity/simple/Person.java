@@ -9,11 +9,12 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="person", namespace=PLAY_SIMPLE_XML.NS)
-public abstract class Person extends Aliased {
+public class Person extends Aliased {
 
 	private String name;
 	private String profileLink;
 	private String role;
+	private String character;
 	
 	public Person() {
     }
@@ -42,9 +43,21 @@ public abstract class Person extends Aliased {
         this.setAliases(profileLinks);
     }
 	
-	public void copyTo(Person person) {
+	public Person copy() {
+	    Person person = new Person();
 	    super.copyTo(person);
 	    person.name = name;
 	    person.profileLink = profileLink;
+	    person.role = role;
+	    person.character = character;
+	    return person;
 	}
+	
+    public String character() {
+        return character;
+    }
+    
+    public void setCharacter(String character) {
+        this.character = character;
+    }
 }

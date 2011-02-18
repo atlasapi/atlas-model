@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import com.metabroadcast.common.url.UrlEncoding;
+
 public class Person extends ContentGroup {
     
     public static final String BASE_URI = "http://people.atlasapi.org/%s/%s";
@@ -36,6 +38,6 @@ public class Person extends ContentGroup {
 	}
 	
 	public static String formatForUri(String key) {
-        return key.toLowerCase().replace(' ', '_');
+        return UrlEncoding.encode(key.toLowerCase().replace(' ', '_'));
     }
 }
