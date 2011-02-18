@@ -1,12 +1,11 @@
 package org.atlasapi.media.entity;
 
+import java.util.Set;
+
 public class Person extends Container<Item> {
     
     public static final String BASE_URI = "http://people.atlasapi.org/%s/%s";
 
-	protected String name;
-	protected String profileLink;
-	
 	public Person() { /* required for legacy code */ }
 	
 	public Person(String uri, String curie, Publisher publisher) {
@@ -14,24 +13,29 @@ public class Person extends Container<Item> {
     }
 	
 	public String name() {
-		return name;
+		return this.getTitle();
 	}
 	
-	public String profileLink() {
-	    return profileLink;
-	}
-	
-	public Person withName(String name) {
-	    this.name = name;
-	    return this;
+	public Set<String> profileLinks() {
+	    return this.getAliases();
 	}
 	
 	public Person withProfileLink(String profileLink) {
-	    this.profileLink = profileLink;
+	    this.addAlias(profileLink);
+	    return this;
+	}
+	
+	public Person withProfileLinks(Set<String> profileLinks) {
+        this.setAliases(profileLinks);
+        return this;
+    }
+	
+	public Person withName(String name) {
+	    this.setTitle(name);
 	    return this;
 	}
 	
 	public static String formatForUri(String key) {
-	    return key.toLowerCase().replace(' ', '_');
-	}
+        return key.toLowerCase().replace(' ', '_');
+    }
 }

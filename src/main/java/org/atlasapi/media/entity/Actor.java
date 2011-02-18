@@ -1,15 +1,17 @@
 package org.atlasapi.media.entity;
 
-public class Actor extends Person {
+public class Actor extends CrewMember {
 
     public Actor() {
         super();
+        this.withRole(Role.ACTOR);
     }
     
     private String character;
     
     public Actor(String uri, String curie, Publisher publisher) {
          super(uri, curie, publisher);
+         this.withRole(Role.ACTOR);
     }
     
     public String character() {
@@ -29,13 +31,13 @@ public class Actor extends Person {
     
     @Override
     public Actor withProfileLink(String profileLink) {
-        this.profileLink = profileLink;
+        this.addAlias(profileLink);
         return this;
     }
     
     public static Actor actor(String name, String character, Publisher publisher) {
-        String key = formatForUri(name);
-        String uri = String.format(BASE_URI, publisher.key(), key);
+        String key = Person.formatForUri(name);
+        String uri = String.format(Person.BASE_URI, publisher.key(), key);
         String curie = publisher.key()+':'+key;
         return new Actor(uri, curie, publisher)
             .withCharacter(character)
@@ -46,7 +48,7 @@ public class Actor extends Person {
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;
-            return this.getCanonicalUri().equals(actor.getCanonicalUri()) && name.equals(actor.name) && character.equals(character);
+            return super.equals(actor) && character.equals(character);
         }
         return false;
     }

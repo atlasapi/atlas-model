@@ -40,7 +40,7 @@ public class Item extends Content {
 	private Container<?> container;
 	
 	private Set<Version> versions = Sets.newHashSet();
-	private Set<Person> people = Sets.newHashSet();
+	private Set<CrewMember> people = Sets.newHashSet();
 	
 	private boolean isLongForm = false;
 	
@@ -110,23 +110,19 @@ public class Item extends Content {
 		return versions.remove(version);
 	}
 	
-	public Set<Person> people() {
+	public Set<CrewMember> people() {
 	    return people;
 	}
 	
-	public Set<Person> actors() {
-	    return Sets.<Person>newHashSet(Iterables.filter(people, Actor.class));
+	public Set<Actor> actors() {
+	    return Sets.<Actor>newHashSet(Iterables.filter(people, Actor.class));
 	}
 	
-	public Set<Person> crewMembers() {
-        return Sets.<Person>newHashSet(Iterables.filter(people, CrewMember.class));
-    }
-	
-	public void addPerson(Person person) {
+	public void addPerson(CrewMember person) {
 	    people.add(person);
 	}
 	
-	public void setPeople(Set<Person> people) {
+	public void setPeople(Set<CrewMember> people) {
 	    this.people = people;
 	}
 
