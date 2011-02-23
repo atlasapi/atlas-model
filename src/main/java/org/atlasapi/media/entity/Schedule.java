@@ -207,7 +207,8 @@ public final class Schedule {
         final Predicate<Broadcast> validBroadcast = new Predicate<Broadcast>() {
             @Override
             public boolean apply(Broadcast broadcast) {
-                return services.contains(broadcast.getBroadcastOn()) && localInterval.contains(broadcast.getTransmissionTime());
+                Interval broadcastInterval = new Interval(broadcast.getTransmissionTime(), broadcast.getTransmissionEndTime());
+                return services.contains(broadcast.getBroadcastOn()) && localInterval.overlaps(broadcastInterval);
             }
         };
 
