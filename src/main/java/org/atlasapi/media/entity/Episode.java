@@ -57,6 +57,7 @@ public class Episode extends Item {
 		this.seriesNumber = position;
 	}
 
+	@Deprecated
     public Series getSeriesSummary() {
     	if (series == null) {
     		return null;

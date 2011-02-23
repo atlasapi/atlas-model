@@ -15,6 +15,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
@@ -22,6 +24,8 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 /**
@@ -53,13 +57,30 @@ public class Brand extends Container<Episode> {
     }
 	
 	public Set<Series> getSeries() {
-		Set<Series> all = Sets.newHashSet();
+		List<Series> all = Lists.newArrayList();
 		for (Episode episode : contents) {
 			Series series = episode.getSeries();
 			if (series != null) {
 				all.add(series);
 			}
 		}
-		return all;
+		return Sets.newHashSet(Ordering.from(LAST_UPDATED).reverse().sortedCopy(all));
 	}
+	
+	final static Comparator<Series> LAST_UPDATED = new Comparator<Series>() {
+        @Override
+        public int compare(final Series s1, final Series s2) {
+            if (s1.getLastUpdated() == null && s2.getLastUpdated() == null) {
+                return 0;
+            }
+            if (s1.getLastUpdated() == null) {
+                return -1;
+            }
+            if (s2.getLastUpdated() == null) {
+                return 1;
+            }
+            
+            return s1.getLastUpdated().compareTo(s2.getLastUpdated());
+        }
+    };
 }
