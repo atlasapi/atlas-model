@@ -31,6 +31,10 @@ public class Restriction extends Identified {
 	public String getMessage() {
 		return message;
 	}
+	
+	public boolean hasRestrictionInformation() {
+	    return restricted != null;
+	}
 
 	public static Restriction from() {
 		Restriction restriction = new Restriction();

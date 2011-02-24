@@ -19,6 +19,7 @@ public class CrewMember extends Identified {
         WRITER("writer", "Writer"),
         ADAPTED_BY("adapted_by", "Adapted By"),
         PRESENTER("presenter", "Presenter"),
+        COMPOSER("composer", "Composer"),
         ACTOR("actor", "Actor");
         
         private final String key;
