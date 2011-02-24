@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "List")
@@ -40,14 +41,15 @@ public class ContentGroup extends Described implements MutableContentList<Conten
     }
     
     public final void setContents(Iterable<? extends Content> contents) {
-    	Set<Content> evictedContent = Sets.difference(ImmutableSet.copyOf(this.contents), ImmutableSet.copyOf(contents));
+        List<? extends Content> orderedContents = Ordering.from(LAST_UPDATED).reverse().sortedCopy(contents);
+    	Set<Content> evictedContent = Sets.difference(ImmutableSet.copyOf(this.contents), ImmutableSet.copyOf(orderedContents));
     	for (Content item : evictedContent) {
     		contentEvicted(item);
     	}
-    	for (Content content : contents) {
+    	for (Content content : orderedContents) {
     		contentAdded(content);
 		}
-		this.contents = ImmutableList.copyOf(contents);
+		this.contents = ImmutableList.copyOf(orderedContents);
 	}
     
 	public void addContents(Content... contents) {
@@ -81,6 +83,6 @@ public class ContentGroup extends Described implements MutableContentList<Conten
     }
     
     public void setContentUris(Iterable<String> contentUris) {
-		this.contentUris = ImmutableList.copyOf(contentUris);
+		this.contentUris = ImmutableList.copyOf(ImmutableSet.copyOf(contentUris));
 	}
 }
