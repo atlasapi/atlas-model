@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
@@ -149,6 +150,23 @@ public class Identified {
 	public void setEquivalentTo(Set<String> uris) {
 		this.equivalentTo = uris;
 	}
+	
+	public static final Comparator<Identified> LAST_UPDATED = new Comparator<Identified>() {
+        @Override
+        public int compare(final Identified s1, final Identified s2) {
+            if (s1.getLastUpdated() == null && s2.getLastUpdated() == null) {
+                return 0;
+            }
+            if (s1.getLastUpdated() == null) {
+                return -1;
+            }
+            if (s2.getLastUpdated() == null) {
+                return 1;
+            }
+            
+            return s1.getLastUpdated().compareTo(s2.getLastUpdated());
+        }
+    };
 	
 	 /**
      * This method attempts to preserve symmetry of

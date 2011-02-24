@@ -8,6 +8,7 @@ import org.atlasapi.media.vocabulary.DCTERMS;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 public class Container<T extends Item> extends Content implements MutableContentList<T> {
 
@@ -29,7 +30,7 @@ public class Container<T extends Item> extends Content implements MutableContent
     }
     
     public final void setContents(Iterable<? extends T> contents) {
-		this.contents = ImmutableList.copyOf(contents);
+		this.contents = ImmutableList.copyOf(Ordering.from(LAST_UPDATED).reverse().sortedCopy(contents));
 		for (T content : this.contents) {
 			contentAdded(content);
 		}

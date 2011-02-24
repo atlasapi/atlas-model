@@ -17,6 +17,7 @@ public class CrewMember extends Identified {
         SERIES_EDITOR("series_editor", "Series Editor"),
         SERIES_PRODUCER("series_producer", "Series Producer"),
         WRITER("writer", "Writer"),
+        ADAPTED_BY("adapted_by", "Adapted By"),
         ACTOR("actor", "Actor");
         
         private final String key;

@@ -15,7 +15,6 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -66,21 +65,4 @@ public class Brand extends Container<Episode> {
 		}
 		return Sets.newHashSet(Ordering.from(LAST_UPDATED).reverse().sortedCopy(all));
 	}
-	
-	final static Comparator<Series> LAST_UPDATED = new Comparator<Series>() {
-        @Override
-        public int compare(final Series s1, final Series s2) {
-            if (s1.getLastUpdated() == null && s2.getLastUpdated() == null) {
-                return 0;
-            }
-            if (s1.getLastUpdated() == null) {
-                return -1;
-            }
-            if (s2.getLastUpdated() == null) {
-                return 1;
-            }
-            
-            return s1.getLastUpdated().compareTo(s2.getLastUpdated());
-        }
-    };
 }
