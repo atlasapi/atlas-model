@@ -9,7 +9,6 @@ import org.atlasapi.media.vocabulary.DCTERMS;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -17,6 +16,7 @@ import com.google.common.collect.Ordering;
 public class Container<T extends Item> extends Content implements MutableContentList<T> {
 
 	protected ImmutableList<T> contents = ImmutableList.of();
+	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
 
 	public Container(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -34,7 +34,7 @@ public class Container<T extends Item> extends Content implements MutableContent
     }
     
     public final void setContents(Iterable<? extends T> contents) {
-		Set<T> deduped = ImmutableSet.copyOf(ImmutableSortedSet.copyOf(DESCENDING_LAST_UPDATED, contents));
+		Set<T> deduped = ImmutableSet.copyOf(lastUpdatedOrdering.immutableSortedCopy(contents));
         this.contents = ImmutableList.copyOf(seriesAndEpisodeOrdering.immutableSortedCopy(deduped));
 		for (T content : this.contents) {
 			contentAdded(content);
