@@ -2,6 +2,7 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import com.google.common.base.Function;
 import com.metabroadcast.common.url.UrlEncoding;
 
 public class Person extends ContentGroup {
@@ -40,4 +41,18 @@ public class Person extends ContentGroup {
 	public static String formatForUri(String key) {
         return UrlEncoding.encode(key.toLowerCase().replace(' ', '_'));
     }
+	
+	@Override
+	public ContentGroup copy() {
+	    Person copy = new Person();
+	    ContentGroup.copyTo(this, copy);
+	    return copy;
+	}
+	
+	public final static Function<Person, Person> COPY = new Function<Person, Person>() {
+        @Override
+        public Person apply(Person input) {
+            return (Person) input.copy();
+        }
+    };
 }

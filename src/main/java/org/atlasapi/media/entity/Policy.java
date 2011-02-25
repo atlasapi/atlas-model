@@ -159,4 +159,17 @@ public class Policy extends Identified {
 	        return FREE_TO_VIEW;
 	    }
 	}
+	
+	public Policy copy() {
+	    Policy copy = new Policy();
+	    Identified.copyTo(this, copy);
+	    copy.availabilityEnd = availabilityEnd;
+	    copy.availabilityLength = availabilityLength;
+	    copy.availabilityStart = availabilityStart;
+	    copy.availableCountries = Sets.newHashSet(availableCountries);
+	    copy.drmPlayableFrom = drmPlayableFrom;
+	    copy.price = price;
+	    copy.revenueContract = revenueContract;
+	    return copy;
+	}
 }

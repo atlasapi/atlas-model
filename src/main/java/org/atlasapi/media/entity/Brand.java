@@ -22,6 +22,7 @@ import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -65,4 +66,18 @@ public class Brand extends Container<Episode> {
 		}
 		return Sets.newHashSet(Ordering.from(DESCENDING_LAST_UPDATED).sortedCopy(all));
 	}
+	
+	@Override
+	public Container<Episode> copy() {
+	    Brand copy = new Brand();
+	    Container.copyTo(this, copy);
+	    return copy;
+	}
+	
+	public static final Function<Brand, Brand> COPY = new Function<Brand, Brand>() {
+        @Override
+        public Brand apply(Brand input) {
+            return (Brand) input.copy();
+        }
+    };
 }

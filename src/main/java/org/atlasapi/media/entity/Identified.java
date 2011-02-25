@@ -176,4 +176,12 @@ public class Identified {
 	public boolean isEquivalentTo(Identified content) {
 		return equivalentTo.contains(content.getCanonicalUri()) || content.equivalentTo.contains(canonicalUri);
 	}
+	
+	public static void copyTo(Identified from, Identified to) {
+	    to.aliases = Sets.newHashSet(from.aliases);
+	    to.canonicalUri = from.canonicalUri;
+	    to.curie = from.curie;
+	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);
+	    to.lastUpdated = from.lastUpdated;
+	}
 }

@@ -24,6 +24,7 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -156,4 +157,28 @@ public class Item extends Content {
 		
 		return locations;
 	}
+	
+	@Override
+	public Content copy() {
+	    Item copy = new Item();
+	    
+	    Item.copyTo(this, copy);
+	    
+	    return copy;
+	}
+	
+	public static void copyTo(Item from, Item to) {
+	    Content.copyTo(from, to);
+	    to.container = from.container.copy();
+	    to.isLongForm = from.isLongForm;
+	    to.people = Sets.newHashSet(Iterables.transform(from.people, CrewMember.COPY));
+	    to.versions = Sets.newHashSet(Iterables.transform(from.versions, Version.COPY));
+	}
+	
+	public static final Function<Item, Item> COPY = new Function<Item, Item>() {
+        @Override
+        public Item apply(Item input) {
+            return (Item) input.copy();
+        }
+    };
 }

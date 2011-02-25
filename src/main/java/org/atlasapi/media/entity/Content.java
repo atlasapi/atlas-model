@@ -16,7 +16,9 @@ package org.atlasapi.media.entity;
 
 import java.util.List;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class Content extends Described {
@@ -45,4 +47,22 @@ public class Content extends Described {
 		all.add(clip);
 		setClips(all);
 	}
+	
+	public static void copyTo(Content from, Content to) {
+	    Described.copyTo(from, to);
+	    to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
+	}
+	
+	public Content copy() {
+	    Content copy = new Content();
+	    copyTo(this, copy);
+	    return copy;
+	}
+	
+	public static final Function<Content, Content> COPY = new Function<Content, Content>() {
+        @Override
+        public Content apply(Content input) {
+            return input.copy();
+        }
+	};
 }

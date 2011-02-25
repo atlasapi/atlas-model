@@ -25,6 +25,8 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.Duration;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 /**
@@ -107,4 +109,23 @@ public class Version extends Identified {
 	public Restriction getRestriction() {
 		return restriction;
 	}
+	
+	public Version copy() {
+	    Version copy = new Version();
+	    Identified.copyTo(this, copy);
+	    copy.broadcasts = Sets.newHashSet(Iterables.transform(broadcasts, Broadcast.COPY));
+	    copy.duration = duration;
+	    copy.manifestedAs = Sets.newHashSet(Iterables.transform(manifestedAs, Encoding.COPY));
+	    copy.provider = provider;
+	    copy.publishedDuration = publishedDuration;
+	    copy.restriction = restriction.copy();
+	    return copy;
+	}
+	
+	public final static Function<Version, Version> COPY = new Function<Version, Version>() {
+        @Override
+        public Version apply(Version input) {
+            return input.copy();
+        }
+    };
 }

@@ -21,6 +21,8 @@ import org.atlasapi.media.TransportSubType;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
+import com.google.common.base.Function;
+
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
  * @author Lee Denison (lee@metabroadcast.com)
@@ -105,4 +107,26 @@ public class Location extends Identified {
     public void setEmbedCode(String embedCode) {
 		this.embedCode = embedCode;
 	}
+    
+    public Location copy() {
+        Location copy = new Location();
+        Identified.copyTo(this, copy);
+        copy.available = available;
+        copy.embedCode = embedCode;
+        if (policy != null) {
+            copy.policy = policy.copy();
+        }
+        copy.transportIsLive = transportIsLive;
+        copy.transportSubType = transportSubType;
+        copy.transportType = transportType;
+        copy.uri = uri;
+        return copy;
+    }
+    
+    public static final Function<Location, Location> COPY = new Function<Location, Location>() {
+        @Override
+        public Location apply(Location input) {
+            return input.copy();
+        }
+    };
 }

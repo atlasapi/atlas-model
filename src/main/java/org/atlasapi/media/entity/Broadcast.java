@@ -22,6 +22,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 
 /**
@@ -129,4 +130,20 @@ public class Broadcast extends Identified {
     public int hashCode() {
     	return Objects.hashCode(broadcastOn, transmissionTime);
     }
+    
+    public Broadcast copy() {
+        Broadcast copy = new Broadcast(broadcastOn, transmissionTime, transmissionEndTime);
+        Identified.copyTo(this, copy);
+        copy.activelyPublished = activelyPublished;
+        copy.id = id;
+        copy.scheduleDate = scheduleDate;
+        return copy;
+    }
+    
+    public final static Function<Broadcast, Broadcast> COPY = new Function<Broadcast, Broadcast>() {
+        @Override
+        public Broadcast apply(Broadcast input) {
+            return input.copy();
+        }
+    };
 }

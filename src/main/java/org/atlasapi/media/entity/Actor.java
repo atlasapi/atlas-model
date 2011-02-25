@@ -62,4 +62,12 @@ public class Actor extends CrewMember {
     public String toString() {
         return "Actor "+name+" plays "+character;
     }
+    
+    @Override
+    public CrewMember copy() {
+        Actor actor = new Actor();
+        CrewMember.copyTo(actor, this);
+        actor.character = character;
+        return actor;
+    }
 }

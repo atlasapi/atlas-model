@@ -66,4 +66,13 @@ public class Restriction extends Identified {
 		restriction.setMessage(message);
 		return restriction;
 	}
+	
+	public Restriction copy() {
+	    Restriction copy = new Restriction();
+	    Identified.copyTo(this, copy);
+	    copy.message = message;
+	    copy.minimumAge = minimumAge;
+	    copy.restricted = restricted;
+	    return copy;
+	}
 }
