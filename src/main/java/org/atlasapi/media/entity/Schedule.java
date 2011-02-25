@@ -11,47 +11,14 @@ import org.joda.time.Interval;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
 
 public final class Schedule {
 
     private final Interval interval;
-
-	public static Schedule fromItems(Interval interval, Iterable<? extends Item> items) {
-        ImmutableSet.Builder<String> channels = ImmutableSet.builder();
-        for (Item item : items) {
-            for (Version version : item.getVersions()) {
-                for (Broadcast broadcast : version.getBroadcasts()) {
-                    channels.add(broadcast.getBroadcastOn());
-                }
-            }
-        }
-        return fromItems(channels.build(), interval, items);
-    }
-
-    public static Schedule fromItems(Iterable<String> channels, Interval interval, Iterable<? extends Item> items) {
-        HashMultimap<String, ScheduleEntry> map = HashMultimap.create();
-        for (Item item : filter(items, ImmutableSet.copyOf(channels), interval)) {
-            for (Version version : item.nativeVersions()) {
-                for (Broadcast broadcast : version.getBroadcasts()) {
-                    map.put(broadcast.getBroadcastOn(), new ScheduleEntry(item, broadcast));
-                }
-            }
-        }
-        Map<String, ScheduleChannel> mmap = Maps.newHashMap();
-        for (String channel : channels) {
-            ImmutableList<ScheduleEntry> sorted = Ordering.natural().immutableSortedCopy(map.get(channel));
-            mmap.put(channel, new ScheduleChannel(channel, sorted));
-        }
-        return new Schedule(mmap, interval);
-    }
-
     private final Map<String, ScheduleChannel> channelMap;
 
     private Schedule(Map<String, ScheduleChannel> channelMap, Interval interval) {
@@ -62,41 +29,16 @@ public final class Schedule {
     public Interval interval() {
         return interval;
     }
-    
-    @Deprecated
-    public List<Item> getItemsFromOnlyChannel() {
-        if (channelMap.size() == 0) {
-            throw new IllegalArgumentException("No channels in schedule");
-        }
-        if (channelMap.size() != 1) {
-            throw new IllegalArgumentException("Multiple channels found");
-        }
-        return ImmutableList.copyOf(Iterables.transform(Iterables.getOnlyElement(channelMap.values()).entries(), ScheduleEntry.TO_ITEM));
-    }
-    
-    public List<ScheduleEntry> getEntriesForOnlyChannel() {
-        if (channelMap.size() == 0) {
-            throw new IllegalArgumentException("No channels in schedule");
-        }
-        if (channelMap.size() != 1) {
-            throw new IllegalArgumentException("Multiple channels found");
-        }
-        return Iterables.getOnlyElement(channelMap.values()).entries();
-    }
 
     public List<ScheduleChannel> toScheduleChannels() {
         return Lists.newArrayList(channelMap.values());
     }
-    
-    public List<ScheduleEntry> entriesForChannel(String channel) {
-        return channelMap.get(channel).entries();
-    }
 
     public static class ScheduleChannel {
         private final String channel;
-        private final List<ScheduleEntry> entries;
+        private final List<Item> entries;
 
-        public ScheduleChannel(String channel, Iterable<ScheduleEntry> entries) {
+        public ScheduleChannel(String channel, Iterable<Item> entries) {
             checkNotNull(channel);
             checkNotNull(entries);
             this.channel = channel;
@@ -108,15 +50,7 @@ public final class Schedule {
         }
 
         public List<Item> items() {
-            return ImmutableList.copyOf(Iterables.transform(entries, ScheduleEntry.TO_ITEM));
-        }
-
-        public List<ScheduleEntry> entries() {
             return entries;
-        }
-        
-        public void removeItem(Item item) {
-//            items.remove(item);
         }
         
         @Override
@@ -138,49 +72,6 @@ public final class Schedule {
             return Objects.toStringHelper(ScheduleChannel.class).addValue(channel).addValue(entries).toString();
         }
     }
-
-    public static final class ScheduleEntry implements Comparable<ScheduleEntry> {
-
-        private final Item item;
-        private final Broadcast broadcast;
-
-        public ScheduleEntry(Item item, Broadcast broadcast) {
-            checkNotNull(item);
-            checkNotNull(broadcast);
-            this.item = item;
-            this.broadcast = broadcast;
-        }
-
-        @Override
-        public int compareTo(ScheduleEntry other) {
-            return broadcast.getTransmissionTime().compareTo(other.broadcast.getTransmissionTime());
-        }
-
-        @Override
-        public boolean equals(Object that) {
-            if (this == that) {
-                return true;
-            }
-            if (that instanceof ScheduleEntry) {
-                ScheduleEntry other = (ScheduleEntry) that;
-                return Objects.equal(item, other.item) && Objects.equal(broadcast, other.broadcast);
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(item, broadcast);
-        }
-
-        public static Function<ScheduleEntry, Item> TO_ITEM = new Function<ScheduleEntry, Item>() {
-            @Override
-            public Item apply(ScheduleEntry input) {
-                return input.item;
-            }
-        };
-    }
-
 
     @Override
     public int hashCode() {
