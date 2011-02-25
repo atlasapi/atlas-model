@@ -151,20 +151,20 @@ public class Identified {
 		this.equivalentTo = uris;
 	}
 	
-	public static final Comparator<Identified> LAST_UPDATED = new Comparator<Identified>() {
+	public static final Comparator<Identified> DESCENDING_LAST_UPDATED = new Comparator<Identified>() {
         @Override
         public int compare(final Identified s1, final Identified s2) {
             if (s1.getLastUpdated() == null && s2.getLastUpdated() == null) {
                 return 0;
             }
-            if (s1.getLastUpdated() == null) {
+            if (s2.getLastUpdated() == null) {
                 return -1;
             }
-            if (s2.getLastUpdated() == null) {
+            if (s1.getLastUpdated() == null) {
                 return 1;
             }
             
-            return s1.getLastUpdated().compareTo(s2.getLastUpdated());
+            return s2.getLastUpdated().compareTo(s1.getLastUpdated());
         }
     };
 	

@@ -41,7 +41,7 @@ public class ContentGroup extends Described implements MutableContentList<Conten
     }
     
     public final void setContents(Iterable<? extends Content> contents) {
-        List<? extends Content> orderedContents = Ordering.from(LAST_UPDATED).reverse().sortedCopy(contents);
+        List<? extends Content> orderedContents = Ordering.from(DESCENDING_LAST_UPDATED).sortedCopy(contents);
     	Set<Content> evictedContent = Sets.difference(ImmutableSet.copyOf(this.contents), ImmutableSet.copyOf(orderedContents));
     	for (Content item : evictedContent) {
     		contentEvicted(item);

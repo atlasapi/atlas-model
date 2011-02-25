@@ -63,6 +63,6 @@ public class Brand extends Container<Episode> {
 				all.add(series);
 			}
 		}
-		return Sets.newHashSet(Ordering.from(LAST_UPDATED).reverse().sortedCopy(all));
+		return Sets.newHashSet(Ordering.from(DESCENDING_LAST_UPDATED).sortedCopy(all));
 	}
 }
