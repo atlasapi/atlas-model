@@ -1,11 +1,13 @@
 package org.atlasapi.media.entity;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
@@ -85,7 +87,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     
     public ScheduleEntry withItems(Iterable<Item> items) {
         for (Item item: items) {
-            Preconditions.checkNotNull(Iterables.getOnlyElement(Iterables.getOnlyElement(item.getVersions()).getBroadcasts()));
+            Preconditions.checkNotNull(BROADCAST.apply(item));
         }
         this.items = ImmutableList.copyOf(items);
         return this;
@@ -126,4 +128,18 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     public int compareTo(ScheduleEntry entry) {
         return interval.getStart().compareTo(entry.interval.getStart());
     }
+    
+    public final static Comparator<Item> START_TIME_ITEM_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item item1, Item item2) {
+            return BROADCAST.apply(item1).getTransmissionTime().compareTo(BROADCAST.apply(item2).getTransmissionTime());
+        }
+    };
+    
+    public final static Function<Item, Broadcast> BROADCAST = new Function<Item, Broadcast>() {
+        @Override
+        public Broadcast apply(Item item) {
+            return Iterables.getOnlyElement(Iterables.getOnlyElement(item.getVersions()).getBroadcasts());
+        }
+    };
 }
