@@ -118,7 +118,9 @@ public class Version extends Identified {
 	    copy.manifestedAs = Sets.newHashSet(Iterables.transform(manifestedAs, Encoding.COPY));
 	    copy.provider = provider;
 	    copy.publishedDuration = publishedDuration;
-	    copy.restriction = restriction.copy();
+	    if (restriction != null) {
+	        copy.restriction = restriction.copy();
+	    }
 	    return copy;
 	}
 	
