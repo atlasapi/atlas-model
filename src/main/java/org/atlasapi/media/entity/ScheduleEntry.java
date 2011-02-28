@@ -20,6 +20,7 @@ import com.metabroadcast.common.time.DateTimeZones;
 
 public class ScheduleEntry implements Comparable<ScheduleEntry> {
 
+    private static final long MILLIS_FROM_1900 = 2208988800000L;
     private final Interval interval;
     private final Channel channel;
     private final Publisher publisher;
@@ -111,7 +112,12 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     }
     
     public static String toKey(Interval interval, Channel channel, Publisher publisher) {
-        return joiner.join(interval.getStartMillis(), channel.key(), publisher.key());
+        return joiner.join(paddedMillis(interval), channel.key(), publisher.key());
+    }
+    
+    private static String paddedMillis(Interval interval) {
+        String key = String.valueOf(MILLIS_FROM_1900 + interval.getStartMillis());
+        return String.format("%1$-16s", key).replace(' ', '0');
     }
     
     @Override
