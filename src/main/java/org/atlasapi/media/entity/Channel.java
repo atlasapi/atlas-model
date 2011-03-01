@@ -21,7 +21,6 @@ public class Channel implements SelfModelling {
     public static final Channel SEESAW = new Channel("Seesaw", "http://www.seesaw.com", "seesaw");
     public static final Channel C4_4OD = new Channel("4oD", "http://www.channel4.com/programmes/4od", "4od");
     public static final Channel BBC_ONE = new Channel("BBC One", "http://www.bbc.co.uk/services/bbcone/london", "bbcone");
-    public static final Channel BBC_ONE_LONDON = new Channel("BBC One London", "http://www.bbc.co.uk/services/bbcone/london", "bbcone-london");
     public static final Channel BBC_ONE_NORTHERN_IRELAND = new Channel("BBC One Northern Ireland", "http://www.bbc.co.uk/services/bbcone/ni", "bbcone-ni");
     public static final Channel BBC_ONE_CAMBRIDGE = new Channel("BBC One Cambridgeshire", "http://www.bbc.co.uk/services/bbcone/cambridge", "bbcone-cambridge");
     public static final Channel BBC_ONE_CHANNEL_ISLANDS = new Channel("BBC One Channel Islands", "http://www.bbc.co.uk/services/bbcone/channel_islands", "bbcone-channel_islands");
@@ -39,15 +38,14 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_ONE_WEST = new Channel("BBC One West", "http://www.bbc.co.uk/services/bbcone/west", "bbcone-west");
     public static final Channel BBC_ONE_WEST_MIDLANDS = new Channel("BBC One West Midlands", "http://www.bbc.co.uk/services/bbcone/west_midlands", "bbcone-west_midlands");
     public static final Channel BBC_ONE_EAST_YORKSHIRE = new Channel("BBC One Yorks & Lincs", "http://www.bbc.co.uk/services/bbcone/east_yorkshire", "bbcone-east_yorkshire");
-    public static final Channel BBC_ONE_YORKSHIRE = new Channel("BBC One Yorkshire", "http://www.bbc.co.uk/services/bbcone/oxford", "bbcone-yorkshire");
+    public static final Channel BBC_ONE_YORKSHIRE = new Channel("BBC One Yorkshire", "http://www.bbc.co.uk/services/bbcone/yorkshire", "bbcone-yorkshire");
     public static final Channel BBC_TWO = new Channel("BBC Two", "http://www.bbc.co.uk/services/bbctwo/england", "bbctwo");
 
-    public static final Channel BBC_TWO_ENGLAND = new Channel("BBC Two England", "http://www.bbc.co.uk/services/bbctwo/england", "bbctwo-england");
     public static final Channel BBC_TWO_NORTHERN_IRELAND = new Channel("BBC Two Northern Ireland", "http://www.bbc.co.uk/services/bbctwo/ni", "bbctwo-ni");
     public static final Channel BBC_TWO_NORTHERN_IRELAND_ALALOGUE = new Channel("BBC Two Northern Ireland (Analogue)", "http://www.bbc.co.uk/services/bbctwo/ni_analogue", "bbctwo-ni_analogue");
     public static final Channel BBC_TWO_SCOTLAND = new Channel("BBC Two Scotland", "http://www.bbc.co.uk/services/bbctwo/scotland", "bbctwo-scotland");
     public static final Channel BBC_TWO_WALES = new Channel("BBC Two Wales", "http://www.bbc.co.uk/services/bbctwo/wales", "bbctwo-wales");
-    public static final Channel BBC_TWO_WALES_ANALOGUE = new Channel("BBC Two Wales (Analogue)", "http://www.bbc.co.uk/services/bbctwo/wales_analogue", "bbctwo-wales");
+    public static final Channel BBC_TWO_WALES_ANALOGUE = new Channel("BBC Two Wales (Analogue)", "http://www.bbc.co.uk/services/bbctwo/wales_analogue", "bbctwo-walesanalogue");
 
     public static final Channel BBC_THREE = new Channel("BBC Three", "http://www.bbc.co.uk/services/bbcthree", "bbcthree");
     public static final Channel BBC_FOUR = new Channel("BBC Four", "http://www.bbc.co.uk/services/bbcfour", "bbcfour");
