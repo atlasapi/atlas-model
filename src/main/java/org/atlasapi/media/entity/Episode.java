@@ -95,7 +95,7 @@ public class Episode extends Item {
 	    episode.seriesNumber = seriesNumber;
 	    episode.seriesUri = seriesUri;
 	    if (series != null) {
-	        episode.series = (Series) series.copy();
+	        episode.series = (Series) series.toSummary();
 	    }
 	    return episode;
 	}

@@ -170,7 +170,7 @@ public class Item extends Content {
 	public static void copyTo(Item from, Item to) {
 	    Content.copyTo(from, to);
 	    if (from.container != null) {
-	        to.container = from.container.copy();
+	        to.container = from.container.toSummary();
 	    }
 	    to.isLongForm = from.isLongForm;
 	    to.people = Sets.newHashSet(Iterables.transform(from.people, CrewMember.COPY));
