@@ -173,6 +173,10 @@ public final class Schedule {
             return Objects.hashCode(item, broadcast);
         }
 
+        public Broadcast broadcast() {
+            return broadcast;
+        }
+
         public static Function<ScheduleEntry, Item> TO_ITEM = new Function<ScheduleEntry, Item>() {
             @Override
             public Item apply(ScheduleEntry input) {
