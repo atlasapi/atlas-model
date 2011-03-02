@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -17,6 +18,8 @@ import com.metabroadcast.common.model.SelfModelling;
 import com.metabroadcast.common.model.SimpleModel;
 
 public class Channel implements SelfModelling {
+    // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
+    public static final int MAX_KEY_LENGTH = 31;
 
     private static final String CHANNEL_URI_PREFIX = "http://ref.atlasapi.org/channels/";
     public static final Channel BBC_IPLAYER = new Channel("iPlayer", "http://www.bbc.co.uk/iplayer", "iplayer");
@@ -707,6 +710,7 @@ public class Channel implements SelfModelling {
                     Object object = field.get(null);
                     if (object instanceof Channel) {
                         Channel channel = (Channel) object;
+                        
                         uriMapBuilder.put(channel.uri(), channel);
                         keyMapBuilder.put(channel.key(), channel);
                     }
@@ -722,6 +726,7 @@ public class Channel implements SelfModelling {
     public Channel(String title, String uri, String key) {
         this.title = title;
         this.uri = uri;
+        Preconditions.checkArgument(key.length() <= MAX_KEY_LENGTH);
         this.key = key;
     }
 
@@ -829,5 +834,9 @@ public class Channel implements SelfModelling {
     @Override
     public String toString() {
         return Objects.toStringHelper(this).addValue(key).addValue(uri).toString();
+    }
+    
+    public static void main(String[] args) {
+        BBC_ENTERTAINMENT.uri();
     }
 }

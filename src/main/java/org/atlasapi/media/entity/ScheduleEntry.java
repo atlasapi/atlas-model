@@ -112,12 +112,20 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     }
     
     public static String toKey(Interval interval, Channel channel, Publisher publisher) {
-        return joiner.join(paddedMillis(interval), channel.key(), publisher.key());
+        return joiner.join(paddedMillis(interval), paddedChannel(channel), paddedPublisher(publisher));
     }
     
     private static String paddedMillis(Interval interval) {
         String key = String.valueOf(MILLIS_FROM_1900 + interval.getStartMillis());
         return String.format("%1$-16s", key).replace(' ', '0');
+    }
+    
+    private static String paddedChannel(Channel channel) {
+        return String.format("%1$-"+Channel.MAX_KEY_LENGTH+"s", channel.key()).replace(' ', '0');
+    }
+    
+    private static String paddedPublisher(Publisher publisher) {
+        return String.format("%1$-"+Publisher.MAX_KEY_LENGTH+"s", publisher.key()).replace(' ', '0');
     }
     
     @Override
