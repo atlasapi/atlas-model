@@ -58,8 +58,8 @@ public class Descriptions {
             Builder<Description> flattened = ImmutableList.builder();
             
             flattened.add(from);
-            if (from.getItems() != null && ! from.getItems().isEmpty()) {
-                flattened.addAll(from.getItems());
+            if (from.getContent() != null && ! from.getContent().isEmpty()) {
+                flattened.addAll(from.getContent());
             }
             
             return flattened.build();
