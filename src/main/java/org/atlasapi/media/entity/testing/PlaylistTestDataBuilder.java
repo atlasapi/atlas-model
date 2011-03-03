@@ -105,6 +105,11 @@ public class PlaylistTestDataBuilder {
         return this;
     }
     
+    public PlaylistTestDataBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
+    
     public PlaylistTestDataBuilder withUri(String uri) {
         this.uri = uri;
         return this;
