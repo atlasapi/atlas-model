@@ -133,4 +133,16 @@ public class Container<T extends Item> extends Content implements MutableContent
     };
     
     protected final Ordering<T> seriesAndEpisodeOrdering = Ordering.from(seriesAndEpisodeFallBack);
+    
+    public Container<T> copy() {
+        Container<T> copy = new Container<T>();
+        copyTo(this, copy);
+        return copy;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public final static <T extends Item> void copyTo(Container<T> from, Container<T> to) {
+        Content.copyTo(from, to);
+        to.contents = (ImmutableList<T>) ImmutableList.copyOf(Iterables.transform(from.contents, Item.COPY));
+    }
 }

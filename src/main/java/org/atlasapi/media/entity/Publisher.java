@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -31,6 +32,7 @@ public enum Publisher {
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
+    public static final int MAX_KEY_LENGTH = 20;
     
 	private final String key;
     private final Country country;
@@ -38,6 +40,7 @@ public enum Publisher {
 
     Publisher(String title, String key, Country country) {
         this.title = title;
+        Preconditions.checkArgument(key.length() <= MAX_KEY_LENGTH);
         this.key = key;
         this.country = country;
     }

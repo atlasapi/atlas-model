@@ -86,4 +86,17 @@ public class Episode extends Item {
 	public String getSeriesUri() {
 		return seriesUri;
 	}
+	
+	@Override
+	public Content copy() {
+	    Episode episode = new Episode();
+	    Item.copyTo(this, episode);
+	    episode.episodeNumber = episodeNumber;
+	    episode.seriesNumber = seriesNumber;
+	    episode.seriesUri = seriesUri;
+	    if (series != null) {
+	        episode.series = (Series) series.toSummary();
+	    }
+	    return episode;
+	}
 }

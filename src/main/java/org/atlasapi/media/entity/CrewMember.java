@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import com.google.common.base.Function;
+
 public class CrewMember extends Identified {
     
     public enum Role {
@@ -134,4 +136,24 @@ public class CrewMember extends Identified {
     public String toString() {
         return "Crew "+name+" worked as a "+role.title;
     }
+    
+    public CrewMember copy() {
+        CrewMember crew = new CrewMember();
+        copyTo(crew, this);
+        return crew;
+    }
+    
+    public static void copyTo(CrewMember to, CrewMember from) {
+        Identified.copyTo(from, to);
+        to.name = from.name;
+        to.publisher = from.publisher;
+        to.role = from.role;
+    }
+    
+    public final static Function<CrewMember, CrewMember> COPY = new Function<CrewMember, CrewMember>() {
+        @Override
+        public CrewMember apply(CrewMember input) {
+            return input.copy();
+        }
+    };
 }

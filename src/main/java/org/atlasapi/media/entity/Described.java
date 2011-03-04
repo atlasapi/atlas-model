@@ -171,4 +171,20 @@ public class Described extends Identified {
     public void setSpecialization(Specialization specialization) {
         this.specialization = specialization;
     }
+    
+    public static void copyTo(Described from, Described to) {
+        Identified.copyTo(from, to);
+        to.description = from.description;
+        to.firstSeen = from.firstSeen;
+        to.genres = ImmutableSet.copyOf(from.genres);
+        to.image = from.image;
+        to.lastFetched = from.lastFetched;
+        to.mediaType = from.mediaType;
+        to.publisher = from.publisher;
+        to.specialization = from.specialization;
+        to.tags = Sets.newHashSet(from.tags);
+        to.thisOrChildLastUpdated = from.thisOrChildLastUpdated;
+        to.thumbnail = from.thumbnail;
+        to.title = from.title;
+    }
 }

@@ -19,14 +19,11 @@ import java.util.List;
 import org.atlasapi.content.criteria.ContentQuery;
 import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Schedule;
 
 public interface KnownTypeQueryExecutor {
 
 	List<Content> discover(ContentQuery query);
 
-	Schedule schedule(ContentQuery query);
-	
 	List<Identified> executeUriQuery(Iterable<String> uris, ContentQuery query);
 
 }

@@ -85,4 +85,16 @@ public class ContentGroup extends Described implements MutableContentList<Conten
     public void setContentUris(Iterable<String> contentUris) {
 		this.contentUris = ImmutableList.copyOf(ImmutableSet.copyOf(contentUris));
 	}
+    
+    public ContentGroup copy() {
+        ContentGroup copy = new ContentGroup();
+        copyTo(this, copy);
+        return copy;
+    }
+    
+    public static void copyTo(ContentGroup from, ContentGroup to) {
+        Described.copyTo(from, to);
+        to.contents = ImmutableList.copyOf(Iterables.transform(from.contents, Content.COPY));
+        to.contentUris = ImmutableList.copyOf(from.contentUris);
+    }
 }
