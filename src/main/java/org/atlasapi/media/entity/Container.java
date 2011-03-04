@@ -48,6 +48,19 @@ public class Container<T extends Item> extends Content implements MutableContent
     protected void contentAdded(T content) {
     	content.setContainer(this);
 	}
+    
+	@SuppressWarnings("unchecked")
+	public void addOrReplace(Item item) {
+		if (!getContents().contains(item)) {
+			// add
+			((Container<Item>) this).addContents(item);
+		} else { 
+			// replace
+			List<Item> currentItems = Lists.<Item>newArrayList(getContents());
+			currentItems.set(currentItems.indexOf(item), item);
+			((Container<Item>) this).setContents(currentItems);
+		}
+	}
 
 	public final void addContents(T... contents) {
     	addContents(ImmutableList.copyOf(contents));
