@@ -2,6 +2,7 @@ package org.atlasapi.media.entity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -783,6 +784,10 @@ public class Channel implements SelfModelling {
 
         return keys.build();
     }
+    
+    public static Collection<Channel> all() {
+    	return keyMap.values();
+	}
 
     public static List<Map<String, ?>> mapList() {
         List<Map<String, ?>> channelList = Lists.newArrayList();
@@ -834,9 +839,5 @@ public class Channel implements SelfModelling {
     @Override
     public String toString() {
         return Objects.toStringHelper(this).addValue(key).addValue(uri).toString();
-    }
-    
-    public static void main(String[] args) {
-        BBC_ENTERTAINMENT.uri();
     }
 }
