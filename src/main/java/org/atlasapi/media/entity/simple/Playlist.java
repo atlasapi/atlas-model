@@ -33,7 +33,7 @@ public class Playlist extends Description {
 		return content;
 	}
 	
-	public void setContent(Iterable<Description> items) {
+	public void setContent(Iterable<? extends Description> items) {
 		this.content = Lists.newArrayList(items);
 	}
 	
