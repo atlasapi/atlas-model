@@ -6,10 +6,12 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 
 @XmlType(name="channel", namespace=PLAY_SIMPLE_XML.NS)
 public class ScheduleChannel {
+	
     private String channelUri;
     private String channelTitle;
     private String channelKey;
@@ -66,4 +68,12 @@ public class ScheduleChannel {
     public String toString() {
         return Objects.toStringHelper(ScheduleChannel.class).addValue(channelUri).addValue(items).toString();
     }
+    
+    public static Function<ScheduleChannel, String> TO_KEY = new Function<ScheduleChannel, String>() {
+
+		@Override
+		public String apply(ScheduleChannel input) {
+			return input.getChannelKey();
+		}
+    };
 }
