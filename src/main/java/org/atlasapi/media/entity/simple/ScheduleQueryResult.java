@@ -1,7 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
@@ -10,27 +10,27 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS, name="schedule")
 @XmlType(name="schedule", namespace=PLAY_SIMPLE_XML.NS)
 public class ScheduleQueryResult {
 
-	private Map<String, ScheduleChannel> schedule = Maps.newHashMap();
+	private List<ScheduleChannel> schedule = Lists.newArrayList();
 	
 	public void add(ScheduleChannel channel) {
-	    schedule.put(channel.getChannelKey(), channel);
+	    schedule.add(channel);
 	}
 
 	@XmlElements({ 
 		@XmlElement(name = "channels", type = ScheduleChannel.class, namespace=PLAY_SIMPLE_XML.NS)
 	})
 	public Collection<ScheduleChannel> getChannels() {
-		return schedule.values();
+		return schedule;
 	}
 	
 	public void setChannels(Iterable<ScheduleChannel> channels) {
-		schedule = Maps.uniqueIndex(channels, ScheduleChannel.TO_KEY);
+		schedule = Lists.newArrayList(channels);
 	}
 
 	@Override

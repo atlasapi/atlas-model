@@ -8,6 +8,7 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 @XmlType(name="channel", namespace=PLAY_SIMPLE_XML.NS)
 public class ScheduleChannel {
@@ -32,7 +33,7 @@ public class ScheduleChannel {
         this.channelKey = channelKey;
     }
 
-    private List<Item> items;
+    private List<Item> items = Lists.newArrayList();
     
     public String getChannelUri() {
         return channelUri;

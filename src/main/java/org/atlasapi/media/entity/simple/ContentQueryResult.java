@@ -29,8 +29,8 @@ public class ContentQueryResult {
 		return contents;
 	}
 	
-	public void setContents(List<Description> items) {
-		this.contents = items;
+	public void setContents(Iterable<? extends Description> items) {
+		this.contents = Lists.newArrayList(items);
 	}
 	
 	public boolean isEmpty() {
