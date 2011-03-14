@@ -53,7 +53,7 @@ public class Person extends Aliased {
 	    return person;
 	}
 	
-    public String character() {
+    public String getCharacter() {
         return character;
     }
     
