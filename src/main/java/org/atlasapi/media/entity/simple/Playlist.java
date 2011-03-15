@@ -48,4 +48,13 @@ public class Playlist extends Description {
 	    }));
 	    return copy;
 	}
+	
+	public static final Function<Playlist, List<Description>> TO_CONTENTS = new Function<Playlist, List<Description>>() {
+
+		@Override
+		public List<Description> apply(Playlist input) {
+			return input.getContent();
+		}
+	};
+
 }

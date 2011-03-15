@@ -195,4 +195,11 @@ public abstract class Description extends Aliased {
             return Description.copyOf(input);
         }
     };
+    
+    public final static Function<Description, String> TO_URI = new Function<Description, String>() {
+    	@Override
+    	public String apply(Description input) {
+    		return input.getUri();
+    	}
+    };
 }
