@@ -22,6 +22,7 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -127,6 +128,13 @@ public class Location extends Identified {
         @Override
         public Location apply(Location input) {
             return input.copy();
+        }
+    };
+    
+    public static final Predicate<Location> AVAILABLE_LOCATION = new Predicate<Location>() {
+        @Override
+        public boolean apply(Location input) {
+            return input.getAvailable();
         }
     };
 }
