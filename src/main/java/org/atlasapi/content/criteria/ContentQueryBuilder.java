@@ -58,11 +58,6 @@ public class ContentQueryBuilder {
 		return this;
 	}
 	
-	public ContentQueryBuilder searchFor(QueryFactory<String> attribute, String... values) {
-		queries.add(attribute.createQuery(Operators.SEARCH,  Arrays.asList(values)));
-		return this;
-	}
-	
 	public ContentQueryBuilder equalTo(QueryFactory<Boolean> attribute, Boolean... values) {
 		queries.add(attribute.createQuery(Operators.EQUALS, Arrays.asList(values)));
 		return this;

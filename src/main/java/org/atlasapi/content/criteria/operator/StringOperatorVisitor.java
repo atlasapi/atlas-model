@@ -16,7 +16,6 @@ package org.atlasapi.content.criteria.operator;
 
 import org.atlasapi.content.criteria.operator.Operators.Beginning;
 import org.atlasapi.content.criteria.operator.Operators.Equals;
-import org.atlasapi.content.criteria.operator.Operators.Search;
 
 public interface StringOperatorVisitor<V>  {
 
@@ -24,6 +23,4 @@ public interface StringOperatorVisitor<V>  {
 
 	V visit(Beginning beginning);
 
-	V visit(Search search);
-	
 }

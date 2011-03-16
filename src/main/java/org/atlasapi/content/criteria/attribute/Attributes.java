@@ -39,7 +39,6 @@ import com.metabroadcast.common.media.MimeType;
 public class Attributes {
 
 	// Simple string-valued attributes
-    public static final Attribute<String> DESCRIPTION_TITLE = stringAttribute("title", Content.class);
     public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
     public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
     public static final Attribute<String> DESCRIPTION_TAG = stringListAttribute("tag", Content.class);
@@ -61,8 +60,6 @@ public class Attributes {
 	public static final Attribute<Enum<Publisher>> VERSION_PROVIDER = new EnumValuedAttribute<Publisher>("provider", Publisher.class, Version.class);
 
 	// Time based attributes
-	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_TIME = dateTimeAttribute("transmissionTime", Broadcast.class).allowShortMatches();
-	public static final Attribute<DateTime> BROADCAST_TRANSMISSION_END_TIME = dateTimeAttribute("transmissionEndTime", Broadcast.class).allowShortMatches();
 	public static final Attribute<DateTime> BRAND_THIS_OR_CHILD_LAST_UPDATED = dateTimeAttribute("thisOrChildLastUpdated", Container.class).allowShortMatches();
 	public static final Attribute<String> BROADCAST_ON = stringAttribute("broadcastOn", Broadcast.class).allowShortMatches().withAlias("channel");
 	
@@ -71,15 +68,13 @@ public class Attributes {
 	public static final Attribute<String> POLICY_AVAILABLE_COUNTRY = new StringValuedAttribute("availableCountries", Policy.class, true).allowShortMatches();
 	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
-		ImmutableList.<Attribute<?>>of(DESCRIPTION_TITLE,
-								    DESCRIPTION_TAG,
+		ImmutableList.<Attribute<?>>of(DESCRIPTION_TAG,
 								    DESCRIPTION_GENRE,
 								    DESCRIPTION_PUBLISHER,
 								    DESCRIPTION_TYPE,
 								    BRAND_THIS_OR_CHILD_LAST_UPDATED,
 								    VERSION_DURATION,
 								    VERSION_PROVIDER,
-								    BROADCAST_TRANSMISSION_TIME,
 								    BROADCAST_ON,
 								    LOCATION_TRANSPORT_TYPE,
 								    POLICY_AVAILABLE_COUNTRY,

@@ -24,7 +24,6 @@ public class Operators {
 
 	public static final Equals EQUALS = new Equals();
 	public static final Beginning BEGINNING = new Beginning();
-	public static final Search SEARCH = new Search();
 
 	public static final IntegerOperator GREATER_THAN = new GreaterThan();
 	public static final IntegerOperator LESS_THAN = new LessThan();
@@ -46,7 +45,6 @@ public class Operators {
 		table.put(GREATER_THAN.name(), GREATER_THAN);
 		table.put(BEFORE.name(), BEFORE);
 		table.put(AFTER.name(), AFTER);
-		table.put(SEARCH.name(), SEARCH);
 		return table;
 	}
 	
@@ -121,21 +119,6 @@ public class Operators {
 		
 		private Beginning() { 
 			super("beginning");
-		}
-		
-		public <V> V accept(StringOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
-
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return String.class.equals(lhs) && String.class.equals(rhs);
-		}
-	}
-	
-	public static class Search extends BaseOperator implements StringOperator {
-		
-		private Search() {
-			super("search");
 		}
 		
 		public <V> V accept(StringOperatorVisitor<V> visitor) {

@@ -16,18 +16,11 @@ package org.atlasapi.content.criteria;
 
 import static org.atlasapi.content.criteria.ContentQueryBuilder.query;
 import static org.atlasapi.content.criteria.MatchesNothing.isEquivalentTo;
-import static org.atlasapi.content.criteria.attribute.Attributes.DESCRIPTION_TITLE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
-
-import org.atlasapi.content.criteria.ContentQuery;
-import org.atlasapi.content.criteria.MatchesNothing;
-import org.atlasapi.content.criteria.operator.Operators;
+import org.atlasapi.content.criteria.attribute.Attributes;
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableList;
 
 public class MatchesNothingTest {
 
@@ -35,7 +28,6 @@ public class MatchesNothingTest {
 	public void test() throws Exception {
 		
 		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));
-		assertFalse(isEquivalentTo(query().equalTo(DESCRIPTION_TITLE, "test").build()));
-		assertTrue(isEquivalentTo(new ContentQuery(ImmutableList.of(MatchesNothing.get(), DESCRIPTION_TITLE.createQuery(Operators.EQUALS, Collections.singletonList("test"))))));
+		assertFalse(isEquivalentTo(query().equalTo(Attributes.BROADCAST_ON, "test").build()));
 	}
 }
