@@ -202,4 +202,11 @@ public abstract class Description extends Aliased {
     		return input.getUri();
     	}
     };
+    
+    public final static Function<Description, String> TO_ID = new Function<Description, String>() {
+        @Override
+        public String apply(Description input) {
+            return input.getId();
+        }
+    };
 }
