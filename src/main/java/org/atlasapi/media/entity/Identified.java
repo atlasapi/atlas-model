@@ -130,7 +130,7 @@ public class Identified {
 		return lastUpdated;
 	}
 	
-	public void addEquivalentTo(Content content) {
+	public void addEquivalentTo(Identified content) {
 		checkNotNull(content.getCanonicalUri());
 		this.equivalentTo.add(content.getCanonicalUri());
 	}
