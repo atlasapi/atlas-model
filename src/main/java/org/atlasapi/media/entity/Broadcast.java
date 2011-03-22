@@ -20,10 +20,12 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.metabroadcast.common.base.Maybe;
 
 /**
  * A time and channel at which a Version is/was receivable.
@@ -80,6 +82,13 @@ public class Broadcast extends Identified {
     public DateTime getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
+    
+    public Maybe<Interval> transmissionInterval() {
+        if (transmissionTime != null && transmissionEndTime != null) {
+            return Maybe.fromPossibleNullValue(new Interval(transmissionTime, transmissionEndTime));
+        }
+        return Maybe.nothing();
+    }
 
     @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public Integer getBroadcastDuration() {
