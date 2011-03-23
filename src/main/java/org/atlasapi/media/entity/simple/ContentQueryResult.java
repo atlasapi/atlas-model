@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS, name="content")
@@ -52,5 +53,10 @@ public class ContentQueryResult {
 			return contents.equals(other.contents);
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+	    return Objects.toStringHelper(this).addValue(contents).toString();
 	}
 }

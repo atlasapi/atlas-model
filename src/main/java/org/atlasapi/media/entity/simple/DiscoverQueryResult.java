@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS, name="content")
@@ -28,5 +29,10 @@ public class DiscoverQueryResult {
     
     public List<Description> getResults() {
         return descriptions;
+    }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).addValue(descriptions).toString();
     }
 }
