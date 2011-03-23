@@ -12,6 +12,7 @@ import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -92,6 +93,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	
 	public String getId() {
 	    return id;
+	}
+	
+	@Override
+	public String toString() {
+	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
 	}
 	
 	public Broadcast copy() {
