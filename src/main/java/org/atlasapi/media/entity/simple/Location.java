@@ -27,6 +27,7 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
@@ -71,6 +72,7 @@ public class Location extends Version {
     private String transportType;
     private String uri;
     private String embedCode;
+    private String embedId;
 
     private boolean available = true;
 
@@ -315,6 +317,14 @@ public class Location extends Version {
     public void setEmbedCode(String embedCode) {
         this.embedCode = embedCode;
     }
+    
+    public String getEmbedId() {
+        return embedId;
+    }
+    
+    public void setEmbedId(String embedId) {
+        this.embedId = embedId;
+    }
 
     public boolean isAvailable() {
         return available;
@@ -337,9 +347,9 @@ public class Location extends Version {
         if (obj instanceof Location) {
             Location target = (Location) obj;
             if (isEmbed()) {
-                return transportType.equals(target.transportType) && embedCode.equals(target.embedCode);
+                return transportType.equals(target.transportType) && Objects.equal(embedCode, target.embedCode) && Objects.equal(embedId, target.embedId);
             } else if (!Strings.isNullOrEmpty(uri)) {
-                return transportType.equals(target.transportType) && uri.equals(target.uri);
+                return transportType.equals(target.transportType) && Objects.equal(uri, target.uri);
             } else {
                 return super.equals(obj);
             }
@@ -349,8 +359,10 @@ public class Location extends Version {
 
     @Override
     public int hashCode() {
-        if (isEmbed()) {
+        if (TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedCode)) {
             return embedCode.hashCode();
+        } else if (TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedId)) {
+            return embedId.hashCode();
         } else if (!Strings.isNullOrEmpty(uri)) {
             return uri.hashCode();
         } else {
@@ -361,14 +373,14 @@ public class Location extends Version {
     @Override
     public String toString() {
         if (isEmbed()) {
-            return "embed location: " + embedCode;
+            return "embed location: " + embedCode + " and id: "+ embedId;
         } else {
             return transportType + " location: " + uri;
         }
     }
 
     private boolean isEmbed() {
-        return TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedCode);
+        return TransportType.EMBED.toString().equals(transportType) && (!Strings.isNullOrEmpty(embedCode) || !Strings.isNullOrEmpty(embedId));
     }
     
     public Location copy() {
@@ -413,6 +425,7 @@ public class Location extends Version {
         copy.setTransportSubType(getTransportSubType());
         copy.setUri(getUri());
         copy.setEmbedCode(getEmbedCode());
+        copy.setEmbedId(getEmbedId());
         copy.setAvailable(isAvailable());
         
         return copy;

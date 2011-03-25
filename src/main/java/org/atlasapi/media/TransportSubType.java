@@ -4,7 +4,8 @@ public enum TransportSubType {
 	
 	HTTP, 
 	RTSP,
-	ITUNES;
+	ITUNES,
+	BRIGHTCOVE;
 	
 	public String toString() {
 		return name().toLowerCase();

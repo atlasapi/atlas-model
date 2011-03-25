@@ -43,6 +43,8 @@ public class Location extends Identified {
 
     private String embedCode;
     
+    private String embedId;
+    
     private Policy policy;
     
     @RdfProperty(relation=true)
@@ -105,15 +107,25 @@ public class Location extends Identified {
 		return embedCode;
 	}
     
+    @RdfProperty
+    public String getEmbedId() {
+        return embedId;
+    }
+    
     public void setEmbedCode(String embedCode) {
 		this.embedCode = embedCode;
 	}
+    
+    public void setEmbedId(String embedId) {
+        this.embedId = embedId;
+    }
     
     public Location copy() {
         Location copy = new Location();
         Identified.copyTo(this, copy);
         copy.available = available;
         copy.embedCode = embedCode;
+        copy.embedId = embedId;
         if (policy != null) {
             copy.policy = policy.copy();
         }
