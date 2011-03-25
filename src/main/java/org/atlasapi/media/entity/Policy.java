@@ -33,7 +33,7 @@ public class Policy extends Identified {
 	
     private DateTime drmPlayableFrom;
     
-    private Set<Country> availableCountries;
+    private Set<Country> availableCountries = Sets.newHashSet();
 
 	private Integer availabilityLength;
 	
