@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
@@ -15,7 +16,9 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.primitives.Ints;
 
 /**
  * Base type for descriptions of resources.
@@ -184,4 +187,34 @@ public class Identified {
 	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);
 	    to.lastUpdated = from.lastUpdated;
 	}
+	
+	public static <T extends Identified> List<T> sort(List<T> content, final Iterable<String> orderIterable) {
+        
+        final ImmutableList<String> order = ImmutableList.copyOf(orderIterable);
+        
+        Comparator<Identified> byPositionInList = new Comparator<Identified>() {
+
+            @Override
+            public int compare(Identified c1, Identified c2) {
+                return Ints.compare(indexOf(c1), indexOf(c2));
+            }
+
+            private int indexOf(Identified content) {
+                for (String uri : content.getAllUris()) {
+                    int idx = order.indexOf(uri);
+                    if (idx != -1) {
+                        return idx;
+                    }
+                }
+                if (content.getCurie() != null) {
+                    return order.indexOf(content.getCurie());
+                }
+                return -1;
+            }
+        };
+        
+        List<T> toSort = Lists.newArrayList(content);
+        Collections.sort(toSort, byPositionInList);
+        return toSort;
+    }
 }
