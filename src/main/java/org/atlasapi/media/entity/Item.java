@@ -111,6 +111,11 @@ public class Item extends Content {
 		return versions.remove(version);
 	}
 	
+	@RdfProperty(relation = true, uri="person")
+	public Set<CrewMember> getPeople() {
+	    return people();
+	}
+	
 	public Set<CrewMember> people() {
 	    return people;
 	}

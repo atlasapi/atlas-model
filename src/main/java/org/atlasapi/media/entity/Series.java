@@ -1,6 +1,10 @@
 package org.atlasapi.media.entity;
 
+import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.vocabulary.PO;
+
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 
 
 public class Series extends Container<Episode> {
@@ -11,6 +15,12 @@ public class Series extends Container<Episode> {
 	
 	public Series(String uri, String curie, Publisher publisher) {
 		 super(uri, curie, publisher);
+	}
+	
+	@Override
+	@RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
+	public ImmutableList<Episode> getContents() {
+		return super.getContents();
 	}
 	
 	public Series toSummary() {
