@@ -176,7 +176,8 @@ public class Channel implements SelfModelling {
     public static final Channel E4_HD = new Channel("E4 HD", "http://www.e4.com/hd", "e4hd");
     public static final Channel ITV3_PLUS1 = new Channel("ITV3 +1", "http://www.itv.com/channels/itv3#plus1", "itv3plus1");
     public static final Channel MORE4_PLUS1 = new Channel("More4 +1", "http://www.channel4.com/more4#plus1", "more4plus1");
-    public static final Channel ITV4_PLUS1 = new Channel("ITV1 +1", "http://www.itv.com/channels/itv1#plus1", "itv1plus1");
+    public static final Channel ITV1_PLUS1 = new Channel("ITV1 +1", "http://www.itv.com/channels/itv1#plus1", "itv1plus1");
+    public static final Channel ITV4_PLUS1 = new Channel("ITV4 +1", "http://www.itv.com/channels/itv4#plus1", "itv4plus1");
     public static final Channel CITV = new Channel("Children's ITV", "http://www.itv.com/channels/citv", "citv");
     public static final Channel FIVER_PLUS1 = new Channel("Fiver +1", "http://www.five.tv/channels/fiver#plus1", "fiverplus1");
     public static final Channel FIVE_USA_PLUS1 = new Channel("Fiver USA +1", "http://www.five.tv/channels/fiver-usa#plus1", "fiverusaplus1");
