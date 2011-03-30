@@ -130,6 +130,7 @@ public class Channel implements SelfModelling {
     public static final Channel FOUR_MUSIC = new Channel("4 Music", "http://www.4music.com", "4music");
 
     public static final Channel FIVE = new Channel("Five", "http://www.five.tv", "five");
+    public static final Channel FIVE_HD = new Channel("Five HD", "http://www.five.tv/channels/five_hd", "fivehd");
     public static final Channel FIVER = new Channel("Fiver", "http://www.five.tv/channels/fiver", "fiver");
     public static final Channel FIVE_USA = new Channel("Five USA", "http://www.five.tv/channels/five-usa", "fiveusa");
 
