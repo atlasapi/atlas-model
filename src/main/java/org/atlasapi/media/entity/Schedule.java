@@ -88,4 +88,9 @@ public final class Schedule {
         }
         return false;
     }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).addValue(scheduleChannels).toString();
+    }
 }
