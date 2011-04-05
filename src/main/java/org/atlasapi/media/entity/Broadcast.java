@@ -24,7 +24,6 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
 import com.metabroadcast.common.base.Maybe;
 
 /**
@@ -132,12 +131,15 @@ public class Broadcast extends Identified {
             return false;
         }
         Broadcast broadcast = (Broadcast) object;
+        if (id != null && broadcast.id != null) {
+        	return id.equals(broadcast.id);
+        }
         return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
     }
     
     @Override
     public int hashCode() {
-    	return Objects.hashCode(broadcastOn, transmissionTime);
+    	return 43;
     }
     
     public Broadcast copy() {
