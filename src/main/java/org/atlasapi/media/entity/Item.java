@@ -41,7 +41,7 @@ public class Item extends Content {
 	private Container<?> container;
 	
 	private Set<Version> versions = Sets.newHashSet();
-	private Set<CrewMember> people = Sets.newHashSet();
+	private List<CrewMember> people = Lists.newArrayList();
 	
 	private boolean isLongForm = false;
 	
@@ -112,23 +112,23 @@ public class Item extends Content {
 	}
 	
 	@RdfProperty(relation = true, uri="person")
-	public Set<CrewMember> getPeople() {
+	public List<CrewMember> getPeople() {
 	    return people();
 	}
 	
-	public Set<CrewMember> people() {
+	public List<CrewMember> people() {
 	    return people;
 	}
 	
-	public Set<Actor> actors() {
-	    return Sets.<Actor>newHashSet(Iterables.filter(people, Actor.class));
+	public List<Actor> actors() {
+	    return Lists.<Actor>newArrayList(Iterables.filter(people, Actor.class));
 	}
 	
 	public void addPerson(CrewMember person) {
 	    people.add(person);
 	}
 	
-	public void setPeople(Set<CrewMember> people) {
+	public void setPeople(List<CrewMember> people) {
 	    this.people = people;
 	}
 
@@ -178,7 +178,7 @@ public class Item extends Content {
 	        to.container = from.container.toSummary();
 	    }
 	    to.isLongForm = from.isLongForm;
-	    to.people = Sets.newHashSet(Iterables.transform(from.people, CrewMember.COPY));
+	    to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
 	    to.versions = Sets.newHashSet(Iterables.transform(from.versions, Version.COPY));
 	}
 	
