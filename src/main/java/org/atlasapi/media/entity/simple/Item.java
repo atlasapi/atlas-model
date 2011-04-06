@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -13,6 +14,7 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @XmlType(name="item", namespace=PLAY_SIMPLE_XML.NS)
@@ -27,7 +29,7 @@ public class Item extends Description {
 	
 	private BrandSummary brandSummary;
 	private SeriesSummary seriesSummary;
-	private Set<Person> people = Sets.newHashSet();
+	private List<Person> people = Lists.newArrayList();
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -47,12 +49,12 @@ public class Item extends Description {
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="people")
     @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="people")
-    public Set<Person> getPeople() {
+    public List<Person> getPeople() {
         return people;
     }
 	
 	public void setPeople(Iterable<Person> people) {
-	    this.people = Sets.newHashSet(people);
+	    this.people = Lists.newArrayList(people);
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
