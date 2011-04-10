@@ -156,4 +156,11 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
             return Iterables.getOnlyElement(Iterables.getOnlyElement(item.getVersions()).getBroadcasts());
         }
     };
+    
+    public final static Function<ScheduleEntry, String> KEY = new Function<ScheduleEntry, String>() {
+        @Override
+        public String apply(ScheduleEntry input) {
+            return input.toKey();
+        }
+    };
 }
