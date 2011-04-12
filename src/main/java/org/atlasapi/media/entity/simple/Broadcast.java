@@ -30,6 +30,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private LocalDate scheduleDate;
     
     private String id;
+    
+    private Boolean repeat;
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
@@ -95,6 +97,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	    return id;
 	}
 	
+	public Boolean isRepeat() {
+	    return repeat;
+	}
+	
+	public Broadcast withRepeat(Boolean repeat) {
+	    this.repeat = repeat;
+	    return this;
+	}
+	
 	@Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
@@ -115,6 +126,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setBroadcastOn(getBroadcastOn());
         copy.setScheduleDate(getScheduleDate());
         copy.setId(getId());
+        copy.withRepeat(isRepeat());
         
         return copy;
     }

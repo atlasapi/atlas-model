@@ -47,6 +47,8 @@ public class Broadcast extends Identified {
     private Boolean activelyPublished;
     
     private String id;  
+    
+    private Boolean repeat;
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
@@ -124,7 +126,15 @@ public class Broadcast extends Identified {
     public void setIsActivelyPublished(Boolean activelyPublished) {
         this.activelyPublished = activelyPublished;
     }
- 
+    
+    public Boolean isRepeat() {
+        return repeat;
+    }
+    
+    public void setRepeat(Boolean repeat) {
+        this.repeat = repeat;
+    }
+  
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Broadcast)) {
@@ -148,6 +158,7 @@ public class Broadcast extends Identified {
         copy.activelyPublished = activelyPublished;
         copy.id = id;
         copy.scheduleDate = scheduleDate;
+        copy.repeat = repeat;
         return copy;
     }
     
