@@ -182,7 +182,7 @@ public class Channel implements SelfModelling {
     public static final Channel ITV4_PLUS1 = new Channel("ITV4 +1", "http://www.itv.com/channels/itv4#plus1", "itv4plus1");
     public static final Channel CITV = new Channel("Children's ITV", "http://www.itv.com/channels/citv", "citv");
     public static final Channel FIVER_PLUS1 = new Channel("Fiver +1", "http://www.five.tv/channels/fiver#plus1", "fiverplus1");
-    public static final Channel FIVE_USA_PLUS1 = new Channel("Fiver USA +1", "http://www.five.tv/channels/fiver-usa#plus1", "fiverusaplus1");
+    public static final Channel FIVER_USA_PLUS1 = new Channel("Fiver USA +1", "http://www.five.tv/channels/fiver-usa#plus1", "fiverusaplus1");
     public static final Channel THE_ADULT_CHANNEL = new Channel("The Adult Channel", CHANNEL_URI_PREFIX + "theadultchannel", "theadultchannel");
     public static final Channel MTV_HITS = new Channel("MTV Hits", CHANNEL_URI_PREFIX + "mtvhits", "mtvhits");
     public static final Channel MTV_BASE = new Channel("MTV Base", CHANNEL_URI_PREFIX + "mtvbase", "mtvbase");
@@ -309,7 +309,6 @@ public class Channel implements SelfModelling {
     public static final Channel DAVE_JA_VU = new Channel("Dave Ja Vu", CHANNEL_URI_PREFIX + "davejavu", "davejavu");
     public static final Channel PRICE_DROP_TV = new Channel("Price Drop TV", CHANNEL_URI_PREFIX + "pricedroptv", "pricedroptv");
     public static final Channel FX = new Channel("FX", CHANNEL_URI_PREFIX + "fx", "fx");
-    public static final Channel FX_PLUS = new Channel("Fx Plus", CHANNEL_URI_PREFIX + "fxplus", "fxplus");
     public static final Channel EDEN = new Channel("EDEN", CHANNEL_URI_PREFIX + "eden", "eden");
     public static final Channel EDEN_PLUS1 = new Channel("Eden +1", CHANNEL_URI_PREFIX + "edenplus1", "edenplus1");
     public static final Channel EDEN_HD = new Channel("Eden HD", CHANNEL_URI_PREFIX + "edenhd", "edenhd");
@@ -461,6 +460,20 @@ public class Channel implements SelfModelling {
             "bbcsportinteractivefreeview");
     public static final Channel SKY_3D = new Channel("Sky 3D", CHANNEL_URI_PREFIX + "sky3d", "sky3d");
     public static final Channel SKY_SPORTS_4_HD = new Channel("Sky Sports 4 HD", CHANNEL_URI_PREFIX + "skysports4hd", "skysports4hd");
+    
+    public static final Channel SKY_ATLANTIC = new Channel("Sky Atlantic", CHANNEL_URI_PREFIX+"skyatlantic", "skyatlantic");
+    public static final Channel SKY_ATLANTIC_HD = new Channel("Sky Atlantic HD", CHANNEL_URI_PREFIX+"skyatlantichd", "skyatlantichd");
+    public static final Channel SKY_MOVIES_SHOWCASE = new Channel("Sky Movies Showcase", CHANNEL_URI_PREFIX+"skymoviesshowcase", "skymoviesshowcase");
+    public static final Channel SKY_MOVIES_SHOWCASE_HD = new Channel("Sky Movies Showcase HD", CHANNEL_URI_PREFIX+"skymoviesshowcasehd", "skymoviesshowcasehd");
+    public static final Channel DISCOVERY_KNOWLEDGE = new Channel("Discovery Knowledge", CHANNEL_URI_PREFIX+"discoveryknowledge", "discoveryknowledge");
+    public static final Channel SKY_LIVING = new Channel("Sky Living", CHANNEL_URI_PREFIX+"skyliving", "skyliving");
+    public static final Channel LIVING_PLUS2 = new Channel("Living +2", CHANNEL_URI_PREFIX+"livingplus2", "livingplus2");
+    public static final Channel FX_PLUS = new Channel("FX+", CHANNEL_URI_PREFIX+"fxplus", "fxplus");
+    public static final Channel BBC_ALBA = new Channel("BBC Alba", CHANNEL_URI_PREFIX+"bbcalba", "bbcalba");
+    public static final Channel SKY_LIVINGIT = new Channel("Sky Livingit", CHANNEL_URI_PREFIX+"skylivingit", "skylivingit");
+    public static final Channel S4C2 = new Channel("S4C2", CHANNEL_URI_PREFIX+"sc42", "sc42");
+    public static final Channel FIVE_USA_PLUS1 = new Channel("Five USA +1", CHANNEL_URI_PREFIX+"fiveusaplus1", "fiveusaplus1");
+    public static final Channel MTV_MUSIC = new Channel("MTV Music", CHANNEL_URI_PREFIX+"mtvmusic", "mtvmusic");
     
     public final static Channel TVBLOB_7GOLD = new Channel("7 Gold", "http://tvblob.com/channel/7gold", "7gold");
     public final static Channel TVBLOB_ANTENNATRE = new Channel("Antenna Tre", "http://tvblob.com/channel/antennatre", "antennatre");
