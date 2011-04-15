@@ -29,6 +29,7 @@ public enum Publisher {
     ITUNES("iTunes", "itunes.com", Countries.ALL),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB),
     PA("PA", "pressassociation.com", Countries.GB),
+    PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
 	
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
