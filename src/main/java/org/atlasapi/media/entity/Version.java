@@ -111,17 +111,21 @@ public class Version extends Identified {
 	}
 	
 	public Version copy() {
+	    return copyWithBroadcasts(Sets.newHashSet(Iterables.transform(broadcasts, Broadcast.COPY)));
+	}
+	
+	public Version copyWithBroadcasts(Set<Broadcast> broadcasts) {
 	    Version copy = new Version();
-	    Identified.copyTo(this, copy);
-	    copy.broadcasts = Sets.newHashSet(Iterables.transform(broadcasts, Broadcast.COPY));
-	    copy.duration = duration;
-	    copy.manifestedAs = Sets.newHashSet(Iterables.transform(manifestedAs, Encoding.COPY));
-	    copy.provider = provider;
-	    copy.publishedDuration = publishedDuration;
-	    if (restriction != null) {
-	        copy.restriction = restriction.copy();
-	    }
-	    return copy;
+        Identified.copyTo(this, copy);
+        copy.broadcasts = broadcasts;
+        copy.duration = duration;
+        copy.manifestedAs = Sets.newHashSet(Iterables.transform(manifestedAs, Encoding.COPY));
+        copy.provider = provider;
+        copy.publishedDuration = publishedDuration;
+        if (restriction != null) {
+            copy.restriction = restriction.copy();
+        }
+        return copy;
 	}
 	
 	public final static Function<Version, Version> COPY = new Function<Version, Version>() {

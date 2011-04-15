@@ -172,15 +172,27 @@ public class Item extends Content {
 	    return copy;
 	}
 	
-	public static void copyTo(Item from, Item to) {
-	    Content.copyTo(from, to);
-	    if (from.container != null) {
-	        to.container = from.container.toSummary();
-	    }
-	    to.isLongForm = from.isLongForm;
-	    to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
-	    to.versions = Sets.newHashSet(Iterables.transform(from.versions, Version.COPY));
+	public Item copyWithVersions(Set<Version> versions) {
+	    Item copy = new Item();
+        
+        Item.copyToWithVersions(this, copy, versions);
+        
+        return copy;
 	}
+	
+	public static void copyTo(Item from, Item to) {
+	    copyToWithVersions(from, to, Sets.newHashSet(Iterables.transform(from.versions, Version.COPY)));
+	}
+	
+	public static void copyToWithVersions(Item from, Item to, Set<Version> versions) {
+        Content.copyTo(from, to);
+        if (from.container != null) {
+            to.container = from.container.toSummary();
+        }
+        to.isLongForm = from.isLongForm;
+        to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
+        to.versions = versions;
+    }
 	
 	public static final Function<Item, Item> COPY = new Function<Item, Item>() {
         @Override

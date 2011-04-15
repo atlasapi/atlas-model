@@ -174,4 +174,9 @@ public class ItemTestDataBuilder {
         this.aliases = ImmutableSet.copyOf(aliases);
         return this;
     }
+    
+    public ItemTestDataBuilder withPublisher(PublisherDetails publisher) {
+        this.publisher = publisher;
+        return this;
+    }
 }
