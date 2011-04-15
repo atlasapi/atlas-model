@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.metabroadcast.common.base.Maybe;
 
 public class CrewMember extends Identified {
     
@@ -22,7 +23,12 @@ public class CrewMember extends Identified {
         ADAPTED_BY("adapted_by", "Adapted By"),
         PRESENTER("presenter", "Presenter"),
         COMPOSER("composer", "Composer"),
-        ACTOR("actor", "Actor");
+        ACTOR("actor", "Actor"),
+        PARTICIPANT("participant", "Participant"),
+        NARRATOR("narrator", "Narrator"),
+        REPORTER("reporter", "Reporter"),
+        COMMENTATOR("commentator", "Commentator"),
+        EXPERT("expert", "Expert");
         
         private final String key;
         private final String title;
@@ -41,13 +47,21 @@ public class CrewMember extends Identified {
         }
         
         public static Role fromKey(String key) {
-            for (Role role: Role.values()) {
+            Maybe<Role> role = fromPossibleKey(key);
+            if (role.isNothing()) {
+            	throw new IllegalArgumentException("Unkown role: "+key);
+            }
+            return role.requireValue();
+        }
+
+		public static Maybe<Role> fromPossibleKey(String key) {
+			for (Role role: Role.values()) {
                 if (role.key.equals(key)) {
-                    return role;
+                    return Maybe.just(role);
                 }
             }
-            throw new IllegalArgumentException("Unkown role: "+key);
-        }
+			return Maybe.nothing();
+		}
     }
     
     private Role role;
