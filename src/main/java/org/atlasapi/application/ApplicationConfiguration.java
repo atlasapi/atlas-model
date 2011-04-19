@@ -28,7 +28,7 @@ public class ApplicationConfiguration {
 		ImmutableSet<Publisher> defaultIncluded = ImmutableSet.copyOf(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
-				return !input.equals(Publisher.C4) && !input.equals(Publisher.PA);
+				return !input.equals(Publisher.C4) && !input.equals(Publisher.PA) && !input.equals(Publisher.PREVIEW_NETWORKS);
 			}
 		}));
 		return new ApplicationConfiguration(defaultIncluded, null);
