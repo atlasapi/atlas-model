@@ -15,10 +15,15 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Set;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -89,8 +94,12 @@ public class Episode extends Item {
 	
 	@Override
 	public Content copy() {
+	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
+	}
+	
+	public Episode copyWithVersions(Set<Version> versions) {
 	    Episode episode = new Episode();
-	    Item.copyTo(this, episode);
+	    Item.copyToWithVersions(this, episode, versions);
 	    episode.episodeNumber = episodeNumber;
 	    episode.seriesNumber = seriesNumber;
 	    episode.seriesUri = seriesUri;
