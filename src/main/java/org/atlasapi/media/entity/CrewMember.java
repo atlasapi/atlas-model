@@ -9,6 +9,13 @@ public class CrewMember extends Identified {
     
     public enum Role {
         ABRIDGED_BY("abridged_by", "Abridged By"),
+        ART_DIRECTOR("art_director", "Art Director"), 
+        SUPERVISING_DIRECTOR("supervising_director", "Supervising Director"),
+        SOURCE_WRITER("source_writer", "Source Writer"),
+        ASSISTANT_DIRECTOR("assistant_director", "Assistant Director"),
+        ADDITIONAL_DIRECTOR("additional_director", "Additional Director"),
+        COLLABORATING_DIRECTOR("collaborating_director", "Collaborating Director"),
+        CO_DIRECTOR("co-director", "Co-Director"),
         DEPUTY_EDITOR("deputy_editor", "Deputy Editor"),
         DIRECTOR("director", "Director"),
         DRAMATISED_BY("dramatised_by", "Dramatised By"),
@@ -49,14 +56,14 @@ public class CrewMember extends Identified {
         public static Role fromKey(String key) {
             Maybe<Role> role = fromPossibleKey(key);
             if (role.isNothing()) {
-            	throw new IllegalArgumentException("Unkown role: "+key);
+            	throw new IllegalArgumentException("Unknown role: "+key);
             }
             return role.requireValue();
         }
 
 		public static Maybe<Role> fromPossibleKey(String key) {
 			for (Role role: Role.values()) {
-                if (role.key.equals(key)) {
+                if (role.key.equalsIgnoreCase(key)) {
                     return Maybe.just(role);
                 }
             }
