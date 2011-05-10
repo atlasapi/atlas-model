@@ -1,5 +1,8 @@
 package org.atlasapi.media.entity;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+
 public class Actor extends CrewMember {
 
     public Actor() {
@@ -36,6 +39,8 @@ public class Actor extends CrewMember {
     }
     
     public static Actor actor(String id, String name, String character, Publisher publisher) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(id), "ID is null or blank");
+        Preconditions.checkNotNull(publisher);
         String uri = String.format(Person.BASE_URI, publisher.key(), id);
         String curie = publisher.key()+':'+id;
         return new Actor(uri, curie, publisher)

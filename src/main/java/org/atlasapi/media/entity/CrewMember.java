@@ -3,6 +3,8 @@ package org.atlasapi.media.entity;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.metabroadcast.common.base.Maybe;
 
 public class CrewMember extends Identified {
@@ -126,6 +128,8 @@ public class CrewMember extends Identified {
     }
     
     public static CrewMember crewMember(String id, String name, String roleKey, Publisher publisher) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(id), "ID is null or blank");
+        Preconditions.checkNotNull(publisher);
         Role role = Role.fromKey(roleKey);
         String uri = String.format(Person.BASE_URI, publisher.key(), id);
         String curie = publisher.key()+':'+id;
