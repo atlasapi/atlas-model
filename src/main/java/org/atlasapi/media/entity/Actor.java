@@ -35,10 +35,9 @@ public class Actor extends CrewMember {
         return this;
     }
     
-    public static Actor actor(String name, String character, Publisher publisher) {
-        String key = Person.formatForUri(name);
-        String uri = String.format(Person.BASE_URI, publisher.key(), key);
-        String curie = publisher.key()+':'+key;
+    public static Actor actor(String id, String name, String character, Publisher publisher) {
+        String uri = String.format(Person.BASE_URI, publisher.key(), id);
+        String curie = publisher.key()+':'+id;
         return new Actor(uri, curie, publisher)
             .withCharacter(character)
             .withName(name);

@@ -125,11 +125,10 @@ public class CrewMember extends Identified {
         return this;
     }
     
-    public static CrewMember crewMember(String name, String roleKey, Publisher publisher) {
+    public static CrewMember crewMember(String id, String name, String roleKey, Publisher publisher) {
         Role role = Role.fromKey(roleKey);
-        String key = Person.formatForUri(name);
-        String uri = String.format(Person.BASE_URI, publisher.key(), key);
-        String curie = publisher.key()+':'+key;
+        String uri = String.format(Person.BASE_URI, publisher.key(), id);
+        String curie = publisher.key()+':'+id;
         return new CrewMember(uri, curie, publisher)
             .withRole(role)
             .withName(name);
