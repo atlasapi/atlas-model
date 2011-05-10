@@ -38,9 +38,24 @@ public class ApplicationConfiguration {
 	public ApplicationConfiguration copyWithIncludedPublishers(Iterable<Publisher> publishers) {
 		return new ApplicationConfiguration(ImmutableSet.copyOf(publishers), precedence);
 	}
-
+	
 	public Set<Publisher> getIncludedPublishers() {
 		return includedPublishers;
+	}
+	
+	/**
+	 * Temporary: these should be persisted and not hardcoded
+	 */
+	private ImmutableList<Publisher> imagePrecedence() {
+		return ImmutableList.of(Publisher.BBC, Publisher.C4, Publisher.PA);
+	}
+	
+	public boolean imagePrecedenceEnabled() {
+		return imagePrecedence() != null;
+	}
+	
+	public Ordering<Publisher> imagePrecedenceOrdering() {
+		return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
 	}
 	
 	public Ordering<Publisher> publisherPrecedenceOrdering() {
@@ -63,7 +78,11 @@ public class ApplicationConfiguration {
 		if (!precedenceEnabled()) {
 			return ImmutableList.copyOf(Publisher.values());
 		}
-		List<Publisher> publishers = Lists.newArrayList(precedence);
+		return appendMissingPublishersTo(precedence);
+	}
+
+	private List<Publisher> appendMissingPublishersTo(Iterable<Publisher> selected) {
+		List<Publisher> publishers = Lists.newArrayList(selected);
 		for (Publisher publisher : Publisher.values()) {
 			if (!publishers.contains(publisher)) {
 				publishers.add(publisher);
