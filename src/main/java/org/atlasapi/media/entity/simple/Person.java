@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,6 +16,7 @@ public class Person extends Aliased {
 	private String profileLink;
 	private String role;
 	private String character;
+	private List<Description> content;
 	
 	public Person() {
     }
@@ -41,6 +43,14 @@ public class Person extends Aliased {
 	
 	public void setProfileLinks(Set<String> profileLinks) {
         this.setAliases(profileLinks);
+    }
+	
+	public List<Description> getContent() {
+        return content;
+    }
+	
+	public void setContent(List<Description> content) {
+        this.content = content;
     }
 	
 	public Person copy() {
