@@ -36,9 +36,9 @@ import com.google.common.collect.Sets;
 @RdfClass(namespace = PO.NS)
 public class Version extends Identified {
 
-	private Set<Encoding> manifestedAs = Sets.newHashSet();
+	private Set<Encoding> manifestedAs = Sets.newLinkedHashSet();
 
-	private Set<Broadcast> broadcasts = Sets.newHashSet();
+	private Set<Broadcast> broadcasts = Sets.newLinkedHashSet();
 	
 	private Integer publishedDuration;
 	
