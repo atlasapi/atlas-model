@@ -132,10 +132,7 @@ public class CrewMember extends Identified {
         Preconditions.checkNotNull(publisher);
         
         Role role = Role.fromKey(roleKey);
-        String nameKey = Person.formatForUri(name);
-        String uri = String.format(Person.BASE_URI, publisher.key(), nameKey);
-        String curie = publisher.key()+':'+nameKey;
-        return new CrewMember(uri, curie, publisher)
+        return new CrewMember(null, null, publisher)
             .withRole(role)
             .withName(name);
     }

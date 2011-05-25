@@ -42,10 +42,7 @@ public class Actor extends CrewMember {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(name), "Name is null or blank");
         Preconditions.checkNotNull(publisher);
         
-        String nameKey = Person.formatForUri(name);
-        String uri = String.format(Person.BASE_URI, publisher.key(), nameKey);
-        String curie = publisher.key()+':'+nameKey;
-        return new Actor(uri, curie, publisher)
+        return new Actor(null, null, publisher)
             .withCharacter(character)
             .withName(name);
     }
