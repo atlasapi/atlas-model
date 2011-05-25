@@ -38,6 +38,15 @@ public class Actor extends CrewMember {
         return this;
     }
     
+    public static Actor actorWithoutId(String name, String character, Publisher publisher) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name), "Name is null or blank");
+        Preconditions.checkNotNull(publisher);
+        
+        return new Actor(null, null, publisher)
+            .withCharacter(character)
+            .withName(name);
+    }
+    
     public static Actor actor(String id, String name, String character, Publisher publisher) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(id), "ID is null or blank");
         Preconditions.checkNotNull(publisher);

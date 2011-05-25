@@ -43,9 +43,6 @@ public class Identified {
 	private DateTime lastUpdated;
 	
 	public Identified(String uri, String curie) {
-		if (uri == null) {
-			throw new IllegalArgumentException("Null uri specified");
-		}
 		this.canonicalUri = uri;
 		this.curie = curie;
 	}

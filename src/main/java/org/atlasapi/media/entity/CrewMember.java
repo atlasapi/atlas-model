@@ -127,6 +127,16 @@ public class CrewMember extends Identified {
         return this;
     }
     
+    public static CrewMember crewMemberWithoutId(String name, String roleKey, Publisher publisher) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name), "Name is null or blank");
+        Preconditions.checkNotNull(publisher);
+        
+        Role role = Role.fromKey(roleKey);
+        return new CrewMember(null, null, publisher)
+            .withRole(role)
+            .withName(name);
+    }
+    
     public static CrewMember crewMember(String id, String name, String roleKey, Publisher publisher) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(id), "ID is null or blank");
         Preconditions.checkNotNull(publisher);
