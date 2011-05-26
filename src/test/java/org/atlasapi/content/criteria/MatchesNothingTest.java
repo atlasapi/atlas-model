@@ -28,6 +28,6 @@ public class MatchesNothingTest {
 	public void test() throws Exception {
 		
 		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));
-		assertFalse(isEquivalentTo(query().equalTo(Attributes.BROADCAST_ON, "test").build()));
+		assertFalse(isEquivalentTo(query().equalTo(Attributes.DESCRIPTION_GENRE, "test").build()));
 	}
 }
