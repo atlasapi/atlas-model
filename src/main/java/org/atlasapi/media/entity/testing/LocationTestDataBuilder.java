@@ -5,13 +5,13 @@ import java.util.Set;
 
 import org.atlasapi.media.TransportSubType;
 import org.atlasapi.media.TransportType;
-import org.atlasapi.media.entity.Countries;
 import org.atlasapi.media.entity.Policy.RevenueContract;
 import org.atlasapi.media.entity.simple.Location;
 import org.atlasapi.media.entity.simple.Restriction;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.media.MimeType;
 
 public class LocationTestDataBuilder {

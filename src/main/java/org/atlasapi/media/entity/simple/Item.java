@@ -16,6 +16,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.intl.Country;
 
 @XmlType(name="item", namespace=PLAY_SIMPLE_XML.NS)
 public class Item extends Description {
@@ -30,6 +31,9 @@ public class Item extends Description {
 	private BrandSummary brandSummary;
 	private SeriesSummary seriesSummary;
 	private List<Person> people = Lists.newArrayList();
+	
+	private Boolean blackAndWhite;
+	private Set<Country> countriesOfOrigin = Sets.newHashSet();
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -131,6 +135,32 @@ public class Item extends Description {
 		this.seriesSummary = seriesSummary;
 	}
 	
+	public void setBlackAndWhite(Boolean blackAndWhite) {
+        this.blackAndWhite = blackAndWhite;
+    }
+
+    public Boolean isBlackAndWhite() {
+        return blackAndWhite;
+    }
+    
+    public void addCountryOfOrigin(Country country) {
+        countriesOfOrigin.add(country);
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="countriesOfOrigin")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="country")
+    public Set<Country> getCountriesOfOrigin() {
+        return countriesOfOrigin;
+    }
+    
+    public void setCountriesOfOrigin (Iterable<Country> countries) {
+        this.countriesOfOrigin = Sets.newHashSet(countries);
+    }
+    
+    public void addCountry(Country country) {
+        countriesOfOrigin.add(country);
+    }
+	
 	public Item copy() {
         Item copy = new Item();
         
@@ -154,10 +184,13 @@ public class Item extends Description {
         }
         copy.setPeople(people);
         
+        copy.setBlackAndWhite(isBlackAndWhite());
+        copy.setCountriesOfOrigin(getCountriesOfOrigin());
+        
         return copy;
     }
 	
-	public static final Predicate<Item> HAS_AVAILABLE_LOCATION = new Predicate<Item>() {
+    public static final Predicate<Item> HAS_AVAILABLE_LOCATION = new Predicate<Item>() {
         @Override
         public boolean apply(Item input) {
             return !input.getLocations().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getLocations(), Location.IS_AVAILABLE));

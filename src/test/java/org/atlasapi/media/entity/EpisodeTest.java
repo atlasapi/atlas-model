@@ -20,8 +20,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
-import org.atlasapi.media.entity.Episode;
-import org.atlasapi.media.entity.Version;
 import org.junit.Test;
 
 /**

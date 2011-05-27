@@ -49,7 +49,21 @@ public class Broadcast extends Identified {
     private String id;  
     
     private Boolean repeat;
-
+    
+    private Boolean subtitled;
+    
+    private Boolean signed;
+    
+    private Boolean audioDescribed;
+    
+    private Boolean highDefinition;
+    
+    private Boolean widescreen;
+    
+    private Boolean surround;
+    
+    private Boolean live;
+    
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
@@ -134,7 +148,63 @@ public class Broadcast extends Identified {
     public void setRepeat(Boolean repeat) {
         this.repeat = repeat;
     }
-  
+    
+    public void setSubtitled(Boolean subtitled) {
+        this.subtitled = subtitled;
+    }
+
+    public Boolean isSubtitled() {
+        return subtitled;
+    }
+
+    public void setSigned(Boolean signed) {
+        this.signed = signed;
+    }
+
+    public Boolean isSigned() {
+        return signed;
+    }
+
+    public void setAudioDescribed(Boolean audioDescribed) {
+        this.audioDescribed = audioDescribed;
+    }
+
+    public Boolean isAudioDescribed() {
+        return audioDescribed;
+    }
+
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
+    }
+
+    public Boolean isHighDefinition() {
+        return highDefinition;
+    }
+
+    public void setWidescreen(Boolean widescreen) {
+        this.widescreen = widescreen;
+    }
+
+    public Boolean isWidescreen() {
+        return widescreen;
+    }
+    
+    public void setSurround(Boolean surround) {
+        this.surround = surround;
+    }
+
+    public Boolean isSurround() {
+        return surround;
+    }
+
+    public void setLive(Boolean live) {
+        this.live = live;
+    }
+
+    public Boolean isLive() {
+        return live;
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Broadcast)) {
@@ -159,6 +229,11 @@ public class Broadcast extends Identified {
         copy.id = id;
         copy.scheduleDate = scheduleDate;
         copy.repeat = repeat;
+        copy.subtitled = subtitled;
+        copy.signed = signed;
+        copy.audioDescribed = audioDescribed;
+        copy.highDefinition = highDefinition;
+        copy.widescreen = widescreen;
         return copy;
     }
     
