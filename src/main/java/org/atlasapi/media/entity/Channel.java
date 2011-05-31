@@ -475,6 +475,23 @@ public class Channel implements SelfModelling {
     public static final Channel FIVE_USA_PLUS1 = new Channel("Five USA +1", CHANNEL_URI_PREFIX+"fiveusaplus1", "fiveusaplus1");
     public static final Channel MTV_MUSIC = new Channel("MTV Music", CHANNEL_URI_PREFIX+"mtvmusic", "mtvmusic");
     
+    public static final Channel XFM_RADIO = new Channel("XFM", CHANNEL_URI_PREFIX + "xfmradio", "xfmradio");
+    public static final Channel ABSOLUTE_RADIO = new Channel("Absolute Radio", CHANNEL_URI_PREFIX + "absoluteradio", "absoluteradio");
+    public static final Channel ABSOLUTE_80S_RADIO = new Channel("Absolute 80s", CHANNEL_URI_PREFIX + "absolute80sradio", "absolute80sradio");
+    public static final Channel ABSOLUTE_90S_RADIO = new Channel("Absolute 90s", CHANNEL_URI_PREFIX + "absolute90sradio", "absolute90sradio");
+    public static final Channel ABSOLUTE_00S_RADIO = new Channel("Absolute 00s", CHANNEL_URI_PREFIX + "absolute00sradio", "absolute00sradio");
+    public static final Channel ABSOLUTE_CLASSIC_ROCK_RADIO = new Channel("Absolute Classic Rock", CHANNEL_URI_PREFIX + "absoluteclassicrockradio", "absoluteclassicrockradio");
+    public static final Channel ABSOLUTE_RADIO_EXTRA_RADIO = new Channel("Absolute Radio Extra", CHANNEL_URI_PREFIX + "absoluteradioextra", "absoluteradioextra");
+    public static final Channel KISS_RADIO = new Channel("XFM", CHANNEL_URI_PREFIX + "kissradio", "kissradio");
+    public static final Channel MAGIC_RADIO = new Channel("Magic", CHANNEL_URI_PREFIX + "magicradio", "magicradio");
+    public static final Channel CLASSIC_FM_RADIO = new Channel("Classic FM", CHANNEL_URI_PREFIX + "classicfm", "classicfm");
+    public static final Channel TALKSPORT_RADIO = new Channel("Talk Sport", CHANNEL_URI_PREFIX + "talksportradio", "talksportradio");
+    public static final Channel SMASH_HITS_RADIO = new Channel("Smash Hits", CHANNEL_URI_PREFIX + "smashhitsradio", "smashhitsradio");
+    public static final Channel KERRANG_RADIO = new Channel("Kerrang!", CHANNEL_URI_PREFIX + "kerrangradio", "kerrangradio");
+    public static final Channel HEAT_RADIO = new Channel("Heat", CHANNEL_URI_PREFIX + "heatradio", "heatradio");
+    public static final Channel CAPITAL_FM = new Channel("Capital FM", CHANNEL_URI_PREFIX + "capitalfm", "capitalfm");
+    public static final Channel HEART_LONDON_RADIO = new Channel("Heart London", CHANNEL_URI_PREFIX + "heartlondonradio", "heartlondonradio");
+    
     public final static Channel TVBLOB_7GOLD = new Channel("7 Gold", "http://tvblob.com/channel/7gold", "7gold");
     public final static Channel TVBLOB_ANTENNATRE = new Channel("Antenna Tre", "http://tvblob.com/channel/antennatre", "antennatre");
     public final static Channel TVBLOB_BOING = new Channel("Boing", "http://tvblob.com/channel/boing", "boing");
