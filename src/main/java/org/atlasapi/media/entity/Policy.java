@@ -23,6 +23,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.currency.Price;
+import com.metabroadcast.common.intl.Country;
 
 @RdfClass(namespace = PO.NS)
 public class Policy extends Identified {

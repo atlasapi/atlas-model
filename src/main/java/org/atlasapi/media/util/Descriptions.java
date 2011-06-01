@@ -11,8 +11,8 @@ import org.atlasapi.media.entity.simple.Playlist;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.ImmutableList.Builder;
+import com.google.common.collect.Iterables;
 
 public class Descriptions {
     private Descriptions() {

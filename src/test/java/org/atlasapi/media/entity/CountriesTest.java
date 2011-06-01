@@ -17,10 +17,10 @@ package org.atlasapi.media.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.atlasapi.media.entity.Countries;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.intl.Countries;
 
 public class CountriesTest {
 

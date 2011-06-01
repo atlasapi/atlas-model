@@ -32,6 +32,20 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private String id;
     
     private Boolean repeat;
+    
+    private Boolean subtitled;
+    
+    private Boolean signed;
+    
+    private Boolean audioDescribed;
+    
+    private Boolean highDefinition;
+    
+    private Boolean widescreen;
+    
+    private Boolean surround;
+    
+    private Boolean live;
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
@@ -106,6 +120,69 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	    return this;
 	}
 	
+	public Broadcast withSubtitled(Boolean subtitled) {
+        this.subtitled = subtitled;
+        return this;
+    }
+
+    public Boolean isSubtitled() {
+        return subtitled;
+    }
+
+    public Broadcast withSigned(Boolean signed) {
+        this.signed = signed;
+        return this;
+    }
+
+    public Boolean isSigned() {
+        return signed;
+    }
+
+    public Broadcast withAudioDescribed(Boolean audioDescribed) {
+        this.audioDescribed = audioDescribed;
+        return this;
+    }
+
+    public Boolean isAudioDescribed() {
+        return audioDescribed;
+    }
+
+    public Broadcast withHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
+        return this;
+    }
+
+    public Boolean isHighDefinition() {
+        return highDefinition;
+    }
+
+    public Broadcast withWidescreen(Boolean widescreen) {
+        this.widescreen = widescreen;
+        return this;
+    }
+
+    public Boolean isWidescreen() {
+        return widescreen;
+    }
+    
+    public Broadcast withSurround(Boolean surround) {
+        this.surround = surround;
+        return this;
+    }
+
+    public Boolean isSurround() {
+        return surround;
+    }
+
+    public Broadcast withLive(Boolean live) {
+        this.live = live;
+        return this;
+    }
+
+    public Boolean isLive() {
+        return live;
+    }
+	
 	@Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
@@ -127,6 +204,13 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setScheduleDate(getScheduleDate());
         copy.setId(getId());
         copy.withRepeat(isRepeat());
+        copy.withSubtitled(isSubtitled());
+        copy.withSigned(isSigned());
+        copy.withAudioDescribed(isAudioDescribed());
+        copy.withHighDefinition(isHighDefinition());
+        copy.withWidescreen(isWidescreen());
+        copy.withSurround(isSurround());
+        copy.withLive(isLive());
         
         return copy;
     }
