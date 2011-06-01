@@ -1,9 +1,9 @@
 package org.atlasapi.media.entity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
-import org.atlasapi.media.entity.Equiv;
 import org.junit.Test;
 
 public class EquivTest {

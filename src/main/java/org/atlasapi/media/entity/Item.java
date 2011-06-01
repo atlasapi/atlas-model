@@ -29,6 +29,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.intl.Country;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -44,6 +45,8 @@ public class Item extends Content {
 	private List<CrewMember> people = Lists.newArrayList();
 	
 	private boolean isLongForm = false;
+	private Boolean blackAndWhite;
+	private Set<Country> countriesOfOrigin = Sets.newHashSet();
 	
 	public Item(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -59,7 +62,7 @@ public class Item extends Content {
 		if (container == null) {
 			return null;
 		}
-        return this.container.toSummary();
+		return this.container.toSummary();
     }
     
     public Container<?> getFullContainer() {
@@ -111,6 +114,17 @@ public class Item extends Content {
 		return versions.remove(version);
 	}
 	
+	public Set<Country> getCountriesOfOrigin() {
+	    return countriesOfOrigin;
+	}
+	
+	public void setCountriesOfOrigin(Set<Country> countries) {
+	    this.countriesOfOrigin = Sets.newHashSet();
+	    for (Country country : countries) {
+	        countriesOfOrigin.add(country);
+	    }
+	}
+	
 	@RdfProperty(relation = true, uri="person")
 	public List<CrewMember> getPeople() {
 	    return people();
@@ -131,6 +145,14 @@ public class Item extends Content {
 	public void setPeople(List<CrewMember> people) {
 	    this.people = people;
 	}
+	
+	public void setBlackAndWhite(Boolean blackAndWhite) {
+        this.blackAndWhite = blackAndWhite;
+    }
+
+    public Boolean isBlackAndWhite() {
+        return blackAndWhite;
+    }
 
 	public boolean isAvailable() {
 		for (Location location : locations()) {
@@ -192,9 +214,11 @@ public class Item extends Content {
         to.isLongForm = from.isLongForm;
         to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
         to.versions = versions;
+        to.blackAndWhite = from.blackAndWhite;
+        to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
     }
 	
-	public static final Function<Item, Item> COPY = new Function<Item, Item>() {
+    public static final Function<Item, Item> COPY = new Function<Item, Item>() {
         @Override
         public Item apply(Item input) {
             return (Item) input.copy();
