@@ -2,7 +2,6 @@ package org.atlasapi.media.util;
 
 import java.util.List;
 
-import org.atlasapi.media.entity.simple.Description;
 import org.atlasapi.media.entity.simple.Identified;
 import org.atlasapi.media.entity.simple.Item;
 import org.atlasapi.media.entity.simple.Person;
@@ -12,7 +11,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.ImmutableList.Builder;
 
 public class Descriptions {
     private Descriptions() {
@@ -69,20 +67,6 @@ public class Descriptions {
         @Override
         public Item apply(Identified input) {
             return (Item) input;
-        }
-    };
-    
-    public static final Function<Playlist, Iterable<Description>> FLATTEN_PLAYLIST = new Function<Playlist, Iterable<Description>>() {
-        @Override
-        public Iterable<Description> apply(Playlist from) {
-            Builder<Description> flattened = ImmutableList.builder();
-            
-            flattened.add(from);
-            if (from.getContent() != null && ! from.getContent().isEmpty()) {
-                flattened.addAll(from.getContent());
-            }
-            
-            return flattened.build();
         }
     };
 }

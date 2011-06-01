@@ -16,7 +16,7 @@ public class Person extends Aliased {
 	private String profileLink;
 	private String role;
 	private String character;
-	private List<Description> content;
+	private List<ContentIdentifier> content;
 	
 	public Person() {
     }
@@ -45,11 +45,11 @@ public class Person extends Aliased {
         this.setAliases(profileLinks);
     }
 	
-	public List<Description> getContent() {
+	public List<ContentIdentifier> getContent() {
         return content;
     }
 	
-	public void setContent(List<Description> content) {
+	public void setContent(List<ContentIdentifier> content) {
         this.content = content;
     }
 	

@@ -3,14 +3,17 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
-import org.atlasapi.media.entity.simple.Description;
+import org.atlasapi.media.entity.simple.ContentIdentifier;
 import org.atlasapi.media.entity.simple.Item;
+import org.atlasapi.media.entity.simple.ContentIdentifier.ItemIdentifier;
 import org.atlasapi.media.entity.simple.Playlist;
 import org.atlasapi.media.entity.simple.PublisherDetails;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Iterables;
 
 public class PlaylistTestDataBuilder {
     private static Integer uniqueId = 1;
@@ -32,7 +35,7 @@ public class PlaylistTestDataBuilder {
     private String title;
     private String id;
     
-    private List<Description> contents;
+    private List<ContentIdentifier> contents;
     
     public static PlaylistTestDataBuilder playlist() {
         return new PlaylistTestDataBuilder();
@@ -115,8 +118,12 @@ public class PlaylistTestDataBuilder {
         return this;
     }
     
-    public PlaylistTestDataBuilder withContent(Description... content) {
-        this.contents = ImmutableList.copyOf(content);
+    public PlaylistTestDataBuilder withContent(Item... content) {
+        this.contents = ImmutableList.copyOf(Iterables.transform(ImmutableList.copyOf(content), new Function<Item, ContentIdentifier>(){
+            @Override
+            public ItemIdentifier apply(Item input) {
+                return new ItemIdentifier(input.getUri());
+            }}));
         return this;
     }
 }
