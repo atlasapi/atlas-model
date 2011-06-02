@@ -16,11 +16,12 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
+import com.metabroadcast.common.text.NumberPadder;
 import com.metabroadcast.common.time.DateTimeZones;
 
 public class ScheduleEntry implements Comparable<ScheduleEntry> {
 
-    private static final long MILLIS_FROM_1900 = 2208988800000L;
+    private static final long MILLIS_FROM_1900 = new Interval(new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeZones.UTC), new DateTime(0,DateTimeZones.UTC)).toDurationMillis();
     private final Interval interval;
     private final Channel channel;
     private final Publisher publisher;
@@ -112,7 +113,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     }
     
     public static String toKey(Interval interval, Channel channel, Publisher publisher) {
-        return joiner.join(paddedMillis(interval), paddedChannel(channel), paddedPublisher(publisher));
+        return joiner.join(NumberPadder.pad(MILLIS_FROM_1900 + interval.getStartMillis()), channel, publisher);
     }
     
     private static String paddedMillis(Interval interval) {
