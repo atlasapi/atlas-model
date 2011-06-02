@@ -15,6 +15,7 @@ public abstract class ContentIdentifier {
 
     protected String uri;
     protected String type;
+    protected String id;
 
     public ContentIdentifier() {
     }
@@ -23,7 +24,21 @@ public abstract class ContentIdentifier {
         this.uri = uri;
         this.type = type;
     }
-
+    
+    public ContentIdentifier(String uri, String type, String id) {
+        this.uri = uri;
+        this.type = type;
+        this.id = id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public String getId() {
+        return id;
+    }
+    
     public void setUri(String uri) {
         this.uri = uri;
     }
@@ -50,12 +65,14 @@ public abstract class ContentIdentifier {
         public ItemIdentifier(String uri) {
             super(uri, org.atlasapi.media.entity.Item.class.getSimpleName());
         }
+        
+        public ItemIdentifier(String uri, String id) {
+            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName());
+        }
 
         @Override
         public ItemIdentifier copy() {
-            ItemIdentifier id = new ItemIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new ItemIdentifier(uri, id);
         }
     }
 
@@ -67,12 +84,14 @@ public abstract class ContentIdentifier {
         public EpisodeIdentifier(String uri) {
             super(uri, Episode.class.getSimpleName());
         }
+        
+        public EpisodeIdentifier(String uri, String id) {
+            super(uri, Episode.class.getSimpleName(), id);
+        }
 
         @Override
         public EpisodeIdentifier copy() {
-            EpisodeIdentifier id = new EpisodeIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new EpisodeIdentifier(uri, id);
         }
     }
 
@@ -84,12 +103,14 @@ public abstract class ContentIdentifier {
         public FilmIdentifier(String uri) {
             super(uri, Film.class.getSimpleName());
         }
+        
+        public FilmIdentifier(String uri, String id) {
+            super(uri, Film.class.getSimpleName(), id);
+        }
 
         @Override
         public FilmIdentifier copy() {
-            FilmIdentifier id = new FilmIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new FilmIdentifier(uri, id);
         }
     }
 
@@ -101,12 +122,14 @@ public abstract class ContentIdentifier {
         public BrandIdentifier(String uri) {
             super(uri, Brand.class.getSimpleName());
         }
+        
+        public BrandIdentifier(String uri, String id) {
+            super(uri, Brand.class.getSimpleName(), id);
+        }
 
         @Override
         public BrandIdentifier copy() {
-            BrandIdentifier id = new BrandIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new BrandIdentifier(uri, id);
         }
     }
 
@@ -118,12 +141,14 @@ public abstract class ContentIdentifier {
         public SeriesIdentifier(String uri) {
             super(uri, Series.class.getSimpleName());
         }
+        
+        public SeriesIdentifier(String uri, String id) {
+            super(uri, Series.class.getSimpleName(), id);
+        }
 
         @Override
         public SeriesIdentifier copy() {
-            SeriesIdentifier id = new SeriesIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new SeriesIdentifier(uri, id);
         }
     }
 
@@ -135,12 +160,14 @@ public abstract class ContentIdentifier {
         public PersonIdentifier(String uri) {
             super(uri, org.atlasapi.media.entity.Person.class.getSimpleName());
         }
+        
+        public PersonIdentifier(String uri, String id) {
+            super(uri, org.atlasapi.media.entity.Person.class.getSimpleName(), id);
+        }
 
         @Override
         public PersonIdentifier copy() {
-            PersonIdentifier id = new PersonIdentifier(uri);
-            id.setType(type);
-            return id;
+            return new PersonIdentifier(uri, id);
         }
     }
 
