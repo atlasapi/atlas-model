@@ -21,7 +21,7 @@ import com.metabroadcast.common.time.DateTimeZones;
 
 public class ScheduleEntry implements Comparable<ScheduleEntry> {
 
-    private static final long MILLIS_FROM_1900 = new Interval(new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeZones.UTC), new DateTime(0,DateTimeZones.UTC)).toDurationMillis();
+    private static final long SECS_FROM_1900 = new Interval(new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeZones.UTC), new DateTime(0,DateTimeZones.UTC)).toDurationMillis() / 1000;
     private final Interval interval;
     private final Channel channel;
     private final Publisher publisher;
@@ -113,20 +113,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     }
     
     public static String toKey(Interval interval, Channel channel, Publisher publisher) {
-        return joiner.join(NumberPadder.pad(MILLIS_FROM_1900 + interval.getStartMillis()), channel, publisher);
-    }
-    
-    private static String paddedMillis(Interval interval) {
-        String key = String.valueOf(MILLIS_FROM_1900 + interval.getStartMillis());
-        return String.format("%1$-16s", key).replace(' ', '0');
-    }
-    
-    private static String paddedChannel(Channel channel) {
-        return String.format("%1$-"+Channel.MAX_KEY_LENGTH+"s", channel.key()).replace(' ', '0');
-    }
-    
-    private static String paddedPublisher(Publisher publisher) {
-        return String.format("%1$-"+Publisher.MAX_KEY_LENGTH+"s", publisher.key()).replace(' ', '0');
+        return joiner.join(NumberPadder.pad(SECS_FROM_1900 + interval.getStartMillis() / 1000), channel.key(), publisher.key());
     }
     
     @Override
