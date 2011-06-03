@@ -1,7 +1,6 @@
 package org.atlasapi.media.entity;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
@@ -10,10 +9,9 @@ import org.atlasapi.media.vocabulary.DCTERMS;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 
-public class Container<T extends Item> extends Content implements MutableContentList<T> {
+public class Container<T extends Item> extends Content {
 
 	protected ImmutableList<T> contents = ImmutableList.of();
 	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
@@ -29,46 +27,12 @@ public class Container<T extends Item> extends Content implements MutableContent
 		return contents;
 	}
     
-    public List<String> getContentUris() {
-    	return Lists.transform(contents, Identified.TO_URI);
-    }
-    
-    public final void setContents(Iterable<? extends T> contents) {
+    public final void setContentsByResolvingChildRefs(Iterable<? extends T> contents) {
 		Set<T> deduped = ImmutableSet.copyOf(lastUpdatedOrdering.immutableSortedCopy(contents));
         this.contents = ImmutableList.copyOf(seriesAndEpisodeOrdering.immutableSortedCopy(deduped));
 		for (T content : this.contents) {
-			contentAdded(content);
+		    content.setContainer(this);
 		}
-    }
-    
-    public final void setContents(T... contents) {
-    	setContents(ImmutableList.copyOf(contents));
-    }
-
-    protected void contentAdded(T content) {
-    	content.setContainer(this);
-	}
-    
-	@SuppressWarnings("unchecked")
-	public void addOrReplace(Item item) {
-		if (!getContents().contains(item)) {
-			// add
-			((Container<Item>) this).addContents(item);
-		} else { 
-			// replace
-			List<Item> currentItems = Lists.<Item>newArrayList(getContents());
-			currentItems.set(currentItems.indexOf(item), item);
-			((Container<Item>) this).setContents(currentItems);
-		}
-	}
-
-	public final void addContents(T... contents) {
-    	addContents(ImmutableList.copyOf(contents));
-    }
-    
-    @Override
-	public void addContents(Iterable<? extends T> contents) {
-		setContents(Iterables.concat(this.contents, contents));
     }
     
     public Container<T> toSummary() {

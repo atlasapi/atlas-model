@@ -47,6 +47,7 @@ public class Item extends Content {
 	private boolean isLongForm = false;
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
+	private String sortKey;
 	
 	public Item(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -218,6 +219,23 @@ public class Item extends Content {
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
     }
 	
+    public Item withSortKey(String sortKey) {
+        this.sortKey = sortKey;
+        return this;
+    }
+
+    public Comparable<?> sortKey() {
+        return sortKey;
+    }
+    
+    public boolean isChild() {
+        return this.container == null;
+    }
+    
+    public ChildRef childRef() {
+        return new ChildRef(this.getCanonicalUri(), sortKey);
+    }
+
     public static final Function<Item, Item> COPY = new Function<Item, Item>() {
         @Override
         public Item apply(Item input) {
