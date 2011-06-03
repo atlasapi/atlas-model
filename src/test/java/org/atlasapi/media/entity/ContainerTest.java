@@ -33,7 +33,7 @@ public class ContainerTest {
     @Test
     public void containerShouldHaveDeDupedItemsInCorrectOrder() {
         Container<Episode> container = new Container<Episode>();
-        container.addContents(item2, item1noupdated, item1duplicate, item1);
+        container.setContentsByResolvingChildRefs(ImmutableList.of(item2, item1noupdated, item1duplicate, item1));
         
         assertEquals(ImmutableList.of(item1, item2), container.getContents());
     }

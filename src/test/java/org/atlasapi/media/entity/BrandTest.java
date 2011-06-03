@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.metabroadcast.common.time.DateTimeZones;
 
@@ -23,10 +24,10 @@ public class BrandTest {
         DateTime older = now.minusHours(1);
         
         old.setLastUpdated(older);
-        old.addContents(e1);
+        old.setContentsByResolvingChildRefs(ImmutableList.of(e1));
         recent.setLastUpdated(now);
-        recent.addContents(e2);
-        brand.addContents(e1, e2);
+        recent.setContentsByResolvingChildRefs(ImmutableList.of(e2));
+        brand.setContentsByResolvingChildRefs(ImmutableList.of(e1, e2));
         
         assertEquals(now, Iterables.getOnlyElement(brand.getSeries()).getLastUpdated());
     }
