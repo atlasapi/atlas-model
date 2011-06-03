@@ -14,16 +14,20 @@ permissions and limitations under the License. */
 
 package org.atlasapi.persistence.content;
 
+import java.util.Map;
+
 import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.LookupRef;
+
+import com.metabroadcast.common.base.Maybe;
 
 /**
  * Simple interface to the store of available content.
  *
- * @author Robert Chatley (robert@metabroadcast.com)
  * @author John Ayres (john@metabroadcast.com)
  */
 public interface ContentResolver {
 
-	Identified findByCanonicalUri(String uri);
+	Map<LookupRef, Maybe<Identified>> findByLookupRefs(Iterable<LookupRef> lookupRefs);
 
 }

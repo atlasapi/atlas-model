@@ -14,6 +14,7 @@ import com.google.common.collect.Ordering;
 public class Container<T extends Item> extends Content {
 
 	protected ImmutableList<T> contents = ImmutableList.of();
+	protected ImmutableList<ChildRef> childRefs = ImmutableList.of();
 	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
 
 	public Container(String uri, String curie, Publisher publisher) {
@@ -26,6 +27,14 @@ public class Container<T extends Item> extends Content {
     public ImmutableList<T> getContents() {
 		return contents;
 	}
+    
+    public ImmutableList<ChildRef> getChildRefs() {
+        return childRefs;
+    }
+    
+    public void setChildRefs(Iterable<ChildRef> childRefs) {
+        this.childRefs = ImmutableList.copyOf(childRefs);
+    }
     
     public final void setContentsByResolvingChildRefs(Iterable<? extends T> contents) {
 		Set<T> deduped = ImmutableSet.copyOf(lastUpdatedOrdering.immutableSortedCopy(contents));

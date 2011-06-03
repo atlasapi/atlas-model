@@ -24,7 +24,9 @@ import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
@@ -35,6 +37,8 @@ import com.google.common.collect.Sets;
  */
 @RdfClass(namespace = PO.NS, uri = "List")
 public class Brand extends Container<Episode> {
+    
+    private ImmutableMap<String, Series> seriesLookup = ImmutableMap.of();
 
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -74,7 +78,15 @@ public class Brand extends Container<Episode> {
 	    return copy;
 	}
 	
-	public static final Function<Brand, Brand> COPY = new Function<Brand, Brand>() {
+	public void setSeriesLookup(Iterable<Series> series) {
+        seriesLookup = Maps.uniqueIndex(series, Identified.TO_URI);
+	}
+	
+	public Series getSeriesFromLookup(String uri) {
+	    return seriesLookup.get(uri);
+	}
+
+    public static final Function<Brand, Brand> COPY = new Function<Brand, Brand>() {
         @Override
         public Brand apply(Brand input) {
             return (Brand) input.copy();
