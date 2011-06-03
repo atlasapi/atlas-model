@@ -31,9 +31,13 @@ public class Container<T extends Item> extends Content {
 		Set<T> deduped = ImmutableSet.copyOf(lastUpdatedOrdering.immutableSortedCopy(contents));
         this.contents = ImmutableList.copyOf(seriesAndEpisodeOrdering.immutableSortedCopy(deduped));
 		for (T content : this.contents) {
-		    content.setContainer(this);
+			contentAdded(content);
 		}
     }
+
+    protected void contentAdded(T content) {
+    	content.setContainer(this);
+	}
     
     public Container<T> toSummary() {
         Container<T> summary = new Container<T>(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
