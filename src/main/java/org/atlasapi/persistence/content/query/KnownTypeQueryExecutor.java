@@ -15,15 +15,13 @@ permissions and limitations under the License. */
 package org.atlasapi.persistence.content.query;
 
 import java.util.List;
+import java.util.Map;
 
 import org.atlasapi.content.criteria.ContentQuery;
-import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Identified;
 
 public interface KnownTypeQueryExecutor {
 
-	List<Content> discover(ContentQuery query);
-
-	List<Identified> executeUriQuery(Iterable<String> uris, ContentQuery query);
+	Map<String, List<Identified>> executeUriQuery(Iterable<String> uris, ContentQuery query);
 
 }
