@@ -52,6 +52,11 @@ public class ResolvedContent {
     public boolean resolvedAll() {
         return Iterables.size(Maybe.filterValues(map.values())) == map.size();
     }
+    
+    public boolean resolved(String query) {
+        Maybe<Identified> result = map.get(query);
+        return result != null && result.hasValue();
+    }
 
     public Maybe<Identified> get(String query) {
         if (map.containsKey(query)) {
