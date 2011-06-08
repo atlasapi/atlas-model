@@ -9,6 +9,7 @@ import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Series;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
 public abstract class ContentIdentifier {
@@ -67,7 +68,7 @@ public abstract class ContentIdentifier {
         }
         
         public ItemIdentifier(String uri, String id) {
-            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName());
+            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName(), id);
         }
 
         @Override
@@ -197,4 +198,11 @@ public abstract class ContentIdentifier {
             throw new RuntimeException("Can't create content identifier for " + canonicalUri);
         }
     }
+    
+    public static final Function<ContentIdentifier, String> TO_ID = new Function<ContentIdentifier, String>() {
+        @Override
+        public String apply(ContentIdentifier input) {
+            return input.getId();
+        }
+    };
 }
