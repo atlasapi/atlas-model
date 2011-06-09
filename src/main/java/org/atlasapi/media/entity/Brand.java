@@ -15,20 +15,11 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import java.util.List;
-import java.util.Set;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
-import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
 
 /**
  * 
@@ -38,7 +29,7 @@ import com.google.common.collect.Sets;
 @RdfClass(namespace = PO.NS, uri = "List")
 public class Brand extends Container<Episode> {
     
-    private ImmutableMap<String, Series> seriesLookup = ImmutableMap.of();
+    private ImmutableList<ChildRef> seriesRefs = ImmutableList.of();;
 
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -46,12 +37,14 @@ public class Brand extends Container<Episode> {
     
     public Brand() { /* some legacy code still requires a default constructor */ }
 
-	@Override
-	@RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
-	public ImmutableList<Episode> getContents() {
-		return (ImmutableList<Episode>) super.getContents();
-	}
-
+    public ImmutableList<ChildRef> getSeriesRefs() {
+        return seriesRefs ;
+    }
+    
+    public void setSeriesRefs(Iterable<ChildRef> seriesRefs) {
+        this.seriesRefs = ImmutableList.copyOf(seriesRefs);
+    }
+    
 	@Override
     public Brand toSummary() {
         Brand summary = new Brand(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
@@ -60,33 +53,11 @@ public class Brand extends Container<Episode> {
         return summary;
     }
 	
-	public Set<Series> getSeries() {
-		List<Series> all = Lists.newArrayList();
-		for (Episode episode : contents) {
-			Series series = episode.getSeries();
-			if (series != null) {
-				all.add(series);
-			}
-		}
-		return Sets.newHashSet(Ordering.from(DESCENDING_LAST_UPDATED).sortedCopy(all));
-	}
-	
 	@Override
 	public Container<Episode> copy() {
 	    Brand copy = new Brand();
 	    Container.copyTo(this, copy);
 	    return copy;
-	}
-	
-	public void setSeriesLookup(Iterable<Series> series) {
-        seriesLookup = Maps.uniqueIndex(series, Identified.TO_URI);
-        for (Series serie : series) {
-            serie.setParent(this);
-        }
-	}
-	
-	public Series getSeriesFromLookup(String uri) {
-	    return seriesLookup.get(uri);
 	}
 
     public static final Function<Brand, Brand> COPY = new Function<Brand, Brand>() {

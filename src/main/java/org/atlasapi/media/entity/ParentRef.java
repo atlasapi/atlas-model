@@ -8,14 +8,14 @@ public class ParentRef {
         return new ParentRef(container.getCanonicalUri());
     }
 
-    private final String parentCanonicalUri;
+    private final String uri;
 
     public ParentRef(String parentCanonicalUri) {
-        this.parentCanonicalUri = checkNotNull(parentCanonicalUri);
+        this.uri = checkNotNull(parentCanonicalUri);
     }
 
-    public String getParentUri() {
-        return parentCanonicalUri;
+    public String getUri() {
+        return uri;
     }
     
     @Override
@@ -25,18 +25,18 @@ public class ParentRef {
         }
         if (that instanceof ParentRef) {
             ParentRef other = (ParentRef) that;
-            return other.parentCanonicalUri.equals(parentCanonicalUri);
+            return other.uri.equals(uri);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return parentCanonicalUri.hashCode();
+        return uri.hashCode();
     }
     
     @Override
     public String toString() {
-        return String.format("ParentRef:%s",parentCanonicalUri);
+        return String.format("ParentRef:%s",uri);
     }
 }

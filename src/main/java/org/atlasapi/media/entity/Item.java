@@ -59,8 +59,12 @@ public class Item extends Content {
 	
 	public Item() { }
 	
+	public void setParentRef(ParentRef parentRef) {
+	    this.parent = parentRef;
+	}
+	
 	public void setContainer(Container<?> container) {
-        this.parent = parentRefFrom(container);
+        setParentRef(parentRefFrom(container));
     }
     
     public ParentRef getContainer() {
