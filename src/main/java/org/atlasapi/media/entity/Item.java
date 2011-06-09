@@ -15,6 +15,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
+
 import java.util.List;
 import java.util.Set;
 
@@ -40,8 +42,8 @@ import com.metabroadcast.common.time.DateTimeZones;
  */
 @RdfClass(namespace = PO.NS)
 public class Item extends Content {
-	
-	private Container<?> container;
+    
+    private ParentRef parent;
 	
 	private Set<Version> versions = Sets.newHashSet();
 	private List<CrewMember> people = Lists.newArrayList();
@@ -58,18 +60,14 @@ public class Item extends Content {
 	public Item() { }
 	
 	public void setContainer(Container<?> container) {
-        this.container = container;
+        this.parent = parentRefFrom(container);
     }
     
-    public Container<?> getContainer() {
-		if (container == null) {
+    public ParentRef getContainer() {
+		if (parent == null) {
 			return null;
 		}
-		return this.container.toSummary();
-    }
-    
-    public Container<?> getFullContainer() {
-		return container;
+		return this.parent;
     }
 	
 	@RdfProperty(namespace = DC.NS)
@@ -211,8 +209,8 @@ public class Item extends Content {
 	
 	public static void copyToWithVersions(Item from, Item to, Set<Version> versions) {
         Content.copyTo(from, to);
-        if (from.container != null) {
-            to.container = from.container.toSummary();
+        if (from.parent != null) {
+            to.parent = from.parent;
         }
         to.isLongForm = from.isLongForm;
         to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
@@ -231,7 +229,7 @@ public class Item extends Content {
     }
     
     public boolean isChild() {
-        return this.container == null;
+        return this.parent == null;
     }
     
     public ChildRef childRef() {

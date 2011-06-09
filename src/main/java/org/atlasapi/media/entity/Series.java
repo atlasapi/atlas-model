@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableList;
 public class Series extends Container<Episode> {
 	
 	private Integer seriesNumber;
+	private ParentRef parent;
 	
 	public Series() {}
 	
@@ -49,6 +50,14 @@ public class Series extends Container<Episode> {
 
 	public Integer getSeriesNumber() {
 		return seriesNumber;
+	}
+	
+	public void setParent(Brand parent) {
+	    this.parent = ParentRef.parentRefFrom(parent);
+	}
+	
+	public ParentRef getParent() {
+	    return this.parent;
 	}
 	
 	@Override

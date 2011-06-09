@@ -80,6 +80,9 @@ public class Brand extends Container<Episode> {
 	
 	public void setSeriesLookup(Iterable<Series> series) {
         seriesLookup = Maps.uniqueIndex(series, Identified.TO_URI);
+        for (Series serie : series) {
+            serie.setParent(this);
+        }
 	}
 	
 	public Series getSeriesFromLookup(String uri) {
