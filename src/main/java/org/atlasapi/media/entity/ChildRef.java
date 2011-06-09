@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
@@ -80,4 +81,11 @@ public class ChildRef implements Comparable<String> {
             return c1.getUpdated().compareTo(c2.getUpdated());
         }
     }
+    
+    public static Function<ChildRef, String> TO_URI = new Function<ChildRef, String>() {
+        @Override
+        public String apply(ChildRef input) {
+            return input.getUri();
+        }
+    };
 }
