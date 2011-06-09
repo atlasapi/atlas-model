@@ -10,6 +10,7 @@ import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Series;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
 public abstract class ContentIdentifier {
@@ -170,6 +171,27 @@ public abstract class ContentIdentifier {
         public PersonIdentifier copy() {
             return new PersonIdentifier(uri, id);
         }
+    }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("id", id).add("uri", uri).add("type", type).toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ContentIdentifier) {
+            return Objects.equal(this.uri, ((ContentIdentifier)obj).uri) && Objects.equal(this.type, ((ContentIdentifier)obj).uri);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uri);
     }
 
     private static Map<String, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<String, Class<? extends ContentIdentifier>> builder()
