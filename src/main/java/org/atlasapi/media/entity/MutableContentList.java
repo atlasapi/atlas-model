@@ -2,12 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.List;
 
-public interface MutableContentList<T extends Content> {
+public interface MutableContentList {
 
-	List<T> getContents();
-	
-	void setContents(Iterable<? extends T> contents);
-
-	void addContents(Iterable<? extends T> contents);
+	List<ChildRef> getContents();
 	
 }

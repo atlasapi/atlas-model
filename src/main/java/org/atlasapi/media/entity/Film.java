@@ -31,11 +31,9 @@ public class Film extends Item {
     }
     
     @Override
-    public Content copy() {
+    public Film copy() {
         Film copy = new Film();
-        
         Film.copyTo(this, copy);
-        
         return copy;
     }
     

@@ -18,18 +18,17 @@ public class ChildRef implements Comparable<String> {
     private final String uri;
     private final String sortKey;
     private final DateTime updated;
+	private final EntityType type;
     
     public static List<ChildRef> dedupeAndSort(Iterable<ChildRef> childRefs) {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(UPDATED_ORDERING.immutableSortedCopy(childRefs)));
     }
     
-    public ChildRef(String uri, String sortKey, DateTime updated) {
-        Preconditions.checkNotNull(uri);
-        Preconditions.checkNotNull(sortKey);
-        Preconditions.checkNotNull(updated);
-        this.uri = uri;
-        this.sortKey = sortKey;
-        this.updated = updated;
+    public ChildRef(String uri, String sortKey, DateTime updated, EntityType type) {
+        this.uri = Preconditions.checkNotNull(uri);
+        this.sortKey =  Preconditions.checkNotNull(sortKey);
+        this.updated = Preconditions.checkNotNull(updated);
+        this.type = Preconditions.checkNotNull(type);
     }
     
     public String getUri() {
@@ -43,6 +42,10 @@ public class ChildRef implements Comparable<String> {
     public DateTime getUpdated() {
         return updated;
     }
+    
+    public EntityType getType() {
+		return type;
+	}
     
     @Override
     public boolean equals(Object obj) {

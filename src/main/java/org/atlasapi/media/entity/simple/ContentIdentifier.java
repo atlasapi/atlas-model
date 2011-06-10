@@ -4,7 +4,9 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 
 import org.atlasapi.media.entity.Brand;
+import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.EntityType;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Series;
@@ -171,20 +173,31 @@ public abstract class ContentIdentifier {
         }
     }
 
-    private static Map<String, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<String, Class<? extends ContentIdentifier>> builder()
-            .put(org.atlasapi.media.entity.Person.class.getSimpleName(), PersonIdentifier.class).put(Series.class.getSimpleName(), SeriesIdentifier.class)
-            .put(Brand.class.getSimpleName(), BrandIdentifier.class).put(org.atlasapi.media.entity.Item.class.getSimpleName(), ItemIdentifier.class)
-            .put(Episode.class.getSimpleName(), EpisodeIdentifier.class).put(Film.class.getSimpleName(), FilmIdentifier.class).build();
+    private static Map<EntityType, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<EntityType, Class<? extends ContentIdentifier>> builder()
+            .put(EntityType.PERSON, PersonIdentifier.class)
+            .put(EntityType.SERIES, SeriesIdentifier.class)
+            .put(EntityType.BRAND, BrandIdentifier.class)
+            .put(EntityType.ITEM, ItemIdentifier.class)
+            .put(EntityType.EPISODE, EpisodeIdentifier.class)
+            .put(EntityType.FILM, FilmIdentifier.class)
+    .build();
 
     public static ContentIdentifier identifierFor(Described described) {
-        try {
-            Class<? extends ContentIdentifier> idType = typeMap.get(described.getType());
+        return create(EntityType.from(described), described.getCanonicalUri());
+    }
+
+	private static ContentIdentifier create(EntityType type, String uri) {
+		try {
+            Class<? extends ContentIdentifier> idType = typeMap.get(type);
             Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class);
-            ContentIdentifier newInstance = constructor.newInstance(described.getCanonicalUri());
-            return newInstance;
+            return constructor.newInstance(uri);
         } catch (Exception e) {
-            throw new RuntimeException("Can't create content identifier for " + described);
+            throw new RuntimeException("Can't create content identifier for " + uri);
         }
+	}
+    
+    public static ContentIdentifier identifierFor(ChildRef childRef) {
+        return create(childRef.getType(), childRef.getUri());
     }
 
     public static ContentIdentifier identifierFrom(String canonicalUri, String type) {

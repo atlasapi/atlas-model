@@ -61,6 +61,6 @@ public class Series extends Container<Episode> {
     };
     
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), this.getTitle(), new DateTime(DateTimeZones.UTC));
+        return new ChildRef(this.getCanonicalUri(), this.getTitle(), new DateTime(DateTimeZones.UTC), EntityType.from(this));
     }
 }

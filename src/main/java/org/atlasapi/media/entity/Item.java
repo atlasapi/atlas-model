@@ -25,7 +25,6 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
-import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -33,7 +32,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
-import com.metabroadcast.common.time.DateTimeZones;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -191,11 +189,9 @@ public class Item extends Content {
 	}
 	
 	@Override
-	public Content copy() {
+	public Item copy() {
 	    Item copy = new Item();
-	    
 	    Item.copyTo(this, copy);
-	    
 	    return copy;
 	}
 	
@@ -237,7 +233,7 @@ public class Item extends Content {
     }
     
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), sortKey, new DateTime(DateTimeZones.UTC));
+        return new ChildRef(this.getCanonicalUri(), sortKey, this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
     public static final Function<Item, Item> COPY = new Function<Item, Item>() {

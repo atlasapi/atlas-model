@@ -63,11 +63,6 @@ public class Episode extends Item {
 		this.seriesNumber = position;
 	}
 	
-    @Override
-    public String getType() {
-        return this.getClass().getSimpleName();
-    }
-
     public void setSeriesRef(ParentRef seriesRef) {
         this.seriesRef = seriesRef;
     }
@@ -81,10 +76,10 @@ public class Episode extends Item {
 	}
 	
 	@Override
-	public Content copy() {
+	public Episode copy() {
 	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
 	}
-	
+
 	public Episode copyWithVersions(Set<Version> versions) {
 	    Episode episode = new Episode();
 	    Item.copyToWithVersions(this, episode, versions);
