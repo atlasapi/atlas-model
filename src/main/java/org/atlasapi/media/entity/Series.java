@@ -1,6 +1,9 @@
 package org.atlasapi.media.entity;
 
+import org.joda.time.DateTime;
+
 import com.google.common.base.Function;
+import com.metabroadcast.common.time.DateTimeZones;
 
 
 public class Series extends Container<Episode> {
@@ -56,4 +59,8 @@ public class Series extends Container<Episode> {
             return (Series) input.copy();
         }
     };
+    
+    public ChildRef childRef() {
+        return new ChildRef(this.getCanonicalUri(), this.getTitle(), new DateTime(DateTimeZones.UTC));
+    }
 }
