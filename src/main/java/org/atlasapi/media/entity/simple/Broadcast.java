@@ -179,6 +179,22 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
 	}
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Broadcast) {
+            return this.compareTo((Broadcast) obj) == 0;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(transmissionTime, broadcastDuration);
+    }
 	
 	public Broadcast copy() {
         Broadcast copy = new Broadcast();
