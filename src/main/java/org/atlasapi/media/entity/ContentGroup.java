@@ -8,7 +8,7 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import com.google.common.collect.ImmutableList;
 
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "List")
-public abstract class ContentGroup extends Described implements MutableContentList {
+public class ContentGroup extends Described implements MutableContentList {
 	
 	private ImmutableList<ChildRef> contents = ImmutableList.of();
 
@@ -26,4 +26,22 @@ public abstract class ContentGroup extends Described implements MutableContentLi
     public ImmutableList<ChildRef> getContents() {
 		return contents;
 	}
+
+    public ContentGroup copy() {
+        ContentGroup copy = new ContentGroup();
+        copyTo(this, copy);
+        return copy;
+    }
+    
+    public void setContents(Iterable<ChildRef> children) {
+        this.contents = ImmutableList.copyOf(children);
+    }
+    
+    public void addContents(ChildRef childRef) {
+        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).add(childRef).build();
+    }
+    
+    public void addContents(Iterable<ChildRef> childRef) {
+        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).addAll(childRef).build();
+    }
 }

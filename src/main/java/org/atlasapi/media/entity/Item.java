@@ -15,6 +15,7 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Strings.nullToEmpty;
 import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -233,7 +235,7 @@ public class Item extends Content {
     }
     
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), sortKey, this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
+        return new ChildRef(this.getCanonicalUri(), nullToEmpty(sortKey), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
     public static final Function<Item, Item> COPY = new Function<Item, Item>() {

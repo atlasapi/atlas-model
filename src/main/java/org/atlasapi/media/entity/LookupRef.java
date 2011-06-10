@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
 public class LookupRef {
     
     public enum LookupType {
-        CONTAINER, TOP_LEVEL_ITEM, CHILD_ITEM;
+        CONTAINER, PROGRAMME_GROUP, TOP_LEVEL_ITEM, CHILD_ITEM;
         
         public static LookupType fromContent(Described c) {
             if (c instanceof Item) {
@@ -22,6 +22,9 @@ public class LookupRef {
                     return TOP_LEVEL_ITEM;
                 }
             } else if (c instanceof Container<?>) {
+                if (c instanceof Series) {
+                    return PROGRAMME_GROUP;
+                }
                 return CONTAINER;
             } else {
                 return null;
