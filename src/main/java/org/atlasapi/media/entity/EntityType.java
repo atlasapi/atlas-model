@@ -10,6 +10,7 @@ import com.google.common.collect.Maps;
 public enum EntityType {
 
 	ITEM(Item.class),
+	CLIP(Clip.class),
 	EPISODE(Episode.class),
 	FILM(Film.class),
 	CONTAINER(Container.class),

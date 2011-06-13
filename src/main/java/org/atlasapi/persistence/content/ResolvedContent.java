@@ -131,4 +131,13 @@ public class ResolvedContent {
         }
         return false;
     }
+
+	public ResolvedContent copyWithAllRequestedUris(Iterable<String> uris) {
+		ResolvedContentBuilder builder = ResolvedContent.builder();
+		for (String uri : uris) {
+			Maybe<Identified> result = map.get(uri);
+			builder.put(uri, result == null ? null : result.valueOrNull());
+		}
+		return builder.build();
+	}
 }
