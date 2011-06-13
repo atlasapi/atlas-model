@@ -29,7 +29,6 @@ import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -238,6 +237,14 @@ public class Item extends Content {
         return new ChildRef(this.getCanonicalUri(), nullToEmpty(sortKey), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
+    public static final Function<Item, ChildRef> TO_CHILD_REF = new Function<Item, ChildRef>() {
+
+        @Override
+        public ChildRef apply(Item input) {
+            return input.childRef();
+        }
+    };
+    
     public static final Function<Item, Item> COPY = new Function<Item, Item>() {
         @Override
         public Item apply(Item input) {
