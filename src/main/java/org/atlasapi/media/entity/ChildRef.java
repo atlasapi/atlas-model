@@ -11,10 +11,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
-public class ChildRef implements Comparable<String> {
+public class ChildRef implements Comparable<ChildRef> {
 
     private static final Ordering<ChildRef> NATURAL = Ordering.natural();
     private static final Ordering<ChildRef> UPDATED_ORDERING = Ordering.from(new UpdatedComparator());
+    
     private final String uri;
     private final String sortKey;
     private final DateTime updated;
@@ -27,8 +28,8 @@ public class ChildRef implements Comparable<String> {
     public ChildRef(String uri, String sortKey, DateTime updated, EntityType type) {
         this.uri = Preconditions.checkNotNull(uri);
         this.sortKey =  Preconditions.checkNotNull(sortKey);
-        this.updated = Preconditions.checkNotNull(updated);
         this.type = Preconditions.checkNotNull(type);
+        this.updated = updated;
     }
     
     public String getUri() {
@@ -63,24 +64,23 @@ public class ChildRef implements Comparable<String> {
     }
 
     @Override
-    public int compareTo(String comparableTo) {
-        return sortKey.compareTo(comparableTo);
+    public int compareTo(ChildRef comparableTo) {
+        return sortKey.compareTo(comparableTo.sortKey);
     }
     
     public static class UpdatedComparator implements Comparator<ChildRef> {
 
         @Override
         public int compare(ChildRef c1, ChildRef c2) {
-            if (c1 == null && c2 == null) {
-                return 0;
+        	if (c1.getUpdated() == null && c2.getUpdated() == null) {
+            	return 0;
             }
-            if (c1 == null) {
-                return -1;
+            if (c1.getUpdated() == null) {
+            	return -1;
             }
-            if (c2 == null) {
-                return 1;
+            if (c2.getUpdated() == null) {
+            	return 1;
             }
-            
             return c1.getUpdated().compareTo(c2.getUpdated());
         }
     }
