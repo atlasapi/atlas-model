@@ -1,19 +1,12 @@
 package org.atlasapi.media.entity;
 
 import java.util.Comparator;
-import java.util.Set;
-
-import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.DCTERMS;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 
 public class Container<T extends Item> extends Content {
 
-	protected ImmutableList<T> contents = ImmutableList.of();
 	protected ImmutableList<ChildRef> childRefs = ImmutableList.of();
 	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
 
@@ -22,11 +15,6 @@ public class Container<T extends Item> extends Content {
 	}
     
     public Container() {}
-
-    @RdfProperty(relation = true, namespace = DCTERMS.NS, uri = "hasPart")
-    public ImmutableList<T> getContents() {
-		return contents;
-	}
     
     public ImmutableList<ChildRef> getChildRefs() {
         return childRefs;
@@ -35,18 +23,6 @@ public class Container<T extends Item> extends Content {
     public void setChildRefs(Iterable<ChildRef> childRefs) {
         this.childRefs = ImmutableList.copyOf(childRefs);
     }
-    
-    public final void setContentsByResolvingChildRefs(Iterable<? extends T> contents) {
-		Set<T> deduped = ImmutableSet.copyOf(lastUpdatedOrdering.immutableSortedCopy(contents));
-        this.contents = ImmutableList.copyOf(seriesAndEpisodeOrdering.immutableSortedCopy(deduped));
-		for (T content : this.contents) {
-			contentAdded(content);
-		}
-    }
-
-    protected void contentAdded(T content) {
-    	content.setContainer(this);
-	}
     
     public Container<T> toSummary() {
         Container<T> summary = new Container<T>(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
@@ -117,9 +93,8 @@ public class Container<T extends Item> extends Content {
         return copy;
     }
     
-    @SuppressWarnings("unchecked")
     public final static <T extends Item> void copyTo(Container<T> from, Container<T> to) {
         Content.copyTo(from, to);
-        to.contents = (ImmutableList<T>) ImmutableList.copyOf(Iterables.transform(from.contents, Item.COPY));
+        to.childRefs = ImmutableList.copyOf(from.childRefs);
     }
 }

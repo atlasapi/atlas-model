@@ -15,6 +15,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
+
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
@@ -34,9 +36,8 @@ public class Episode extends Item {
 
 	private Integer episodeNumber;
 	private Integer seriesNumber;
-	private Series series;
 	
-	private String seriesUri;
+    private ParentRef seriesRef;
 
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -61,51 +62,30 @@ public class Episode extends Item {
 	public void setSeriesNumber(Integer position) {
 		this.seriesNumber = position;
 	}
-
-	@Deprecated
-    public Series getSeriesSummary() {
-    	if (series == null) {
-    		return null;
-    	}
-        return series.toSummary();
+	
+    public void setSeriesRef(ParentRef seriesRef) {
+        this.seriesRef = seriesRef;
     }
     
-    @Override
-    public String getType() {
-        return this.getClass().getSimpleName();
+    public void setSeries(Series series) {
+        setSeriesRef(parentRefFrom(series));
     }
 
-	void setSeries(Series series) {
-		this.series = series;
-		this.seriesUri = series.getCanonicalUri();
-	}
-
-	public Series getSeries() {
-		return series;
-	}
-
-	public void setSeriesUri(String seriesUri) {
-		this.seriesUri = seriesUri;
-	}
-	
-	public String getSeriesUri() {
-		return seriesUri;
+	public ParentRef getSeriesRef() {
+		return seriesRef;
 	}
 	
 	@Override
-	public Content copy() {
+	public Episode copy() {
 	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
 	}
-	
+
 	public Episode copyWithVersions(Set<Version> versions) {
 	    Episode episode = new Episode();
 	    Item.copyToWithVersions(this, episode, versions);
 	    episode.episodeNumber = episodeNumber;
 	    episode.seriesNumber = seriesNumber;
-	    episode.seriesUri = seriesUri;
-	    if (series != null) {
-	        episode.series = (Series) series.toSummary();
-	    }
+	    episode.seriesRef = seriesRef;
 	    return episode;
 	}
 }

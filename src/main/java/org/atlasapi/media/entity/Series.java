@@ -1,28 +1,23 @@
 package org.atlasapi.media.entity;
 
-import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.PO;
+import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
+import com.google.common.base.Strings;
+import com.metabroadcast.common.time.DateTimeZones;
 
 
 public class Series extends Container<Episode> {
 	
 	private Integer seriesNumber;
+	private ParentRef parent;
 	
 	public Series() {}
 	
 	public Series(String uri, String curie, Publisher publisher) {
 		 super(uri, curie, publisher);
 	}
-	
-	@Override
-	@RdfProperty(relation = true, namespace = PO.NS, uri = "episode")
-	public ImmutableList<Episode> getContents() {
-		return super.getContents();
-	}
-	
+
 	public Series toSummary() {
 	   Series summary = new Series(this.getCanonicalUri(), this.getCurie(), this.publisher);
        summary.setTitle(this.getTitle());
@@ -38,17 +33,17 @@ public class Series extends Container<Episode> {
 		this.seriesNumber = seriesNumber;
 		return this;
 	}
-	
-	@Override
-	protected void contentAdded(Episode content) {
-		if (content.getContainer() == null) {
-			super.contentAdded(content);
-		}
-        content.setSeries(this);
-	}
 
 	public Integer getSeriesNumber() {
 		return seriesNumber;
+	}
+	
+	public void setParent(Brand parent) {
+	    this.parent = ParentRef.parentRefFrom(parent);
+	}
+	
+	public ParentRef getParent() {
+	    return this.parent;
 	}
 	
 	@Override
@@ -65,4 +60,8 @@ public class Series extends Container<Episode> {
             return (Series) input.copy();
         }
     };
+    
+    public ChildRef childRef() {
+        return new ChildRef(this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), new DateTime(DateTimeZones.UTC), EntityType.from(this));
+    }
 }

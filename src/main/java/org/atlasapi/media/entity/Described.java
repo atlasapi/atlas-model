@@ -27,7 +27,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.text.MoreStrings;
 
-public class Described extends Identified {
+public abstract class Described extends Identified {
 
 	private String title;
 	
@@ -62,10 +62,6 @@ public class Described extends Identified {
 	
 	public Described() { /* some legacy code still requires a default constructor */ }
 	
-	public String getType() {
-	    return this.getClass().getSimpleName();
-	}
-
 	public DateTime getLastFetched() {
         return lastFetched;
     }
@@ -187,4 +183,6 @@ public class Described extends Identified {
         to.thumbnail = from.thumbnail;
         to.title = from.title;
     }
+    
+    public abstract Described copy();
 }

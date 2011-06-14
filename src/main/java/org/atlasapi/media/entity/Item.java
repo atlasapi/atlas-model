@@ -15,6 +15,9 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Strings.nullToEmpty;
+import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
+
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +26,6 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
-import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -31,7 +33,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
-import com.metabroadcast.common.time.DateTimeZones;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -40,8 +41,8 @@ import com.metabroadcast.common.time.DateTimeZones;
  */
 @RdfClass(namespace = PO.NS)
 public class Item extends Content {
-	
-	private Container<?> container;
+    
+    private ParentRef parent;
 	
 	private Set<Version> versions = Sets.newHashSet();
 	private List<CrewMember> people = Lists.newArrayList();
@@ -57,19 +58,19 @@ public class Item extends Content {
 	
 	public Item() { }
 	
+	public void setParentRef(ParentRef parentRef) {
+	    this.parent = parentRef;
+	}
+	
 	public void setContainer(Container<?> container) {
-        this.container = container;
+        setParentRef(parentRefFrom(container));
     }
     
-    public Container<?> getContainer() {
-		if (container == null) {
+    public ParentRef getContainer() {
+		if (parent == null) {
 			return null;
 		}
-		return this.container.toSummary();
-    }
-    
-    public Container<?> getFullContainer() {
-		return container;
+		return this.parent;
     }
 	
 	@RdfProperty(namespace = DC.NS)
@@ -189,11 +190,9 @@ public class Item extends Content {
 	}
 	
 	@Override
-	public Content copy() {
+	public Item copy() {
 	    Item copy = new Item();
-	    
 	    Item.copyTo(this, copy);
-	    
 	    return copy;
 	}
 	
@@ -211,8 +210,8 @@ public class Item extends Content {
 	
 	public static void copyToWithVersions(Item from, Item to, Set<Version> versions) {
         Content.copyTo(from, to);
-        if (from.container != null) {
-            to.container = from.container.toSummary();
+        if (from.parent != null) {
+            to.parent = from.parent;
         }
         to.isLongForm = from.isLongForm;
         to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
@@ -231,13 +230,21 @@ public class Item extends Content {
     }
     
     public boolean isChild() {
-        return this.container == null;
+        return this.parent == null;
     }
     
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), sortKey, new DateTime(DateTimeZones.UTC));
+        return new ChildRef(this.getCanonicalUri(), nullToEmpty(sortKey), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
+    public static final Function<Item, ChildRef> TO_CHILD_REF = new Function<Item, ChildRef>() {
+
+        @Override
+        public ChildRef apply(Item input) {
+            return input.childRef();
+        }
+    };
+    
     public static final Function<Item, Item> COPY = new Function<Item, Item>() {
         @Override
         public Item apply(Item input) {
