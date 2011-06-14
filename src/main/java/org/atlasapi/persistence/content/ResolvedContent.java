@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -107,6 +108,18 @@ public class ResolvedContent {
 
     public Map<String, Identified> asResolvedMap() {
         return ImmutableMap.copyOf(Maps.transformValues(Maps.filterValues(map, Maybe.HAS_VALUE), Maybe.<Identified> requireValueFunction()));
+    }
+    
+    public ResolvedContent filterContent(Predicate<Maybe<Identified>> filter) {
+        ImmutableMap.Builder<String, Maybe<Identified>> filtered = ImmutableMap.builder();
+        
+        for (Entry<String, Maybe<Identified>> entry: map.entrySet()) {
+            
+            Maybe<Identified> value = filter.apply(entry.getValue()) ? entry.getValue() : Maybe.<Identified>nothing();
+            filtered.put(entry.getKey(), value);
+        }
+        
+        return new ResolvedContent(filtered.build());
     }
 
     public boolean isEmpty() {
