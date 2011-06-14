@@ -259,7 +259,6 @@ public class Item extends Content {
 	}
     
     public boolean hashChanged(String newHash) {
-    	System.out.println(this.readHash);
     	return readHash == null || !this.readHash.equals(newHash);
     }
 }
