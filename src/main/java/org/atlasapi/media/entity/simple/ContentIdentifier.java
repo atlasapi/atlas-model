@@ -11,6 +11,8 @@ import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Series;
 
+import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
 public abstract class ContentIdentifier {
@@ -69,7 +71,7 @@ public abstract class ContentIdentifier {
         }
         
         public ItemIdentifier(String uri, String id) {
-            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName());
+            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName(), id);
         }
 
         @Override
@@ -172,6 +174,27 @@ public abstract class ContentIdentifier {
             return new PersonIdentifier(uri, id);
         }
     }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("id", id).add("uri", uri).add("type", type).toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ContentIdentifier) {
+            return Objects.equal(this.uri, ((ContentIdentifier)obj).uri) && Objects.equal(this.type, ((ContentIdentifier)obj).uri);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uri);
+    }
 
     private static Map<EntityType, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<EntityType, Class<? extends ContentIdentifier>> builder()
             .put(EntityType.PERSON, PersonIdentifier.class)
@@ -210,4 +233,11 @@ public abstract class ContentIdentifier {
             throw new RuntimeException("Can't create content identifier for " + canonicalUri);
         }
     }
+    
+    public static final Function<ContentIdentifier, String> TO_ID = new Function<ContentIdentifier, String>() {
+        @Override
+        public String apply(ContentIdentifier input) {
+            return input.getId();
+        }
+    };
 }

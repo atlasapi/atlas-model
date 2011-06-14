@@ -7,6 +7,7 @@ public class Identified {
 	protected String uri;
 	protected String curie;
 	protected String id;
+	protected String type;
 	
 	public Identified(String uri) {
 		this.uri = uri;
@@ -62,11 +63,22 @@ public class Identified {
         this.id = id;
     }
 	
+	public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+	
 	protected void copyTo(Identified destination) {
         Preconditions.checkNotNull(destination);
         
         destination.setUri(getUri());
         destination.setCurie(getCurie());
         destination.setId(getId());
+        destination.setType(getType());
     }
+
+    
 }

@@ -179,4 +179,9 @@ public class ItemTestDataBuilder {
         this.publisher = publisher;
         return this;
     }
+    
+    public ItemTestDataBuilder withBrandSummary(BrandSummary brandSummary) {
+        this.brand = brandSummary;
+        return this;
+    }
 }
