@@ -41,6 +41,7 @@ public abstract class Description extends Aliased {
 
 	private String mediaType;
 	private String specialization;
+	private boolean scheduleOnly = false;
 	
 	public Description(String uri) {
 		super(uri);
@@ -177,8 +178,17 @@ public abstract class Description extends Aliased {
         destination.setSameAs(getSameAs());
         destination.setMediaType(getMediaType());
         destination.setSpecialization(getSpecialization());
+        destination.setScheduleOnly(isScheduleOnly());
     }
     
+    public boolean isScheduleOnly() {
+        return scheduleOnly;
+    }
+
+    public void setScheduleOnly(boolean scheduleOnly) {
+        this.scheduleOnly = scheduleOnly;
+    }
+
     public static Description copyOf(Description desc) {
         if (desc instanceof Item) {
             return ((Item) desc).copy();
