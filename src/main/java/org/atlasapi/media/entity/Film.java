@@ -1,5 +1,10 @@
 package org.atlasapi.media.entity;
 
+import java.util.Set;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
+
 public class Film extends Item {
     
     private Integer year = null;
@@ -31,16 +36,16 @@ public class Film extends Item {
     }
     
     @Override
-    public Film copy() {
-        Film copy = new Film();
-        Film.copyTo(this, copy);
-        return copy;
-    }
-    
-    public static void copyTo(Film from, Film to) {
-        Item.copyTo(from, to);
-        
-        to.setYear(from.getYear());
-        to.setWebsiteUrl(from.getWebsiteUrl());
-    }
+	public Film copy() {
+	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
+	}
+	
+    @Override
+	public Film copyWithVersions(Set<Version> versions) {
+	    Film film = new Film();
+	    Item.copyToWithVersions(this, film, versions);
+	    film.setYear(getYear());
+	    film.setWebsiteUrl(getWebsiteUrl());
+	    return film;
+	}
 }

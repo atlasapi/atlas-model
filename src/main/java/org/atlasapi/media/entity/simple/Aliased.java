@@ -13,7 +13,7 @@ public abstract class Aliased extends Identified {
 	protected Set<String> aliases = Sets.newHashSet();
 	
 	public Aliased(String uri) {
-		this.uri = uri;
+		super(uri);
 	}
 	
 	public Aliased() { /* required for XML/JSON tools */	}
