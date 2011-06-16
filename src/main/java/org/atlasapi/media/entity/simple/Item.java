@@ -28,7 +28,7 @@ public class Item extends Description {
 
 	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
 	
-	private BrandSummary brandSummary;
+	private BrandSummary container;
 	private SeriesSummary seriesSummary;
 	private List<Person> people = Lists.newArrayList();
 	
@@ -103,13 +103,13 @@ public class Item extends Description {
 		return false;
 	}
 
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="brandSummary")
+	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="container")
 	public BrandSummary getBrandSummary() {
-		return brandSummary;
+		return container;
 	}
 	
 	public void setBrandSummary(BrandSummary brand) {
-		this.brandSummary = brand;
+		this.container = brand;
 	}
 
 	public void addBroadcast(Broadcast broadcast) {

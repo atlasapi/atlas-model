@@ -3,13 +3,9 @@ package org.atlasapi.media.entity.simple;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.EntityType;
-import org.atlasapi.media.entity.Episode;
-import org.atlasapi.media.entity.Film;
-import org.atlasapi.media.entity.Series;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -25,8 +21,7 @@ public abstract class ContentIdentifier {
     }
 
     public ContentIdentifier(String uri, String type) {
-        this.uri = uri;
-        this.type = type;
+        this(uri, type, null);
     }
     
     public ContentIdentifier(String uri, String type, String id) {
@@ -67,11 +62,11 @@ public abstract class ContentIdentifier {
         }
 
         public ItemIdentifier(String uri) {
-            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName());
+            this(uri, null);
         }
         
         public ItemIdentifier(String uri, String id) {
-            super(uri, org.atlasapi.media.entity.Item.class.getSimpleName(), id);
+            super(uri, EntityType.ITEM.toString(), id);
         }
 
         @Override
@@ -86,11 +81,11 @@ public abstract class ContentIdentifier {
         }
 
         public EpisodeIdentifier(String uri) {
-            super(uri, Episode.class.getSimpleName());
+            this(uri, null);
         }
         
         public EpisodeIdentifier(String uri, String id) {
-            super(uri, Episode.class.getSimpleName(), id);
+            super(uri, EntityType.EPISODE.toString(), id);
         }
 
         @Override
@@ -105,11 +100,11 @@ public abstract class ContentIdentifier {
         }
 
         public FilmIdentifier(String uri) {
-            super(uri, Film.class.getSimpleName());
+            this(uri, null);
         }
         
         public FilmIdentifier(String uri, String id) {
-            super(uri, Film.class.getSimpleName(), id);
+            super(uri, EntityType.FILM.toString(), id);
         }
 
         @Override
@@ -124,11 +119,11 @@ public abstract class ContentIdentifier {
         }
 
         public BrandIdentifier(String uri) {
-            super(uri, Brand.class.getSimpleName());
+            this(uri, null);
         }
         
         public BrandIdentifier(String uri, String id) {
-            super(uri, Brand.class.getSimpleName(), id);
+            super(uri, EntityType.BRAND.toString(), id);
         }
 
         @Override
@@ -143,11 +138,11 @@ public abstract class ContentIdentifier {
         }
 
         public SeriesIdentifier(String uri) {
-            super(uri, Series.class.getSimpleName());
+            this(uri, null);
         }
         
         public SeriesIdentifier(String uri, String id) {
-            super(uri, Series.class.getSimpleName(), id);
+            super(uri, EntityType.SERIES.toString(), id);
         }
 
         @Override
@@ -162,11 +157,11 @@ public abstract class ContentIdentifier {
         }
 
         public PersonIdentifier(String uri) {
-            super(uri, org.atlasapi.media.entity.Person.class.getSimpleName());
+            this(uri, null);
         }
         
         public PersonIdentifier(String uri, String id) {
-            super(uri, org.atlasapi.media.entity.Person.class.getSimpleName(), id);
+            super(uri, EntityType.PERSON.toString(), id);
         }
 
         @Override
@@ -225,7 +220,7 @@ public abstract class ContentIdentifier {
 
     public static ContentIdentifier identifierFrom(String canonicalUri, String type) {
         try {
-            Class<? extends ContentIdentifier> idType = typeMap.get(type);
+            Class<? extends ContentIdentifier> idType = typeMap.get(EntityType.from(type));
             Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class);
             ContentIdentifier newInstance = constructor.newInstance(canonicalUri);
             return newInstance;
