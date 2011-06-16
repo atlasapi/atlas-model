@@ -15,6 +15,7 @@ public class CrewMember extends Identified {
         SUPERVISING_DIRECTOR("supervising_director", "Supervising Director"),
         SOURCE_WRITER("source_writer", "Source Writer"),
         ASSISTANT_DIRECTOR("assistant_director", "Assistant Director"),
+        ASSOCIATE_DIRECTOR("associate_director", "Associate Director"),
         ADDITIONAL_DIRECTOR("additional_director", "Additional Director"),
         COLLABORATING_DIRECTOR("collaborating_director", "Collaborating Director"),
         CO_DIRECTOR("co-director", "Co-Director"),
