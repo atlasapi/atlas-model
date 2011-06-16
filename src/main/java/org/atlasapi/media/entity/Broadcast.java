@@ -219,7 +219,15 @@ public class Broadcast extends Identified {
     
     @Override
     public int hashCode() {
-    	return 43;
+        // Currently publishers either have ids for all broadcasts or all broadcasts don't have ids 
+        // (there are no mixes of broadcasts with and without ids) so this hashCode is safe
+    	if (id != null) {
+    	    return id.hashCode();
+    	}
+    	if (transmissionTime != null) {
+    	    return transmissionTime.hashCode();
+        }
+        return 43;
     }
     
     public Broadcast copy() {
