@@ -21,7 +21,7 @@ public class LookupRef {
                 } else {
                     return TOP_LEVEL_ITEM;
                 }
-            } else if (c instanceof Container<?>) {
+            } else if (c instanceof Container) {
                 if (c instanceof Series) {
                     return PROGRAMME_GROUP;
                 }
