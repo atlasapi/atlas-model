@@ -210,4 +210,11 @@ public class Item extends Description {
             return input.copy();
         }
     };
+    
+    public static final Predicate<Item> IS_SCHEDULE_MARKER = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return input.isScheduleOnly();
+        }
+    };
 }
