@@ -49,8 +49,15 @@ public class ChildRef implements Comparable<ChildRef> {
 	}
     
     @Override
-    public boolean equals(Object obj) {
-        return uri.equals(uri);
+    public boolean equals(Object that) {
+        if(this == that) {
+            return true;
+        }
+        if(that instanceof ChildRef) {
+            ChildRef other = (ChildRef) that;
+            return uri.equals(other.uri);
+        }
+        return false;
     }
     
     @Override
