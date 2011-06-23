@@ -79,14 +79,14 @@ public class LookupRef {
         }
         if(that instanceof LookupRef) {
             LookupRef other = (LookupRef) that;
-            return id.equals(other.id) && publisher.equals(other.publisher) && type.equals(other.type);
+            return id.equals(other.id) && publisher.equals(other.publisher);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, publisher, type);
+        return Objects.hashCode(id, publisher);
     }
     
     @Override
