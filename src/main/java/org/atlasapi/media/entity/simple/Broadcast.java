@@ -111,82 +111,90 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	    return id;
 	}
 	
-	public Boolean isRepeat() {
-	    return repeat;
-	}
-	
-	public Broadcast withRepeat(Boolean repeat) {
-	    this.repeat = repeat;
-	    return this;
-	}
-	
-	public Broadcast withSubtitled(Boolean subtitled) {
-        this.subtitled = subtitled;
-        return this;
+	public Boolean getRepeat() {
+        return repeat;
     }
 
-    public Boolean isSubtitled() {
+    public void setRepeat(Boolean repeat) {
+        this.repeat = repeat;
+    }
+
+    public Boolean getSubtitled() {
         return subtitled;
     }
 
-    public Broadcast withSigned(Boolean signed) {
-        this.signed = signed;
-        return this;
+    public void setSubtitled(Boolean subtitled) {
+        this.subtitled = subtitled;
     }
 
-    public Boolean isSigned() {
+    public Boolean getSigned() {
         return signed;
     }
 
-    public Broadcast withAudioDescribed(Boolean audioDescribed) {
-        this.audioDescribed = audioDescribed;
-        return this;
+    public void setSigned(Boolean signed) {
+        this.signed = signed;
     }
 
-    public Boolean isAudioDescribed() {
+    public Boolean getAudioDescribed() {
         return audioDescribed;
     }
 
-    public Broadcast withHighDefinition(Boolean highDefinition) {
-        this.highDefinition = highDefinition;
-        return this;
+    public void setAudioDescribed(Boolean audioDescribed) {
+        this.audioDescribed = audioDescribed;
     }
 
-    public Boolean isHighDefinition() {
+    public Boolean getHighDefinition() {
         return highDefinition;
     }
 
-    public Broadcast withWidescreen(Boolean widescreen) {
-        this.widescreen = widescreen;
-        return this;
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
     }
 
-    public Boolean isWidescreen() {
+    public Boolean getWidescreen() {
         return widescreen;
     }
-    
-    public Broadcast withSurround(Boolean surround) {
-        this.surround = surround;
-        return this;
+
+    public void setWidescreen(Boolean widescreen) {
+        this.widescreen = widescreen;
     }
 
-    public Boolean isSurround() {
+    public Boolean getSurround() {
         return surround;
     }
 
-    public Broadcast withLive(Boolean live) {
-        this.live = live;
-        return this;
+    public void setSurround(Boolean surround) {
+        this.surround = surround;
     }
 
-    public Boolean isLive() {
+    public Boolean getLive() {
         return live;
     }
-	
-	@Override
+
+    public void setLive(Boolean live) {
+        this.live = live;
+    }
+
+    @Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
 	}
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Broadcast) {
+            return this.compareTo((Broadcast) obj) == 0;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(transmissionTime, broadcastDuration);
+    }
 	
 	public Broadcast copy() {
         Broadcast copy = new Broadcast();
@@ -203,14 +211,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setBroadcastOn(getBroadcastOn());
         copy.setScheduleDate(getScheduleDate());
         copy.setId(getId());
-        copy.withRepeat(isRepeat());
-        copy.withSubtitled(isSubtitled());
-        copy.withSigned(isSigned());
-        copy.withAudioDescribed(isAudioDescribed());
-        copy.withHighDefinition(isHighDefinition());
-        copy.withWidescreen(isWidescreen());
-        copy.withSurround(isSurround());
-        copy.withLive(isLive());
+        copy.setRepeat(getRepeat());
+        copy.setSubtitled(getSubtitled());
+        copy.setSigned(getSigned());
+        copy.setAudioDescribed(getAudioDescribed());
+        copy.setHighDefinition(getHighDefinition());
+        copy.setWidescreen(getWidescreen());
+        copy.setSurround(getSurround());
+        copy.setLive(getLive());
         
         return copy;
     }
