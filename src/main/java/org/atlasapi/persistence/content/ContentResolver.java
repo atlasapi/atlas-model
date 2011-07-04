@@ -14,16 +14,15 @@ permissions and limitations under the License. */
 
 package org.atlasapi.persistence.content;
 
-import org.atlasapi.media.entity.Identified;
 
 /**
  * Simple interface to the store of available content.
  *
- * @author Robert Chatley (robert@metabroadcast.com)
  * @author John Ayres (john@metabroadcast.com)
+ * @author Fred van den Driessche (fred@metabroadcast.com)
  */
 public interface ContentResolver {
 
-	Identified findByCanonicalUri(String uri);
+	ResolvedContent findByCanonicalUris(Iterable<String> canonicalUris);
 
 }

@@ -27,7 +27,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.text.MoreStrings;
 
-public class Described extends Identified {
+public abstract class Described extends Identified {
 
 	private String title;
 	
@@ -46,6 +46,7 @@ public class Described extends Identified {
 	private DateTime firstSeen;
 	private DateTime lastFetched;
 	private DateTime thisOrChildLastUpdated;
+	private boolean scheduleOnly = false;
 	
 	public Described(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -62,10 +63,6 @@ public class Described extends Identified {
 	
 	public Described() { /* some legacy code still requires a default constructor */ }
 	
-	public String getType() {
-	    return this.getClass().getSimpleName();
-	}
-
 	public DateTime getLastFetched() {
         return lastFetched;
     }
@@ -172,6 +169,14 @@ public class Described extends Identified {
         this.specialization = specialization;
     }
     
+    public void setScheduleOnly(boolean scheduleOnly) {
+        this.scheduleOnly = scheduleOnly;
+    }
+    
+    public boolean isScheduleOnly() {
+        return scheduleOnly;
+    }
+    
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -186,5 +191,8 @@ public class Described extends Identified {
         to.thisOrChildLastUpdated = from.thisOrChildLastUpdated;
         to.thumbnail = from.thumbnail;
         to.title = from.title;
+        to.scheduleOnly = from.scheduleOnly;
     }
+    
+    public abstract Described copy();
 }

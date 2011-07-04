@@ -1,25 +1,16 @@
 package org.atlasapi.media.entity;
 
-import java.util.List;
-import java.util.Set;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DCTERMS;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
 
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "List")
-public class ContentGroup extends Described implements MutableContentList<Content> {
+public class ContentGroup extends Described implements MutableContentList {
 	
-	private ImmutableList<Content> contents = ImmutableList.of();
-	private ImmutableList<String> contentUris = ImmutableList.of();
+	private ImmutableList<ChildRef> contents = ImmutableList.of();
 
 	public ContentGroup(String uri, String curie) {
 		super(uri, curie);
@@ -32,69 +23,25 @@ public class ContentGroup extends Described implements MutableContentList<Conten
     public ContentGroup() {}
 
     @RdfProperty(relation = true, namespace = DCTERMS.NS, uri = "hasPart")
-    public ImmutableList<Content> getContents() {
+    public ImmutableList<ChildRef> getContents() {
 		return contents;
 	}
-    
-    public final void setContents(Content...contents) {
-    	setContents(ImmutableList.copyOf(contents));
-    }
-    
-    public final void setContents(Iterable<? extends Content> contents) {
-        List<? extends Content> orderedContents = Ordering.from(DESCENDING_LAST_UPDATED).sortedCopy(contents);
-    	Set<Content> evictedContent = Sets.difference(ImmutableSet.copyOf(this.contents), ImmutableSet.copyOf(orderedContents));
-    	for (Content item : evictedContent) {
-    		contentEvicted(item);
-    	}
-    	for (Content content : orderedContents) {
-    		contentAdded(content);
-		}
-		this.contents = ImmutableList.copyOf(orderedContents);
-	}
-    
-	public void addContents(Content... contents) {
-		addContents(ImmutableList.copyOf(contents));
-	}
-    
-    @Override
-	public void addContents(Iterable<? extends Content> contents) {
-		setContents(Iterables.concat(this.contents, contents));
-	}
-    
-    protected void contentAdded(Content content) {
-    	/* extension point for subclasses, if an exception is throw the whole add attempt is aborted */
-	}
-    
-    protected void contentEvicted(Content content) {
-    	/* extension point for subclasses, if an exception is throw the whole add attempt is aborted */
-    }
 
-	public List<String> getContentUris() {
-        List<String> uris = Lists.newArrayList();
-        for (Content content : contents) {
-            uris.add(content.getCanonicalUri());
-        }
-        for (String uri: contentUris) {
-            if (!uris.contains(uri)) {
-                uris.add(uri);
-            }
-        }
-        return uris;
-    }
-    
-    public void setContentUris(Iterable<String> contentUris) {
-		this.contentUris = ImmutableList.copyOf(ImmutableSet.copyOf(contentUris));
-	}
-    
     public ContentGroup copy() {
         ContentGroup copy = new ContentGroup();
         copyTo(this, copy);
         return copy;
     }
     
-    public static void copyTo(ContentGroup from, ContentGroup to) {
-        Described.copyTo(from, to);
-        to.contents = ImmutableList.copyOf(Iterables.transform(from.contents, Content.COPY));
-        to.contentUris = ImmutableList.copyOf(from.contentUris);
+    public void setContents(Iterable<ChildRef> children) {
+        this.contents = ImmutableList.copyOf(children);
+    }
+    
+    public void addContents(ChildRef childRef) {
+        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).add(childRef).build();
+    }
+    
+    public void addContents(Iterable<ChildRef> childRef) {
+        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).addAll(childRef).build();
     }
 }

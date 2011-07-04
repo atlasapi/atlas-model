@@ -43,7 +43,7 @@ public class Person extends ContentGroup {
     }
 	
 	@Override
-	public ContentGroup copy() {
+	public Person copy() {
 	    Person copy = new Person();
 	    ContentGroup.copyTo(this, copy);
 	    return copy;

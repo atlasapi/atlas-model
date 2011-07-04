@@ -36,7 +36,7 @@ public class Film extends Item {
     }
     
     @Override
-	public Content copy() {
+	public Film copy() {
 	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
 	}
 	
