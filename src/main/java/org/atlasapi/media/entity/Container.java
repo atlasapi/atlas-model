@@ -5,7 +5,7 @@ import java.util.Comparator;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
-public class Container<T extends Item> extends Content {
+public class Container extends Content {
 
 	protected ImmutableList<ChildRef> childRefs = ImmutableList.of();
 	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
@@ -24,16 +24,16 @@ public class Container<T extends Item> extends Content {
         this.childRefs = ImmutableList.copyOf(childRefs);
     }
     
-    public Container<T> toSummary() {
-        Container<T> summary = new Container<T>(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
+    public Container toSummary() {
+        Container summary = new Container(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
         summary.setTitle(this.getTitle());
         summary.setDescription(this.getDescription());
         return summary;
     }
     
-    private final Comparator<T> seriesAndEpisodeFallBack = new Comparator<T>() {
+    private final Comparator<Item> seriesAndEpisodeFallBack = new Comparator<Item>() {
         @Override
-        public int compare(T item1, T item2) {
+        public int compare(Item item1, Item item2) {
             if (item1 instanceof Episode && item2 instanceof Episode) {
                 return compareEpisodes((Episode) item1, (Episode) item2);
             }
@@ -85,15 +85,15 @@ public class Container<T extends Item> extends Content {
         }
     };
     
-    protected final Ordering<T> seriesAndEpisodeOrdering = Ordering.from(seriesAndEpisodeFallBack);
+    protected final Ordering<Item> seriesAndEpisodeOrdering = Ordering.from(seriesAndEpisodeFallBack);
     
-    public Container<T> copy() {
-        Container<T> copy = new Container<T>();
+    public Container copy() {
+        Container copy = new Container();
         copyTo(this, copy);
         return copy;
     }
     
-    public final static <T extends Item> void copyTo(Container<T> from, Container<T> to) {
+    public final static <T extends Item> void copyTo(Container from, Container to) {
         Content.copyTo(from, to);
         to.childRefs = ImmutableList.copyOf(from.childRefs);
     }

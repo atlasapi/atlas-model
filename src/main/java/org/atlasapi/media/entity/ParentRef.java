@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ParentRef {
     
-    public static ParentRef parentRefFrom(Container<? extends Item> container) {
+    public static ParentRef parentRefFrom(Container container) {
         return new ParentRef(container.getCanonicalUri());
     }
 

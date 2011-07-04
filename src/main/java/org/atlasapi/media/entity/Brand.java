@@ -27,7 +27,7 @@ import com.google.common.collect.ImmutableList;
  * @author Chris Jackson
  */
 @RdfClass(namespace = PO.NS, uri = "List")
-public class Brand extends Container<Episode> {
+public class Brand extends Container {
     
     private ImmutableList<ChildRef> seriesRefs = ImmutableList.of();;
 
@@ -54,7 +54,7 @@ public class Brand extends Container<Episode> {
     }
 	
 	@Override
-	public Container<Episode> copy() {
+	public Container copy() {
 	    Brand copy = new Brand();
 	    Container.copyTo(this, copy);
 	    return copy;
