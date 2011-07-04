@@ -34,8 +34,9 @@ import com.google.common.collect.Sets;
 @RdfClass(namespace = PO.NS)
 public class Episode extends Item {
 
+    private Integer seriesNumber;
 	private Integer episodeNumber;
-	private Integer seriesNumber;
+	private Integer partNumber;
 	
     private ParentRef seriesRef;
 
@@ -44,6 +45,10 @@ public class Episode extends Item {
 	}
 	
 	public Episode() { }
+	
+	public Integer getPartNumber() {
+	    return this.partNumber;
+	}
 
 	@RdfProperty(namespace=PO.NS, uri="position")
 	public Integer getEpisodeNumber() {
@@ -54,6 +59,10 @@ public class Episode extends Item {
 	public Integer getSeriesNumber() {
 		return seriesNumber;
 	}
+
+    public void setPartNumber(Integer partNumber) {
+        this.partNumber = partNumber;
+    }
 	
 	public void setEpisodeNumber(Integer position) {
 		this.episodeNumber = position;
@@ -88,4 +97,5 @@ public class Episode extends Item {
 	    episode.seriesRef = seriesRef;
 	    return episode;
 	}
+
 }

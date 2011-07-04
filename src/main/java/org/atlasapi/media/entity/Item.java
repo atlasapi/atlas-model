@@ -15,7 +15,6 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Strings.nullToEmpty;
 import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
 import java.util.List;
@@ -227,7 +226,7 @@ public class Item extends Content {
         return this;
     }
 
-    public Comparable<?> sortKey() {
+    public String sortKey() {
         return sortKey;
     }
     
@@ -236,7 +235,7 @@ public class Item extends Content {
     }
     
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), nullToEmpty(sortKey), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
+        return new ChildRef(this.getCanonicalUri(),  SortKey.keyFrom(this), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
     public static final Function<Item, ChildRef> TO_CHILD_REF = new Function<Item, ChildRef>() {
