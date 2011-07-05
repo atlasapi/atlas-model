@@ -41,6 +41,11 @@ public class Series extends Container {
 	public void setParent(Brand parent) {
 	    this.parent = ParentRef.parentRefFrom(parent);
 	}
+
+    public void setParentRef(ParentRef parent) {
+        this.parent = parent;
+    }
+	
 	
 	public ParentRef getParent() {
 	    return this.parent;
