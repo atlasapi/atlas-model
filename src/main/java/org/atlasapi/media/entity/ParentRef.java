@@ -2,11 +2,20 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.base.Function;
+
 public class ParentRef {
     
     public static ParentRef parentRefFrom(Container container) {
         return new ParentRef(container.getCanonicalUri());
     }
+    
+    public static Function<Container, ParentRef> T0_PARENT_REF = new Function<Container, ParentRef>() {
+        @Override
+        public ParentRef apply(Container input) {
+            return parentRefFrom(input);
+        }
+    };
 
     private final String uri;
 
