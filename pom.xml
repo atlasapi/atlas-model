@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.atlasapi</groupId>
     <artifactId>atlas-model</artifactId>
-    <version>4.5-SNAPSHOT</version>
+    <version>4.0-SNAPSHOT</version>
     <description>atlas data types</description>
     
     <build>
