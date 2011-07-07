@@ -7,7 +7,7 @@ import com.google.common.base.Strings;
 import com.metabroadcast.common.time.DateTimeZones;
 
 
-public class Series extends Container<Episode> {
+public class Series extends Container {
 	
 	private Integer seriesNumber;
 	private ParentRef parent;
@@ -52,7 +52,7 @@ public class Series extends Container<Episode> {
 	}
 	
 	@Override
-	public Container<Episode> copy() {
+	public Container copy() {
 	    Series copy = new Series();
 	    Container.copyTo(this, copy);
 	    copy.seriesNumber = seriesNumber;
