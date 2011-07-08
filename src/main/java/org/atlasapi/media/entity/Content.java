@@ -22,6 +22,8 @@ import com.google.common.collect.Lists;
 
 public abstract class Content extends Described {
 
+    private transient String readHash;
+    
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	
 	public Content(String uri, String curie, Publisher publisher) {
@@ -51,4 +53,13 @@ public abstract class Content extends Described {
 	    Described.copyTo(from, to);
 	    to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
 	}
+	
+    
+    public void setReadHash(String readHash) {
+        this.readHash = readHash;
+    }
+    
+    public boolean hashChanged(String newHash) {
+        return readHash == null || !this.readHash.equals(newHash);
+    }
 }

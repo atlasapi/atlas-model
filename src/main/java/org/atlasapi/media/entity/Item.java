@@ -41,8 +41,6 @@ import com.metabroadcast.common.intl.Country;
 @RdfClass(namespace = PO.NS)
 public class Item extends Content {
     
-	private transient String readHash;
-	
     private ParentRef parent;
 	
 	private Set<Version> versions = Sets.newHashSet();
@@ -252,12 +250,4 @@ public class Item extends Content {
             return (Item) input.copy();
         }
     };
-    
-    public void setReadHash(String readHash) {
-		this.readHash = readHash;
-	}
-    
-    public boolean hashChanged(String newHash) {
-    	return readHash == null || !this.readHash.equals(newHash);
-    }
 }
