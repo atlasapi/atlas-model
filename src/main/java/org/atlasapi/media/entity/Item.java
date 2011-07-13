@@ -250,4 +250,13 @@ public class Item extends Content {
             return (Item) input.copy();
         }
     };
+
+    public Iterable<Broadcast> flattenBroadcasts() {
+        return Iterables.concat(Iterables.transform(versions, Version.TO_BROADCASTS));
+    }
+
+    public Iterable<Location> flattenLocations() {
+        return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
+
+    }
 }

@@ -134,4 +134,18 @@ public class Version extends Identified {
             return input.copy();
         }
     };
+
+    public static final Function<Version, Set<Broadcast>> TO_BROADCASTS = new Function<Version, Set<Broadcast>>() {
+        @Override
+        public Set<Broadcast> apply(Version input) {
+            return input.broadcasts;
+        }
+    };
+    
+    public static final Function<Version, Set<Encoding>> TO_ENCODINGS = new Function<Version, Set<Encoding>>() {
+        @Override
+        public Set<Encoding> apply(Version input) {
+            return input.manifestedAs;
+        }
+    };
 }
