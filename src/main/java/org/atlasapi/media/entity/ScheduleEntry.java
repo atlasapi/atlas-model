@@ -1,8 +1,8 @@
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
@@ -11,11 +11,8 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
 import com.metabroadcast.common.text.NumberPadder;
 import com.metabroadcast.common.time.DateTimeZones;
 
@@ -25,46 +22,10 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     private final Interval interval;
     private final Channel channel;
     private final Publisher publisher;
-    private ImmutableList<Item> items = ImmutableList.of();
+    private ImmutableSet<ItemRefAndBroadcast> items = ImmutableSet.of();
     private final static Joiner joiner = Joiner.on('|');
-    
-    public static List<ScheduleEntry> from(Iterable<Item> items) {
-        Map<String, ScheduleEntry> entries = Maps.newHashMap();
-        
-        for (Item item: items) {
-            for (Version version: item.getVersions()) {
-                for (Broadcast broadcast: version.getBroadcasts()) {
-                    Version entryVersion = version.copy();
-                    entryVersion.setBroadcasts(ImmutableSet.of(broadcast.copy()));
-                    Item entryItem = (Item) item.copy();
-                    entryItem.setVersions(ImmutableSet.of(entryVersion));
-                    
-                    Channel channel = Channel.fromUri(broadcast.getBroadcastOn()).requireValue();
-                    Publisher publisher = item.getPublisher();
-                    long hourMillis = ((int) broadcast.getTransmissionTime().getMillis() / 3600000) * 3600000;
-                    long endMillis = broadcast.getTransmissionEndTime().getMillis();
-                    
-                    while (hourMillis < endMillis) {
-                        Interval interval = new Interval(new DateTime(hourMillis, DateTimeZones.UTC), new DateTime(hourMillis+3599999, DateTimeZones.UTC));
-                        String key = toKey(interval, channel, publisher);
-                        
-                        if (entries.containsKey(key)) {
-                            ScheduleEntry entry = entries.get(key);
-                            entry.withItems(ImmutableList.<Item>builder().addAll(entry.items()).add(entryItem).build());
-                        } else {
-                            ScheduleEntry entry = new ScheduleEntry(interval, channel, publisher, ImmutableList.of(entryItem));
-                            entries.put(key, entry);
-                        }
-                        hourMillis+= (3600000);
-                    }
-                }
-            }
-        }
-        
-        return Ordering.natural().immutableSortedCopy(entries.values());
-    }
 
-    public ScheduleEntry(Interval interval, Channel channel, Publisher publisher, Iterable<Item> items) {
+    public ScheduleEntry(Interval interval, Channel channel, Publisher publisher, Iterable<ItemRefAndBroadcast> items) {
         Preconditions.checkNotNull(interval);
         Preconditions.checkNotNull(channel);
         Preconditions.checkNotNull(publisher);
@@ -83,15 +44,12 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         return interval;
     }
     
-    public ImmutableList<Item> items() {
+    public ImmutableSet<ItemRefAndBroadcast> getItemRefsAndBroadcasts() {
         return items;
     }
     
-    public ScheduleEntry withItems(Iterable<Item> items) {
-        for (Item item: items) {
-            Preconditions.checkNotNull(BROADCAST.apply(item));
-        }
-        this.items = ImmutableList.copyOf(items);
+    public ScheduleEntry withItems(Iterable<ItemRefAndBroadcast> items) {
+        this.items = ImmutableSet.copyOf(items);
         return this;
     }
     
@@ -141,7 +99,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     public final static Function<Item, Broadcast> BROADCAST = new Function<Item, Broadcast>() {
         @Override
         public Broadcast apply(Item item) {
-            return Iterables.getOnlyElement(Iterables.getOnlyElement(item.getVersions()).getBroadcasts());
+            return Iterables.getOnlyElement(item.flattenBroadcasts());
         }
     };
     
@@ -151,4 +109,41 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
             return input.toKey();
         }
     };
+    
+    public static final class ItemRefAndBroadcast {
+        
+        private final String uri;
+        private final Broadcast broadcast;
+
+        public ItemRefAndBroadcast(String uri, Broadcast broadcast) {
+            this.uri = checkNotNull(uri);
+            this.broadcast = checkNotNull(broadcast);
+        }
+        
+        public ItemRefAndBroadcast(Item item, Broadcast broadcast) {
+            this(item.getCanonicalUri(), broadcast);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(uri, broadcast);
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof ItemRefAndBroadcast) {
+                ItemRefAndBroadcast other = (ItemRefAndBroadcast) obj;
+                return uri.equals(other.uri) && broadcast.equals(other.broadcast);
+            }
+            return false;
+        }
+
+        public String getItemUri() {
+            return uri;
+        }
+        
+        public Broadcast getBroadcast() {
+            return broadcast;
+        }
+    }
 }

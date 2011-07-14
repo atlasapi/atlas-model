@@ -368,4 +368,11 @@ public class Encoding extends Identified {
             return input.copy();
         }
     };
+    
+    public static final Function<Encoding, Set<Location>> TO_LOCATIONS = new Function<Encoding, Set<Location>>() {
+        @Override
+        public Set<Location> apply(Encoding input) {
+            return input.availableAt;
+        }
+    };
 }
