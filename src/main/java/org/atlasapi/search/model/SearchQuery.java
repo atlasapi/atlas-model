@@ -13,13 +13,15 @@ public class SearchQuery {
 	private final Selection selection;
 	private final Set<Publisher> includedPublishers;
     private final float titleWeighting;
-    private final float currentnessWeighting;
+    private final float broadcastWeighting;
+    private final float catchupWeighting;
 
-	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float currentnessWeighting) {
+	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
-        this.currentnessWeighting = currentnessWeighting;
+        this.broadcastWeighting = broadcastWeighting;
+        this.catchupWeighting = availabilityWeighting;
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 	}
 	
@@ -39,7 +41,11 @@ public class SearchQuery {
         return titleWeighting;
     }
 
-    public float getCurrentnessWeighting() {
-        return currentnessWeighting;
+    public float getBroadcastWeighting() {
+        return broadcastWeighting;
+    }
+
+    public float getCatchupWeighting() {
+        return catchupWeighting;
     }
 }
