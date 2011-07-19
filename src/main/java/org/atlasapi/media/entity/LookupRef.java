@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity;
 
+import java.util.List;
+
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Item;
@@ -7,6 +9,8 @@ import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 
 public class LookupRef {
     
@@ -36,12 +40,26 @@ public class LookupRef {
         return new LookupRef(subject.getCanonicalUri(), subject.getPublisher(), LookupType.fromContent(subject));
     }
     
+    public static LookupRef from(ChildRef childRef, Publisher publisher) {
+        return new LookupRef(childRef.getUri(), publisher, LookupType.CHILD_ITEM);
+    }
+    
     public static Function<Described,LookupRef> FROM_DESCRIBED = new Function<Described, LookupRef>() {
         @Override
         public LookupRef apply(Described input) {
             return LookupRef.from(input);
         }
     };
+    
+    public static List<LookupRef> fromChildRefs(Iterable<ChildRef> childRefs, Publisher publisher) {
+        Builder<LookupRef> lookupRefs = ImmutableList.builder();
+        
+        for (ChildRef childRef : childRefs) {
+            lookupRefs.add(from(childRef, publisher));
+        }
+        
+        return lookupRefs.build();
+    }
     
     public static Function<LookupRef,String> TO_ID = new Function<LookupRef, String>() {
         @Override
