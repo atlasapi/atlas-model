@@ -251,6 +251,13 @@ public class Item extends Content {
         }
     };
 
+    public static final Function<Item, Iterable<Broadcast>> FLATTEN_BROADCASTS = new Function<Item, Iterable<Broadcast>>() {
+        @Override
+        public Iterable<Broadcast> apply(Item input) {
+            return input.flattenBroadcasts();
+        }
+    };
+
     public Iterable<Broadcast> flattenBroadcasts() {
         return Iterables.concat(Iterables.transform(versions, Version.TO_BROADCASTS));
     }
