@@ -24,6 +24,7 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.metabroadcast.common.base.Maybe;
 
 /**
@@ -249,6 +250,13 @@ public class Broadcast extends Identified {
         @Override
         public Broadcast apply(Broadcast input) {
             return input.copy();
+        }
+    };
+
+    public static final Predicate<Broadcast> IS_REPEAT = new Predicate<Broadcast>() {
+        @Override
+        public boolean apply(Broadcast input) {
+            return input.repeat != null && input.repeat;
         }
     };
 }
