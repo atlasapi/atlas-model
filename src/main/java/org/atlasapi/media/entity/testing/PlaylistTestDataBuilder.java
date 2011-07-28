@@ -34,6 +34,7 @@ public class PlaylistTestDataBuilder {
     private String thumbnail;
     private String title;
     private String id;
+    private String specialization;
     
     private List<ContentIdentifier> contents;
     
@@ -66,6 +67,7 @@ public class PlaylistTestDataBuilder {
         thumbnail = "http://test.metabroadcast.com/thumbnails/default";
         title = "Default Test Item";
         contents = ImmutableList.of();
+        specialization = "tv";
     }
     
     private PublisherDetails defaultPublisher() {
@@ -95,6 +97,7 @@ public class PlaylistTestDataBuilder {
         playlist.setUri(uri);
         playlist.setCurie(curie);
         playlist.setContent(contents);
+        playlist.setSpecialization(specialization);
         return playlist;
     }
     
@@ -115,6 +118,16 @@ public class PlaylistTestDataBuilder {
     
     public PlaylistTestDataBuilder withUri(String uri) {
         this.uri = uri;
+        return this;
+    }
+    
+    public PlaylistTestDataBuilder withGenres(Iterable<String> genres) {
+        this.genres = ImmutableSet.copyOf(genres);
+        return this;
+    }
+    
+    public PlaylistTestDataBuilder withSpecialization(String specialization) {
+        this.specialization = specialization;
         return this;
     }
     
