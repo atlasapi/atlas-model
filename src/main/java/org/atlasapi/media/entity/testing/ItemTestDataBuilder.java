@@ -41,6 +41,7 @@ public class ItemTestDataBuilder {
     private String thumbnail;
     private String title;
     private String id;
+    private String specialization;
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -76,6 +77,7 @@ public class ItemTestDataBuilder {
         tags = ImmutableSet.of();
         thumbnail = "http://test.metabroadcast.com/thumbnails/default";
         title = "Default Test Item";
+        specialization = "tv";
     }
     
     private SeriesSummary defaultSeriesSummary() {
@@ -127,6 +129,7 @@ public class ItemTestDataBuilder {
         item.setTitle(title);
         item.setUri(uri);
         item.setCurie(curie);
+        item.setSpecialization(specialization);
         return item;
     }
     
@@ -182,6 +185,16 @@ public class ItemTestDataBuilder {
     
     public ItemTestDataBuilder withBrandSummary(BrandSummary brandSummary) {
         this.brand = brandSummary;
+        return this;
+    }
+    
+    public ItemTestDataBuilder withGenres(Iterable<String> genres) {
+        this.genres = ImmutableSet.copyOf(genres);
+        return this;
+    }
+    
+    public ItemTestDataBuilder withSpecialization(String specialization) {
+        this.specialization = specialization;
         return this;
     }
 }
