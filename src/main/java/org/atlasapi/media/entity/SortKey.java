@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import org.joda.time.DateTime;
 
+import com.google.common.base.Strings;
+
 public enum SortKey {
     
     ADAPTER("10") {
@@ -82,6 +84,14 @@ public enum SortKey {
 
         @Override
         public int compare(String sk1, String sk2) {
+            
+            if(Strings.isNullOrEmpty(sk1)) {
+                sk1 = DEFAULT.prefix;
+            }
+            if(Strings.isNullOrEmpty(sk2)) {
+                sk2 = DEFAULT.prefix;
+            }
+            
             String prefix1 = sk1.substring(0, 2);
             String prefix2 = sk2.substring(0, 2);
             
