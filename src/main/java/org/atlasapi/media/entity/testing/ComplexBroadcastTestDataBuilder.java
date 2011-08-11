@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity.testing;
 
 import org.atlasapi.media.entity.Broadcast;
+import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
@@ -23,6 +24,14 @@ public class ComplexBroadcastTestDataBuilder {
         Broadcast broadcast = new Broadcast(channel, startTime, duration);
         
         return broadcast;
+    }
+    
+    public Version buildInVersion() {
+        Version version = new Version();
+        
+        version.addBroadcast(build());
+        
+        return version;
     }
     
     public ComplexBroadcastTestDataBuilder withChannel(String channel) {
