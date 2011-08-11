@@ -13,7 +13,6 @@ public class BrandTestDataBuilder {
     private String uri;
     private String curie;
     private Set<ChildRef> childRefs;
-    private String description;
     private Publisher publisher;
     private String title;
     
