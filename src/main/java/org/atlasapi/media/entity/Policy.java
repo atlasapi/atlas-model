@@ -145,7 +145,8 @@ public class Policy extends Identified {
 	    PAY_TO_RENT,
 	    SUBSCRIPTION,
 	    FREE_TO_VIEW,
-	    VOLUNTARY_DONATION;
+	    VOLUNTARY_DONATION,
+	    PRIVATE;
 	    
 	    public String key() {
 	        return name().toLowerCase();
