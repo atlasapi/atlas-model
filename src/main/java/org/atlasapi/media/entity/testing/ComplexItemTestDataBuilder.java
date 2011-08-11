@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
+import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Item;
@@ -118,6 +119,9 @@ public class ComplexItemTestDataBuilder {
     
     public ComplexItemTestDataBuilder withBrand(Container brand) {
         this.brand = brand;
+        
+        brand.setChildRefs(ImmutableSet.<ChildRef>builder().addAll(brand.getChildRefs()).add(this.build().childRef()).build());
+        
         return this;
     }
     
