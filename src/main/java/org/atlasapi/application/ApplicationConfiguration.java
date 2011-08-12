@@ -24,11 +24,13 @@ public class ApplicationConfiguration {
 		this.precedence = precedence;
 	}
 	
+	private static Set<Publisher> defaultDisabled = ImmutableSet.of(Publisher.C4, Publisher.PA, Publisher.PREVIEW_NETWORKS, Publisher.WORLD_SERVICE);
+	
 	private static ApplicationConfiguration defaultConfiguration() {
 		ImmutableSet<Publisher> defaultIncluded = ImmutableSet.copyOf(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
-				return !input.equals(Publisher.C4) && !input.equals(Publisher.PA) && !input.equals(Publisher.PREVIEW_NETWORKS);
+				return !defaultDisabled.contains(input);
 			}
 		}));
 		return new ApplicationConfiguration(defaultIncluded, null);
