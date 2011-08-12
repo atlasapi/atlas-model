@@ -33,7 +33,8 @@ public enum Publisher {
     PA("PA", "pressassociation.com", Countries.GB),
     RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB),
     PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB),
-    ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL);
+    ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL),
+	WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL);
 	
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     public static final int MAX_KEY_LENGTH = 20;
