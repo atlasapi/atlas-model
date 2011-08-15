@@ -24,9 +24,9 @@ public class ApplicationConfiguration {
 		this.precedence = precedence;
 	}
 	
-	private static Set<Publisher> defaultDisabled = ImmutableSet.of(Publisher.C4, Publisher.PA, Publisher.PREVIEW_NETWORKS, Publisher.WORLD_SERVICE);
 	
 	private static ApplicationConfiguration defaultConfiguration() {
+	    final Set<Publisher> defaultDisabled = ImmutableSet.of(Publisher.C4, Publisher.PA, Publisher.PREVIEW_NETWORKS, Publisher.WORLD_SERVICE);
 		ImmutableSet<Publisher> defaultIncluded = ImmutableSet.copyOf(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
