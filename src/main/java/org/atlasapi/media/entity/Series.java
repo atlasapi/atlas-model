@@ -10,6 +10,7 @@ import com.metabroadcast.common.time.DateTimeZones;
 public class Series extends Container {
 	
 	private Integer seriesNumber;
+	private Integer totalEpisodes;
 	private ParentRef parent;
 	
 	public Series() {}
@@ -68,5 +69,13 @@ public class Series extends Container {
     
     public ChildRef childRef() {
         return new ChildRef(this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), new DateTime(DateTimeZones.UTC), EntityType.from(this));
+    }
+    
+    public void setTotalEpisodes(Integer totalEpisodes) {
+        this.totalEpisodes = totalEpisodes;
+    }
+    
+    public Integer getTotalEpisodes() {
+        return totalEpisodes;
     }
 }
