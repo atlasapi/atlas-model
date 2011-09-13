@@ -34,6 +34,7 @@ public class Item extends Description {
 	
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
+    private Integer year;
 	
 	public Item() { /* required for XML/JSON tools */ }
 	
@@ -217,4 +218,12 @@ public class Item extends Description {
             return input.isScheduleOnly();
         }
     };
+
+    public Integer getYear() {
+        return year;
+    }
+    
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 }
