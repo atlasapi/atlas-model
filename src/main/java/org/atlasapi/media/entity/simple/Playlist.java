@@ -25,6 +25,8 @@ import com.google.common.collect.Lists;
 public class Playlist extends Description {
 
 	private List<ContentIdentifier> content = Lists.newArrayList();
+    private Integer totalEpisodes;
+    private Integer seriesNumber;
 
 	public void add(ContentIdentifier c) {
 		content.add(c);
@@ -67,4 +69,19 @@ public class Playlist extends Description {
 		}
 	};
 
+	public Integer getTotalEpisodes() {
+	    return totalEpisodes;
+	}
+	
+	public void setTotalEpisodes(Integer totalEpisodes) {
+	    this.totalEpisodes = totalEpisodes;
+	}
+	
+	public Integer getSeriesNumber() {
+	    return seriesNumber;
+	}
+	
+	public void setSeriesNumber(Integer seriesNumber) {
+	    this.seriesNumber = seriesNumber;
+	}
 }
