@@ -47,6 +47,8 @@ public abstract class Described extends Identified {
 	private DateTime lastFetched;
 	private DateTime thisOrChildLastUpdated;
 	private boolean scheduleOnly = false;
+
+    private String presentationChannel;
 	
 	public Described(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -177,6 +179,18 @@ public abstract class Described extends Identified {
         return scheduleOnly;
     }
     
+    public void setPresentationChannel(Channel channel) {
+        setPresentationChannel(channel.key());
+    }
+    
+    public void setPresentationChannel(String channel) {
+        this.presentationChannel = channel;
+    }
+    
+    public String getPresentationChannel() {
+        return this.presentationChannel;
+    }
+    
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -192,6 +206,7 @@ public abstract class Described extends Identified {
         to.thumbnail = from.thumbnail;
         to.title = from.title;
         to.scheduleOnly = from.scheduleOnly;
+        to.presentationChannel = from.presentationChannel;
     }
     
     public abstract Described copy();
