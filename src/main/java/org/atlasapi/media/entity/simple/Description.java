@@ -42,6 +42,7 @@ public abstract class Description extends Aliased {
 	private String mediaType;
 	private String specialization;
 	private boolean scheduleOnly = false;
+    private String presentationChannel;
 	
 	public Description(String uri) {
 		super(uri);
@@ -154,6 +155,14 @@ public abstract class Description extends Aliased {
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+
+    public void setPresentationChannel(String presentationChannel) {
+        this.presentationChannel = presentationChannel;
+    }
+    
+    public String getPresentationChannel() {
+        return this.presentationChannel;
+    }
     
     protected void copyTo(Description destination) {
         Preconditions.checkNotNull(destination);
@@ -179,6 +188,7 @@ public abstract class Description extends Aliased {
         destination.setMediaType(getMediaType());
         destination.setSpecialization(getSpecialization());
         destination.setScheduleOnly(isScheduleOnly());
+        destination.setPresentationChannel(getPresentationChannel());
     }
     
     public boolean isScheduleOnly() {
@@ -219,4 +229,5 @@ public abstract class Description extends Aliased {
             return input.getId();
         }
     };
+
 }
