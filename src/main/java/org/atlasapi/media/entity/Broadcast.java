@@ -65,6 +65,10 @@ public class Broadcast extends Identified {
     
     private Boolean live;
     
+    private Boolean newSeries;
+    
+    private Boolean premiere;
+    
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
@@ -206,6 +210,22 @@ public class Broadcast extends Identified {
         return live;
     }
     
+    public void setPremiere(Boolean premiere) {
+        this.premiere = premiere;
+    }
+
+    public Boolean isPremiere() {
+        return premiere;
+    }
+    
+    public void setNewSeries(Boolean newSeries) {
+        this.newSeries = newSeries;
+    }
+    
+    public Boolean isNewSeries() {
+        return newSeries;
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Broadcast)) {
@@ -243,6 +263,8 @@ public class Broadcast extends Identified {
         copy.audioDescribed = audioDescribed;
         copy.highDefinition = highDefinition;
         copy.widescreen = widescreen;
+        copy.newSeries = newSeries;
+        copy.premiere = premiere;
         return copy;
     }
     
