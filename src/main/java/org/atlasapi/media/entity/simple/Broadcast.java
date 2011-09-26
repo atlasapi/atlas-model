@@ -46,6 +46,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Boolean surround;
     
     private Boolean live;
+    
+    private Boolean premier;
+    
+    private Boolean newSeries;
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
@@ -173,6 +177,22 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     public void setLive(Boolean live) {
         this.live = live;
+    }
+    
+    public Boolean getPremier() {
+        return premier;
+    }
+    
+    public void setPremiere(Boolean premier) {
+        this.premier = premier;
+    }
+    
+    public Boolean getNewSeries() {
+        return newSeries;
+    }
+    
+    public void setNewSeries(Boolean newSeries) {
+        this.newSeries = newSeries;
     }
 
     @Override
