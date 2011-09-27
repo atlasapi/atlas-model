@@ -130,6 +130,7 @@ public class ItemTestDataBuilder {
         item.setUri(uri);
         item.setCurie(curie);
         item.setSpecialization(specialization);
+        item.setType("item");
         return item;
     }
     
