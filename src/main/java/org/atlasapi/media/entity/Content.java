@@ -29,6 +29,7 @@ public abstract class Content extends Described {
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
 	private Set<RelatedLink> relatedLinks = ImmutableSet.of();
+	private ImmutableList<String> topics = ImmutableList.of();
 	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -38,6 +39,18 @@ public abstract class Content extends Described {
 	
 	public List<Clip> getClips() {
 		return clips;
+	}
+	
+	public void setTopics(Iterable<Topic> topics) {
+	    setTopicUris(Iterables.transform(topics, Identified.TO_URI));
+	}
+
+    public void setTopicUris(Iterable<String> topics) {
+        this.topics = ImmutableList.copyOf(topics);
+    }
+	
+	public List<String> getTopics() {
+	    return topics;
 	}
 	
 	public void setClips(Iterable<Clip> clips) {
