@@ -23,7 +23,7 @@ public class TopicQueryResult {
     }
 
     @XmlElements({ 
-        @XmlElement(name = "topic", type = Topic.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "topic", type = Topic.class, namespace=PLAY_SIMPLE_XML.NS)
     })
     public List<Topic> getContents() {
         return topics;
