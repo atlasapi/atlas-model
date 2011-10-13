@@ -36,6 +36,7 @@ public abstract class Description extends Aliased {
 	private Set<String> tags = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
+	private Set<Topic> topics = Sets.newHashSet();
 
 	private Set<String> sameAs = Sets.newHashSet();
 
@@ -229,5 +230,14 @@ public abstract class Description extends Aliased {
             return input.getId();
         }
     };
+
+    public void setTopics(Iterable<Topic> resolvedTopics) {
+        this.topics = ImmutableSet.copyOf(resolvedTopics);
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="topics")
+    public Set<Topic> getTopics() {
+        return this.topics;
+    }
 
 }
