@@ -22,6 +22,8 @@ public class Topic extends Described {
 
     public enum Type {
         SUBJECT("subject", "Subject"),
+        PERSON("person", "Person"),
+        PLACE("place", "Place"),
         UNKNOWN("unknown", "Unknown");
         
         private final String key;
