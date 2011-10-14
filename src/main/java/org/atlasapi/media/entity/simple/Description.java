@@ -236,6 +236,7 @@ public abstract class Description extends Aliased {
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="topics")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="topic")
     public Set<Topic> getTopics() {
         return this.topics;
     }
