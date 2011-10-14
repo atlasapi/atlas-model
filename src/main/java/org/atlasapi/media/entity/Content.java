@@ -48,6 +48,12 @@ public abstract class Content extends Described {
     public void setTopicUris(Iterable<String> topics) {
         this.topics = ImmutableList.copyOf(topics);
     }
+    
+    public void addTopic(Topic topic) {
+        if (!topics.contains(topic.getCanonicalUri())) {
+            this.topics = ImmutableList.<String>builder().addAll(this.topics).add(topic.getCanonicalUri()).build();
+        }
+    }
 	
 	public List<String> getTopics() {
 	    return topics;
