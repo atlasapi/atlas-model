@@ -26,7 +26,14 @@ public class ApplicationConfiguration {
 	
 	
 	private static ApplicationConfiguration defaultConfiguration() {
-	    final Set<Publisher> defaultDisabled = ImmutableSet.of(Publisher.C4, Publisher.PA, Publisher.PREVIEW_NETWORKS, Publisher.WORLD_SERVICE);
+	    final Set<Publisher> defaultDisabled = ImmutableSet.of(
+	            Publisher.C4, 
+	            Publisher.PA, 
+	            Publisher.ITV,
+	            Publisher.FIVE,
+	            Publisher.PREVIEW_NETWORKS,
+	            Publisher.RADIO_TIMES,
+	            Publisher.WORLD_SERVICE);
 		ImmutableSet<Publisher> defaultIncluded = ImmutableSet.copyOf(Iterables.filter(ImmutableSet.copyOf(Publisher.values()), new Predicate<Publisher>() {
 			@Override
 			public boolean apply(Publisher input) {
