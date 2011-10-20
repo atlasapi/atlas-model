@@ -146,7 +146,7 @@ public class Broadcast extends Identified {
         this.activelyPublished = activelyPublished;
     }
     
-    public Boolean isRepeat() {
+    public Boolean getRepeat() {
         return repeat;
     }
     
@@ -158,7 +158,7 @@ public class Broadcast extends Identified {
         this.subtitled = subtitled;
     }
 
-    public Boolean isSubtitled() {
+    public Boolean getSubtitled() {
         return subtitled;
     }
 
@@ -166,7 +166,7 @@ public class Broadcast extends Identified {
         this.signed = signed;
     }
 
-    public Boolean isSigned() {
+    public Boolean getSigned() {
         return signed;
     }
 
@@ -174,7 +174,7 @@ public class Broadcast extends Identified {
         this.audioDescribed = audioDescribed;
     }
 
-    public Boolean isAudioDescribed() {
+    public Boolean getAudioDescribed() {
         return audioDescribed;
     }
 
@@ -182,7 +182,7 @@ public class Broadcast extends Identified {
         this.highDefinition = highDefinition;
     }
 
-    public Boolean isHighDefinition() {
+    public Boolean getHighDefinition() {
         return highDefinition;
     }
 
@@ -190,7 +190,7 @@ public class Broadcast extends Identified {
         this.widescreen = widescreen;
     }
 
-    public Boolean isWidescreen() {
+    public Boolean getWidescreen() {
         return widescreen;
     }
     
@@ -198,7 +198,7 @@ public class Broadcast extends Identified {
         this.surround = surround;
     }
 
-    public Boolean isSurround() {
+    public Boolean getSurround() {
         return surround;
     }
 
@@ -206,7 +206,7 @@ public class Broadcast extends Identified {
         this.live = live;
     }
 
-    public Boolean isLive() {
+    public Boolean getLive() {
         return live;
     }
     
@@ -214,7 +214,7 @@ public class Broadcast extends Identified {
         this.premiere = premiere;
     }
 
-    public Boolean isPremiere() {
+    public Boolean getPremiere() {
         return premiere;
     }
     
@@ -222,7 +222,7 @@ public class Broadcast extends Identified {
         this.newSeries = newSeries;
     }
     
-    public Boolean isNewSeries() {
+    public Boolean getNewSeries() {
         return newSeries;
     }
     
