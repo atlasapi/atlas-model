@@ -169,7 +169,7 @@ public class CrewMember extends Identified {
     
     @Override
     public String toString() {
-        return "Crew "+name+" worked as a "+role.title;
+        return getCanonicalUri();//"Crew "+name+" worked as a "+role.title;
     }
     
     public CrewMember copy() {

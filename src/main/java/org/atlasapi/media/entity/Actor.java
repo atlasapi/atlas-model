@@ -73,7 +73,7 @@ public class Actor extends CrewMember {
     
     @Override
     public String toString() {
-        return "Actor "+name+" plays "+character;
+        return getCanonicalUri();//"Actor "+name+" plays "+character;
     }
     
     @Override
