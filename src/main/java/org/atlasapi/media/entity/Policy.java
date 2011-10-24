@@ -41,6 +41,8 @@ public class Policy extends Identified {
 	private RevenueContract revenueContract;
 	
 	private Price price;
+	
+	private Platform platform;
     
 	@RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
     public Set<Country> getAvailableCountries() {
@@ -72,6 +74,11 @@ public class Policy extends Identified {
     public DateTime getAvailabilityEnd() {
 		return availabilityEnd;
 	}
+    
+    @RdfProperty(relation=false)
+    public Platform getPlatform() {
+    	return platform;
+    }
     
     public void setAvailabilityEnd(DateTime availabilityEnd) {
 		this.availabilityEnd = availabilityEnd;
@@ -112,6 +119,10 @@ public class Policy extends Identified {
         this.price = price;
     }
 	
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
+	}
+	
 	public Policy withPrice(Price price) {
 	    setPrice(price);
 	    return this;
@@ -137,6 +148,11 @@ public class Policy extends Identified {
 
 	public Policy withAvailableCountries(Country... countries) {
 		setAvailableCountries(Sets.newHashSet(countries));
+		return this;
+	}
+	
+	public Policy withPlatform(Platform platform) {
+		setPlatform(platform);
 		return this;
 	}
 	
@@ -173,5 +189,9 @@ public class Policy extends Identified {
 	    copy.price = price;
 	    copy.revenueContract = revenueContract;
 	    return copy;
+	}
+	
+	public enum Platform {
+		XBOX;
 	}
 }
