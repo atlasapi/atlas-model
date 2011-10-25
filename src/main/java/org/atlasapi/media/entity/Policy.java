@@ -188,10 +188,24 @@ public class Policy extends Identified {
 	    copy.drmPlayableFrom = drmPlayableFrom;
 	    copy.price = price;
 	    copy.revenueContract = revenueContract;
+	    copy.platform = platform;
 	    return copy;
 	}
 	
 	public enum Platform {
 		XBOX;
+		
+		public String key() {
+			return name().toLowerCase();
+		}
+		    
+		public static Platform fromKey(String key) {
+			for (Platform platform: values()) {
+				if (platform.key().equals(key)) {
+					return platform;
+				}
+			}
+			return null;
+		}
 	}
 }
