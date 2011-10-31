@@ -27,6 +27,8 @@ public abstract class Content extends Described {
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	private ImmutableList<String> topics = ImmutableList.of();
 	
+	private String id;
+	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
@@ -73,6 +75,13 @@ public abstract class Content extends Described {
 	    to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
 	}
 	
+	public void setId(String id) {
+	    this.id = id;
+	}
+	
+	public String getId() {
+	    return id;
+	}
     
     public void setReadHash(String readHash) {
         this.readHash = readHash;
