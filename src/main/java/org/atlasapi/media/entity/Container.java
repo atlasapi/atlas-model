@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Comparator;
 
+import org.atlasapi.content.rdf.annotations.RdfProperty;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
@@ -16,6 +18,7 @@ public class Container extends Content {
     
     public Container() {}
     
+    @RdfProperty(uri="child",relation=true)
     public ImmutableList<ChildRef> getChildRefs() {
         return childRefs;
     }

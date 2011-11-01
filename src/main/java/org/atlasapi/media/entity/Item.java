@@ -24,6 +24,7 @@ import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
@@ -65,6 +66,7 @@ public class Item extends Content {
         setParentRef(parentRefFrom(container));
     }
     
+	@RdfProperty(relation=true)
     public ParentRef getContainer() {
 		if (parent == null) {
 			return null;
@@ -153,7 +155,7 @@ public class Item extends Content {
         this.blackAndWhite = blackAndWhite;
     }
 
-    public Boolean isBlackAndWhite() {
+    public Boolean getBlackAndWhite() {
         return blackAndWhite;
     }
 

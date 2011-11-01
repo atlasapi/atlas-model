@@ -46,6 +46,6 @@ public class ParentRef {
     
     @Override
     public String toString() {
-        return String.format("ParentRef:%s",uri);
+        return uri;
     }
 }

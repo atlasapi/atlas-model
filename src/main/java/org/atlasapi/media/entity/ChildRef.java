@@ -67,7 +67,7 @@ public class ChildRef implements Comparable<ChildRef> {
     
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).addValue(uri).addValue(sortKey).addValue(updated).toString();
+        return uri;
     }
 
     @Override
