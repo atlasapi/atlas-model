@@ -30,6 +30,7 @@ import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
+import org.atlasapi.media.entity.simple.Topic;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;
@@ -43,6 +44,7 @@ public class Attributes {
     public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
     public static final Attribute<String> DESCRIPTION_TAG = stringListAttribute("tag", Content.class);
     public static final Attribute<Enum<MediaType>> DESCRIPTION_TYPE = new EnumValuedAttribute<MediaType>("mediaType", MediaType.class, Item.class);
+	public static final Attribute<String> TOPICS = stringListAttribute("topics", Content.class);
 	
 	//public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
 	
