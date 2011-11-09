@@ -492,6 +492,7 @@ public class Channel implements SelfModelling {
     public static final Channel MOVIES_24_PLUS = new Channel("Movies24+", CHANNEL_URI_PREFIX+"movies24plus", "movies24plus");
     public static final Channel BET_PLUS1 = new Channel("BET +1", CHANNEL_URI_PREFIX+"betplus1", "betplus1");
     public static final Channel BET_INTERNATIONAL = new Channel("BET International", CHANNEL_URI_PREFIX+"betinternational", "betinternational");
+    public static final Channel PBS = new Channel("PBS", CHANNEL_URI_PREFIX + "pbs", "pbs");
     
     public static final Channel XFM_RADIO = new Channel("XFM", CHANNEL_URI_PREFIX + "xfmradio", "xfmradio");
     public static final Channel ABSOLUTE_RADIO = new Channel("Absolute Radio", CHANNEL_URI_PREFIX + "absoluteradio", "absoluteradio");
