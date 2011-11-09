@@ -63,7 +63,7 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_HD = new Channel("BBC HD", "http://www.bbc.co.uk/services/bbchd", "bbchd");
     public static final Channel CBBC = new Channel("CBBC", "http://www.bbc.co.uk/services/cbbc", "cbbc");
     public static final Channel CBEEBIES = new Channel("CBeebies", "http://www.bbc.co.uk/services/cbeebies", "cbeebies");
-
+    
     public static final Channel BBC_RADIO_LONDON = new Channel("BBC Radio London", "http://www.bbc.co.uk/services/london", "london");
     public static final Channel BBC_RADIO_BERKSHIRE = new Channel("BBC Radio Berkshire", "http://www.bbc.co.uk/services/berkshire", "berkshire");
     public static final Channel BBC_RADIO_BRISTOL = new Channel("BBC Radio Bristol", "http://www.bbc.co.uk/services/bristol", "bristol");
@@ -150,7 +150,14 @@ public class Channel implements SelfModelling {
     public static final Channel ITV1_THAMES_VALLEY_NORTH = new Channel("ITV1 Thames Valley North", "http://www.itv.com/channels/itv1/thamesvalleynorth", "itv1thamesvalleynorth");
     public static final Channel ITV1_THAMES_VALLEY_SOUTH = new Channel("ITV1 Thames Valley South", "http://www.itv.com/channels/itv1/thamesvalleysouth", "itv1thamesvalleysouth");
     public static final Channel ITV1_HD = new Channel("ITV1 HD", "http://www.itv.com/channels/itv1/hd", "itv1hd");
-
+    public static final Channel ITV1_CENTRAL_PLUS1 = new Channel("ITV1 Central +1", "http://www.itv.com/channels/itv1/central#plus1", "itv1centralplus1");
+    public static final Channel ITV1_GRANADA_PLUS1 = new Channel("ITV1 Granada +1", "http://www.itv.com/channels/itv1/granada#plus1", "itv1granadaplus1");
+    public static final Channel ITV1_LONDON_PLUS1 = new Channel("ITV1 London +1", "http://www.itv.com/channels/itv1/london#plus1", "itv1londonplus1");
+    public static final Channel ITV1_SOUTH_EAST_PLUS1 = new Channel("ITV1 South East +1", "http://www.itv.com/channels/itv1/southeast#plus1", "itv1southeastplus1");
+    public static final Channel ITV1_UTV_PLUS1 = new Channel("ITV1 UTV +1", "http://www.itv.com/channels/itv1/utv#plus1", "itv1utvplus1");
+    public static final Channel ITV1_WEST_PLUS1 = new Channel("ITV1 West +1", "http://www.itv.com/channels/itv1/west#plus1", "itv1westplus1");
+    public static final Channel ITV1_YORKSHIRE_TYNE_TEES_PLUS1 = new Channel("ITV1 West +1", "http://www.itv.com/channels/itv1/yorkshiretynestees#plus1", "itv1yorkshiretyneteesplus1");
+ 
     public static final Channel ITV2 = new Channel("ITV2", "http://www.itv.com/channels/itv2", "itv2");
     public static final Channel ITV2_HD = new Channel("ITV2 HD", "http://www.itv.com/channels/itv2/hd", "itv2hd");
     public static final Channel ITV3 = new Channel("ITV3", "http://www.itv.com/channels/itv3", "itv3");
@@ -456,6 +463,8 @@ public class Channel implements SelfModelling {
     public static final Channel FITNESS_TV = new Channel("Fitness TV", CHANNEL_URI_PREFIX + "fitnesstv", "fitnesstv");
     public static final Channel RUSH_HD = new Channel("Rush HD", CHANNEL_URI_PREFIX + "rushhd", "rushhd");
     public static final Channel BBC_SPORT_INTERACTIVE_BBC_ONE = new Channel("BBC Sport Interactive BBC One", CHANNEL_URI_PREFIX + "bbcsportinteractivebbcone", "bbcsportinteractivebbcone");
+    public static final Channel BBC_SPORT_INTERACTIVE_BBC_TWO = new Channel("BBC Sport Interactive BBC Two", CHANNEL_URI_PREFIX + "bbcsportinteractivebbctwo", "bbcsportinteractivebbctwo");
+    public static final Channel BBC_SPORT_INTERACTIVE_BBC_THREE = new Channel("BBC Sport Interactive BBC Three", CHANNEL_URI_PREFIX + "bbcsportinteractivebbcthree", "bbcsportinteractivebbcthree");
     public static final Channel BBC_SPORT_INTERACTIVE_FREEVIEW = new Channel("BBC Sport Interactive Freeview", CHANNEL_URI_PREFIX + "bbcsportinteractivefreeview",
             "bbcsportinteractivefreeview");
     public static final Channel SKY_3D = new Channel("Sky 3D", CHANNEL_URI_PREFIX + "sky3d", "sky3d");
@@ -467,6 +476,7 @@ public class Channel implements SelfModelling {
     public static final Channel SKY_MOVIES_SHOWCASE_HD = new Channel("Sky Movies Showcase HD", CHANNEL_URI_PREFIX+"skymoviesshowcasehd", "skymoviesshowcasehd");
     public static final Channel DISCOVERY_KNOWLEDGE = new Channel("Discovery Knowledge", CHANNEL_URI_PREFIX+"discoveryknowledge", "discoveryknowledge");
     public static final Channel SKY_LIVING = new Channel("Sky Living", CHANNEL_URI_PREFIX+"skyliving", "skyliving");
+    public static final Channel SKY_LIVING_LOVES = new Channel("Sky Living Loves", CHANNEL_URI_PREFIX+"skylivingloves", "skylivingloves");
     public static final Channel LIVING_PLUS2 = new Channel("Living +2", CHANNEL_URI_PREFIX+"livingplus2", "livingplus2");
     public static final Channel FX_PLUS = new Channel("FX+", CHANNEL_URI_PREFIX+"fxplus", "fxplus");
     public static final Channel BBC_ALBA = new Channel("BBC Alba", CHANNEL_URI_PREFIX+"bbcalba", "bbcalba");
@@ -474,6 +484,15 @@ public class Channel implements SelfModelling {
     public static final Channel S4C2 = new Channel("S4C2", CHANNEL_URI_PREFIX+"sc42", "sc42");
     public static final Channel FIVE_USA_PLUS1 = new Channel("Five USA +1", CHANNEL_URI_PREFIX+"fiveusaplus1", "fiveusaplus1");
     public static final Channel MTV_MUSIC = new Channel("MTV Music", CHANNEL_URI_PREFIX+"mtvmusic", "mtvmusic");
+    public static final Channel TVE_INTERNACIONAL = new Channel("TVE Internacional", CHANNEL_URI_PREFIX+"tveinternacional", "tveinternacional");
+    public static final Channel SUPER_CASINO = new Channel("Super Casino", CHANNEL_URI_PREFIX+"supercasino", "supercasino");
+    public static final Channel SIMPLY_SHOPPING = new Channel("Simply Shopping", CHANNEL_URI_PREFIX+"simplyshopping", "simplyshopping");
+    public static final Channel Q = new Channel("Q", CHANNEL_URI_PREFIX+"q", "q");
+    public static final Channel MOVIES_24 = new Channel("Movies24", CHANNEL_URI_PREFIX+"movies24", "movies24");
+    public static final Channel MOVIES_24_PLUS = new Channel("Movies24+", CHANNEL_URI_PREFIX+"movies24plus", "movies24plus");
+    public static final Channel BET_PLUS1 = new Channel("BET +1", CHANNEL_URI_PREFIX+"betplus1", "betplus1");
+    public static final Channel BET_INTERNATIONAL = new Channel("BET International", CHANNEL_URI_PREFIX+"betinternational", "betinternational");
+    public static final Channel PBS = new Channel("PBS", CHANNEL_URI_PREFIX + "pbs", "pbs");
     
     public static final Channel XFM_RADIO = new Channel("XFM", CHANNEL_URI_PREFIX + "xfmradio", "xfmradio");
     public static final Channel ABSOLUTE_RADIO = new Channel("Absolute Radio", CHANNEL_URI_PREFIX + "absoluteradio", "absoluteradio");
