@@ -159,6 +159,11 @@ public class ItemTestDataBuilder {
         return this;
     }
     
+    public ItemTestDataBuilder withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+    
     public ItemTestDataBuilder withUri(String uri) {
         this.uri = uri;
         return this;
