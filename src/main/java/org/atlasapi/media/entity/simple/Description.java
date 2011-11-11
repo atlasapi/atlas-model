@@ -36,6 +36,7 @@ public abstract class Description extends Aliased {
 	private Set<String> tags = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
+	private List<KeyPhrase> keyPhrases = Lists.newArrayList();
 
 	private Set<String> sameAs = Sets.newHashSet();
 
@@ -98,7 +99,17 @@ public abstract class Description extends Aliased {
 	@XmlElement(name="clip")
 	public List<Item> getClips() {
 		return clips;
-	}
+    }
+
+    @XmlElementWrapper(name = "keyphrases")
+    @XmlElement(name = "keyphrase")
+    public List<KeyPhrase> getKeyPhrases() {
+        return keyPhrases;
+    }
+    
+    public void setKeyPhrases(Iterable<KeyPhrase> phrases) {
+        this.keyPhrases = Lists.newArrayList(phrases);
+    }
 	
 	public void setTitle(String title) {
 		this.title = title;

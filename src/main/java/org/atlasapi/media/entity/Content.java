@@ -15,8 +15,10 @@ permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -25,6 +27,7 @@ public abstract class Content extends Described {
     private transient String readHash;
     
 	private ImmutableList<Clip> clips  = ImmutableList.of();
+	private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
 	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -47,6 +50,18 @@ public abstract class Content extends Described {
 		List<Clip> all = Lists.newArrayList(clips);
 		all.add(clip);
 		setClips(all);
+	}
+	
+	public Set<KeyPhrase> getKeyPhrases() {
+	    return keyPhrases;
+	}
+	
+	public void setKeyPhrases(Iterable<KeyPhrase> phrases) {
+	    keyPhrases = ImmutableSet.copyOf(phrases);
+	}
+	
+	public void addKeyPhrase(KeyPhrase phrase) {
+	    keyPhrases = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases).build();
 	}
 	
 	public static void copyTo(Content from, Content to) {
