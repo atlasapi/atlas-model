@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import org.atlasapi.media.entity.simple.BrandSummary;
 import org.atlasapi.media.entity.simple.Broadcast;
 import org.atlasapi.media.entity.simple.Item;
+import org.atlasapi.media.entity.simple.KeyPhrase;
 import org.atlasapi.media.entity.simple.Location;
 import org.atlasapi.media.entity.simple.PublisherDetails;
 import org.atlasapi.media.entity.simple.SeriesSummary;
@@ -16,6 +17,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 
 public class ItemTestDataBuilder {
+    
     private static Integer uniqueId = 1;
     
     private String uri;
@@ -42,6 +44,8 @@ public class ItemTestDataBuilder {
     private String title;
     private String id;
     private String specialization;
+    private Set<KeyPhrase> keyPhrases;
+
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -78,6 +82,7 @@ public class ItemTestDataBuilder {
         thumbnail = "http://test.metabroadcast.com/thumbnails/default";
         title = "Default Test Item";
         specialization = "tv";
+        keyPhrases = ImmutableSet.of();
     }
     
     private SeriesSummary defaultSeriesSummary() {
@@ -131,6 +136,7 @@ public class ItemTestDataBuilder {
         item.setCurie(curie);
         item.setSpecialization(specialization);
         item.setType("item");
+        item.setKeyPhrases(keyPhrases);
         return item;
     }
     
@@ -201,6 +207,11 @@ public class ItemTestDataBuilder {
     
     public ItemTestDataBuilder withSpecialization(String specialization) {
         this.specialization = specialization;
+        return this;
+    }
+    
+    public ItemTestDataBuilder withKeyPhrases(Iterable<KeyPhrase> keyPhrases) {
+        this.keyPhrases = ImmutableSet.copyOf(keyPhrases);
         return this;
     }
 }
