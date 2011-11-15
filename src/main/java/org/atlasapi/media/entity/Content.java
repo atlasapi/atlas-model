@@ -28,6 +28,7 @@ public abstract class Content extends Described {
     
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
+	private Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -64,12 +65,23 @@ public abstract class Content extends Described {
 	    keyPhrases = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases).build();
 	}
 	
+	public Set<RelatedLink> getRelatedLinks() {
+	    return relatedLinks;
+	}
+	
+	public void setRelatedLinks(Iterable<RelatedLink> links) {
+	    relatedLinks = ImmutableSet.copyOf(links);
+	}
+	
+	public void addRelatedLink(RelatedLink link) {
+	    relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
+	}
+	
 	public static void copyTo(Content from, Content to) {
 	    Described.copyTo(from, to);
 	    to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
 	}
 	
-    
     public void setReadHash(String readHash) {
         this.readHash = readHash;
     }

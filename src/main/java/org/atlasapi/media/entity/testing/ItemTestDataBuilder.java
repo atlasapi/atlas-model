@@ -10,6 +10,7 @@ import org.atlasapi.media.entity.simple.Item;
 import org.atlasapi.media.entity.simple.KeyPhrase;
 import org.atlasapi.media.entity.simple.Location;
 import org.atlasapi.media.entity.simple.PublisherDetails;
+import org.atlasapi.media.entity.simple.RelatedLink;
 import org.atlasapi.media.entity.simple.SeriesSummary;
 
 import com.google.common.collect.ImmutableList;
@@ -45,7 +46,7 @@ public class ItemTestDataBuilder {
     private String id;
     private String specialization;
     private Set<KeyPhrase> keyPhrases;
-
+    private Set<RelatedLink> relatedLinks;
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -83,6 +84,7 @@ public class ItemTestDataBuilder {
         title = "Default Test Item";
         specialization = "tv";
         keyPhrases = ImmutableSet.of();
+        relatedLinks = ImmutableSet.of();
     }
     
     private SeriesSummary defaultSeriesSummary() {
@@ -137,6 +139,7 @@ public class ItemTestDataBuilder {
         item.setSpecialization(specialization);
         item.setType("item");
         item.setKeyPhrases(keyPhrases);
+        item.setRelatedLinks(relatedLinks);
         return item;
     }
     
@@ -212,6 +215,11 @@ public class ItemTestDataBuilder {
     
     public ItemTestDataBuilder withKeyPhrases(Iterable<KeyPhrase> keyPhrases) {
         this.keyPhrases = ImmutableSet.copyOf(keyPhrases);
+        return this;
+    }
+
+    public ItemTestDataBuilder withRelatedLinks(ImmutableSet<RelatedLink> links) {
+        this.relatedLinks = ImmutableSet.copyOf(links);
         return this;
     }
 }
