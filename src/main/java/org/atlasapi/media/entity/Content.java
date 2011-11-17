@@ -15,8 +15,10 @@ permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -26,6 +28,8 @@ public abstract class Content extends Described {
     
 	private ImmutableList<Clip> clips  = ImmutableList.of();
 	private ImmutableList<String> topics = ImmutableList.of();
+	private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
+	private Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	
 	private String id;
 	
@@ -68,6 +72,30 @@ public abstract class Content extends Described {
 		List<Clip> all = Lists.newArrayList(clips);
 		all.add(clip);
 		setClips(all);
+	}
+	
+	public Set<KeyPhrase> getKeyPhrases() {
+	    return keyPhrases;
+	}
+	
+	public void setKeyPhrases(Iterable<KeyPhrase> phrases) {
+	    keyPhrases = ImmutableSet.copyOf(phrases);
+	}
+	
+	public void addKeyPhrase(KeyPhrase phrase) {
+	    keyPhrases = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases).build();
+	}
+	
+	public Set<RelatedLink> getRelatedLinks() {
+	    return relatedLinks;
+	}
+	
+	public void setRelatedLinks(Iterable<RelatedLink> links) {
+	    relatedLinks = ImmutableSet.copyOf(links);
+	}
+	
+	public void addRelatedLink(RelatedLink link) {
+	    relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
 	}
 	
 	public static void copyTo(Content from, Content to) {
