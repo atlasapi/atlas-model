@@ -1,14 +1,16 @@
 package org.atlasapi.media.entity;
 
 import java.util.Comparator;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
 
 public enum SortKey {
     
-    ADAPTER("10") {
+    ADAPTER("95") {
         @Override
         protected String generateFrom(Item item) {
             if(item.sortKey() != null) {
@@ -17,20 +19,21 @@ public enum SortKey {
             return null;
         }
     },
-    SERIES_EPISODE("20") {
+    
+    SERIES_EPISODE("85") {
         @Override
         protected String generateFrom(Item item) {
             if(item instanceof Episode) {
                 Episode episode = (Episode) item;
                 if(episode.getEpisodeNumber() != null && episode.getSeriesNumber() != null) {
-                    return SortKey.SERIES_EPISODE.append(String.format("%s%s",episode.getSeriesNumber(),episode.getEpisodeNumber()));
+                    return SortKey.SERIES_EPISODE.append(String.format("%06d%06d",episode.getSeriesNumber(),episode.getEpisodeNumber()));
                 }
             }
             return null;
         }
     },
     
-    BROADCAST("30") {
+    BROADCAST("75") {
         @Override
         protected String generateFrom(Item item) {
             DateTime firstBroadcast = null;
@@ -42,13 +45,13 @@ public enum SortKey {
                 }
             }
             if(firstBroadcast != null) {
-                return BROADCAST.append(String.format("%s",firstBroadcast.getMillis()));
+                return BROADCAST.append(String.format("%019d",firstBroadcast.getMillis()));
             }
             return null;
         }
     },
     
-    DEFAULT("99") {
+    DEFAULT("11") {
 
         @Override
         protected String generateFrom(Item item) {
@@ -76,7 +79,7 @@ public enum SortKey {
                 return key;
             }
         }
-        return "99";
+        return "11";
     }
     
     
@@ -92,25 +95,34 @@ public enum SortKey {
                 sk2 = DEFAULT.prefix;
             }
             
-            String prefix1 = sk1.substring(0, 2);
-            String prefix2 = sk2.substring(0, 2);
-            
-            int compareType = prefix1.compareTo(prefix2);
-            
-            if(compareType != 0) {
-                return compareType;
+            if (sk1.equals("99")) {
+                return 1;
             }
             
-            String key1 = sk1.substring(2);
-            String key2 = sk2.substring(2);
-            
-            if(prefix1.equals("20") || prefix1.equals("30")) {
-                return key2.compareTo(key1);
+            if (sk2.equals("99")) {
+                return -1;
             }
             
-            return key1.compareTo(key2);
+            sk1 = prefixMap.containsKey(keyPrefix(sk1)) ? transformPrefix(sk1) : sk1;
+            sk2 = prefixMap.containsKey(keyPrefix(sk2)) ? transformPrefix(sk2) : sk2;
+
+            return sk2.compareTo(sk1);
         }
         
+        private static final Map<String, String> prefixMap = ImmutableMap.of(
+                "99", "11",
+                "10", "95",
+                "20", "85",
+                "30", "75"
+        );
+        
+        public String transformPrefix(String input) {
+            return prefixMap.get(keyPrefix(input)) + input.substring(2);
+        }
+
+        public String keyPrefix(String input) {
+            return input.substring(0, 2);
+        }
+
     }
-    
 }
