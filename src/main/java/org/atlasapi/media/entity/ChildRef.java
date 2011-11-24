@@ -6,14 +6,13 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
 public class ChildRef implements Comparable<ChildRef> {
 
-    private static final Ordering<ChildRef> NATURAL = Ordering.natural();
+    private static final Ordering<ChildRef> NATURAL = Ordering.natural().reverse();
     private static final Ordering<ChildRef> UPDATED_ORDERING = Ordering.from(new UpdatedComparator());
     
     private final String uri;
