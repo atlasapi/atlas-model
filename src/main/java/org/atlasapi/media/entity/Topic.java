@@ -21,17 +21,19 @@ public class Topic extends Described {
     private Set<Publisher> publishers = ImmutableSet.of();
 
     public enum Type {
-        SUBJECT("subject", "Subject"),
-        PERSON("person", "Person"),
-        PLACE("place", "Place"),
-        UNKNOWN("unknown", "Unknown");
+        SUBJECT("subject"),
+        PERSON("person"),
+        PLACE("place"),
+        ARTIST("artist"),
+        EVENT("event"),
+        PRODUCT("product"),
+        WORK("work"),
+        UNKNOWN("unknown");
         
         private final String key;
-        private final String display;
 
-        private Type(String key, String display) {
+        private Type(String key) {
             this.key = key;
-            this.display = display;
         }
 
         public String key() {
@@ -40,7 +42,7 @@ public class Topic extends Described {
         
         @Override
         public String toString() {
-            return display;
+            return key;
         }
         
         public static Map<String, Type> TYPE_KEY_LOOKUP = Maps.uniqueIndex(ImmutableSet.copyOf(Type.values()), new Function<Type, String>() {
@@ -52,6 +54,10 @@ public class Topic extends Described {
         
         public static Type fromKey(String key) {
             return TYPE_KEY_LOOKUP.get(key);
+        }
+        
+        public static Type fromKey(String key, Type deflt) {
+            return TYPE_KEY_LOOKUP.containsKey(key) ? TYPE_KEY_LOOKUP.get(key) : deflt;
         }
     }
     
