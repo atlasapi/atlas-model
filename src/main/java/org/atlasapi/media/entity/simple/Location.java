@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
@@ -330,6 +331,7 @@ public class Location extends Version {
         this.embedId = embedId;
     }
 
+    @XmlElement
     public boolean isAvailable() {
     	this.available = IS_AVAILABLE.apply(this);
         return available;
