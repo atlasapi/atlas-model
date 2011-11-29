@@ -327,11 +327,7 @@ public class Location extends Version {
     }
 
     public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
+        return IS_AVAILABLE.apply(this);
     }
 
     public void setAvailabilityEnd(Date availabilityEnd) {
@@ -426,7 +422,6 @@ public class Location extends Version {
         copy.setUri(getUri());
         copy.setEmbedCode(getEmbedCode());
         copy.setEmbedId(getEmbedId());
-        copy.setAvailable(isAvailable());
         
         return copy;
     }
