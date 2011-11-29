@@ -73,6 +73,7 @@ public class Location extends Version {
     private String uri;
     private String embedCode;
     private String embedId;
+    private String platform;
 
     private boolean available = true;
 
@@ -350,6 +351,14 @@ public class Location extends Version {
     	this.available = IS_AVAILABLE.apply(this);
     }
 
+    public void setPlatform(String platform) {
+    	this.platform = platform; 
+    }
+    
+    public String getPlatform() {
+    	return platform;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Location) {
@@ -434,6 +443,7 @@ public class Location extends Version {
         copy.setUri(getUri());
         copy.setEmbedCode(getEmbedCode());
         copy.setEmbedId(getEmbedId());
+        copy.setPlatform(getPlatform());
         
         return copy;
     }
