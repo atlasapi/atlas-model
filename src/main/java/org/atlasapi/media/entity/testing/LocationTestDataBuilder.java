@@ -150,7 +150,6 @@ public class LocationTestDataBuilder {
         location.setTransportType(transportType);
         location.setUri(uri);
         location.setEmbedCode(embedCode);
-        location.setAvailable(available);
         
         return location;
     }

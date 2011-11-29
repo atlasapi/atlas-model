@@ -268,6 +268,9 @@ public class Location extends Version {
 
     public void setAvailabilityStart(Date availabilityStart) {
         this.availabilityStart = availabilityStart;
+        
+        // See setAvailabilityEnd as to why we need to calculate available here
+        calculateAndSetAvailabile();
     }
 
     public Date getDrmPlayableFrom() {
@@ -327,19 +330,24 @@ public class Location extends Version {
     }
 
     public boolean isAvailable() {
+    	this.available = IS_AVAILABLE.apply(this);
         return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public void setAvailabilityEnd(Date availabilityEnd) {
         this.availabilityEnd = availabilityEnd;
+        // We are forced to compute available when properties that affect it change, since gson cannot use getters for serialization,
+        // it uses only class variables through reflection. The alternative is to write a custom serializer, but we must then maintain 
+        // that separately and add all new fields as they appear
+        calculateAndSetAvailabile();
     }
 
     public Date getAvailabilityEnd() {
         return availabilityEnd;
+    }
+    
+    private void calculateAndSetAvailabile() {
+    	this.available = IS_AVAILABLE.apply(this);
     }
 
     @Override
@@ -426,7 +434,6 @@ public class Location extends Version {
         copy.setUri(getUri());
         copy.setEmbedCode(getEmbedCode());
         copy.setEmbedId(getEmbedId());
-        copy.setAvailable(isAvailable());
         
         return copy;
     }
@@ -434,7 +441,7 @@ public class Location extends Version {
     public static final Predicate<Location> IS_AVAILABLE = new Predicate<Location>() {
         @Override
         public boolean apply(Location input) {
-            return input.isAvailable() && (input.getAvailabilityStart() == null || new DateTime(input.getAvailabilityStart()).isBeforeNow())
+            return (input.getAvailabilityStart() == null || ! (new DateTime(input.getAvailabilityStart()).isAfterNow()))
                     && (input.getAvailabilityEnd() == null || new DateTime(input.getAvailabilityEnd()).isAfterNow());
         }
     };
