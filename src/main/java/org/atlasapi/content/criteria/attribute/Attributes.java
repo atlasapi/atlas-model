@@ -29,6 +29,7 @@ import org.atlasapi.media.entity.Location;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
 
@@ -67,12 +68,17 @@ public class Attributes {
 
 	//public static final Attribute<String> POLICY_AVAILABLE_COUNTRY = new StringValuedAttribute("availableCountries", Policy.class, true).allowShortMatches();
 	
+	public static final Attribute<String> TOPIC_NAMESPACE = stringAttribute("namespace", Topic.class);
+	public static final Attribute<String> TOPIC_VALUE = stringAttribute("value", Topic.class);
+	
 	private static List<Attribute<?>> ALL_ATTRIBUTES = 
 		ImmutableList.<Attribute<?>>of(DESCRIPTION_TAG,
 								    DESCRIPTION_GENRE,
 								    DESCRIPTION_PUBLISHER,
 								    DESCRIPTION_TYPE,
-								    BRAND_THIS_OR_CHILD_LAST_UPDATED/*,
+								    BRAND_THIS_OR_CHILD_LAST_UPDATED,
+								    TOPIC_NAMESPACE,
+								    TOPIC_VALUE/*,
 								    VERSION_DURATION,
 								    VERSION_PROVIDER,
 								    BROADCAST_ON,
