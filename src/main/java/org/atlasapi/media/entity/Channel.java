@@ -342,8 +342,8 @@ public class Channel implements SelfModelling {
     public static final Channel MOTORS_TV = new Channel("Motors TV", CHANNEL_URI_PREFIX + "motorstv", "motorstv");
     public static final Channel DISCOVERY_SHED = new Channel("Discovery Shed", CHANNEL_URI_PREFIX + "discoveryshed", "discoveryshed");
     public static final Channel TRUE_MOVIES = new Channel("True Movies", CHANNEL_URI_PREFIX + "truemovies", "truemovies");
-    public static final Channel SKY3 = new Channel("SKY3", CHANNEL_URI_PREFIX + "sky3", "sky3");
-    public static final Channel SKY_3_PLUS1 = new Channel("Sky 3 +1", CHANNEL_URI_PREFIX + "sky3plus1", "sky3plus1");
+    public static final Channel SKY3 = new Channel("Pick TV", CHANNEL_URI_PREFIX + "sky3", "sky3");
+    public static final Channel SKY_3_PLUS1 = new Channel("Pick TV +1", CHANNEL_URI_PREFIX + "sky3plus1", "sky3plus1");
     public static final Channel DISNEY_CINEMAGIC = new Channel("Disney Cinemagic", CHANNEL_URI_PREFIX + "disneycinemagic", "disneycinemagic");
     public static final Channel DISNEY_CINEMAGIC_PLUS1 = new Channel("Disney Cinemagic +1", CHANNEL_URI_PREFIX + "disneycinemagicplus1", "disneycinemagicplus1");
     public static final Channel DISNEY_CINEMAGIC_HD = new Channel("Disney Cinemagic HD", CHANNEL_URI_PREFIX + "disneycinemagichd", "disneycinemagichd");
