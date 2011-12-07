@@ -116,10 +116,13 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_RADIO_ASIANNETWORK = new Channel("BBC Radio Asiannetwork", "http://www.bbc.co.uk/services/asiannetwork", "asiannetwork");
     public static final Channel BBC_RADIO_WORLDSERVICE = new Channel("BBC Radio Worldservice", "http://www.bbc.co.uk/services/worldservice", "worldservice");
     public static final Channel BBC_RADIO_RADIOSCOTLAND = new Channel("BBC Radio Radioscotland", "http://www.bbc.co.uk/services/radioscotland/fm", "radioscotland");
+    public static final Channel BBC_RADIO_RADIOSCOTLAND_MW = new Channel("BBC Radio Radioscotland MW", "http://www.bbc.co.uk/services/radioscotland/mw", "radioscotlandmw");
     public static final Channel BBC_RADIO_RADIONANGAIDHEAL = new Channel("BBC Radio Radionangaidheal", "http://www.bbc.co.uk/services/radionangaidheal", "radionangaidheal");
     public static final Channel BBC_RADIO_RADIOULSTER = new Channel("BBC Radio Radioulster", "http://www.bbc.co.uk/services/radioulster", "radioulster");
     public static final Channel BBC_RADIO_RADIOFOYLE = new Channel("BBC Radio Radiofoyle", "http://www.bbc.co.uk/services/radiofoyle", "radiofoyle");
     public static final Channel BBC_RADIO_RADIOWALES = new Channel("BBC Radio Radiowales", "http://www.bbc.co.uk/services/radiowales/fm", "radiowales");
+    public static final Channel BBC_RADIO_RADIOORKNEY = new Channel("BBC Radio Radioorkney", "http://www.bbc.co.uk/services/radioorkney", "radioorkney");
+    public static final Channel BBC_RADIO_RADIOSHETLAND = new Channel("BBC Radio Radioshetland", "http://www.bbc.co.uk/services/radioshetland", "radioshetland");
     public static final Channel BBC_RADIO_RADIOCYMRU = new Channel("BBC Radio Radiocymru", "http://www.bbc.co.uk/services/radiocymru", "radiocymru");
     public static final Channel BBC_RADIO_RADIO4_LW = new Channel("BBC Radio Radio4 LW", "http://www.bbc.co.uk/services/radio4/lw", "radio4lw");
     public static final Channel BBC_RADIO_RADIO4_EXTRA = new Channel("BBC Radio Radio4 Extra", "http://www.bbc.co.uk/services/radio4extra", "radio4extra");
