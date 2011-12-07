@@ -363,6 +363,8 @@ public class Channel implements SelfModelling {
     public static final Channel NAT_GEO_WILD = new Channel("Nat Geo Wild", CHANNEL_URI_PREFIX + "natgeowild", "natgeowild");
     public static final Channel CRIME_AND_INVESTIGATION = new Channel("Crime And Investigation", CHANNEL_URI_PREFIX + "crimeandinvestigation", "crimeandinvestigation");
     public static final Channel CRIME_AND_INVESTIGATION_PLUS1 = new Channel("Crime And Investigation +1", CHANNEL_URI_PREFIX + "crimeandinvestigationplus1", "crimeandinvestigationplus1");
+    public static final Channel SKY_MOVIES_CHRISTMAS_CHANNEL = new Channel("Sky Movies Christmas", CHANNEL_URI_PREFIX + "skymovieschristmas", "skymovieschristmas");
+    public static final Channel SKY_MOVIES_CHRISTMAS_CHANNEL_HD = new Channel("Sky Movies Christmas HD", CHANNEL_URI_PREFIX + "skymovieschristmashd", "skymovieschristmashd");
     public static final Channel Channel = new Channel("Channel", CHANNEL_URI_PREFIX + "channel", "channel");
     public static final Channel Channel_HD = new Channel("Channel HD", CHANNEL_URI_PREFIX + "channelhd", "channelhd");
     public static final Channel SKY_MOVIES_CRIME_AND_THRILLER = new Channel("Sky Movies Crime And Thriller", CHANNEL_URI_PREFIX + "skymoviescrimeandthriller", "skymoviescrimeandthriller");
