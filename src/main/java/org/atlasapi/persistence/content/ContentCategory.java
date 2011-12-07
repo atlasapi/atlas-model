@@ -39,7 +39,7 @@ public enum ContentCategory {
                 return ContentCategory.TOP_LEVEL_ITEM;
             }
         } else if (c instanceof Container) {
-            if (c instanceof Series) {
+            if (c instanceof Series && ((Series)c).getParent() != null) {
                 return ContentCategory.PROGRAMME_GROUP;
             }
             return ContentCategory.CONTAINER;
