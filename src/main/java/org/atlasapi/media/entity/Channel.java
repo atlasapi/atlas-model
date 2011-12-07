@@ -345,8 +345,8 @@ public class Channel implements SelfModelling {
     public static final Channel MOTORS_TV = new Channel("Motors TV", CHANNEL_URI_PREFIX + "motorstv", "motorstv");
     public static final Channel DISCOVERY_SHED = new Channel("Discovery Shed", CHANNEL_URI_PREFIX + "discoveryshed", "discoveryshed");
     public static final Channel TRUE_MOVIES = new Channel("True Movies", CHANNEL_URI_PREFIX + "truemovies", "truemovies");
-    public static final Channel SKY3 = new Channel("SKY3", CHANNEL_URI_PREFIX + "sky3", "sky3");
-    public static final Channel SKY_3_PLUS1 = new Channel("Sky 3 +1", CHANNEL_URI_PREFIX + "sky3plus1", "sky3plus1");
+    public static final Channel SKY3 = new Channel("Pick TV", CHANNEL_URI_PREFIX + "sky3", "sky3");
+    public static final Channel SKY_3_PLUS1 = new Channel("Pick TV +1", CHANNEL_URI_PREFIX + "sky3plus1", "sky3plus1");
     public static final Channel DISNEY_CINEMAGIC = new Channel("Disney Cinemagic", CHANNEL_URI_PREFIX + "disneycinemagic", "disneycinemagic");
     public static final Channel DISNEY_CINEMAGIC_PLUS1 = new Channel("Disney Cinemagic +1", CHANNEL_URI_PREFIX + "disneycinemagicplus1", "disneycinemagicplus1");
     public static final Channel DISNEY_CINEMAGIC_HD = new Channel("Disney Cinemagic HD", CHANNEL_URI_PREFIX + "disneycinemagichd", "disneycinemagichd");
@@ -366,6 +366,8 @@ public class Channel implements SelfModelling {
     public static final Channel NAT_GEO_WILD = new Channel("Nat Geo Wild", CHANNEL_URI_PREFIX + "natgeowild", "natgeowild");
     public static final Channel CRIME_AND_INVESTIGATION = new Channel("Crime And Investigation", CHANNEL_URI_PREFIX + "crimeandinvestigation", "crimeandinvestigation");
     public static final Channel CRIME_AND_INVESTIGATION_PLUS1 = new Channel("Crime And Investigation +1", CHANNEL_URI_PREFIX + "crimeandinvestigationplus1", "crimeandinvestigationplus1");
+    public static final Channel SKY_MOVIES_CHRISTMAS_CHANNEL = new Channel("Sky Movies Christmas", CHANNEL_URI_PREFIX + "skymovieschristmas", "skymovieschristmas");
+    public static final Channel SKY_MOVIES_CHRISTMAS_CHANNEL_HD = new Channel("Sky Movies Christmas HD", CHANNEL_URI_PREFIX + "skymovieschristmashd", "skymovieschristmashd");
     public static final Channel Channel = new Channel("Channel", CHANNEL_URI_PREFIX + "channel", "channel");
     public static final Channel Channel_HD = new Channel("Channel HD", CHANNEL_URI_PREFIX + "channelhd", "channelhd");
     public static final Channel SKY_MOVIES_CRIME_AND_THRILLER = new Channel("Sky Movies Crime And Thriller", CHANNEL_URI_PREFIX + "skymoviescrimeandthriller", "skymoviescrimeandthriller");
