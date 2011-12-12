@@ -59,7 +59,7 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_FOUR = new Channel("BBC Four", "http://www.bbc.co.uk/services/bbcfour", "bbcfour");
     public static final Channel BBC_NEWS = new Channel("BBC News", "http://www.bbc.co.uk/services/bbcnews", "bbcnews");
     public static final Channel BBC_WORLD_NEWS = new Channel("BBC World News", "http://www.bbc.co.uk/services/bbcworldnews", "bbcworldnews");
-    public static final Channel BBC_PARLIMENT = new Channel("BBC Parliment", "http://www.bbc.co.uk/services/parliament", "bbcparliment");
+    public static final Channel BBC_PARLIMENT = new Channel("BBC Parliament", "http://www.bbc.co.uk/services/parliament", "bbcparliment");
     public static final Channel BBC_HD = new Channel("BBC HD", "http://www.bbc.co.uk/services/bbchd", "bbchd");
     public static final Channel CBBC = new Channel("CBBC", "http://www.bbc.co.uk/services/cbbc", "cbbc");
     public static final Channel CBEEBIES = new Channel("CBeebies", "http://www.bbc.co.uk/services/cbeebies", "cbeebies");
@@ -160,7 +160,7 @@ public class Channel implements SelfModelling {
     public static final Channel ITV1_SOUTH_EAST_PLUS1 = new Channel("ITV1 South East +1", "http://www.itv.com/channels/itv1/southeast#plus1", "itv1southeastplus1");
     public static final Channel ITV1_UTV_PLUS1 = new Channel("ITV1 UTV +1", "http://www.itv.com/channels/itv1/utv#plus1", "itv1utvplus1");
     public static final Channel ITV1_WEST_PLUS1 = new Channel("ITV1 West +1", "http://www.itv.com/channels/itv1/west#plus1", "itv1westplus1");
-    public static final Channel ITV1_YORKSHIRE_TYNE_TEES_PLUS1 = new Channel("ITV1 West +1", "http://www.itv.com/channels/itv1/yorkshiretynestees#plus1", "itv1yorkshiretyneteesplus1");
+    public static final Channel ITV1_YORKSHIRE_TYNE_TEES_PLUS1 = new Channel("ITV1 Yorkshire Tyne Tees +1", "http://www.itv.com/channels/itv1/yorkshiretynestees#plus1", "itv1yorkshiretyneteesplus1");
  
     public static final Channel ITV2 = new Channel("ITV2", "http://www.itv.com/channels/itv2", "itv2");
     public static final Channel ITV2_HD = new Channel("ITV2 HD", "http://www.itv.com/channels/itv2/hd", "itv2hd");
