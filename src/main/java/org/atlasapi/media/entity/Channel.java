@@ -962,7 +962,7 @@ public class Channel implements SelfModelling {
     public final static Channel RTE_LYRIC_FM = new Channel("RTE lyric fm", CHANNEL_URI_PREFIX+"mc", "mc");
     public final static Channel RTE_RADIO_1_FM = new Channel("RTE Radio 1 FM", CHANNEL_URI_PREFIX+"md", "md");
     public final static Channel RTE_RADIO_1_LW = new Channel("RTE Radio 1 LW", CHANNEL_URI_PREFIX+"mf", "mf");
-    public final static Channel RTE_RAIDIO_NA_GAELTACHTA = new Channel("RTE Raidió na Gaeltachta", CHANNEL_URI_PREFIX+"mg", "mg");
+    public final static Channel RTE_RAIDIO_NA_GAELTACHTA = new Channel("RTE Raidi√≥ na Gaeltachta", CHANNEL_URI_PREFIX+"mg", "mg");
     public final static Channel RUGBY_FM = new Channel("Rugby FM", CHANNEL_URI_PREFIX+"mh", "mh");
     public final static Channel SABRAS = new Channel("Sabras", CHANNEL_URI_PREFIX+"mj", "mj");
     public final static Channel SIGNAL_ONE_102_6 = new Channel("Signal One 102.6", CHANNEL_URI_PREFIX+"mk", "mk");
