@@ -762,7 +762,7 @@ public class Channel implements SelfModelling {
     public final static Channel ONEHUNDREDANDFIVE_TO_ONEHUNDREDANDSIX_CAPITAL_FM_SCOTLAND = new Channel("105-106 Capital FM Scotland", CHANNEL_URI_PREFIX+"m", "m");
     public final static Channel ONEHUNDREDANDFIVEPOINTTWO_SMOOTH_RADIO = new Channel("105.2 Smooth Radio", CHANNEL_URI_PREFIX+"n", "n");
     public final static Channel ONEHUNDREDANDFIVEPOINTSEVEN_SMOOTH_RADIO = new Channel("105.7 Smooth Radio", CHANNEL_URI_PREFIX+"p", "p");
-    public final static Channel ONEHUNDREDANDFIVEORSIX_CAPITAL_FM = new Channel("105/106 Capital FM", CHANNEL_URI_PREFIX+"q", "q");
+    public final static Channel ONEHUNDREDANDFIVEORSIX_CAPITAL_FM = new Channel("105/106 Capital FM", CHANNEL_URI_PREFIX+"2", "2");
     public final static Channel ONEHUNDREDANDSIXPOINTONE_ROCK_RADIO = new Channel("106.1 Rock Radio", CHANNEL_URI_PREFIX+"r", "r");
     public final static Channel ONEHUNDREDANDSIXPOINTSIX_SMOOTH_RADIO = new Channel("106.6 Smooth Radio", CHANNEL_URI_PREFIX+"s", "s");
     public final static Channel ONEHUNDREDANDSEVENPOINTFOUR_THE_SEVERN = new Channel("107.4 The Severn", CHANNEL_URI_PREFIX+"t", "t");
@@ -843,7 +843,7 @@ public class Channel implements SelfModelling {
     public final static Channel HEART_102_4 = new Channel("Heart 102.4", CHANNEL_URI_PREFIX+"ft", "ft");
     public final static Channel HEART_102_6_97_4 = new Channel("Heart 102.6/97.4", CHANNEL_URI_PREFIX+"fv", "fv");
     public final static Channel HEART_102_7 = new Channel("Heart 102.7", CHANNEL_URI_PREFIX+"fw", "fw");
-    public final static Channel HEART_103 = new Channel("Heart 103", CHANNEL_URI_PREFIX+"fx", "fx");
+    public final static Channel HEART_103 = new Channel("Heart 103", CHANNEL_URI_PREFIX+"f6", "f6");
     public final static Channel HEART_103_4 = new Channel("Heart 103.4", CHANNEL_URI_PREFIX+"fy", "fy");
     public final static Channel HEART_103_97_4 = new Channel("Heart 103/97.4", CHANNEL_URI_PREFIX+"fz", "fz");
     public final static Channel HEART_96_1 = new Channel("Heart 96.1", CHANNEL_URI_PREFIX+"f2", "f2");
@@ -951,7 +951,7 @@ public class Channel implements SelfModelling {
     public final static Channel RADIO_XL = new Channel("Radio XL", CHANNEL_URI_PREFIX+"kx", "kx");
     public final static Channel REAL_RADIO_NORTH_EAST = new Channel("Real Radio (North East)", CHANNEL_URI_PREFIX+"ky", "ky");
     public final static Channel REAL_RADIO_NORTH_WEST = new Channel("Real Radio (North West)", CHANNEL_URI_PREFIX+"kz", "kz");
-    public final static Channel REAL_RADIO_SCOTLAND = new Channel("Real Radio (Scotland)", CHANNEL_URI_PREFIX+"k2", "k2");
+    public final static Channel REAL_RADIO_SCOTLAND = new Channel("Real Radio (Scotland)", CHANNEL_URI_PREFIX+"gq", "gq");
     public final static Channel REAL_RADIO_WALES = new Channel("Real Radio (Wales)", CHANNEL_URI_PREFIX+"k4", "k4");
     public final static Channel REAL_RADIO_YORKSHIRE = new Channel("Real Radio (Yorkshire)", CHANNEL_URI_PREFIX+"k5", "k5");
     public final static Channel RED_DOT_RADIO = new Channel("Red Dot Radio", CHANNEL_URI_PREFIX+"k6", "k6");
