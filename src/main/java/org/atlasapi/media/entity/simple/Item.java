@@ -27,6 +27,7 @@ public class Item extends Description {
 	private Set<Location> locations = Sets.newHashSet();
 
 	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
+    private List<SegmentEvent> segmentEvents;
 	
 	private BrandSummary container;
 	private SeriesSummary seriesSummary;
@@ -225,5 +226,15 @@ public class Item extends Description {
     
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public void setSegments(List<SegmentEvent> segmentEvents) {
+        this.segmentEvents = segmentEvents;
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="segmentEvents")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="segmentEvent")
+    public List<SegmentEvent> getSegments() {
+        return this.segmentEvents;
     }
 }
