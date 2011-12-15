@@ -17,15 +17,19 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.segment.SegmentEvent;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.Duration;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
@@ -39,6 +43,8 @@ public class Version extends Identified {
 	private Set<Encoding> manifestedAs = Sets.newLinkedHashSet();
 
 	private Set<Broadcast> broadcasts = Sets.newLinkedHashSet();
+	
+	private List<SegmentEvent> segmentEvents = ImmutableList.of(); 
 	
 	private Integer publishedDuration;
 	
@@ -148,4 +154,25 @@ public class Version extends Identified {
             return input.manifestedAs;
         }
     };
+    
+    public static final Function<Version, List<SegmentEvent>> TO_SEGMENT_EVENTS = new Function<Version, List<SegmentEvent>>() {
+
+        @Override
+        public List<SegmentEvent> apply(Version input) {
+            return input.segmentEvents;
+        }
+        
+    };
+    
+    public List<SegmentEvent> getSegmentEvents() {
+        return segmentEvents;
+    }
+    
+    public void setSegmentEvents(Iterable<SegmentEvent> segmentEvents) {
+        this.segmentEvents = SegmentEvent.ORDERING.immutableSortedCopy(segmentEvents);
+    }
+    
+    public void addSegmentEvents(Iterable<SegmentEvent> segmentEvents) {
+        this.segmentEvents = SegmentEvent.ORDERING.immutableSortedCopy(ImmutableSet.<SegmentEvent>builder().addAll(segmentEvents).addAll(this.segmentEvents).build());
+    }
 }
