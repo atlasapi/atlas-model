@@ -105,16 +105,22 @@ public enum SortKey {
             
             sk1 = prefixMap.containsKey(keyPrefix(sk1)) ? transformPrefix(sk1) : sk1;
             sk2 = prefixMap.containsKey(keyPrefix(sk2)) ? transformPrefix(sk2) : sk2;
-
+            
             return sk2.compareTo(sk1);
         }
         
-        private static final Map<String, String> prefixMap = ImmutableMap.of(
-                "99", "11",
-                "10", "95",
-                "20", "85",
-                "30", "75"
-        );
+        private static final Map<String, String> prefixMap = new ImmutableMap.Builder<String, String>()
+        		.put("99", "11")
+        		.put("10", "95")
+                // Temporarily force broadcasts to be ordered before 
+                // series and episodes 
+                //"20", "85",
+                //"30", "75",
+                .put("20", "75")
+                .put("30", "85")
+                .put("75", "85")
+                .put("85", "75")
+                .build();
         
         public String transformPrefix(String input) {
             return prefixMap.get(keyPrefix(input)) + input.substring(2);
