@@ -1,6 +1,7 @@
 package org.atlasapi.application;
 
-import java.util.Collections;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
@@ -8,19 +9,24 @@ import com.metabroadcast.common.net.IpRange;
 
 public class ApplicationCredentials {
 
-	private String apiKey;
-	private Set<IpRange> ipAddresses = Collections.emptySet();
+	private final String apiKey;
+	private final Set<IpRange> ipAddresses ;
 	
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
+	public ApplicationCredentials(String apiKey, Set<IpRange> ipAddresses) {
+        this.apiKey = checkNotNull(apiKey);
+        this.ipAddresses = ipAddresses != null ? ImmutableSet.copyOf(ipAddresses) : ImmutableSet.<IpRange>of();
+    }
+	
+	public ApplicationCredentials(String apiKey) {
+	    this(apiKey, ImmutableSet.<IpRange>of());
+    }
 	
 	public String getApiKey() {
 		return apiKey;
 	}
 	
-	public void setIpAddresses(Iterable<IpRange> ipAddresses) {
-		this.ipAddresses = ImmutableSet.copyOf(ipAddresses);
+	public ApplicationCredentials copyWithIpAddresses(Iterable<IpRange> ipAddresses) {
+		return new ApplicationCredentials(apiKey, ImmutableSet.copyOf(ipAddresses));
 	}
 	
 	public Set<IpRange> getIpAddressRanges() {
