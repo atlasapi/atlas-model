@@ -47,7 +47,7 @@ public class Broadcast extends Identified {
     
     private Boolean activelyPublished;
     
-    private String id;  
+    private String sourceId;  
     
     private Boolean repeat;
     
@@ -125,8 +125,8 @@ public class Broadcast extends Identified {
         return scheduleDate;
     }
     
-    public String getId() {
-        return id;
+    public String getSourceId() {
+        return sourceId;
     }
 
     public void setScheduleDate(LocalDate scheduleDate) {
@@ -134,7 +134,7 @@ public class Broadcast extends Identified {
     }
     
     public Broadcast withId(String id) {
-        this.id = id;
+        this.sourceId = id;
         return this;
     }
     
@@ -232,8 +232,8 @@ public class Broadcast extends Identified {
             return false;
         }
         Broadcast broadcast = (Broadcast) object;
-        if (id != null && broadcast.id != null) {
-        	return id.equals(broadcast.id);
+        if (sourceId != null && broadcast.sourceId != null) {
+        	return sourceId.equals(broadcast.sourceId);
         }
         return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
     }
@@ -242,8 +242,8 @@ public class Broadcast extends Identified {
     public int hashCode() {
         // Currently publishers either have ids for all broadcasts or all broadcasts don't have ids 
         // (there are no mixes of broadcasts with and without ids) so this hashCode is safe
-    	if (id != null) {
-    	    return id.hashCode();
+    	if (sourceId != null) {
+    	    return sourceId.hashCode();
     	}
     	if (transmissionTime != null) {
     	    return transmissionTime.hashCode();
@@ -255,7 +255,7 @@ public class Broadcast extends Identified {
         Broadcast copy = new Broadcast(broadcastOn, transmissionTime, transmissionEndTime);
         Identified.copyTo(this, copy);
         copy.activelyPublished = activelyPublished;
-        copy.id = id;
+        copy.sourceId = sourceId;
         copy.scheduleDate = scheduleDate;
         copy.repeat = repeat;
         copy.subtitled = subtitled;

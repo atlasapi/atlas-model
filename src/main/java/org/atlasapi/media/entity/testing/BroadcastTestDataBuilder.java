@@ -41,7 +41,7 @@ public class BroadcastTestDataBuilder {
         transmissionTime = new Date();
         transmissionEndTime = new Date();
         broadcastDuration = 30;
-        broadcastOn = Channel.BBC_ONE.key();
+        broadcastOn = "bbcone";
         scheduleDate = new LocalDate();
         id = String.valueOf(uniqueId++);
     }
