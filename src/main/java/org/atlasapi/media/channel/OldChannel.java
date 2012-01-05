@@ -1,4 +1,4 @@
-package org.atlasapi.media.entity;
+package org.atlasapi.media.channel;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

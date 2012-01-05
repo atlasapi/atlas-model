@@ -1,4 +1,8 @@
-package org.atlasapi.media.entity;
+package org.atlasapi.media.channel;
+
+import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.MediaType;
+import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Objects;
 import com.metabroadcast.common.model.SelfModelling;
@@ -13,7 +17,7 @@ public class Channel extends Identified implements SelfModelling {
 	private MediaType mediaType;
 	private String key;
 
-    public Channel() {
+	public Channel() {
     	
     }
     
@@ -44,6 +48,22 @@ public class Channel extends Identified implements SelfModelling {
     @Deprecated
     public String key() {
     	return key;
+    }
+    
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
+    }
+    
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
@@ -77,19 +97,4 @@ public class Channel extends Identified implements SelfModelling {
         return Objects.toStringHelper(this).addValue(getId()).addValue(getCanonicalUri()).toString();
     }
 
-	public void setPublisher(Publisher publisher) {
-		this.publisher = publisher;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public void setMediaType(MediaType mediaType) {
-		this.mediaType = mediaType;
-	}
-	
-	public void setKey(String key) {
-		this.key = key;
-	}
 }
