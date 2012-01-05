@@ -107,7 +107,7 @@ public abstract class Content extends Described {
 	    this.id = id;
 	}
 	
-	public String getId() {
+	public String getStringId() {
 	    return id;
 	}
     

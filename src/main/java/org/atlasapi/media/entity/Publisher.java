@@ -37,7 +37,9 @@ public enum Publisher {
     PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB, SourceStatus.UNAVAILABLE),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
 	WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE),
-	BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE);
+	BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    METABROADCAST("MetaBroadcast", "metabroadcast.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
+
 	
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     public static final int MAX_KEY_LENGTH = 20;

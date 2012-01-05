@@ -17,6 +17,7 @@ package org.atlasapi.media.entity;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
