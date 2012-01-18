@@ -24,6 +24,7 @@ public class ApplicationConfiguration {
 		this.precedence = precedence;
 	}
 	
+	
 	private static ApplicationConfiguration defaultConfiguration() {
 	    final Set<Publisher> defaultDisabled = ImmutableSet.of(
 	            Publisher.C4, 
@@ -51,6 +52,21 @@ public class ApplicationConfiguration {
 		return includedPublishers;
 	}
 	
+	/**
+	 * Temporary: these should be persisted and not hardcoded
+	 */
+	private ImmutableList<Publisher> imagePrecedence() {
+		return ImmutableList.of(Publisher.BBC, Publisher.C4, Publisher.PA);
+	}
+	
+	public boolean imagePrecedenceEnabled() {
+		return imagePrecedence() != null;
+	}
+	
+	public Ordering<Publisher> imagePrecedenceOrdering() {
+		return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
+	}
+	
 	public Ordering<Publisher> publisherPrecedenceOrdering() {
 		return Ordering.explicit(precedence);
 	}
@@ -73,29 +89,14 @@ public class ApplicationConfiguration {
 		}
 		return appendMissingPublishersTo(precedence);
 	}
-	
-    /**
-     * Temporary: these should be persisted and not hardcoded
-     */
-    private ImmutableList<Publisher> imagePrecedence() {
-        return ImmutableList.of(Publisher.BBC, Publisher.C4, Publisher.PA);
-    }
-    
-    public boolean imagePrecedenceEnabled() {
-        return imagePrecedence() != null;
-    }
-    
-    public Ordering<Publisher> imagePrecedenceOrdering() {
-        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
-    }
 
-    private List<Publisher> appendMissingPublishersTo(Iterable<Publisher> selected) {
-        List<Publisher> publishers = Lists.newArrayList(selected);
-        for (Publisher publisher : Publisher.values()) {
-            if (!publishers.contains(publisher)) {
-                publishers.add(publisher);
-            }
-        }
-        return publishers;
-    }
+	private List<Publisher> appendMissingPublishersTo(Iterable<Publisher> selected) {
+		List<Publisher> publishers = Lists.newArrayList(selected);
+		for (Publisher publisher : Publisher.values()) {
+			if (!publishers.contains(publisher)) {
+				publishers.add(publisher);
+			}
+		}
+		return publishers;
+	}
 }
