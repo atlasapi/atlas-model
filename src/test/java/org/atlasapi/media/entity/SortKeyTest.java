@@ -117,7 +117,7 @@ public class SortKeyTest {
         
         String oldDefault1 = "99";
         
-        List<String> orderedKeys = ImmutableList.of(oldAdapter1, oldAdapter2, oldBroadcast2, oldBroadcast1, oldSequence2, oldSequence1, oldDefault1);
+        List<String> orderedKeys = ImmutableList.of(oldAdapter1, oldAdapter2, oldSequence2, oldSequence1, oldBroadcast2, oldBroadcast1, oldDefault1);
         List<String> randomKeys = Lists.newArrayList(orderedKeys);
         
         Ordering<String> sortKeyOrdering = Ordering.from(new SortKey.SortKeyOutputComparator());
@@ -156,8 +156,8 @@ public class SortKeyTest {
 
         List<String> orderedKeys = ImmutableList.of(
                 oldAdapter1, newAdapter2, oldAdapter2, newAdapter1,
-                newBroadcast2, oldBroadcast2, newBroadcast1, oldBroadcast1,
                 oldSequence2, oldSequence1, newSequence2, newSequence1, 
+                newBroadcast2, oldBroadcast2, newBroadcast1, oldBroadcast1,
                 newDefault1, oldDefault1);
         List<String> randomKeys = Lists.newArrayList(orderedKeys);
         
@@ -168,35 +168,5 @@ public class SortKeyTest {
             Collections.shuffle(randomKeys, rnd);
             assertEquals(orderedKeys, sortKeyOrdering.immutableSortedCopy(randomKeys));
         }
-    }
-    
-    @Test
-    /**
-     * We are now preferring broadcast ordering over series and
-     * episode number ordering, because we want specials of brands which
-     * have both one-offs and series/episodes to be ordered before, rather
-     * than after, series/episodes
-     */
-    public void testSortKeyComparatorForBroadcastSwitchOrdering() {
-    	
-    	String sortKey1 = "85000006000004";
-    	String sortKey2 = "85000006000005";
-    	
-    	String sortKey3 = "752034";
-    	String sortKey4 = "752312";
-    	
-    	List<String> orderedKeys = ImmutableList.of(
-    			sortKey4, sortKey3, sortKey2, sortKey1);
-    	
-    	List<String> randomKeys = Lists.newArrayList(orderedKeys);
-        
-        Ordering<String> sortKeyOrdering = Ordering.from(new SortKey.SortKeyOutputComparator());
-        
-        Random rnd = new Random();
-        for (int i = 0; i < 10; i++) {
-            Collections.shuffle(randomKeys, rnd);
-            assertEquals(orderedKeys, sortKeyOrdering.immutableSortedCopy(randomKeys));
-        }
-    			
     }
 }
