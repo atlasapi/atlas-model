@@ -18,7 +18,7 @@ public class Topic extends Aliased {
     private String title;
     private String description;
     
-    private Set<PublisherDetails> publishers;
+    private PublisherDetails publisher;
     private String image;
     private String thumbnail;
     
@@ -70,14 +70,12 @@ public class Topic extends Aliased {
         this.description = description;
     }
     
-    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="publishedBy")
-    @XmlElement(name="publisher")
-    public Set<PublisherDetails> getPublisher() {
-        return this.publishers;
+    public PublisherDetails getPublisher() {
+        return this.publisher;
     }
 
-    public void setPublishers(Set<PublisherDetails> publisher) {
-        this.publishers = publisher;
+    public void setPublisher(PublisherDetails publisher) {
+        this.publisher = publisher;
     }
 
     public String getImage() {

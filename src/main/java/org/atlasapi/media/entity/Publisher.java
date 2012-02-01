@@ -2,8 +2,6 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import org.atlasapi.application.SourceStatus;
-
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -15,31 +13,31 @@ import com.metabroadcast.common.intl.Country;
 
 public enum Publisher {
     
-	BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
-    C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    HULU("Hulu", "hulu.com", Countries.US, SourceStatus.AVAILABLE_ENABLED),
-    YOUTUBE("YouTube", "youtube.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    TED("TED", "ted.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    VIMEO("VIMEO", "vimeo.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    ITV("ITV", "itv.com", Countries.GB, SourceStatus.UNAVAILABLE), 
-    BLIP("blip.tv", "blip.tv", Countries.ALL, SourceStatus.AVAILABLE_ENABLED), 
-    DAILYMOTION("Dailymotion", "dailymotion.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED), 
-    FLICKR("Flickr", "flickr.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED), 
-    FIVE("Five", "five.tv", Countries.GB, SourceStatus.UNAVAILABLE),
-	SEESAW("SeeSaw", "seesaw.com", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
-    TVBLOB("TV Blob", "tvblob.com", Countries.IT, SourceStatus.AVAILABLE_ENABLED),
-    ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
-    HBO("HBO", "hbo.com", Countries.US, SourceStatus.AVAILABLE_ENABLED),
-    ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
-    PA("PA", "pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-	WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE),
-	BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    METABROADCAST("MetaBroadcast", "metabroadcast.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
-
+	BBC("BBC", "bbc.co.uk", Countries.GB),
+    C4("Channel 4", "channel4.com", Countries.GB),
+    HULU("Hulu", "hulu.com", Countries.US),
+    YOUTUBE("YouTube", "youtube.com", Countries.ALL),
+    TED("TED", "ted.com", Countries.ALL),
+    VIMEO("VIMEO", "vimeo.com", Countries.ALL),
+    ITV("ITV", "itv.com", Countries.GB), 
+    BLIP("blip.tv", "blip.tv", Countries.ALL), 
+    DAILYMOTION("Dailymotion", "dailymotion.com", Countries.ALL), 
+    FLICKR("Flickr", "flickr.com", Countries.ALL), 
+    FIVE("Five", "five.tv", Countries.GB),
+	SEESAW("SeeSaw", "seesaw.com", Countries.GB),
+    TVBLOB("TV Blob", "tvblob.com", Countries.IT),
+    ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB),
+    HBO("HBO", "hbo.com", Countries.US),
+    ITUNES("iTunes", "itunes.com", Countries.ALL),
+    MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB),
+    PA("PA", "pressassociation.com", Countries.GB),
+    RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB),
+    PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB),
+    ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL),
+	WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL),
+	BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB),
+    METABROADCAST("MetaBroadcast", "metabroadcast.com", Countries.ALL),
+	DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL);
 	
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     public static final int MAX_KEY_LENGTH = 20;
@@ -47,14 +45,12 @@ public enum Publisher {
 	private final String key;
     private final Country country;
     private final String title;
-    private final SourceStatus defaultStatus;
 
-    Publisher(String title, String key, Country country, SourceStatus defaultStatus) {
+    Publisher(String title, String key, Country country) {
         this.title = title;
         Preconditions.checkArgument(key.length() <= MAX_KEY_LENGTH);
         this.key = key;
         this.country = country;
-        this.defaultStatus = defaultStatus;
     }
     
     public String title() {
@@ -100,8 +96,4 @@ public enum Publisher {
 	public static ImmutableList<Publisher> fromCsv(String csv) {
 		return ImmutableList.copyOf(Iterables.transform(CSV_SPLITTER.split(csv), FROM_KEY));
 	}
-
-    public SourceStatus getDefaultSourceStatus() {
-        return defaultStatus;
-    }
 }
