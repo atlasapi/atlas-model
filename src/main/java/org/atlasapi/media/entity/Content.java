@@ -27,11 +27,12 @@ public abstract class Content extends Described {
     private transient String readHash;
     
 	private ImmutableList<Clip> clips  = ImmutableList.of();
-	private ImmutableList<String> topics = ImmutableList.of();
 	private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
 	private Set<RelatedLink> relatedLinks = ImmutableSet.of();
+	private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
 	
 	private String id;
+
 	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -43,22 +44,16 @@ public abstract class Content extends Described {
 		return clips;
 	}
 	
-	public void setTopics(Iterable<Topic> topics) {
-	    setTopicUris(Iterables.transform(topics, Identified.TO_URI));
+	public void setTopicRefs(Iterable<TopicRef> topicRefs) {
+	    this.topicRefs = ImmutableList.copyOf(topicRefs);
 	}
-
-    public void setTopicUris(Iterable<String> topics) {
-        this.topics = ImmutableList.copyOf(topics);
-    }
     
-    public void addTopic(Topic topic) {
-        if (!topics.contains(topic.getCanonicalUri())) {
-            this.topics = ImmutableList.<String>builder().addAll(this.topics).add(topic.getCanonicalUri()).build();
-        }
+    public void addTopicRef(TopicRef topicRef) {
+    	topicRefs = ImmutableList.<TopicRef>builder().add(topicRef).addAll(topicRefs).build();
     }
 	
-	public List<String> getTopics() {
-	    return topics;
+	public List<TopicRef> getTopicRefs() {
+	    return topicRefs;
 	}
 	
 	public void setClips(Iterable<Clip> clips) {

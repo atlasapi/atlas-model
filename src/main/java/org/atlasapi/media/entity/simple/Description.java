@@ -36,7 +36,7 @@ public abstract class Description extends Aliased {
 	private Set<String> tags = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
-	private Set<Topic> topics = Sets.newHashSet();
+	private Set<TopicRef> topics = Sets.newHashSet();
 	private List<KeyPhrase> keyPhrases = Lists.newArrayList();
 	private List<RelatedLink> relatedLinks = Lists.newArrayList();
 
@@ -253,13 +253,13 @@ public abstract class Description extends Aliased {
         }
     };
 
-    public void setTopics(Iterable<Topic> resolvedTopics) {
+    public void setTopics(Iterable<TopicRef> resolvedTopics) {
         this.topics = ImmutableSet.copyOf(resolvedTopics);
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="topics")
-    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="topic")
-    public Set<Topic> getTopics() {
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="topicref")
+    public Set<TopicRef> getTopics() {
         return this.topics;
     }
 
