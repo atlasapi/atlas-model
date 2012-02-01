@@ -18,7 +18,7 @@ public class Topic extends Described {
     private Type type;
     private String namespace;
     private String value;
-    private Set<Publisher> publishers = ImmutableSet.of();
+    private Publisher publisher;
 
     public enum Type {
         SUBJECT("subject"),
@@ -100,15 +100,11 @@ public class Topic extends Described {
         this.value = value;
     }
     
-    public void addPublisher(Publisher publisher) {
-        this.publishers = ImmutableSet.<Publisher>builder().addAll(publishers).add(publisher).build();
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
     
-    public void setPublishers(Iterable<Publisher> publishers) {
-        this.publishers = ImmutableSet.copyOf(publishers);
-    }
-    
-    public Set<Publisher> getPublishers() {
-        return this.publishers;
+    public Publisher getPublisher() {
+        return this.publisher;
     }
 }
