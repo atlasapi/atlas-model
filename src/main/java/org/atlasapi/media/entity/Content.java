@@ -101,6 +101,10 @@ public abstract class Content extends Described {
 	public static void copyTo(Content from, Content to) {
 	    Described.copyTo(from, to);
 	    to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
+	    to.keyPhrases = from.keyPhrases;
+	    to.relatedLinks = from.relatedLinks;
+	    to.topicRefs = from.topicRefs;
+	    to.readHash = from.readHash;
 	}
 	
 	public void setId(String id) {
