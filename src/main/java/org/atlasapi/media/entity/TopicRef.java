@@ -4,47 +4,47 @@ import com.google.common.base.Objects;
 
 public class TopicRef {
 
-	private boolean supervised;
-	private float weighting;
-	private String topic;
+	private Boolean supervised;
+	private Float weighting;
+	private Long topic;
 	
-	public TopicRef(Topic topic, float weighting, boolean supervised) {
-		this.topic = Identified.TO_URI.apply(topic);
+	public TopicRef(Topic topic, Float weighting, Boolean supervised) {
+		this.topic = topic.getId();
 		this.weighting = weighting;
 		this.supervised = supervised;
 	}
 	
-	public TopicRef(String topicUri, float weighting, boolean supervised) {
-		this.topic = topicUri;
+	public TopicRef(Long topicId, Float weighting, Boolean supervised) {
+		this.topic = topicId;
 		this.weighting = weighting;
 		this.supervised = supervised;
 	}
 	
 	public void setTopic(Topic topic) {
-		this.topic = Identified.TO_URI.apply(topic);
+		this.topic = topic.getId();
 	}
 	
-	public void setTopicUri(String topic) {
+	public void setTopicUri(Long topic) {
 		this.topic = topic;
 	}
 	
-	public void setWeighting(float weighting) {
+	public void setWeighting(Float weighting) {
 		this.weighting = weighting;
 	}
 	
-	public void setSupervised(boolean supervised) {
+	public void setSupervised(Boolean supervised) {
 		this.supervised = supervised;
 	}
 	
-	public float getWeighting() {
+	public Float getWeighting() {
 		return weighting;
 	}
 	
-	public boolean isSupervised() {
+	public Boolean isSupervised() {
 		return supervised;
 	}
 	
-	public String getTopic() {
+	public Long getTopic() {
 		return topic;
 	}
 
@@ -54,18 +54,21 @@ public class TopicRef {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TopicRef other = (TopicRef) obj;
-		return Objects.equal(supervised, other.supervised) 
-				&& Objects.equal(weighting, other.weighting) 
-				&& Objects.equal(topic, other.topic);
+	public boolean equals(Object that) {
+		if (this == that) {
+		    return true;
+		}
+		if (that instanceof TopicRef) {
+		    TopicRef other = (TopicRef) that;
+		    return Objects.equal(supervised, other.supervised) 
+		            && Objects.equal(weighting, other.weighting) 
+		            && Objects.equal(topic, other.topic);
+		}
+		return false;
 	}
 	
-	
+	@Override
+	public String toString() {
+	    return String.format("Ref topic %s, %+.2f, %s supervised", topic, weighting, supervised ? "" : "not");
+	}
 }
