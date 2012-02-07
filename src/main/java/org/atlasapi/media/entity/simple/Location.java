@@ -368,7 +368,11 @@ public class Location extends Version {
             if (isEmbed()) {
                 return transportType.equals(target.transportType) && Objects.equal(embedCode, target.embedCode) && Objects.equal(embedId, target.embedId);
             } else if (!Strings.isNullOrEmpty(uri)) {
-                return transportType.equals(target.transportType) && Objects.equal(uri, target.uri);
+                return transportType.equals(target.transportType) 
+                    && Objects.equal(uri, target.uri)
+                    && Objects.equal(availabilityStart, target.availabilityStart)
+                    && Objects.equal(platform, target.platform)
+                    && Objects.equal(availableCountries, target.availableCountries);
             } else {
                 return super.equals(obj);
             }
@@ -383,7 +387,7 @@ public class Location extends Version {
         } else if (TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedId)) {
             return embedId.hashCode();
         } else if (!Strings.isNullOrEmpty(uri)) {
-            return uri.hashCode();
+            return Objects.hashCode(uri, transportType, availabilityStart, platform, availableCountries);
         } else {
             return super.hashCode();
         }
