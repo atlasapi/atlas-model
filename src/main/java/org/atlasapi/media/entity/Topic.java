@@ -1,7 +1,6 @@
 package org.atlasapi.media.entity;
 
 import java.util.Map;
-import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
@@ -9,16 +8,10 @@ import com.google.common.collect.Maps;
 
 public class Topic extends Described {
     
-    private static final String TOPIC_URI_BASE = "http://atlas.metabroadcast.com/topics/";
-    
-    public static final String topicUriForId(String id) {
-        return TOPIC_URI_BASE + id;
-    }
-    
     private Type type;
     private String namespace;
     private String value;
-    private Set<Publisher> publishers = ImmutableSet.of();
+    private Publisher publisher;
 
     public enum Type {
         SUBJECT("subject"),
@@ -61,14 +54,18 @@ public class Topic extends Described {
         }
     }
     
-    public Topic(String canonicalUri) {
-        super(canonicalUri);
+    public Topic(Long id) {
+        this(id, null, null);
+    }
+    
+    public Topic(Long id, String namespace, String value) {
+        setId(id);
         setMediaType(null);
     }
     
     @Override
     public Topic copy() {
-        Topic topic = new Topic(getCanonicalUri());
+        Topic topic = new Topic(getId());
         topic.type = type;
         topic.namespace = namespace;
         topic.value = value;
@@ -100,15 +97,11 @@ public class Topic extends Described {
         this.value = value;
     }
     
-    public void addPublisher(Publisher publisher) {
-        this.publishers = ImmutableSet.<Publisher>builder().addAll(publishers).add(publisher).build();
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
     
-    public void setPublishers(Iterable<Publisher> publishers) {
-        this.publishers = ImmutableSet.copyOf(publishers);
-    }
-    
-    public Set<Publisher> getPublishers() {
-        return this.publishers;
+    public Publisher getPublisher() {
+        return this.publisher;
     }
 }
