@@ -17,6 +17,7 @@ import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -25,6 +26,8 @@ import com.google.common.collect.Lists;
 public class Playlist extends Description {
 
 	private List<ContentIdentifier> content = Lists.newArrayList();
+    private ImmutableSet<ContentIdentifier> upcomingContent;
+    private ImmutableSet<ContentIdentifier> availableContent;
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
@@ -58,6 +61,18 @@ public class Playlist extends Description {
 				return input.copy();
 			}
 	    }));
+        copy.setUpcomingContent(Iterables.transform(getUpcomingContent(), new Function<ContentIdentifier, ContentIdentifier>() {
+            @Override
+            public ContentIdentifier apply(ContentIdentifier input) {
+                return input.copy();
+            }
+        }));
+        copy.setAvailableContent(Iterables.transform(getAvailableContent(), new Function<ContentIdentifier, ContentIdentifier>() {
+            @Override
+            public ContentIdentifier apply(ContentIdentifier input) {
+                return input.copy();
+            }
+        }));
 	    return copy;
 	}
 	
@@ -84,4 +99,20 @@ public class Playlist extends Description {
 	public void setSeriesNumber(Integer seriesNumber) {
 	    this.seriesNumber = seriesNumber;
 	}
+
+    public void setUpcomingContent(Iterable<ContentIdentifier> filteredRefs) {
+        this.upcomingContent = ImmutableSet.copyOf(filteredRefs);
+    }
+
+    public ImmutableSet<ContentIdentifier> getUpcomingContent() {
+        return upcomingContent;
+    }
+    
+    public void setAvailableContent(Iterable<ContentIdentifier> filteredRefs) {
+        this.availableContent = ImmutableSet.copyOf(filteredRefs);
+    }
+
+    public ImmutableSet<ContentIdentifier> getAvailableContent() {
+        return availableContent;
+    }
 }
