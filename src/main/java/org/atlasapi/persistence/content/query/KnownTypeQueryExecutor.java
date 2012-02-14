@@ -24,4 +24,6 @@ public interface KnownTypeQueryExecutor {
 
 	Map<String, List<Identified>> executeUriQuery(Iterable<String> uris, ContentQuery query);
 
+	Map<String, List<Identified>> executeIdQuery(Iterable<String> ids, ContentQuery query);
+
 }

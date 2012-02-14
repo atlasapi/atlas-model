@@ -16,6 +16,16 @@ import com.google.common.collect.Lists;
 @XmlType(name="content", namespace=PLAY_SIMPLE_XML.NS)
 public class ContentQueryResult {
 
+    public ContentQueryResult() {}
+    
+    public ContentQueryResult(Description content) {
+        this.contents = Lists.newArrayList(content);
+    }
+    
+    public ContentQueryResult(Iterable<Description> contents) {
+        this.contents = Lists.newArrayList(contents);
+    }
+    
 	private List<Description> contents = Lists.newArrayList();
 
 	public void add(Description content) {

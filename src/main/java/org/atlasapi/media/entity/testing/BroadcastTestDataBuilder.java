@@ -2,7 +2,7 @@ package org.atlasapi.media.entity.testing;
 
 import java.util.Date;
 
-import org.atlasapi.media.entity.Channel;
+import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.entity.simple.Broadcast;
 import org.atlasapi.media.entity.simple.Restriction;
 import org.joda.time.LocalDate;
@@ -41,7 +41,7 @@ public class BroadcastTestDataBuilder {
         transmissionTime = new Date();
         transmissionEndTime = new Date();
         broadcastDuration = 30;
-        broadcastOn = Channel.BBC_ONE.key();
+        broadcastOn = "bbcone";
         scheduleDate = new LocalDate();
         id = String.valueOf(uniqueId++);
     }

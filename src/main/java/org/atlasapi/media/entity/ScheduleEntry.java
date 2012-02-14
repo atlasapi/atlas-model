@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Comparator;
 
+import org.atlasapi.media.channel.Channel;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 

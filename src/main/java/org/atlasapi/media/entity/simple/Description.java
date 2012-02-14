@@ -36,6 +36,9 @@ public abstract class Description extends Aliased {
 	private Set<String> tags = Sets.newHashSet();
 	
 	private List<Item> clips = Lists.newArrayList();
+	private Set<TopicRef> topics = Sets.newHashSet();
+	private List<KeyPhrase> keyPhrases = Lists.newArrayList();
+	private List<RelatedLink> relatedLinks = Lists.newArrayList();
 
 	private Set<String> sameAs = Sets.newHashSet();
 
@@ -98,7 +101,27 @@ public abstract class Description extends Aliased {
 	@XmlElement(name="clip")
 	public List<Item> getClips() {
 		return clips;
-	}
+    }
+
+    @XmlElementWrapper(name = "key_phrases")
+    @XmlElement(name = "key_phrase")
+    public List<KeyPhrase> getKeyPhrases() {
+        return keyPhrases;
+    }
+    
+    public void setKeyPhrases(Iterable<KeyPhrase> phrases) {
+        this.keyPhrases = Lists.newArrayList(phrases);
+    }
+
+    @XmlElementWrapper(name = "related_links")
+    @XmlElement(name = "related_link")
+    public List<RelatedLink> getRelatedLinks() {
+        return relatedLinks;
+    }
+    
+    public void setRelatedLinks(Iterable<RelatedLink> links) {
+        this.relatedLinks = Lists.newArrayList(links);
+    }
 	
 	public void setTitle(String title) {
 		this.title = title;
@@ -229,5 +252,15 @@ public abstract class Description extends Aliased {
             return input.getId();
         }
     };
+
+    public void setTopics(Iterable<TopicRef> resolvedTopics) {
+        this.topics = ImmutableSet.copyOf(resolvedTopics);
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="topics")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="topicref")
+    public Set<TopicRef> getTopics() {
+        return this.topics;
+    }
 
 }

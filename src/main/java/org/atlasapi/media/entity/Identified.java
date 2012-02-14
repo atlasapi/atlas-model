@@ -28,6 +28,8 @@ import com.google.common.primitives.Ints;
  */
 public class Identified {
 
+	private Long id;
+	
 	private String canonicalUri;
 
 	private String curie;
@@ -137,6 +139,14 @@ public class Identified {
 	
 	public Set<String> getEquivalentTo() {
 		return equivalentTo;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {
