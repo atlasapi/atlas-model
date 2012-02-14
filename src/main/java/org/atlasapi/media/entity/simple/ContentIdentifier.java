@@ -235,4 +235,11 @@ public abstract class ContentIdentifier {
             return input.getId();
         }
     };
+    
+    public static final Function<ContentIdentifier, ContentIdentifier> COPY = new Function<ContentIdentifier, ContentIdentifier>() {
+        @Override
+        public ContentIdentifier apply(ContentIdentifier input) {
+            return input.copy();
+        }
+    };
 }

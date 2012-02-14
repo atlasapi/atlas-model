@@ -55,24 +55,9 @@ public class Playlist extends Description {
 	public Playlist copy() {
 	    Playlist copy = new Playlist();
 	    copyTo(copy);
-	    copy.setContent(Iterables.transform(getContent(), new Function<ContentIdentifier, ContentIdentifier>() {
-			@Override
-			public ContentIdentifier apply(ContentIdentifier input) {
-				return input.copy();
-			}
-	    }));
-        copy.setUpcomingContent(Iterables.transform(getUpcomingContent(), new Function<ContentIdentifier, ContentIdentifier>() {
-            @Override
-            public ContentIdentifier apply(ContentIdentifier input) {
-                return input.copy();
-            }
-        }));
-        copy.setAvailableContent(Iterables.transform(getAvailableContent(), new Function<ContentIdentifier, ContentIdentifier>() {
-            @Override
-            public ContentIdentifier apply(ContentIdentifier input) {
-                return input.copy();
-            }
-        }));
+	    copy.setContent(Iterables.transform(getContent(), ContentIdentifier.COPY));
+        copy.upcomingContent = upcomingContent == null ? null : ImmutableSet.copyOf(Iterables.transform(getUpcomingContent(), ContentIdentifier.COPY));
+        copy.availableContent = availableContent == null ? null : ImmutableSet.copyOf(Iterables.transform(getAvailableContent(), ContentIdentifier.COPY));
 	    return copy;
 	}
 	
