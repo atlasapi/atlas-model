@@ -80,6 +80,9 @@ public class Channel extends Identified implements SelfModelling {
     
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj instanceof Channel) {
             Channel target = (Channel) obj;
             return getId() != null ? Objects.equal(getId(), target.getId()) : Objects.equal(uri(), target.uri());
