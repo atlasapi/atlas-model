@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -26,8 +27,8 @@ import com.google.common.collect.Lists;
 public class Playlist extends Description {
 
 	private List<ContentIdentifier> content = Lists.newArrayList();
-    private ImmutableSet<ContentIdentifier> upcomingContent;
-    private ImmutableSet<ContentIdentifier> availableContent;
+    private Set<ContentIdentifier> upcomingContent;
+    private Set<ContentIdentifier> availableContent;
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
@@ -97,7 +98,7 @@ public class Playlist extends Description {
         @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
     })
-    public ImmutableSet<ContentIdentifier> getUpcomingContent() {
+    public Set<ContentIdentifier> getUpcomingContent() {
         return upcomingContent;
     }
     
@@ -114,7 +115,7 @@ public class Playlist extends Description {
         @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
     })
-    public ImmutableSet<ContentIdentifier> getAvailableContent() {
+    public Set<ContentIdentifier> getAvailableContent() {
         return availableContent;
     }
 }
