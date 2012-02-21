@@ -62,7 +62,6 @@ public class Playlist extends Description {
 	}
 	
 	public static final Function<Playlist, List<ContentIdentifier>> TO_CONTENTS = new Function<Playlist, List<ContentIdentifier>>() {
-
 		@Override
 		public List<ContentIdentifier> apply(Playlist input) {
 			return input.getContent();
@@ -89,6 +88,15 @@ public class Playlist extends Description {
         this.upcomingContent = ImmutableSet.copyOf(filteredRefs);
     }
 
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="upcoming_content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
     public ImmutableSet<ContentIdentifier> getUpcomingContent() {
         return upcomingContent;
     }
@@ -97,6 +105,15 @@ public class Playlist extends Description {
         this.availableContent = ImmutableSet.copyOf(filteredRefs);
     }
 
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="available_content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
     public ImmutableSet<ContentIdentifier> getAvailableContent() {
         return availableContent;
     }
