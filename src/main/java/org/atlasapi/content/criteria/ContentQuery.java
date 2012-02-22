@@ -167,4 +167,8 @@ public class ContentQuery {
 
 		return ImmutableSet.copyOf(Iterables.concat(publishers));
 	}
+
+    public boolean allowsSource(Publisher publisher) {
+        return configuration.isEnabled(publisher);
+    }
 }
