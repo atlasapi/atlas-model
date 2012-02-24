@@ -51,6 +51,10 @@ public class ApplicationConfiguration {
 	    return statuses.build();
 	}
 	
+	public boolean isEnabled(Publisher source) {
+	    return enabledSources.contains(source);
+	}
+	
     public Set<Publisher> getEnabledSources() {
         return enabledSources;
     }
