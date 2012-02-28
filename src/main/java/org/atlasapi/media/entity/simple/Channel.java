@@ -6,13 +6,14 @@ import com.google.common.collect.ImmutableSet;
 
 public class Channel extends Aliased {
 
-    private PublisherDetails publisherDetails;
+    private PublisherDetails publisher;
     private String title;
     private String mediaType;
     private Set<ChannelGroup> groups;
+    private PublisherDetails broadcaster;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
-        this.publisherDetails = publisherDetails;
+        this.publisher = publisherDetails;
     }
 
     public void setTitle(String title) {
@@ -24,7 +25,7 @@ public class Channel extends Aliased {
     }
 
     public PublisherDetails getPublisherDetails() {
-        return this.publisherDetails;
+        return this.publisher;
     }
 
     public String getTitle() {
@@ -41,5 +42,13 @@ public class Channel extends Aliased {
 
     public Set<ChannelGroup> getGroups() {
         return this.groups;
+    }
+
+    public PublisherDetails getBroadcaster() {
+        return broadcaster;
+    }
+
+    public void setBroadcaster(PublisherDetails broadcaster) {
+        this.broadcaster = broadcaster;
     }
 }
