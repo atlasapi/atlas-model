@@ -21,14 +21,15 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="list", namespace=PLAY_SIMPLE_XML.NS)
 public class Playlist extends Description {
 
 	private List<ContentIdentifier> content = Lists.newArrayList();
-    private Set<ContentIdentifier> upcomingContent;
-    private Set<ContentIdentifier> availableContent;
+    private Set<ContentIdentifier> upcomingContent = Sets.newHashSet();
+    private Set<ContentIdentifier> availableContent = Sets.newHashSet();
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
