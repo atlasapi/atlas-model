@@ -16,6 +16,7 @@ public class ScheduleChannel {
     private String channelUri;
     private String channelTitle;
     private String channelKey;
+    private Channel channel;
     
     public String getChannelTitle() {
         return channelTitle;
@@ -50,6 +51,14 @@ public class ScheduleChannel {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+    
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+    
+    public Channel getChannel() {
+        return channel;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -77,4 +86,5 @@ public class ScheduleChannel {
 			return input.getChannelKey();
 		}
     };
+
 }

@@ -16,6 +16,7 @@ public class Channel extends Identified implements SelfModelling {
     private String title;
 	private MediaType mediaType;
 	private String key;
+    private Publisher broadcaster;
 
 	public Channel() {
     	
@@ -44,6 +45,10 @@ public class Channel extends Identified implements SelfModelling {
     public Publisher publisher() {
     	return publisher;
     }
+
+    public Publisher broadcaster() {
+        return broadcaster;
+    }
     
     @Deprecated
     public String key() {
@@ -64,6 +69,10 @@ public class Channel extends Identified implements SelfModelling {
     
     public void setKey(String key) {
         this.key = key;
+    }
+    
+    public void setBroadcaster(Publisher broadcaster) {
+        this.broadcaster = broadcaster;
     }
 
     @Override
