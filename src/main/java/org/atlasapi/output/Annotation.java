@@ -30,7 +30,8 @@ public enum Annotation {
     NEXT_BROADCASTS,
     AVAILABLE_LOCATIONS,
     UPCOMING, 
-    FILTERING_RESOURCE;
+    FILTERING_RESOURCE,
+    CHANNEL;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
