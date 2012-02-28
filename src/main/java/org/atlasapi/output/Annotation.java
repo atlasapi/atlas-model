@@ -29,7 +29,8 @@ public enum Annotation {
     FIRST_BROADCASTS,
     NEXT_BROADCASTS,
     AVAILABLE_LOCATIONS,
-    UPCOMING;
+    UPCOMING, 
+    FILTERING_RESOURCE;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
