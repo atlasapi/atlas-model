@@ -9,6 +9,7 @@ public class ComplexBroadcastTestDataBuilder {
     private String channel;
     private DateTime startTime;
     private Duration duration;
+    private Boolean repeat;
     
     public static ComplexBroadcastTestDataBuilder broadcast() {
         return new ComplexBroadcastTestDataBuilder();
@@ -22,7 +23,7 @@ public class ComplexBroadcastTestDataBuilder {
     
     public Broadcast build() {
         Broadcast broadcast = new Broadcast(channel, startTime, duration);
-        
+        broadcast.setRepeat(repeat);
         return broadcast;
     }
     
@@ -46,6 +47,11 @@ public class ComplexBroadcastTestDataBuilder {
     
     public ComplexBroadcastTestDataBuilder withDuration(Duration duration) {
         this.duration = duration;
+        return this;
+    }
+    
+    public ComplexBroadcastTestDataBuilder withRepeat(Boolean repeat) {
+        this.repeat = repeat;
         return this;
     }
 }
