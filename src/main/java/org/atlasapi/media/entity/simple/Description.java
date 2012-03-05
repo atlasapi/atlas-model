@@ -11,6 +11,7 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Iterables;
@@ -39,6 +40,7 @@ public abstract class Description extends Aliased {
 	private Set<TopicRef> topics = Sets.newHashSet();
 	private List<KeyPhrase> keyPhrases = Lists.newArrayList();
 	private List<RelatedLink> relatedLinks = Lists.newArrayList();
+	private List<Product> products = Lists.newArrayList(); 
 
 	private Set<String> sameAs = Sets.newHashSet();
 
@@ -204,6 +206,7 @@ public abstract class Description extends Aliased {
         destination.setThumbnail(getThumbnail());
         destination.setGenres(getGenres());
         destination.setTags(getTags());
+        destination.setProducts(getProducts());
         
         destination.setClips(Iterables.transform(getClips(), Item.TO_COPY));
         
@@ -261,6 +264,16 @@ public abstract class Description extends Aliased {
     @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="topicref")
     public Set<TopicRef> getTopics() {
         return this.topics;
+    }
+
+    @XmlElementWrapper(name = "products")
+    @XmlElement(name = "product")
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Iterable<Product> products) {
+        this.products = ImmutableList.copyOf(products);
     }
 
 }
