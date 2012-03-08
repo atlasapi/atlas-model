@@ -16,6 +16,7 @@ import com.metabroadcast.common.intl.Country;
 public enum Publisher {
     
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
+    BBC_PRODUCTS("BBC_PRODUCTS", "commercialavailability.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE),
     HULU("Hulu", "hulu.com", Countries.US, SourceStatus.AVAILABLE_ENABLED),
     YOUTUBE("YouTube", "youtube.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
