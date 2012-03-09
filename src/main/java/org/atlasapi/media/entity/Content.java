@@ -31,9 +31,6 @@ public abstract class Content extends Described {
 	private Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
 	
-	private String id;
-
-	
 	public Content(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
@@ -102,14 +99,6 @@ public abstract class Content extends Described {
 	    to.readHash = from.readHash;
 	}
 	
-	public void setId(String id) {
-	    this.id = id;
-	}
-	
-	public String getStringId() {
-	    return id;
-	}
-    
     public void setReadHash(String readHash) {
         this.readHash = readHash;
     }
