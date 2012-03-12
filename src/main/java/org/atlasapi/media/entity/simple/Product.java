@@ -4,6 +4,7 @@ import java.util.Set;
 
 public class Product extends Aliased {
 
+    private PublisherDetails publisher;
     private String gtin;
     private String title;
     private String description;
@@ -66,6 +67,14 @@ public class Product extends Aliased {
 
     public Set<ProductLocation> getLocations() {
         return this.locations;
+    }
+
+    public PublisherDetails getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(PublisherDetails publisher) {
+        this.publisher = publisher;
     }
 
 }
