@@ -90,8 +90,27 @@ public class ContentQueryResult {
 	    }
 	}
 	
+	   private static class ProductContentQueryResult extends ContentQueryResult {
+	        private Product context;
+	        
+	        @Override
+	        public Identified getContext() {
+	            return context;
+	        }
+	        
+	        public void setContext(Product context) {
+	            this.context = context;
+	        }
+	    }
+	
     public static ContentQueryResult withContext(Topic topic) {
         TopicContentQueryResult result = new TopicContentQueryResult();
+        result.setContext(topic);
+        return result;
+    }
+    
+    public static ContentQueryResult withContext(Product topic) {
+        ProductContentQueryResult result = new ProductContentQueryResult();
         result.setContext(topic);
         return result;
     }
