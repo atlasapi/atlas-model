@@ -54,6 +54,8 @@ public class Version extends Identified {
 	
 	private Restriction restriction;
 	
+	private Boolean is3d;
+	
 	public void setProvider(Publisher provider) {
 		this.provider = provider;
 	}
@@ -115,6 +117,14 @@ public class Version extends Identified {
 	public Restriction getRestriction() {
 		return restriction;
 	}
+
+    public Boolean is3d() {
+        return is3d;
+    }
+
+    public void set3d(Boolean is3d) {
+        this.is3d = is3d;
+    }
 	
 	public Version copy() {
 	    return copyWithBroadcasts(Sets.newHashSet(Iterables.transform(broadcasts, Broadcast.COPY)));
@@ -131,6 +141,7 @@ public class Version extends Identified {
         if (restriction != null) {
             copy.restriction = restriction.copy();
         }
+        copy.is3d = is3d;
         return copy;
 	}
 	
