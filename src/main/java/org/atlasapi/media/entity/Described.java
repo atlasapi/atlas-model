@@ -37,7 +37,7 @@ public abstract class Described extends Identified {
 	private MediaType mediaType = MediaType.VIDEO;
 	private Specialization specialization;
 	
-	private ImmutableSet<String> genres = ImmutableSet.of();
+	private Set<String> genres = Sets.newHashSet();
 	private Set<String> tags = Sets.newHashSet();
 	
 	protected Publisher publisher;

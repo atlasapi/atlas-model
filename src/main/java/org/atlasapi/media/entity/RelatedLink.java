@@ -103,8 +103,8 @@ public class RelatedLink {
         UNKNOWN
     }
     
-    private final String url;
-    private final LinkType type;
+    private String url;
+    private LinkType type;
     
     private String sourceId;
     private String shortName;
@@ -116,6 +116,9 @@ public class RelatedLink {
     private RelatedLink(LinkType type, String url) {
         this.type = type;
         this.url = url;
+    }
+
+    private RelatedLink() {
     }
 
     public String getUrl() {

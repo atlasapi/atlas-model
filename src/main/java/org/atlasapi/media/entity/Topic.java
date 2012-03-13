@@ -62,6 +62,9 @@ public class Topic extends Described {
         setId(id);
         setMediaType(null);
     }
+
+    protected Topic() {
+    }
     
     @Override
     public Topic copy() {

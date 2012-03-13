@@ -81,17 +81,20 @@ public class Description {
         this.thumbnail = thumbnail;
         this.hash = Objects.hashCode(title,shortSynopsis,mediumSynopsis,longSynopsis,image,thumbnail);
     }
-    
-    private final String title;
-    
-    private final String shortSynopsis;
-    private final String mediumSynopsis;
-    private final String longSynopsis;
 
-    private final String image;
-    private final String thumbnail;
+    protected Description() {
+    }
     
-    private final transient int hash;
+    private String title;
+    
+    private String shortSynopsis;
+    private String mediumSynopsis;
+    private String longSynopsis;
+
+    private String image;
+    private String thumbnail;
+    
+    private transient int hash;
     
     public String getTitle() {
         return this.title;

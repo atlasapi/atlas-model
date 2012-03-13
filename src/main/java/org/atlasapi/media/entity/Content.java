@@ -24,10 +24,10 @@ import com.google.common.collect.Lists;
 public abstract class Content extends Described {
 
     private transient String readHash;
-    private Clips clips = new Clips();
-    private KeyPhrases keyPhrases = new KeyPhrases();
-    private RelatedLinks relatedLinks = new RelatedLinks();
-    private TopicRefs topicRefs = new TopicRefs();
+    private List<Clip> clips = ImmutableList.of();
+    private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
+    private Set<RelatedLink> relatedLinks = ImmutableSet.of();
+    private List<TopicRef> topicRefs = ImmutableList.of();
     private String id;
 
     public Content(String uri, String curie, Publisher publisher) {
@@ -37,65 +37,64 @@ public abstract class Content extends Described {
     public Content() { /*
          * some legacy code still requires a default constructor
          */
-
     }
 
     public List<Clip> getClips() {
-        return clips.values;
+        return clips;
     }
 
     public void setTopicRefs(Iterable<TopicRef> topicRefs) {
-        this.topicRefs.values = ImmutableList.copyOf(topicRefs);
+        this.topicRefs = ImmutableList.copyOf(topicRefs);
     }
 
     public void addTopicRef(TopicRef topicRef) {
-        this.topicRefs.values = ImmutableList.<TopicRef>builder().add(topicRef).addAll(topicRefs.values).build();
+        topicRefs = ImmutableList.<TopicRef>builder().add(topicRef).addAll(topicRefs).build();
     }
 
     public List<TopicRef> getTopicRefs() {
-        return topicRefs.values;
+        return topicRefs;
     }
 
     public void setClips(Iterable<Clip> clips) {
-        this.clips.values = ImmutableList.copyOf(clips);
+        this.clips = ImmutableList.copyOf(clips);
         for (Clip clip : clips) {
             clip.setClipOf(this.getCanonicalUri());
         }
     }
 
     public void addClip(Clip clip) {
-        List<Clip> all = Lists.newArrayList(clips.values);
+        List<Clip> all = Lists.newArrayList(clips);
         all.add(clip);
         setClips(all);
     }
 
     public Set<KeyPhrase> getKeyPhrases() {
-        return keyPhrases.values;
+        return keyPhrases;
     }
 
     public void setKeyPhrases(Iterable<KeyPhrase> phrases) {
-        keyPhrases.values = ImmutableSet.copyOf(phrases);
+        keyPhrases = ImmutableSet.copyOf(phrases);
     }
 
     public void addKeyPhrase(KeyPhrase phrase) {
-        keyPhrases.values = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases.values).build();
+        keyPhrases = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases).build();
     }
 
     public Set<RelatedLink> getRelatedLinks() {
-        return relatedLinks.values;
+        return relatedLinks;
     }
 
     public void setRelatedLinks(Iterable<RelatedLink> links) {
-        relatedLinks.values = ImmutableSet.copyOf(links);
+        relatedLinks = ImmutableSet.copyOf(links);
     }
 
     public void addRelatedLink(RelatedLink link) {
-        relatedLinks.values = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks.values).build();
+        relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
     }
 
     public static void copyTo(Content from, Content to) {
         Described.copyTo(from, to);
-        to.clips.values = ImmutableList.copyOf(Iterables.transform(from.clips.values, Clip.COPIES));
+        to.clips = ImmutableList.copyOf(Iterables.transform(from.clips, Clip.COPIES));
         to.keyPhrases = from.keyPhrases;
         to.relatedLinks = from.relatedLinks;
         to.topicRefs = from.topicRefs;
@@ -116,53 +115,5 @@ public abstract class Content extends Described {
 
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
-    }
-
-    public static class Clips {
-
-        public List<Clip> values = ImmutableList.of();
-
-        public Clips(List<Clip> values) {
-            this.values = values;
-        }
-
-        public Clips() {
-        }
-    }
-
-    public static class KeyPhrases {
-
-        public Set<KeyPhrase> values = ImmutableSet.of();
-
-        public KeyPhrases(Set<KeyPhrase> values) {
-            this.values = values;
-        }
-
-        public KeyPhrases() {
-        }
-    }
-
-    public static class RelatedLinks {
-
-        public Set<RelatedLink> values = ImmutableSet.of();
-
-        public RelatedLinks(Set<RelatedLink> values) {
-            this.values = values;
-        }
-
-        public RelatedLinks() {
-        }
-    }
-
-    public static class TopicRefs {
-
-        public List<TopicRef> values = ImmutableList.of();
-
-        public TopicRefs(List<TopicRef> values) {
-            this.values = values;
-        }
-
-        public TopicRefs() {
-        }
     }
 }

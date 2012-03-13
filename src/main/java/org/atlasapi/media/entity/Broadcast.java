@@ -35,13 +35,13 @@ import com.metabroadcast.common.base.Maybe;
 @RdfClass(namespace = PO.NS)
 public class Broadcast extends Identified {
 
-    private final DateTime transmissionTime;
+    private DateTime transmissionTime;
 
-    private final DateTime transmissionEndTime;
+    private DateTime transmissionEndTime;
 
-    private final Integer broadcastDuration;
+    private Integer broadcastDuration;
 
-    private final String broadcastOn;
+    private String broadcastOn;
 
     private LocalDate scheduleDate;
     
@@ -92,6 +92,9 @@ public class Broadcast extends Identified {
 		this.broadcastDuration = (int) duration.getStandardSeconds();
 		this.activelyPublished = activelyPublished;
 	}
+
+    protected Broadcast() {
+    }
     
     @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public DateTime getTransmissionTime() {

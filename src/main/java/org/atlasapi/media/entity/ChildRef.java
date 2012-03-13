@@ -14,11 +14,11 @@ public class ChildRef implements Comparable<ChildRef> {
 
     private static final Ordering<ChildRef> NATURAL = Ordering.natural().reverse();
     private static final Ordering<ChildRef> UPDATED_ORDERING = Ordering.from(new UpdatedComparator());
-    
-    private final String uri;
-    private final String sortKey;
-    private final DateTime updated;
-	private final EntityType type;
+    //
+    private String uri;
+    private String sortKey;
+    private DateTime updated;
+	private EntityType type;
     
     public static List<ChildRef> dedupeAndSort(Iterable<ChildRef> childRefs) {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(childRefs));
@@ -29,6 +29,9 @@ public class ChildRef implements Comparable<ChildRef> {
         this.sortKey =  Preconditions.checkNotNull(sortKey);
         this.type = Preconditions.checkNotNull(type);
         this.updated = updated;
+    }
+
+    protected ChildRef() {
     }
     
     public String getUri() {

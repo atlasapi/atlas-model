@@ -20,6 +20,9 @@ public final class KeyPhrase {
         this(phrase, publisher, null);
     }
 
+    public KeyPhrase() {
+    }
+
     public String getPhrase() {
         return this.phrase;
     }

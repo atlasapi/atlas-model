@@ -20,6 +20,7 @@ import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 
 /**
  * 
@@ -29,7 +30,7 @@ import com.google.common.collect.ImmutableList;
 @RdfClass(namespace = PO.NS, uri = "List")
 public class Brand extends Container {
     
-    private ImmutableList<ChildRef> seriesRefs = ImmutableList.of();;
+    private List<ChildRef> seriesRefs = ImmutableList.of();;
 
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -37,7 +38,7 @@ public class Brand extends Container {
     
     public Brand() { /* some legacy code still requires a default constructor */ }
 
-    public ImmutableList<ChildRef> getSeriesRefs() {
+    public List<ChildRef> getSeriesRefs() {
         return seriesRefs ;
     }
     

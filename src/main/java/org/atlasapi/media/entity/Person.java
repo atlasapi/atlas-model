@@ -14,7 +14,7 @@ public class Person extends ContentGroup {
 	public Person(String uri, String curie, Publisher publisher) {
          super(uri, curie, publisher);
     }
-	
+    
 	public String name() {
 		return this.getTitle();
 	}
