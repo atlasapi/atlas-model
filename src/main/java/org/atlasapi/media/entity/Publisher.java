@@ -16,7 +16,6 @@ import com.metabroadcast.common.intl.Country;
 public enum Publisher {
     
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
-    BBC_PRODUCTS("BBC_PRODUCTS", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE),
     HULU("Hulu", "hulu.com", Countries.US, SourceStatus.AVAILABLE_ENABLED),
     YOUTUBE("YouTube", "youtube.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
@@ -41,7 +40,8 @@ public enum Publisher {
     BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE),
     METABROADCAST("MetaBroadcast", "metabroadcast.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE);
+    LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     public static final int MAX_KEY_LENGTH = 20;
