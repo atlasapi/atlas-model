@@ -480,6 +480,7 @@ public class Channel implements SelfModelling {
     public static final Channel SKY_ATLANTIC_HD = new Channel("Sky Atlantic HD", CHANNEL_URI_PREFIX+"skyatlantichd", "skyatlantichd");
     public static final Channel SKY_MOVIES_SHOWCASE = new Channel("Sky Movies Showcase", CHANNEL_URI_PREFIX+"skymoviesshowcase", "skymoviesshowcase");
     public static final Channel SKY_MOVIES_SHOWCASE_HD = new Channel("Sky Movies Showcase HD", CHANNEL_URI_PREFIX+"skymoviesshowcasehd", "skymoviesshowcasehd");
+    public static final Channel SKY_SPORTS_F1 = new Channel("Sky Sports F1", CHANNEL_URI_PREFIX+"skysportsf1", "skysportsf1");
     public static final Channel DISCOVERY_KNOWLEDGE = new Channel("Discovery Knowledge", CHANNEL_URI_PREFIX+"discoveryknowledge", "discoveryknowledge");
     public static final Channel SKY_LIVING = new Channel("Sky Living", CHANNEL_URI_PREFIX+"skyliving", "skyliving");
     public static final Channel SKY_LIVING_LOVES = new Channel("Sky Living Loves", CHANNEL_URI_PREFIX+"skylivingloves", "skylivingloves");
