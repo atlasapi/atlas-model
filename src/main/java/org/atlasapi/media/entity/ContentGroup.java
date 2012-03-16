@@ -25,11 +25,13 @@ public class ContentGroup extends Described implements MutableContentList {
         this.type = Type.PLAYLIST;
     }
     
-    protected ContentGroup(String uri, String curie, Publisher publisher) {
+    protected ContentGroup(Type type, String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
+        this.type = type;
     }
 
     public ContentGroup() {
+        this.type = Type.PLAYLIST;
     }
 
     @RdfProperty(relation = true, namespace = DCTERMS.NS, uri = "hasPart")
@@ -49,7 +51,7 @@ public class ContentGroup extends Described implements MutableContentList {
         this.contents = ImmutableList.copyOf(children);
     }
 
-    public void addContents(ChildRef childRef) {
+    public void addContent(ChildRef childRef) {
         this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).add(childRef).build();
     }
 
@@ -73,6 +75,6 @@ public class ContentGroup extends Described implements MutableContentList {
 
     public enum Type {
 
-        FRANCHISE, SEASON, PLAYLIST;
+        FRANCHISE, SEASON, PLAYLIST, PERSON;
     }
 }
