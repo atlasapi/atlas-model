@@ -12,7 +12,7 @@ public class Person extends ContentGroup {
 	public Person() { /* required for legacy code */ }
 	
 	public Person(String uri, String curie, Publisher publisher) {
-         super(uri, curie, publisher);
+         super(ContentGroup.Type.PERSON, uri, curie, publisher);
          
     }
 	
