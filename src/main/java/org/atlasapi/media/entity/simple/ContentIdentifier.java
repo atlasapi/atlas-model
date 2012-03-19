@@ -236,6 +236,13 @@ public abstract class ContentIdentifier {
         }
     };
     
+    public static final Function<ContentIdentifier, String> TO_URI = new Function<ContentIdentifier, String>() {
+        @Override
+        public String apply(ContentIdentifier input) {
+            return input.getUri();
+        }
+    };
+    
     public static final Function<ContentIdentifier, ContentIdentifier> COPY = new Function<ContentIdentifier, ContentIdentifier>() {
         @Override
         public ContentIdentifier apply(ContentIdentifier input) {

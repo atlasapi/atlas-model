@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
 public class Identified {
@@ -80,5 +81,17 @@ public class Identified {
         destination.setType(getType());
     }
 
+    public static final Function<Identified, String> TO_ID = new Function<Identified, String>() {
+        @Override
+        public String apply(Identified input) {
+            return input.getId();
+        }
+    };
     
+    public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {
+        @Override
+        public String apply(Identified input) {
+            return input.getUri();
+        }
+    };
 }

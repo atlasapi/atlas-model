@@ -222,6 +222,13 @@ public class Item extends Description {
             return input.isScheduleOnly();
         }
     };
+    
+    public static final Function<Item, Iterable<Person>> TO_PEOPLE = new Function<Item, Iterable<Person>>() {
+        @Override
+        public Iterable<Person> apply(Item input) {
+            return input.getPeople();
+        }
+    };
 
     public Integer getYear() {
         return year;
