@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
-@XmlType(name="list", namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="playlist", namespace=PLAY_SIMPLE_XML.NS)
 public class Playlist extends Description {
 
 	private List<ContentIdentifier> content = Lists.newArrayList();
