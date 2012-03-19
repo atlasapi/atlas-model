@@ -40,6 +40,10 @@ public abstract class Content extends Described {
 
     }
 
+    public ChildRef childRef() {
+        return new ChildRef(this.getCanonicalUri(), this.getSortKey(), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
+    }
+
     public List<Clip> getClips() {
         return clips;
     }
@@ -120,5 +124,9 @@ public abstract class Content extends Described {
 
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
+    }
+
+    protected String getSortKey() {
+        return SortKey.DEFAULT.name();
     }
 }
