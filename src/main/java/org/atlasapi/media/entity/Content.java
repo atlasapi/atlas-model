@@ -61,7 +61,7 @@ public abstract class Content extends Described {
         this.contentGroupRefs = ImmutableList.copyOf(contentGroupRefs);
     }
 
-    public void addContentGroupRef(ContentGroupRef contentGroupRef) {
+    public void addContentGroup(ContentGroupRef contentGroupRef) {
         contentGroupRefs = ImmutableList.<ContentGroupRef>builder().add(contentGroupRef).addAll(contentGroupRefs).build();
     }
 

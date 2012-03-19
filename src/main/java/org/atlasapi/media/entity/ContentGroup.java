@@ -72,6 +72,10 @@ public class ContentGroup extends Described implements MutableContentList {
         copyTo(this, copy);
         return copy;
     }
+    
+    public ContentGroupRef contentGroupRef() {
+        return new ContentGroupRef(getId(), getCanonicalUri());
+    }
 
     public enum Type {
 
