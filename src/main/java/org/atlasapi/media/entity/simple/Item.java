@@ -36,7 +36,11 @@ public class Item extends Description {
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private Integer year;
-	
+    private Set<Language> languages = Sets.newHashSet();
+    private Set<Subtitles> subtitles = Sets.newHashSet();
+    private Set<Certificate> certificates = Sets.newHashSet();
+    private Set<ReleaseDate> releaseDates = Sets.newHashSet();
+	            
 	public Item() { /* required for XML/JSON tools */ }
 	
 	public Item(String uri) {
@@ -188,7 +192,6 @@ public class Item extends Description {
         
         copy.setBlackAndWhite(isBlackAndWhite());
         copy.setCountriesOfOrigin(getCountriesOfOrigin());
-        
         return copy;
     }
 	
@@ -243,5 +246,45 @@ public class Item extends Description {
     @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="segmentEvent")
     public List<SegmentEvent> getSegments() {
         return this.segmentEvents;
+    }
+
+    public void setOriginalLanguages(Iterable<Language> languages) {
+        this.languages = Sets.newHashSet(languages);
+    }
+
+    public void setSubtitles(Iterable<Subtitles> subtitles) {
+        this.subtitles = Sets.newHashSet(subtitles);
+    }
+
+    public void setCertificates(Iterable<Certificate> certificates) {
+        this.certificates = Sets.newHashSet(certificates);
+    }
+
+    public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
+        this.releaseDates = Sets.newHashSet(releaseDates);
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="languages")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="language")
+    public Set<Language> getOriginalLanguages() {
+        return this.languages;
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="certificates")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="certificate")
+    public Set<Certificate> getCertificates() {
+        return this.certificates;
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="releaseDates")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="releaseDate")
+    public Set<ReleaseDate> getReleaseDates() {
+        return this.releaseDates;
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="subtitles")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="subtitle")
+    public Set<Subtitles> getSubtitles() {
+        return subtitles;
     }
 }

@@ -8,6 +8,7 @@ public abstract class Version {
 	private Integer duration;
 	private Integer publishedDuration;
 	private Restriction restriction;
+	private Boolean is3d;
 
 	public Integer getDuration() {
 		return duration;
@@ -32,7 +33,15 @@ public abstract class Version {
 	public void setRestriction(Restriction restriction) {
 		this.restriction = restriction;
 	}
-	
+
+    public Boolean is3d() {
+        return is3d;
+    }
+
+    public void set3d(Boolean is3d) {
+        this.is3d = is3d;
+    }
+    
 	protected void copyTo(Version destination) {
 	    Preconditions.checkNotNull(destination);
 	    
@@ -41,5 +50,6 @@ public abstract class Version {
 	    if (getRestriction() != null) {
 	        destination.setRestriction(getRestriction().copy());
 	    }
+	    destination.set3d(is3d());
 	}
 }

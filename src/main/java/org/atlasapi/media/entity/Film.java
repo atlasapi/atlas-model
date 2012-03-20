@@ -2,6 +2,7 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
@@ -9,6 +10,10 @@ public class Film extends Item {
     
     private Integer year = null;
     private String websiteUrl = null;
+    private Set<Subtitles> subtitles = ImmutableSet.of();
+    private Set<String> languages = ImmutableSet.of();
+    private Set<ReleaseDate> releaseDates = ImmutableSet.of();
+    private Set<Certificate> certificates = ImmutableSet.of();
     
     public Film(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -34,6 +39,38 @@ public class Film extends Item {
     public String getWebsiteUrl() {
         return websiteUrl;
     }
+
+    public Set<Subtitles> getSubtitles() {
+        return subtitles;
+    }
+
+    public void setSubtitles(Iterable<Subtitles> subtitles) {
+        this.subtitles = ImmutableSet.copyOf(subtitles);
+    }
+
+    public Set<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Iterable<String> languages) {
+        this.languages = ImmutableSet.copyOf(languages);
+    }
+    
+    public Set<ReleaseDate> getReleaseDates() {
+        return releaseDates;
+    }
+
+    public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
+        this.releaseDates = ImmutableSet.copyOf(releaseDates);
+    }
+
+    public Set<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(Iterable<Certificate> certificates) {
+        this.certificates = ImmutableSet.copyOf(certificates);
+    }
     
     @Override
 	public Film copy() {
@@ -46,6 +83,11 @@ public class Film extends Item {
 	    Item.copyToWithVersions(this, film, versions);
 	    film.setYear(getYear());
 	    film.setWebsiteUrl(getWebsiteUrl());
+	    film.setSubtitles(getSubtitles());
+	    film.setLanguages(getLanguages());
+	    film.setReleaseDates(getReleaseDates());
+	    film.setCertificates(getCertificates());
 	    return film;
 	}
+
 }
