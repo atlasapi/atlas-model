@@ -14,6 +14,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.persistence.content;
 
+import org.atlasapi.media.entity.ContentGroup;
+
 
 /**
  */
@@ -22,5 +24,7 @@ public interface ContentGroupResolver {
 	ResolvedContent findByCanonicalUris(Iterable<String> canonicalUris);
     
     ResolvedContent findByIds(Iterable<Long> ids);
+    
+    Iterable<ContentGroup> findAll();
 
 }
