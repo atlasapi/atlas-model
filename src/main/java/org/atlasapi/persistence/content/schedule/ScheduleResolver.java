@@ -1,4 +1,4 @@
-package org.atlasapi.persistence.content;
+package org.atlasapi.persistence.content.schedule;
 
 import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.entity.Publisher;
