@@ -25,7 +25,6 @@ import com.google.common.collect.Lists;
 public class ContentGroup extends Description {
 
     private List<ContentIdentifier> content = Lists.newArrayList();
-    private String groupType;
 
     public void add(ContentIdentifier c) {
         content.add(c);
@@ -48,19 +47,11 @@ public class ContentGroup extends Description {
         this.content = Lists.newArrayList(items);
     }
 
-    public String getGroupType() {
-        return groupType;
-    }
-
-    public void setGroupType(String groupType) {
-        this.groupType = groupType;
-    }
-
     public ContentGroup copy() {
         ContentGroup copy = new ContentGroup();
         copyTo(copy);
         copy.setContent(Iterables.transform(getContent(), ContentIdentifier.COPY));
-        copy.groupType = groupType;
+        copy.setType(getType());
         return copy;
     }
     public static final Function<ContentGroup, List<ContentIdentifier>> TO_CONTENTS = new Function<ContentGroup, List<ContentIdentifier>>() {
