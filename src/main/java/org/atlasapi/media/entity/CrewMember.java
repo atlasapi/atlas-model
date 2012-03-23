@@ -1,10 +1,13 @@
 package org.atlasapi.media.entity;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.metabroadcast.common.base.Maybe;
 
 public class CrewMember extends Identified {
@@ -64,14 +67,20 @@ public class CrewMember extends Identified {
             return role.requireValue();
         }
 
-		public static Maybe<Role> fromPossibleKey(String key) {
-			for (Role role: Role.values()) {
-                if (role.key.equalsIgnoreCase(key)) {
-                    return Maybe.just(role);
-                }
+        public static Maybe<Role> fromPossibleKey(String key) {
+            Maybe<Role> possibleRole = roleKeyMap.get(key);
+            return possibleRole != null ? possibleRole : Maybe.<Role>nothing();
+        }
+        
+		private static Map<String,Maybe<Role>> roleKeyMap = initRoleKeyMap();
+
+        private static Map<String, Maybe<Role>> initRoleKeyMap() {
+            Builder<String, Maybe<Role>> builder = ImmutableMap.builder();
+            for (Role role : Role.values()) {
+                builder.put(role.key(), Maybe.just(role));
             }
-			return Maybe.nothing();
-		}
+            return builder.build();
+        }
     }
     
     private Role role;
