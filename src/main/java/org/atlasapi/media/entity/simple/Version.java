@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import com.google.common.base.Preconditions;
 
 
@@ -34,6 +36,7 @@ public abstract class Version {
 		this.restriction = restriction;
 	}
 
+	@XmlElement(name = "threeD")
     public Boolean is3d() {
         return is3d;
     }
