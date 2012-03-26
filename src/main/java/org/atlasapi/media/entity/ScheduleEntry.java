@@ -146,5 +146,10 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         public Broadcast getBroadcast() {
             return broadcast;
         }
+        
+        @Override
+        public String toString() {
+            return String.format("%s: %s", uri, broadcast);
+        }
     }
 }
