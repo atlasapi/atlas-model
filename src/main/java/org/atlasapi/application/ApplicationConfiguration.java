@@ -111,6 +111,10 @@ public class ApplicationConfiguration {
     public ApplicationConfiguration copyWithPrecedence(List<Publisher> publishers) {
         return new ApplicationConfiguration(sourceStatuses, ImmutableList.copyOf(publishers));
     }
+    
+    public ApplicationConfiguration copyWithNullPrecedence() {
+        return new ApplicationConfiguration(sourceStatuses, null);
+    }
 	
 	public Ordering<Publisher> publisherPrecedenceOrdering() {
 		return Ordering.explicit(precedence);
