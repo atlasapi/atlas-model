@@ -5,14 +5,12 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.ItemIdentifier;
-import org.atlasapi.media.entity.simple.ContentIdentifier.PersonIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
@@ -34,7 +32,6 @@ public class ContentGroup extends Description {
         @XmlElement(name = "item", type = ItemIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "film", type = FilmIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
-        @XmlElement(name = "person", type = PersonIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "series", type = SeriesIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "brand", type = BrandIdentifier.class, namespace = PLAY_SIMPLE_XML.NS)
     })

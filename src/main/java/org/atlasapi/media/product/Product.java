@@ -1,102 +1,132 @@
 package org.atlasapi.media.product;
 
-import java.util.Map;
-import java.util.Set;
+import org.atlasapi.media.common.Described;
+import org.atlasapi.media.common.Description;
+import org.atlasapi.media.common.Identified;
+import org.atlasapi.media.common.Identifier;
 
-import javax.annotation.Nullable;
-
-import org.atlasapi.media.entity.Described;
-
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
 
-public class Product extends Described {
+public final class Product extends Identified implements Described {
 
-    //TODO: move this to common
-    public static <T> Function<T, Optional<T>> optionalFunction() {
-        return new Function<T, Optional<T>>() {
-            @Override
-            public Optional<T> apply(T input) {
-                return Optional.fromNullable(input);
-            }
-
-        };
+    public static final Builder builder() {
+        return new Builder();
     }
-    
-    public enum Type {
-        CD, DVD, BLU_RAY, DOWNLOAD, STREAM;
-        
-        public String toString() {
-            return super.toString().toLowerCase();
-        };
-        
-        private static final Map<String, Optional<Type>> fromString = ImmutableMap.copyOf(Maps.transformValues(Maps.uniqueIndex(ImmutableSet.copyOf(Type.values()), Functions.toStringFunction()), Product.<Type>optionalFunction()));
 
-        public static Optional<Type> fromString(@Nullable String typeString) {
-            Optional<Type> type = fromString.get(typeString);
-            return type == null ? Optional.<Type>absent() : type;
+    public static final class Builder extends Identified.Builder<Product, Builder> {
+
+        private String gtin;
+        private ProductType type;
+        private Description description;
+        private Integer year;
+        private ImmutableSet<String> content;
+        private ImmutableSet<ProductLocation> locations;
+
+        @Override
+        public Builder copy(Product product) {
+            super.copy(product);
+            this.gtin = product.gtin;
+            this.type = product.type;
+            this.year = product.year;
+            this.description = product.description;
+            this.content = product.content;
+            this.locations = product.locations;
+            return builder();
         }
+
+        public Builder withGtin(String gtin) {
+            this.gtin = gtin;
+            return builder();
+        }
+
+        public Builder withType(ProductType type) {
+            this.type = type;
+            return builder();
+        }
+
+        public Builder withYear(Integer year) {
+            this.year = year;
+            return builder();
+        }
+
+        public Builder withContent(Iterable<String> content) {
+            this.content = ImmutableSet.copyOf(content);
+            return builder();
+        }
+
+        public Builder withLocations(Iterable<ProductLocation> locations) {
+            this.locations = ImmutableSet.copyOf(locations);
+            return builder();
+        }
+
+        @Override
+        protected Builder builder() {
+            return this;
+        }
+
+        @Override
+        public Product build() {
+            return new Product(this);
+        }
+
     }
 
-    private String gtin;
-    private Type type;
-    private Integer year;
-    private Set<String> content = ImmutableSet.of();
-    private Set<ProductLocation> locations = ImmutableSet.of();
+    private final String gtin;
+    private final ProductType type;
+    private final Description description;
+    private final Integer year;
+    private final ImmutableSet<String> content;
+    private final ImmutableSet<ProductLocation> locations;
 
-    public String getGtin() {
-        return this.gtin;
-    }
-
-    public void setGtin(String gtin) {
-        this.gtin = gtin;
-    }
-
-    public Type getType() {
-        return this.type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Integer getYear() {
-        return this.year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public Set<String> getContent() {
-        return this.content;
-    }
-
-    public void setContent(Iterable<String> content) {
-        this.content = ImmutableSet.copyOf(content);
-    }
-
-    public Set<ProductLocation> getLocations() {
-        return this.locations;
-    }
-
-    public void setLocations(Iterable<ProductLocation> locations) {
-        this.locations =  ImmutableSet.copyOf(locations);
+    public Product(Builder builder) {
+        super(builder);
+        this.gtin = builder.gtin;
+        this.type = builder.type;
+        this.description = builder.description;
+        this.year = builder.year;
+        this.content = builder.content;
+        this.locations = builder.locations;
     }
 
     @Override
-    public Described copy() {
-        Product product = new Product();
-        Described.copyTo(this, product);
-        product.gtin = this.gtin;
-        product.type = this.type;
-        product.year = this.year;
-        product.content = this.content;
-        product.locations = this.locations;
-        return product;
+    public Builder copy() {
+        return new Builder().copy(this);
+    }
+
+    public String gtin() {
+        return this.gtin;
+    }
+
+    public ProductType productType() {
+        return this.type;
+    }
+    
+    public Description description() {
+        return this.description;
+    }
+
+    public Integer year() {
+        return this.year;
+    }
+
+    public ImmutableSet<String> content() {
+        return this.content;
+    }
+
+    public ImmutableSet<ProductLocation> locations() {
+        return this.locations;
+    }
+    
+    @Override
+    public ProductIdentifier toIdentifier() {
+        return new ProductIdentifier(this);
+    }
+    
+    private static final class ProductIdentifier extends Identifier {
+
+        public ProductIdentifier(Product product) {
+            super(product);
+        }
+        
     }
 }

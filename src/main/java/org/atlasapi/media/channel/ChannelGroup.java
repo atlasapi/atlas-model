@@ -1,90 +1,127 @@
 package org.atlasapi.media.channel;
 
-import java.util.Set;
-
-import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.channel.Channel.ChannelIdentifier;
+import org.atlasapi.media.common.Described;
+import org.atlasapi.media.common.Description;
+import org.atlasapi.media.common.Identified;
+import org.atlasapi.media.common.Identifier;
+import org.atlasapi.media.common.Publisher;
 
 import com.google.common.collect.ImmutableSet;
 import com.metabroadcast.common.intl.Country;
 
-public class ChannelGroup extends Identified {
+public final class ChannelGroup extends Identified implements Described {
+    
+    public static final Builder builder(ChannelGroupType channelGroupType) {
+        return new Builder(channelGroupType);
+    }
+    
+    public static final class Builder extends Identified.Builder<ChannelGroup, Builder> {
 
-    private Publisher publisher;
-    private String title;
-    private Set<Country> availableCountries;
-    private ChannelGroupType type;
-    private Set<Long> channels = ImmutableSet.of();
+        private ChannelGroupType type;
+        private Description description;
+        private ImmutableSet<Country> countries;
+        private ImmutableSet<ChannelIdentifier> channels;
 
-    public Publisher getPublisher() {
-        return publisher;
+        public Builder(ChannelGroupType channelGroupType) {
+            this.type = channelGroupType;
+        }
+
+        @Override
+        public Builder copy(ChannelGroup t) {
+            super.copy(t);
+            this.description = t.description;
+            this.countries = t.countries;
+            this.type = t.type;
+            this.channels = t.channels;
+            return builder();
+        }
+        
+        public Builder withType(ChannelGroupType type) {
+            this.type = type;
+            return builder();
+        }
+        
+        public Builder withDescription(Description description) {
+            this.description = description;
+            return builder();
+        }
+        
+        public Builder withDescription(Description.Builder description) {
+            return withDescription(description.build());
+        }
+        
+        public Builder withAvailableCountries(Iterable<Country> countries) {
+            this.countries = ImmutableSet.copyOf(countries);
+            return builder();
+        }
+        
+        public Builder withChannel(Iterable<ChannelIdentifier> channels) {
+            this.channels = ImmutableSet.copyOf(channels);
+            return builder();
+        }
+        
+        @Override
+        protected Builder builder() {
+            return this;
+        }
+
+        @Override
+        public ChannelGroup build() {
+            return new ChannelGroup(this);
+        }
+        
+    }
+    
+    private final ChannelGroupType type;
+    private final Description description;
+    private final ImmutableSet<Country> countries;
+    private final ImmutableSet<ChannelIdentifier> channels;
+
+    private ChannelGroup(Builder builder) {
+        super(builder);
+        this.description = builder.description;
+        this.type = builder.type;
+        this.countries = builder.countries;
+        this.channels = builder.channels;
+        
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    @Override
+    public Builder copy() {
+        return new Builder(type).copy(this);
+    }
+    
+    public ChannelGroupType type() {
+        return type;
+    }
+    
+    public Description description() {
+        return description();
+    }
+    
+    public ImmutableSet<Country> availableCountries() {
+        return countries;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Set<Country> getAvailableCountries() {
-        return availableCountries;
-    }
-
-    public void setAvailableCountries(Set<Country> availableCountries) {
-        this.availableCountries = availableCountries;
-    }
-
-    public Set<Long> getChannels() {
+    public ImmutableSet<ChannelIdentifier> channels() {
         return channels;
     }
 
-    public void setChannels(Iterable<Long> channels) {
-        this.channels = ImmutableSet.copyOf(channels);
+    @Override
+    public Identifier toIdentifier() {
+        return new ChannelGroupIdentifier(this);
     }
     
-    public void addChannel(Channel channel) {
-        addChannel(channel.getId());
-    }
-    
-    public void addChannel(Long id) {
-        this.channels = ImmutableSet.<Long>builder().addAll(channels).add(id).build();
-    }
-    
-    public ChannelGroupType getType() {
-        return type;
-    }
+    public static final class ChannelGroupIdentifier extends Identifier {
 
-    public void setType(ChannelGroupType type) {
-        this.type = type;
-    }
-
-    public enum ChannelGroupType {
-        PLATFORM("platform"),
-        REGION("region");
-        
-        private final String key;
-
-        private ChannelGroupType(String key) {
-            this.key = key;
+        protected ChannelGroupIdentifier(Identified identified) {
+            super(identified);
         }
         
-        public String key() {
-            return key;
+        public ChannelGroupIdentifier(Long id, Publisher source) {
+            super(id, source);
         }
         
-        public static ChannelGroupType fromKey(String key) {
-            for (ChannelGroupType value : ChannelGroupType.values()) {
-                if (value.key.equals(key)) {
-                    return value;
-                }
-            }
-            throw new IllegalArgumentException("Key " + key + " does not map to a ChannelGroupType");
-        }
     }
 }

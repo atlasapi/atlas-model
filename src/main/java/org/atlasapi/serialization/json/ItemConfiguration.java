@@ -10,4 +10,5 @@ public interface ItemConfiguration {
     public static final String FILTER = "Item";
     public static final String CLIPS_FILTER = "clips";
     public static final String VERSIONS_FILTER = "versions";
+
 }

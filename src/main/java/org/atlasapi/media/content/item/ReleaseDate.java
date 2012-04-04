@@ -1,0 +1,59 @@
+package org.atlasapi.media.content.item;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import org.joda.time.LocalDate;
+
+import com.google.common.base.Objects;
+import com.metabroadcast.common.intl.Country;
+
+public class ReleaseDate {
+
+    public enum ReleaseType {
+        GENERAL;
+    }
+    
+    private final LocalDate date;
+    private final Country country;
+    private final ReleaseType type;
+
+    public ReleaseDate(LocalDate date, Country country, ReleaseType type) {
+        this.date = checkNotNull(date);
+        this.country = checkNotNull(country);
+        this.type = checkNotNull(type);
+    }
+
+    public Country country() {
+        return country;
+    }
+
+    public LocalDate date() {
+        return date;
+    }
+
+    public ReleaseType type() {
+        return type;
+    }
+    
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof ReleaseDate) {
+            ReleaseDate other = (ReleaseDate) that;
+            return date.equals(other.date) && country.equals(other.country) && type.equals(other.type);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(date, country, type);
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s (%s %s)", date.toString("YYYYmmdd"), country.code(), type.toString().toLowerCase());
+    }
+}

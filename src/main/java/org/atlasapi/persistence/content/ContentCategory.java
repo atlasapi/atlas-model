@@ -2,13 +2,12 @@ package org.atlasapi.persistence.content;
 
 import java.util.Set;
 
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Described;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Series;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.container.Container;
+import org.atlasapi.media.content.container.Series;
+import org.atlasapi.media.content.item.Item;
 
 import com.google.common.collect.ImmutableSet;
-import org.atlasapi.media.entity.ContentGroup;
 
 public enum ContentCategory {
 
@@ -32,21 +31,19 @@ public enum ContentCategory {
         return name;
     }
 
-    public static ContentCategory categoryFor(Described c) {
+    public static ContentCategory categoryFor(Content c) {
         if (c instanceof Item) {
             Item item = (Item) c;
-            if (item.getContainer() != null) {
+            if (item.containerId() != null) {
                 return ContentCategory.CHILD_ITEM;
             } else {
                 return ContentCategory.TOP_LEVEL_ITEM;
             }
         } else if (c instanceof Container) {
-            if (c instanceof Series && ((Series) c).getParent() != null) {
+            if (c instanceof Series && ((Series) c).parent() != null) {
                 return ContentCategory.PROGRAMME_GROUP;
             }
             return ContentCategory.CONTAINER;
-        } else if (c instanceof ContentGroup) {
-            return ContentCategory.CONTENT_GROUP;
         } else {
             return null;
         }

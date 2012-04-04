@@ -14,7 +14,7 @@ permissions and limitations under the License. */
 
 package org.atlasapi.persistence.content;
 
-import org.atlasapi.media.entity.ContentGroup;
+import org.atlasapi.media.content.group.ContentGroup;
 
 
 /**

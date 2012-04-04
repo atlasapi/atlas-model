@@ -1,72 +1,98 @@
 package org.atlasapi.media.segment;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.atlasapi.media.SegmentType;
-import org.atlasapi.media.entity.Description;
-import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.common.Described;
+import org.atlasapi.media.common.Description;
+import org.atlasapi.media.common.Identified;
+import org.atlasapi.media.common.Identifier;
 import org.joda.time.Duration;
 
-import com.google.common.base.Function;
+public final class Segment extends Identified implements Described {
 
-public class Segment extends Identified {
+    public static final Builder builder() {
+        return new Builder();
+    }
 
-    private Description description = Description.EMPTY;
-    private SegmentType type;
-    private Duration duration;
-    private Publisher publisher;
-    private String identifier;
+    public static final class Builder extends Identified.Builder<Segment, Builder> {
+
+        private SegmentType type;
+        private Description description = Description.EMPTY;
+        private Duration duration;
+
+        @Override
+        public Builder copy(Segment segment) {
+            super.copy(segment);
+            this.description = segment.description;
+            this.type = segment.type;
+            this.duration = segment.duration;
+            return builder();
+        }
+        
+        public Builder withtype(SegmentType type) {
+            this.type = type;
+            return builder();
+        }
+
+        public Builder withdescription(Description description) {
+            this.description = description;
+            return builder();
+        }
+
+        public Builder withduration(Duration duration) {
+            this.duration = duration;
+            return builder();
+        }
+
+        @Override
+        protected Builder builder() {
+            return this;
+        }
+
+        @Override
+        public Segment build() {
+            return new Segment(this);
+        }
+
+    }
+
+    private final SegmentType type;
+    private final Description description;
+    private final Duration duration;
+
+    public Segment(Builder builder) {
+        super(builder);
+        this.type = builder.type;
+        this.description = builder.description;
+        this.duration = builder.duration;
+    }
     
-    public SegmentRef toRef() {
-        return new SegmentRef(checkNotNull(identifier, "Can't create reference for segment without ID"));
+    @Override
+    public Builder copy() {
+        return new Builder().copy(this);
     }
 
-    public Description getDescription() {
+    public SegmentIdentifier toIdentifier() {
+        return new SegmentIdentifier(this);
+    }
+    
+    public static final class SegmentIdentifier extends Identifier {
+
+        public SegmentIdentifier(Segment segment) {
+            super(segment);
+        }
+        
+    }
+
+    public Description description() {
         return this.description;
-    }
-
-    public void setDescription(Description description) {
-        this.description = description;
     }
 
     public SegmentType getType() {
         return this.type;
     }
 
-    public void setType(SegmentType type) {
-        this.type = type;
-    }
-
     public Duration getDuration() {
         return this.duration;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
-    public Publisher getPublisher() {
-        return this.publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getIdentifier() {
-        return this.identifier;
-    }
-
-    void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-    
-    public static final Function<Segment, SegmentRef> TO_REF = new Function<Segment, SegmentRef>() {
-        @Override
-        public SegmentRef apply(Segment input) {
-            return input.toRef();
-        }
-    };
-    
 }

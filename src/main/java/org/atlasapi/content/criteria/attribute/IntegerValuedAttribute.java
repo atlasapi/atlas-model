@@ -18,7 +18,7 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.IntegerAttributeQuery;
 import org.atlasapi.content.criteria.operator.IntegerOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.common.Identified;
 
 public class IntegerValuedAttribute extends Attribute<Integer> {
 

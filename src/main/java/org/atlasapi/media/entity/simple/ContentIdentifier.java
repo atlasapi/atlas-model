@@ -3,8 +3,7 @@ package org.atlasapi.media.entity.simple;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.EntityType;
 
 import com.google.common.base.Function;
@@ -151,24 +150,24 @@ public abstract class ContentIdentifier {
         }
     }
 
-    public static class PersonIdentifier extends ContentIdentifier {
-        
-        public PersonIdentifier() {
-        }
-
-        public PersonIdentifier(String uri) {
-            this(uri, null);
-        }
-        
-        public PersonIdentifier(String uri, String id) {
-            super(uri, EntityType.PERSON.toString(), id);
-        }
-
-        @Override
-        public PersonIdentifier copy() {
-            return new PersonIdentifier(uri, id);
-        }
-    }
+//    public static class PersonIdentifier extends ContentIdentifier {
+//        
+//        public PersonIdentifier() {
+//        }
+//
+//        public PersonIdentifier(String uri) {
+//            this(uri, null);
+//        }
+//        
+//        public PersonIdentifier(String uri, String id) {
+//            super(uri, EntityType.PERSON.toString(), id);
+//        }
+//
+//        @Override
+//        public PersonIdentifier copy() {
+//            return new PersonIdentifier(uri, id);
+//        }
+//    }
     
     @Override
     public String toString() {
@@ -192,7 +191,7 @@ public abstract class ContentIdentifier {
     }
 
     private static Map<EntityType, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<EntityType, Class<? extends ContentIdentifier>> builder()
-            .put(EntityType.PERSON, PersonIdentifier.class)
+//            .put(EntityType.PERSON, PersonIdentifier.class)
             .put(EntityType.SERIES, SeriesIdentifier.class)
             .put(EntityType.BRAND, BrandIdentifier.class)
             .put(EntityType.ITEM, ItemIdentifier.class)
@@ -200,8 +199,8 @@ public abstract class ContentIdentifier {
             .put(EntityType.FILM, FilmIdentifier.class)
     .build();
 
-    public static ContentIdentifier identifierFor(Described described) {
-        return create(EntityType.from(described), described.getCanonicalUri());
+    public static ContentIdentifier identifierFor(Content described) {
+        return create(EntityType.from(described), described.sourceUri());
     }
 
 	private static ContentIdentifier create(EntityType type, String uri) {
@@ -214,9 +213,9 @@ public abstract class ContentIdentifier {
         }
 	}
     
-    public static ContentIdentifier identifierFor(ChildRef childRef) {
-        return create(childRef.getType(), childRef.getUri());
-    }
+//    public static ContentIdentifier identifierFor(ChildRef childRef) {
+//        return create(childRef.getType(), childRef.getUri());
+//    }
 
     public static ContentIdentifier identifierFrom(String canonicalUri, String type) {
         try {

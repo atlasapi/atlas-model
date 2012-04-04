@@ -17,25 +17,17 @@ package org.atlasapi.content.criteria.attribute;
 import java.util.List;
 import java.util.Map;
 
-import org.atlasapi.media.TransportType;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.Encoding;
-import org.atlasapi.media.entity.Episode;
-import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Location;
-import org.atlasapi.media.entity.MediaType;
-import org.atlasapi.media.entity.Policy;
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Topic;
-import org.atlasapi.media.entity.Version;
+import org.atlasapi.media.common.Identified;
+import org.atlasapi.media.common.Publisher;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.MediaType;
+import org.atlasapi.media.content.container.Container;
+import org.atlasapi.media.content.item.Item;
+import org.atlasapi.media.topic.Topic;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import com.metabroadcast.common.media.MimeType;
 
 public class Attributes {
 

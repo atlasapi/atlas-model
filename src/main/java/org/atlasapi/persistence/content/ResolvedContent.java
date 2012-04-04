@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.common.Identified;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

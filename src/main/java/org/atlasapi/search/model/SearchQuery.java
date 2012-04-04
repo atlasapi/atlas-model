@@ -2,12 +2,12 @@ package org.atlasapi.search.model;
 
 import java.util.Set;
 
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.common.Publisher;
+import org.atlasapi.media.content.Specialization;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.query.Selection;
-import org.atlasapi.media.entity.Specialization;
 
 public class SearchQuery {
 

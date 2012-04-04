@@ -1,7 +1,7 @@
-package org.atlasapi.persistence.content;
-
-public interface PeopleLister {
-
-	void list(PeopleListerListener handler);
-	
-}
+//package org.atlasapi.persistence.content;
+//
+//public interface PeopleLister {
+//
+//	void list(PeopleListerListener handler);
+//	
+//}

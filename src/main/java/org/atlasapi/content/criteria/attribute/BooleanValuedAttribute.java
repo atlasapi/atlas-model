@@ -4,7 +4,7 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.BooleanAttributeQuery;
 import org.atlasapi.content.criteria.operator.BooleanOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.common.Identified;
 
 public class BooleanValuedAttribute extends Attribute<Boolean> {
 

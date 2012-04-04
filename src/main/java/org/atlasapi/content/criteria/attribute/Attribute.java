@@ -14,7 +14,7 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.attribute;
 
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.common.Identified;
 
 public abstract class Attribute<T> implements QueryFactory<T> {
 

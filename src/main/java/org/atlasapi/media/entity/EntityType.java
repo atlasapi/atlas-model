@@ -2,6 +2,17 @@ package org.atlasapi.media.entity;
 
 import java.util.Map;
 
+import org.atlasapi.media.common.Described;
+import org.atlasapi.media.content.container.Brand;
+import org.atlasapi.media.content.container.Container;
+import org.atlasapi.media.content.container.Series;
+import org.atlasapi.media.content.group.ContentGroup;
+import org.atlasapi.media.content.item.Clip;
+import org.atlasapi.media.content.item.Episode;
+import org.atlasapi.media.content.item.Film;
+import org.atlasapi.media.content.item.Item;
+import org.atlasapi.media.content.item.Song;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;
@@ -17,8 +28,7 @@ public enum EntityType {
 	CONTAINER(Container.class),
     CONTENT_GROUP(ContentGroup.class),
 	BRAND(Brand.class),
-	SERIES(Series.class), 
-	PERSON(Person.class);
+	SERIES(Series.class);
 	
 	private static Map<String, EntityType> STRING_LOOKUP = Maps.uniqueIndex(ImmutableList.copyOf(values()), Functions.toStringFunction());
 	

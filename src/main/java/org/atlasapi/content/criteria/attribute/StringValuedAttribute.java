@@ -18,7 +18,7 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.StringAttributeQuery;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.content.criteria.operator.StringOperator;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.common.Identified;
 
 public class StringValuedAttribute extends Attribute<String> {
 	

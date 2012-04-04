@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.content.item.Item;
 import org.joda.time.Interval;
 
 import com.google.common.base.Objects;
