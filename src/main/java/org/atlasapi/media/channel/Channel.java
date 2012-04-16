@@ -1,14 +1,15 @@
 package org.atlasapi.media.channel;
 
+import java.util.Set;
+
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Objects;
-import com.metabroadcast.common.model.SelfModelling;
-import com.metabroadcast.common.model.SimpleModel;
+import com.google.common.collect.ImmutableSet;
 
-public class Channel extends Identified implements SelfModelling {
+public class Channel extends Identified {
     // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
     public static final int MAX_KEY_LENGTH = 31;
 
@@ -17,6 +18,7 @@ public class Channel extends Identified implements SelfModelling {
 	private MediaType mediaType;
 	private String key;
     private Publisher broadcaster;
+    private Set<Publisher> availableOn;
 
 	public Channel() {
     	
@@ -50,6 +52,10 @@ public class Channel extends Identified implements SelfModelling {
         return broadcaster;
     }
     
+    public Set<Publisher> availableOn() {
+        return availableOn;
+    }
+    
     @Deprecated
     public String key() {
     	return key;
@@ -74,19 +80,11 @@ public class Channel extends Identified implements SelfModelling {
     public void setBroadcaster(Publisher broadcaster) {
         this.broadcaster = broadcaster;
     }
-
-    @Override
-    public SimpleModel toSimpleModel() {
-        SimpleModel model = new SimpleModel();
-        model.put("name", title);
-        model.put("uri", getCanonicalUri());
-        model.put("id", String.valueOf(getId()));
-        model.put("key", key());
-
-        return model;
+    
+    public void setAvailableOn(Iterable<Publisher> availableOn) {
+        this.availableOn = ImmutableSet.copyOf(availableOn);
     }
-    
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
