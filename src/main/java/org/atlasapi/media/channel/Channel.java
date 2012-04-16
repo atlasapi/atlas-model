@@ -8,6 +8,7 @@ import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
     // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
@@ -18,7 +19,7 @@ public class Channel extends Identified {
 	private MediaType mediaType;
 	private String key;
     private Publisher broadcaster;
-    private Set<Publisher> availableOn;
+    private Set<Publisher> availableOn = Sets.newHashSet();
 
 	public Channel() {
     	
