@@ -9,9 +9,9 @@ public class Channel extends Aliased {
     private PublisherDetails publisher;
     private String title;
     private String mediaType;
-    private Set<ChannelGroup> groups;
+    private Set<ChannelGroup> channelGroups;
     private PublisherDetails broadcaster;
-    private Set<String> availableOn;
+    private Set<PublisherDetails> availableOn;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -37,12 +37,12 @@ public class Channel extends Aliased {
         return this.mediaType;
     }
 
-    public void setGroups(Iterable<ChannelGroup> groups) {
-        this.groups = ImmutableSet.copyOf(groups);
+    public void setChannelGroups(Iterable<ChannelGroup> groups) {
+        this.channelGroups = ImmutableSet.copyOf(groups);
     }
 
-    public Set<ChannelGroup> getGroups() {
-        return this.groups;
+    public Set<ChannelGroup> getChannelGroups() {
+        return this.channelGroups;
     }
 
     public PublisherDetails getBroadcaster() {
@@ -53,11 +53,11 @@ public class Channel extends Aliased {
         this.broadcaster = broadcaster;
     }
     
-    public void setAvailableOn(Iterable<String> availableOn) {
+    public void setAvailableOn(Iterable<PublisherDetails> availableOn) {
         this.availableOn = ImmutableSet.copyOf(availableOn);
     }
     
-    public Set<String> getAvailableOn() {
+    public Set<PublisherDetails> getAvailableOn() {
         return availableOn;
     }
 }
