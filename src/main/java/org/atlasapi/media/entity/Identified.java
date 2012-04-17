@@ -156,6 +156,13 @@ public class Identified {
 			return description.getCanonicalUri();
 		}
 	};
+	
+	public static final Function<Identified, Long> TO_ID = new Function<Identified, Long>() {
+        @Override
+        public Long apply(Identified input) {
+            return input.getId();
+        }
+    };
 
 	public void setEquivalentTo(Set<String> uris) {
 		this.equivalentTo = uris;
