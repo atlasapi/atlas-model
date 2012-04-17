@@ -6,6 +6,7 @@ import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -19,7 +20,7 @@ public class Channel extends Identified {
 	private MediaType mediaType;
 	private String key;
     private Publisher broadcaster;
-    private Set<Publisher> availableOn = Sets.newHashSet();
+    private Set<Publisher> availableFrom = Sets.newHashSet();
 
 	public Channel() {
     	
@@ -53,8 +54,8 @@ public class Channel extends Identified {
         return broadcaster;
     }
     
-    public Set<Publisher> availableOn() {
-        return availableOn;
+    public Set<Publisher> availableFrom() {
+        return availableFrom;
     }
     
     @Deprecated
@@ -82,8 +83,8 @@ public class Channel extends Identified {
         this.broadcaster = broadcaster;
     }
     
-    public void setAvailableOn(Iterable<Publisher> availableOn) {
-        this.availableOn = ImmutableSet.copyOf(availableOn);
+    public void setAvailableFrom(Iterable<Publisher> availableOn) {
+        this.availableFrom = ImmutableSet.copyOf(availableOn);
     }
 
     @Override
@@ -107,5 +108,12 @@ public class Channel extends Identified {
     public String toString() {
         return Objects.toStringHelper(this).addValue(getId()).addValue(getCanonicalUri()).toString();
     }
+    
+    public static final Function<Channel, String> TO_KEY = new Function<Channel, String>() {
+        @Override
+        public String apply(Channel input) {
+            return input.key();
+        }
+    };
 
 }
