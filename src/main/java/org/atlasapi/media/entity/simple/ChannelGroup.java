@@ -6,7 +6,7 @@ public class ChannelGroup extends Aliased {
 
     private PublisherDetails publisher;
     private String title;
-    private Set<String> countries;
+    private Set<String> avaialbleCountries;
     private Set<Channel> channels;
     
     public PublisherDetails getPublisherDetails() {
@@ -21,11 +21,11 @@ public class ChannelGroup extends Aliased {
     public void setTitle(String title) {
         this.title = title;
     }
-    public Set<String> getCountries() {
-        return this.countries;
+    public Set<String> getAvailableCountries() {
+        return this.avaialbleCountries;
     }
-    public void setCountries(Set<String> countries) {
-        this.countries = countries;
+    public void setAvailableCountries(Set<String> countries) {
+        this.avaialbleCountries = countries;
     }
     public Set<Channel> getChannels() {
         return this.channels;
@@ -33,5 +33,4 @@ public class ChannelGroup extends Aliased {
     public void setChannels(Set<Channel> channels) {
         this.channels = channels;
     }
-    
 }
