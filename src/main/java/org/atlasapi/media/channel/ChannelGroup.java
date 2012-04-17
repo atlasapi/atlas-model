@@ -12,8 +12,8 @@ public class ChannelGroup extends Identified {
 
     private Publisher publisher;
     private String title;
-    private Set<Country> countries;
-    
+    private Set<Country> availableCountries;
+    private ChannelGroupType type;
     private Set<Long> channels = ImmutableSet.of();
 
     public Publisher getPublisher() {
@@ -32,12 +32,12 @@ public class ChannelGroup extends Identified {
         this.title = title;
     }
 
-    public Set<Country> getCountries() {
-        return countries;
+    public Set<Country> getAvailableCountries() {
+        return availableCountries;
     }
 
-    public void setCountries(Set<Country> countries) {
-        this.countries = countries;
+    public void setAvailableCountries(Set<Country> availableCountries) {
+        this.availableCountries = availableCountries;
     }
 
     public Set<Long> getChannels() {
@@ -54,5 +54,37 @@ public class ChannelGroup extends Identified {
     
     public void addChannel(Long id) {
         this.channels = ImmutableSet.<Long>builder().addAll(channels).add(id).build();
+    }
+    
+    public ChannelGroupType getType() {
+        return type;
+    }
+
+    public void setType(ChannelGroupType type) {
+        this.type = type;
+    }
+
+    public enum ChannelGroupType {
+        PLATFORM("platform"),
+        REGION("region");
+        
+        private final String key;
+
+        private ChannelGroupType(String key) {
+            this.key = key;
+        }
+        
+        public String key() {
+            return key;
+        }
+        
+        public static ChannelGroupType fromKey(String key) {
+            for (ChannelGroupType value : ChannelGroupType.values()) {
+                if (value.key.equals(key)) {
+                    return value;
+                }
+            }
+            throw new IllegalArgumentException("Key " + key + " does not map to a ChannelGroupType");
+        }
     }
 }
