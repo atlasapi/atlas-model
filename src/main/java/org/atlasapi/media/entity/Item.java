@@ -259,11 +259,17 @@ public class Item extends Content {
 
     public Iterable<Location> flattenLocations() {
         return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
-
     }
 
     @Override
     protected String getSortKey() {
         return SortKey.keyFrom(this);
     }
+    
+    public static final Predicate<Item> IS_AVAILABLE = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return input.isAvailable();
+        }
+    };
 }
