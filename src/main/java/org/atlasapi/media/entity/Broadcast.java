@@ -25,6 +25,7 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Ordering;
 import com.metabroadcast.common.base.Maybe;
 
 /**
@@ -279,6 +280,13 @@ public class Broadcast extends Identified {
         @Override
         public boolean apply(Broadcast input) {
             return input.repeat != null && input.repeat;
+        }
+    };
+    
+    public static final Function<Broadcast, DateTime> TO_TRANSMISSION_TIME = new Function<Broadcast, DateTime>() {
+        @Override
+        public DateTime apply(Broadcast input) {
+            return input.getTransmissionTime();
         }
     };
 }

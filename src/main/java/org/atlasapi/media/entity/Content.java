@@ -17,6 +17,7 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -106,4 +107,11 @@ public abstract class Content extends Described {
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
     }
+    
+    public static final Function<Content, List<Clip>> TO_CLIPS = new Function<Content, List<Clip>>() {
+        @Override
+        public List<Clip> apply(Content input) {
+            return input.getClips();
+        }
+    };
 }

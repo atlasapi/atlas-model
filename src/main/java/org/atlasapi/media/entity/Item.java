@@ -24,7 +24,6 @@ import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
-import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
@@ -266,6 +265,12 @@ public class Item extends Content {
 
     public Iterable<Location> flattenLocations() {
         return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
-
     }
+    
+    public static final Predicate<Item> IS_AVAILABLE = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return input.isAvailable();
+        }
+    };
 }
