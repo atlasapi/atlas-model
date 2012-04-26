@@ -11,7 +11,7 @@ public class Channel extends Aliased {
     private String mediaType;
     private Set<ChannelGroup> channelGroups;
     private PublisherDetails broadcaster;
-    private Set<PublisherDetails> availableOn;
+    private Set<PublisherDetails> availableFrom;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -53,11 +53,11 @@ public class Channel extends Aliased {
         this.broadcaster = broadcaster;
     }
     
-    public void setAvailableOn(Iterable<PublisherDetails> availableOn) {
-        this.availableOn = ImmutableSet.copyOf(availableOn);
+    public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
+        this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
-    public Set<PublisherDetails> getAvailableOn() {
-        return availableOn;
+    public Set<PublisherDetails> getAvailableFrom() {
+        return availableFrom;
     }
 }
