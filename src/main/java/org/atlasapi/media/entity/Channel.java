@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
@@ -1033,12 +1034,15 @@ public class Channel implements SelfModelling {
     
     private final static Map<String, Channel> uriMap;
     private final static Map<String, Channel> keyMap;
+    private final static Map<String, Channel> fieldNameMap;
     
     private final static Pattern uriPattern = Pattern.compile("^.*\\/(.+?)\\/?$");
     
     static {
         ImmutableMap.Builder<String, Channel> uriMapBuilder = ImmutableMap.builder();
         ImmutableMap.Builder<String, Channel> keyMapBuilder = ImmutableMap.builder();
+        ImmutableMap.Builder<String, Channel> fieldNameMapBuilder = ImmutableMap.builder();
+        
         for (Field field: Channel.getClass().getFields()) {
             if (isPublicStaticFinal(field)) {
                 try {
@@ -1048,6 +1052,7 @@ public class Channel implements SelfModelling {
                         
                         uriMapBuilder.put(channel.uri(), channel);
                         keyMapBuilder.put(channel.key(), channel);
+                        fieldNameMapBuilder.put(field.getName(), channel);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1056,6 +1061,7 @@ public class Channel implements SelfModelling {
         }
         uriMap = uriMapBuilder.build();
         keyMap = keyMapBuilder.build();
+        fieldNameMap = fieldNameMapBuilder.build();
     }
 
     public Channel(String title, String uri, String key) {
@@ -1094,6 +1100,10 @@ public class Channel implements SelfModelling {
             channel = new Channel(key, CHANNEL_URI_PREFIX+key, key);
         }
         return Maybe.fromPossibleNullValue(channel);
+    }
+    
+    public static Optional<Channel> fromFieldName(String fieldName) {
+        return Optional.fromNullable(fieldNameMap.get(fieldName));
     }
 
     public static List<Channel> fromKeys(Iterable<String> keys) {
