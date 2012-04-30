@@ -6,7 +6,7 @@ public class ChannelGroup extends Aliased {
 
     private PublisherDetails publisher;
     private String title;
-    private Set<String> avaialbleCountries;
+    private Set<String> availableCountries;
     private Set<Channel> channels;
     
     public PublisherDetails getPublisherDetails() {
