@@ -22,10 +22,10 @@ public class ChannelGroup extends Aliased {
         this.title = title;
     }
     public Set<String> getAvailableCountries() {
-        return this.avaialbleCountries;
+        return this.availableCountries;
     }
     public void setAvailableCountries(Set<String> countries) {
-        this.avaialbleCountries = countries;
+        this.availableCountries = countries;
     }
     public Set<Channel> getChannels() {
         return this.channels;
