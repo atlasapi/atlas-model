@@ -13,6 +13,7 @@ public enum EntityType {
 	CLIP(Clip.class),
 	EPISODE(Episode.class),
 	FILM(Film.class),
+	SONG(Song.class),
 	CONTAINER(Container.class),
 	BRAND(Brand.class),
 	SERIES(Series.class), 
