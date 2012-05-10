@@ -23,6 +23,8 @@ public class Item extends Description {
 
 	private Integer episodeNumber;
 	private Integer seriesNumber;
+    
+    private String isrc;
 		
 	private Set<Location> locations = Sets.newHashSet();
 
@@ -166,6 +168,14 @@ public class Item extends Description {
     public void addCountry(Country country) {
         countriesOfOrigin.add(country);
     }
+
+    public void setIsrc(String isrc) {
+        this.isrc = isrc;
+    }
+
+    public String getIsrc() {
+        return isrc;
+    }
 	
 	public Item copy() {
         Item copy = new Item();
@@ -174,6 +184,7 @@ public class Item extends Description {
         
         copy.setEpisodeNumber(getEpisodeNumber());
         copy.setSeriesNumber(getSeriesNumber());
+        copy.setIsrc(getIsrc());
         copy.setLocations(Iterables.transform(getLocations(), Location.TO_COPY));
         copy.setBroadcasts(Iterables.transform(getBroadcasts(), Broadcast.TO_COPY));
         
