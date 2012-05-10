@@ -13,11 +13,12 @@ public enum EntityType {
 	CLIP(Clip.class),
 	EPISODE(Episode.class),
 	FILM(Film.class),
+	SONG(Song.class),
 	CONTAINER(Container.class),
     CONTENT_GROUP(ContentGroup.class),
 	BRAND(Brand.class),
 	SERIES(Series.class), 
-	PERSON(Person.class);
+	PERSON(Person.class),;
 	
 	private static Map<String, EntityType> STRING_LOOKUP = Maps.uniqueIndex(ImmutableList.copyOf(values()), Functions.toStringFunction());
 	
