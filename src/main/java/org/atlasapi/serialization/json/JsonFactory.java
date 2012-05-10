@@ -10,10 +10,12 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.ParentRef;
 import org.atlasapi.media.entity.RelatedLink;
+import org.atlasapi.media.entity.Version;
 
 /**
  */
@@ -21,6 +23,7 @@ public class JsonFactory {
 
     public static ObjectMapper makeJsonMapper() {
         ObjectMapper mapper = new ObjectMapper();
+        //mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_CONCRETE_AND_ARRAYS);
         mapper.disable(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, SerializationFeature.WRITE_NULL_MAP_VALUES);
         mapper.registerModule(new AtlasModule());
         mapper.registerModule(new GuavaModule());
@@ -41,7 +44,9 @@ public class JsonFactory {
         @Override
         public void setupModule(SetupContext context) {
             super.setupModule(context);
-            context.setMixInAnnotations(Identified.class, IdentifiedConfiguration.class);
+            //
+            context.setMixInAnnotations(Object.class, ObjectConfiguration.class);
+            //
             context.setMixInAnnotations(Item.class, ItemConfiguration.class);
             context.setMixInAnnotations(Broadcast.class, BroadcastConfiguration.class);
             context.setMixInAnnotations(Country.class, CountryConfiguration.class);
