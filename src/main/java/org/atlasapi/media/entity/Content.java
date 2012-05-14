@@ -131,6 +131,10 @@ public abstract class Content extends Described {
         return SortKey.DEFAULT.name();
     }
     
+    protected String getSortKey() {
+        return SortKey.DEFAULT.name();
+    }
+    
     public static final Function<Content, List<Clip>> TO_CLIPS = new Function<Content, List<Clip>>() {
         @Override
         public List<Clip> apply(Content input) {

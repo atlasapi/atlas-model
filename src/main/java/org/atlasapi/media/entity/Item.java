@@ -266,6 +266,11 @@ public class Item extends Content {
         return SortKey.keyFrom(this);
     }
     
+    @Override
+    protected String getSortKey() {
+        return SortKey.keyFrom(this);
+    }
+    
     public static final Predicate<Item> IS_AVAILABLE = new Predicate<Item>() {
         @Override
         public boolean apply(Item input) {

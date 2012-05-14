@@ -20,7 +20,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-@XmlRootElement(namespace = PLAY_SIMPLE_XML.NS)
 @XmlType(name = "content_group", namespace = PLAY_SIMPLE_XML.NS)
 public class ContentGroup extends Description {
 
