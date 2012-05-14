@@ -25,6 +25,7 @@ public class Item extends Description {
 	private Integer seriesNumber;
     
     private String isrc;
+    private Long duration;
 		
 	private Set<Location> locations = Sets.newHashSet();
 
@@ -176,6 +177,14 @@ public class Item extends Description {
     public String getIsrc() {
         return isrc;
     }
+    
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
 	
 	public Item copy() {
         Item copy = new Item();
@@ -185,6 +194,7 @@ public class Item extends Description {
         copy.setEpisodeNumber(getEpisodeNumber());
         copy.setSeriesNumber(getSeriesNumber());
         copy.setIsrc(getIsrc());
+        copy.setDuration(duration);
         copy.setLocations(Iterables.transform(getLocations(), Location.TO_COPY));
         copy.setBroadcasts(Iterables.transform(getBroadcasts(), Broadcast.TO_COPY));
         
