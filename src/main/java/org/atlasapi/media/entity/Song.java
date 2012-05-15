@@ -12,6 +12,8 @@ public class Song extends Item {
 	
 	public Song(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
+        setMediaType(MediaType.AUDIO);
+        setSpecialization(Specialization.MUSIC);
 	}
 	
 	public void setIsrc(String isrc) {
@@ -30,7 +32,7 @@ public class Song extends Item {
         return Duration.standardSeconds(duration);
     }
 	
-	public Song() {}
+	protected Song() {}
 	
 	@Override
 	public Song copy() {
