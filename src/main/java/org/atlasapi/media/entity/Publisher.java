@@ -42,7 +42,8 @@ public enum Publisher {
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    MUSIC_BRAINZ("MusicBrainz", "musicbrainz.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
+    MUSIC_BRAINZ("MusicBrainz", "musicbrainz.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
+    EMI_PUB("EMI Music Publishing", "emimusicpub.com", Countries.GB, SourceStatus.UNAVAILABLE);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     public static final int MAX_KEY_LENGTH = 20;
