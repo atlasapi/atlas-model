@@ -25,11 +25,11 @@ public class Song extends Item {
     }
 
     public void setDuration(Duration duration) {
-        this.duration = duration.getStandardSeconds();
+        this.duration = duration != null ? duration.getStandardSeconds() : null;
     }
 
     public Duration getDuration() {
-        return Duration.standardSeconds(duration);
+        return duration != null ? Duration.standardSeconds(duration) : null;
     }
 	
 	protected Song() {}
