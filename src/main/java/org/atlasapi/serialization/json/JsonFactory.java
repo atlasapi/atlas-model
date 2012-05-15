@@ -25,6 +25,7 @@ public class JsonFactory {
         mapper.registerModule(new AtlasModule());
         mapper.registerModule(new GuavaModule());
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.setVisibility(PropertyAccessor.CREATOR, Visibility.ANY);
         mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
         mapper.setVisibility(PropertyAccessor.GETTER, Visibility.NONE);
         mapper.setVisibility(PropertyAccessor.IS_GETTER, Visibility.NONE);
