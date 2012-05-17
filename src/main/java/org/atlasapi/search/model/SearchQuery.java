@@ -5,13 +5,16 @@ import java.util.Set;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.query.Selection;
+import org.atlasapi.media.entity.Specialization;
 
 public class SearchQuery {
 
 	private final String term;
 	private final Selection selection;
+    private final Set<Specialization> includedSpecializations;
 	private final Set<Publisher> includedPublishers;
     private final float titleWeighting;
     private final float broadcastWeighting;
@@ -19,12 +22,21 @@ public class SearchQuery {
 	private final Maybe<Float> priorityChannelWeighting;
 	private final Maybe<Float> firstBroadcastWeighting;
 
+    public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting);
+	}
+    
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting);
+	}
+    
+    public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
         this.broadcastWeighting = broadcastWeighting;
         this.catchupWeighting = availabilityWeighting;
+        this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 		this.priorityChannelWeighting = priorityChannelWeighting;
 		this.firstBroadcastWeighting = firstBroadcastWeighting;
@@ -37,6 +49,10 @@ public class SearchQuery {
 	public Selection getSelection() {
 		return selection;
 	}
+    
+    public Set<Specialization> getIncludedSpecializations() {
+        return includedSpecializations;
+    }
 	
 	public Set<Publisher> getIncludedPublishers() {
 		return includedPublishers;
