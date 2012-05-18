@@ -9,32 +9,7 @@ import com.google.common.collect.Ordering;
 
 public class Container extends Content {
 
-	protected ImmutableList<ChildRef> childRefs = ImmutableList.of();
-	protected final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
-
-	public Container(String uri, String curie, Publisher publisher) {
-		super(uri, curie, publisher);
-	}
-    
-    public Container() {}
-    
-    @RdfProperty(uri="child",relation=true)
-    public ImmutableList<ChildRef> getChildRefs() {
-        return childRefs;
-    }
-    
-    public void setChildRefs(Iterable<ChildRef> childRefs) {
-        this.childRefs = ImmutableList.copyOf(childRefs);
-    }
-    
-    public Container toSummary() {
-        Container summary = new Container(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
-        summary.setTitle(this.getTitle());
-        summary.setDescription(this.getDescription());
-        return summary;
-    }
-    
-    private final Comparator<Item> seriesAndEpisodeFallBack = new Comparator<Item>() {
+    private final static Comparator<Item> seriesAndEpisodeFallBack = new Comparator<Item>() {
         @Override
         public int compare(Item item1, Item item2) {
             if (item1 instanceof Episode && item2 instanceof Episode) {
@@ -87,9 +62,36 @@ public class Container extends Content {
             return item1.getCanonicalUri().compareTo(item2.getCanonicalUri());
         }
     };
+    //
+    private static final Ordering<Identified> lastUpdatedOrdering = Ordering.from(DESCENDING_LAST_UPDATED);
+    private static final Ordering<Item> seriesAndEpisodeOrdering = Ordering.from(seriesAndEpisodeFallBack);
+	//
+    protected ImmutableList<ChildRef> childRefs = ImmutableList.of();
+
+	public Container(String uri, String curie, Publisher publisher) {
+		super(uri, curie, publisher);
+	}
     
-    protected final Ordering<Item> seriesAndEpisodeOrdering = Ordering.from(seriesAndEpisodeFallBack);
+    public Container() {}
     
+    @RdfProperty(uri="child",relation=true)
+    public ImmutableList<ChildRef> getChildRefs() {
+        return childRefs;
+    }
+    
+    public void setChildRefs(Iterable<ChildRef> childRefs) {
+        this.childRefs = ImmutableList.copyOf(childRefs);
+    }
+    
+    public Container toSummary() {
+        Container summary = new Container(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
+        summary.setTitle(this.getTitle());
+        summary.setDescription(this.getDescription());
+        return summary;
+    }
+    
+    
+        
     public Container copy() {
         Container copy = new Container();
         copyTo(this, copy);
@@ -99,5 +101,5 @@ public class Container extends Content {
     public final static <T extends Item> void copyTo(Container from, Container to) {
         Content.copyTo(from, to);
         to.childRefs = ImmutableList.copyOf(from.childRefs);
-    }
+    }    
 }
