@@ -12,8 +12,8 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
-@XmlRootElement(namespace = PLAY_SIMPLE_XML.NS, name = "contentGroup")
-@XmlType(name = "contentGroup", namespace = PLAY_SIMPLE_XML.NS)
+@XmlRootElement(namespace = PLAY_SIMPLE_XML.NS, name = "contentGroups")
+@XmlType(name = "contentGroups", namespace = PLAY_SIMPLE_XML.NS)
 public class ContentGroupQueryResult {
 
     private List<ContentGroup> contentGroups = Lists.newArrayList();
