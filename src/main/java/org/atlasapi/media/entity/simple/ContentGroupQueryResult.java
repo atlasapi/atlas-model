@@ -16,29 +16,29 @@ import com.google.common.collect.Lists;
 @XmlType(name = "contentGroups", namespace = PLAY_SIMPLE_XML.NS)
 public class ContentGroupQueryResult {
 
-    private List<ContentGroup> groups = Lists.newArrayList();
+    private List<ContentGroup> contentGroups = Lists.newArrayList();
 
     public void add(ContentGroup group) {
-        groups.add(group);
+        contentGroups.add(group);
     }
 
     @XmlElements(
     @XmlElement(name = "contentGroup", type = ContentGroup.class, namespace = PLAY_SIMPLE_XML.NS))
     public List<ContentGroup> getContentGroups() {
-        return groups;
+        return contentGroups;
     }
 
     public void setContentGroups(Iterable<ContentGroup> contentGroups) {
-        this.groups = Lists.newArrayList(contentGroups);
+        this.contentGroups = Lists.newArrayList(contentGroups);
     }
 
     public boolean isEmpty() {
-        return groups.isEmpty();
+        return contentGroups.isEmpty();
     }
 
     @Override
     public int hashCode() {
-        return groups.hashCode();
+        return contentGroups.hashCode();
     }
 
     @Override
@@ -48,13 +48,13 @@ public class ContentGroupQueryResult {
         }
         if (this instanceof ContentGroupQueryResult) {
             ContentGroupQueryResult other = (ContentGroupQueryResult) obj;
-            return groups.equals(other.groups);
+            return contentGroups.equals(other.contentGroups);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).addValue(groups).toString();
+        return Objects.toStringHelper(this).addValue(contentGroups).toString();
     }
 }
