@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.simple;
 public class KeyPhrase {
 
     private String phrase;
+    @Deprecated
     private PublisherDetails publisher;
     private Double weighting;
     
