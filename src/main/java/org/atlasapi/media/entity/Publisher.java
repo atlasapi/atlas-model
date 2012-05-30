@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import org.atlasapi.application.SourceStatus;
 
 import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -44,10 +43,11 @@ public enum Publisher {
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     MUSIC_BRAINZ("MusicBrainz", "musicbrainz.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
-    EMI_PUB("EMI Music Publishing", "emimusicpub.com", Countries.GB, SourceStatus.UNAVAILABLE);
+    EMI_PUB("EMI Music Publishing", "emimusicpub.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
-    public static final int MAX_KEY_LENGTH = 20;
 
     private final String key;
     private final Country country;
@@ -56,7 +56,6 @@ public enum Publisher {
 
     Publisher(String title, String key, Country country, SourceStatus defaultStatus) {
         this.title = title;
-        Preconditions.checkArgument(key.length() <= MAX_KEY_LENGTH);
         this.key = key;
         this.country = country;
         this.defaultStatus = defaultStatus;
