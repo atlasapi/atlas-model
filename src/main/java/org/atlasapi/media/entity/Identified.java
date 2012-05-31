@@ -190,8 +190,9 @@ public class Identified {
      * equivalence (since content is persisted independently
      * there is often a window of inconsistency)
      */
-	public boolean isEquivalentTo(Identified content) {
-		return equivalentTo.contains(content.getCanonicalUri()) || content.equivalentTo.contains(canonicalUri);
+	public boolean isEquivalentTo(Described content) {
+		return equivalentTo.contains(LookupRef.from(content))
+	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_ID), canonicalUri);
 	}
 	
 	public static void copyTo(Identified from, Identified to) {
