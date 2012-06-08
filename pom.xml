@@ -94,6 +94,6 @@
     </repositories>
     
     <properties>
-        <common.version>1.0-SNAPSHOT</common.version>
+        <common.version>1.5-SNAPSHOT</common.version>
     </properties>
 </project>
