@@ -15,6 +15,7 @@ public enum EntityType {
 	FILM(Film.class),
 	SONG(Song.class),
 	CONTAINER(Container.class),
+    CONTENT_GROUP(ContentGroup.class),
 	BRAND(Brand.class),
 	SERIES(Series.class), 
 	PERSON(Person.class);

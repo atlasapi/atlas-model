@@ -7,12 +7,13 @@ import com.google.common.base.Objects;
 public final class KeyPhrase {
 
     private String phrase;
+    @Deprecated
     private Publisher publisher;
     private Double weighting;
     
     public KeyPhrase(String phrase, Publisher publisher, Double weighting) {
         this.phrase = checkNotNull(phrase);
-        this.publisher = checkNotNull(publisher);
+        this.publisher = publisher;
         this.weighting = weighting;
     }
     
