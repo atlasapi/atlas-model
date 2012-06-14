@@ -39,7 +39,8 @@ public class CrewMember extends Identified {
         REPORTER("reporter", "Reporter"),
         COMMENTATOR("commentator", "Commentator"),
         EXPERT("expert", "Expert"),
-        ARTIST("artist", "Artist"),;
+        ARTIST("artist", "Artist"),
+        CONTRIBUTOR("contributor", "Contributor");
         
         private final String key;
         private final String title;
