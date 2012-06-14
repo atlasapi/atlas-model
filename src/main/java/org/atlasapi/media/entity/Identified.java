@@ -36,7 +36,7 @@ public class Identified {
 
 	private Set<String> aliases = Sets.newHashSet();
 	
-	private Set<String> equivalentTo = Sets.newHashSet();
+	private Set<LookupRef> equivalentTo = Sets.newHashSet();
 	
 	/**
 	 * Records the time that the 3rd party reported that the
@@ -132,12 +132,12 @@ public class Identified {
 		return lastUpdated;
 	}
 	
-	public void addEquivalentTo(Identified content) {
+	public void addEquivalentTo(Described content) {
 		checkNotNull(content.getCanonicalUri());
-		this.equivalentTo.add(content.getCanonicalUri());
+		this.equivalentTo.add(LookupRef.from(content));
 	}
 	
-	public Set<String> getEquivalentTo() {
+	public Set<LookupRef> getEquivalentTo() {
 		return equivalentTo;
 	}
 	
@@ -164,7 +164,7 @@ public class Identified {
         }
     };
 
-	public void setEquivalentTo(Set<String> uris) {
+	public void setEquivalentTo(Set<LookupRef> uris) {
 		this.equivalentTo = uris;
 	}
 	
@@ -190,8 +190,9 @@ public class Identified {
      * equivalence (since content is persisted independently
      * there is often a window of inconsistency)
      */
-	public boolean isEquivalentTo(Identified content) {
-		return equivalentTo.contains(content.getCanonicalUri()) || content.equivalentTo.contains(canonicalUri);
+	public boolean isEquivalentTo(Described content) {
+		return equivalentTo.contains(LookupRef.from(content))
+	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_ID), canonicalUri);
 	}
 	
 	public static void copyTo(Identified from, Identified to) {
