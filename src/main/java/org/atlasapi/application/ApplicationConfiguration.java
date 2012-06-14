@@ -159,4 +159,16 @@ public class ApplicationConfiguration {
         }
         return publishers;
     }
+    
+    private ImmutableList<Publisher> peoplePrecedence() {
+        return ImmutableList.of(Publisher.RADIO_TIMES);
+    }
+    
+    public boolean peoplePrecedenceEnabled() {
+        return peoplePrecedence() != null;
+    }
+    
+    public Ordering<Publisher> peoplePrecedenceOrdering() {
+        return Ordering.explicit(appendMissingPublishersTo(peoplePrecedence()));
+    }
 }
