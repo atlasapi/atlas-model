@@ -9,6 +9,6 @@ import org.atlasapi.media.entity.RelatedLink.LinkType;
 public abstract class RelatedLinkConfiguration {
     
     @JsonCreator
-    public RelatedLinkConfiguration(@JsonProperty("type") LinkType type, @JsonProperty("url") String url) {
+    RelatedLinkConfiguration(@JsonProperty("type") LinkType type, @JsonProperty("url") String url) {
     }
 }
