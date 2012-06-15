@@ -39,6 +39,9 @@ public class TopicRef {
         this.offset = offset;
     }
 
+    private TopicRef() {
+    }
+    
     public void setTopic(Topic topic) {
         this.topic = topic.getId();
     }
