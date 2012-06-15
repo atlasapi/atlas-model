@@ -6,6 +6,7 @@ import org.atlasapi.messaging.BeginReplayMessage;
 import org.atlasapi.messaging.EndReplayMessage;
 import org.atlasapi.messaging.EntityUpdatedMessage;
 import org.atlasapi.messaging.ReplayMessage;
+import org.atlasapi.persistence.messaging.event.EntityUpdatedEvent;
 
 /**
  */
@@ -22,5 +23,6 @@ public class MessagingModule extends SimpleModule {
         context.setMixInAnnotations(BeginReplayMessage.class, AbstractMessageConfiguration.class);
         context.setMixInAnnotations(ReplayMessage.class, ReplayMessageConfiguration.class);
         context.setMixInAnnotations(EndReplayMessage.class, AbstractMessageConfiguration.class);
+        context.setMixInAnnotations(EntityUpdatedEvent.class, AbstractEventConfiguration.class);
     }
 }
