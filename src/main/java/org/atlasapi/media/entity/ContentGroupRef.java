@@ -17,6 +17,9 @@ public class ContentGroupRef {
 		this.uri = contentGroup.getCanonicalUri();
 	}
 
+    private ContentGroupRef() {
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
