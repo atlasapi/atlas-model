@@ -24,6 +24,9 @@ public class TopicRef {
         this.relationship = relationship;
     }
 
+    private TopicRef() {
+    }
+    
     public void setTopic(Topic topic) {
         this.topic = topic.getId();
     }
@@ -111,4 +114,5 @@ public class TopicRef {
             return name;
         }
     }
+
 }
