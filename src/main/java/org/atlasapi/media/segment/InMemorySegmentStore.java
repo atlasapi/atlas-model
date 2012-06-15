@@ -3,7 +3,7 @@ package org.atlasapi.media.segment;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Publisher;
 
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;

@@ -2,7 +2,7 @@ package org.atlasapi.media.segment;
 
 import java.util.Map;
 
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Publisher;
 
 import com.metabroadcast.common.base.Maybe;
 

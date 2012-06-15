@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.content.Described;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;

@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.shorturls;
 
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 
 public interface ShortUrlSaver {
 

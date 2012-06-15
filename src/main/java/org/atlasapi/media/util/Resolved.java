@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;

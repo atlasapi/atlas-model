@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PreDestroy;
 
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.content.ChildRef;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.Person;
 import org.atlasapi.persistence.logging.AdapterLog;
 import org.atlasapi.persistence.logging.AdapterLogEntry;
 import org.atlasapi.persistence.logging.AdapterLogEntry.Severity;

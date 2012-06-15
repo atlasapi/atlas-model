@@ -1,13 +1,13 @@
 package org.atlasapi.persistence.lookup.entry;
 
-import static org.atlasapi.persistence.content.ContentCategory.categoryFor;
+import static org.atlasapi.media.content.util.ContentCategory.categoryFor;
 
 import java.util.List;
 
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Described;
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.persistence.content.ContentCategory;
+import org.atlasapi.media.content.ChildRef;
+import org.atlasapi.media.content.Described;
+import org.atlasapi.media.content.Publisher;
+import org.atlasapi.media.content.util.ContentCategory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;

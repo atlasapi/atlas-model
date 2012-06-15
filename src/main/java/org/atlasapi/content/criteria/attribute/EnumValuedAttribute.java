@@ -18,7 +18,7 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.EnumAttributeQuery;
 import org.atlasapi.content.criteria.operator.EnumOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 
 public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
 	

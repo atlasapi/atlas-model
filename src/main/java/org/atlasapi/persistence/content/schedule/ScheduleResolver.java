@@ -1,8 +1,8 @@
 package org.atlasapi.persistence.content.schedule;
 
 import org.atlasapi.media.channel.Channel;
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Schedule;
+import org.atlasapi.media.content.Publisher;
+import org.atlasapi.media.content.Schedule;
 import org.joda.time.DateTime;
 
 public interface ScheduleResolver {

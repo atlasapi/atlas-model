@@ -3,16 +3,16 @@ package org.atlasapi.persistence.lookup;
 import static com.google.common.base.Predicates.in;
 import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Iterables.filter;
-import static org.atlasapi.media.entity.Identified.TO_URI;
+import static org.atlasapi.media.content.Identified.TO_URI;
 
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.Described;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.Described;
+import org.atlasapi.media.content.Publisher;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
 import org.atlasapi.persistence.lookup.entry.LookupEntryStore;
 import org.atlasapi.persistence.lookup.entry.LookupRef;

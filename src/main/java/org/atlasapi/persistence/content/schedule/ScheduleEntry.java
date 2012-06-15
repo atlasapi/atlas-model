@@ -5,9 +5,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Comparator;
 
 import org.atlasapi.media.channel.Channel;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Broadcast;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.Publisher;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 

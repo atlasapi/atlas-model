@@ -1,6 +1,6 @@
 package org.atlasapi.media.product;
 
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Publisher;
 
 import com.google.common.base.Optional;
 import com.metabroadcast.common.ids.IdGenerator;

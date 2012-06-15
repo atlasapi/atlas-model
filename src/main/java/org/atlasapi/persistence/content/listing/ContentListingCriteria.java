@@ -4,8 +4,8 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import java.util.List;
 
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.persistence.content.ContentCategory;
+import org.atlasapi.media.content.Publisher;
+import org.atlasapi.media.content.util.ContentCategory;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;

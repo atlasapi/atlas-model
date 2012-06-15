@@ -9,11 +9,12 @@ import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import org.atlasapi.media.entity.Clip;
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Version;
+
+import org.atlasapi.media.content.Clip;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.Publisher;
+import org.atlasapi.media.content.Version;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

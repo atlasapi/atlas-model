@@ -8,12 +8,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.metabroadcast.common.intl.Country;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.ParentRef;
-import org.atlasapi.media.entity.RelatedLink;
+
+import org.atlasapi.media.content.Broadcast;
+import org.atlasapi.media.content.ChildRef;
+import org.atlasapi.media.content.Container;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.ParentRef;
+import org.atlasapi.media.content.RelatedLink;
 
 /**
  */

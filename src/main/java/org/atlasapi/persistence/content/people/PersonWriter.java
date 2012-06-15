@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.content.people;
 
-import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.content.Person;
 
 public interface PersonWriter {
 

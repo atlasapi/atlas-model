@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.atlasapi.media.content.Broadcast;
+import org.atlasapi.media.content.Episode;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.Publisher;
+import org.atlasapi.media.content.SortKey;
+import org.atlasapi.media.content.Version;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;

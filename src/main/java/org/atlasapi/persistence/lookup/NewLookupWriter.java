@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.lookup;
 
-import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.content.Content;
 
 public interface NewLookupWriter {
     

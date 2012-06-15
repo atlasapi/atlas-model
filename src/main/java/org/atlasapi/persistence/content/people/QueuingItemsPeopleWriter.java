@@ -1,7 +1,7 @@
 package org.atlasapi.persistence.content.people;
 
-import org.atlasapi.media.entity.CrewMember;
-import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.content.CrewMember;
+import org.atlasapi.media.content.Item;
 import org.atlasapi.persistence.logging.AdapterLog;
 import org.atlasapi.persistence.logging.AdapterLogEntry;
 import org.atlasapi.persistence.logging.AdapterLogEntry.Severity;

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.atlasapi.content.criteria.ContentQuery;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 
 public interface KnownTypeQueryExecutor {
 

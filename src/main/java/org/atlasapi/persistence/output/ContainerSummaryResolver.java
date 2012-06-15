@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.output;
 
-import org.atlasapi.media.entity.ParentRef;
+import org.atlasapi.media.content.ParentRef;
 import org.atlasapi.media.entity.simple.BrandSummary;
 import org.atlasapi.media.entity.simple.SeriesSummary;
 

@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.output;
 
-import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.content.Container;
 
 public interface AvailableChildrenResolver {
 

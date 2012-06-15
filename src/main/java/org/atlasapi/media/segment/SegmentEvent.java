@@ -2,8 +2,8 @@ package org.atlasapi.media.segment;
 
 import java.util.Comparator;
 
-import org.atlasapi.media.entity.Description;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Description;
+import org.atlasapi.media.content.Identified;
 import org.joda.time.Duration;
 
 import com.google.common.base.Function;

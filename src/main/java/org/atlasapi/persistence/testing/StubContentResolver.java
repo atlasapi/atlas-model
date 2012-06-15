@@ -2,10 +2,10 @@ package org.atlasapi.persistence.testing;
 
 import java.util.Map;
 
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.persistence.content.ContentResolver;
-import org.atlasapi.persistence.content.ResolvedContent;
-import org.atlasapi.persistence.content.ResolvedContent.ResolvedContentBuilder;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.ContentResolver;
+import org.atlasapi.media.content.ResolvedContent;
+import org.atlasapi.media.content.ResolvedContent.ResolvedContentBuilder;
 
 import com.google.common.collect.Maps;
 

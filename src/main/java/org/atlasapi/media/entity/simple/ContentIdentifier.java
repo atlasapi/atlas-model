@@ -3,9 +3,9 @@ package org.atlasapi.media.entity.simple;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Described;
-import org.atlasapi.media.entity.EntityType;
+import org.atlasapi.media.content.ChildRef;
+import org.atlasapi.media.content.Described;
+import org.atlasapi.media.content.EntityType;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;

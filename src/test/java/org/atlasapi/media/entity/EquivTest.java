@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+import org.atlasapi.media.content.Equiv;
 import org.junit.Test;
 
 public class EquivTest {

@@ -27,7 +27,7 @@ import org.atlasapi.content.criteria.IntegerAttributeQuery;
 import org.atlasapi.content.criteria.MatchesNothing;
 import org.atlasapi.content.criteria.QueryVisitor;
 import org.atlasapi.content.criteria.StringAttributeQuery;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 
 import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;

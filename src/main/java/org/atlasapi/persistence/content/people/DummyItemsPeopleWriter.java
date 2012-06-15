@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.content.people;
 
-import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.content.Item;
 
 public class DummyItemsPeopleWriter implements ItemsPeopleWriter {
 

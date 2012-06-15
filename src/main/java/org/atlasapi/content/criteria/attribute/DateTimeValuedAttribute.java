@@ -18,7 +18,7 @@ import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.DateTimeAttributeQuery;
 import org.atlasapi.content.criteria.operator.DateTimeOperator;
 import org.atlasapi.content.criteria.operator.Operator;
-import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.content.Identified;
 import org.joda.time.DateTime;
 
 public class DateTimeValuedAttribute extends Attribute<DateTime> {

@@ -17,6 +17,7 @@ package org.atlasapi.media.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import org.atlasapi.media.content.Broadcast;
 import org.joda.time.Duration;
 import org.junit.Test;
 

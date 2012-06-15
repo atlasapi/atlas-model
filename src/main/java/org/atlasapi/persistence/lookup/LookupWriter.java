@@ -2,8 +2,8 @@ package org.atlasapi.persistence.lookup;
 
 import java.util.Set;
 
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.Publisher;
 
 public interface LookupWriter {
 

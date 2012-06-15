@@ -2,8 +2,8 @@ package org.atlasapi.persistence.content.listing;
 
 import java.util.Iterator;
 
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.Publisher;
 import org.joda.time.DateTime;
 
 public interface LastUpdatedContentFinder {

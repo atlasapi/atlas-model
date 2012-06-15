@@ -2,9 +2,9 @@ package org.atlasapi.persistence.content;
 
 import java.util.concurrent.TimeUnit;
 
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Person;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.Person;
+import org.atlasapi.media.content.Publisher;
 import org.atlasapi.persistence.content.people.PersonWriter;
 import org.atlasapi.persistence.content.people.QueuingPersonWriter;
 import org.atlasapi.persistence.logging.SystemOutAdapterLog;

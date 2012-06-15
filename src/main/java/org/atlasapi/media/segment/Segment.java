@@ -3,9 +3,9 @@ package org.atlasapi.media.segment;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.atlasapi.media.SegmentType;
-import org.atlasapi.media.entity.Description;
-import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.content.Description;
+import org.atlasapi.media.content.Identified;
+import org.atlasapi.media.content.Publisher;
 import org.joda.time.Duration;
 
 import com.google.common.base.Function;
