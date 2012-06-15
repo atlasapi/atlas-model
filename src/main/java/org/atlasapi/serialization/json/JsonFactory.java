@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import java.util.Collections;
+import org.atlasapi.serialization.json.configuration.messaging.MessagingModule;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.atlasapi.serialization.json.configuration.model.ModelModule;
@@ -26,6 +27,7 @@ public class JsonFactory {
         mapper.registerModule(new GuavaModule());
         mapper.registerModule(new GenericModule());
         mapper.registerModule(new ModelModule());
+        mapper.registerModule(new MessagingModule());
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.setVisibility(PropertyAccessor.CREATOR, Visibility.ANY);
         mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
