@@ -21,11 +21,15 @@ import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
 import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.Broadcast;
+import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.ParentRef;
 import org.atlasapi.media.entity.RelatedLink;
+import org.atlasapi.media.entity.ReleaseDate;
+import org.atlasapi.media.entity.Subtitles;
 
 /**
  */
