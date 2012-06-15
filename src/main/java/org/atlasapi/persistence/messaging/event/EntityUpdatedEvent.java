@@ -15,5 +15,4 @@ public class EntityUpdatedEvent extends AbstractEvent {
     public void dispatchTo(Worker worker) {
         worker.process(this);
     }
-    
 }
