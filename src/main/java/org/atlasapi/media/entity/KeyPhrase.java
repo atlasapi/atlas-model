@@ -21,6 +21,9 @@ public final class KeyPhrase {
         this(phrase, publisher, null);
     }
 
+    private KeyPhrase() {
+    }
+
     public String getPhrase() {
         return this.phrase;
     }

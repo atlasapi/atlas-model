@@ -19,6 +19,9 @@ public class TopicRef {
 		this.weighting = weighting;
 		this.supervised = supervised;
 	}
+
+    private TopicRef() {
+    }
 	
 	public void setTopic(Topic topic) {
 		this.topic = topic.getId();
