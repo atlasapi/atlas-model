@@ -33,6 +33,7 @@ import java.util.Collections;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.atlasapi.serialization.json.configuration.model.ModelModule;
+import org.joda.time.LocalDateTime;
 
 /**
  */
@@ -76,7 +77,7 @@ public class JsonFactory {
         }
     }
     
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_ARRAY, property = "@class")
     private static interface ObjectConfiguration {
     }
 }
