@@ -2,13 +2,13 @@ package org.atlasapi.serialization.json.configuration.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.RelatedLink.LinkType;
 
 /**
  */
-public interface RelatedLinkConfiguration {
+public abstract class RelatedLinkConfiguration {
     
     @JsonCreator
-    RelatedLink make(@JsonProperty("type") LinkType type, @JsonProperty("url") String url);
+    public RelatedLinkConfiguration(@JsonProperty("type") LinkType type, @JsonProperty("url") String url) {
+    }
 }
