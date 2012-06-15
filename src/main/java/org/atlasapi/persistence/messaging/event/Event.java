@@ -1,0 +1,29 @@
+package org.atlasapi.persistence.messaging.event;
+
+import org.atlasapi.persistence.messaging.worker.Worker;
+
+/**
+ * Base interface for events to be dispatched to {@link org.atlasapi.persistence.messaging.worker.Worker}s.
+ */
+public interface Event {
+    
+    /**
+     * Get a unique id for the changeset represented by this event.
+     */
+    String getChangeId();
+    
+    /**
+     * Get the id of the entity this event refers to.
+     */
+    String getEntityId();
+    
+    /**
+     * Get the type of the entity this event refers to.
+     */
+    String getEntityType();
+    
+    /*
+     * Dispatch this event to the given {@link org.atlasapi.persistence.messaging.worker.Worker}.
+     */
+    void dispatchTo(Worker worker);
+}
