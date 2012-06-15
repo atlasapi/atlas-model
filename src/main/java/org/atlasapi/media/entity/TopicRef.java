@@ -158,4 +158,5 @@ public class TopicRef {
                                                 : Optional.<Relationship>absent();
         }
     }
+
 }
