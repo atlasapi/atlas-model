@@ -3,9 +3,9 @@ package org.atlasapi.media.content.util;
 import java.util.Map;
 
 import org.atlasapi.media.content.Identified;
+import org.atlasapi.media.content.LookupRef;
 import org.atlasapi.media.content.ResolvedContent;
 import org.atlasapi.media.content.ResolvedContent.ResolvedContentBuilder;
-import org.atlasapi.persistence.lookup.entry.LookupRef;
 
 import com.google.common.collect.Maps;
 

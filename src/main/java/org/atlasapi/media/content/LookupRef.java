@@ -1,12 +1,9 @@
-package org.atlasapi.persistence.lookup.entry;
+package org.atlasapi.media.content;
 
 import static org.atlasapi.media.content.util.ContentCategory.categoryFor;
 
 import java.util.List;
 
-import org.atlasapi.media.content.ChildRef;
-import org.atlasapi.media.content.Described;
-import org.atlasapi.media.content.Publisher;
 import org.atlasapi.media.content.util.ContentCategory;
 
 import com.google.common.base.Function;
@@ -45,6 +42,13 @@ public class LookupRef {
         @Override
         public String apply(LookupRef input) {
             return input.id();
+        }
+    };
+    
+    public static Function<LookupRef,Publisher> TO_SOURCE = new Function<LookupRef, Publisher>() {
+        @Override
+        public Publisher apply(LookupRef input) {
+            return input.publisher();
         }
     };
     

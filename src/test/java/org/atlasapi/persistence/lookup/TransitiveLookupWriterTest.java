@@ -1,5 +1,7 @@
 package org.atlasapi.persistence.lookup;
 
+import static org.atlasapi.persistence.lookup.TransitiveLookupWriter.generatedTransitiveLookupWriter;
+
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -8,11 +10,11 @@ import org.atlasapi.media.content.Brand;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.content.Identified;
 import org.atlasapi.media.content.Item;
+import org.atlasapi.media.content.LookupRef;
 import org.atlasapi.media.content.Publisher;
 import org.atlasapi.media.content.util.ContentCategory;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
 import org.atlasapi.persistence.lookup.entry.LookupEntryStore;
-import org.atlasapi.persistence.lookup.entry.LookupRef;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -21,13 +23,15 @@ import com.google.common.collect.Iterables;
 public class TransitiveLookupWriterTest extends TestCase {
 
     private final LookupEntryStore store = new InMemoryLookupEntryStore();
-    private final TransitiveLookupWriter writer = new TransitiveLookupWriter(store);
+    private final TransitiveLookupWriter writer = generatedTransitiveLookupWriter(store);
 
     // Tests that trivial lookups are written reflexively for all content
     // identifiers
     public void testWriteNewLookup() {
 
         Item item = createItem("test", Publisher.BBC);
+        
+        store.store(LookupEntry.lookupEntryFrom(item));
 
         writer.writeLookup(item, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.BBC));
 
@@ -71,9 +75,9 @@ public class TransitiveLookupWriterTest extends TestCase {
 
         Set<Publisher> publishers = ImmutableSet.of(Publisher.PA, Publisher.BBC, Publisher.C4, Publisher.ITUNES);
         // Inserts reflexive entries for items PA, BBC, C4
-        writer.writeLookup(paItem, ImmutableSet.<Content> of(), publishers);
-        writer.writeLookup(bbcItem, ImmutableSet.<Content> of(), publishers);
-        writer.writeLookup(c4Item, ImmutableSet.<Content> of(), publishers);
+        store.store(LookupEntry.lookupEntryFrom(paItem));
+        store.store(LookupEntry.lookupEntryFrom(bbcItem));
+        store.store(LookupEntry.lookupEntryFrom(c4Item));
 
         // Make items BBC and C4 equivalent.
         writer.writeLookup(bbcItem, ImmutableSet.<Content> of(c4Item), publishers);
@@ -127,7 +131,7 @@ public class TransitiveLookupWriterTest extends TestCase {
 
         // Add a new item from Itunes.
         Item itunesItem = createItem("test4", Publisher.ITUNES);
-        writer.writeLookup(itunesItem, ImmutableSet.<Content> of(), publishers);
+        store.store(LookupEntry.lookupEntryFrom(itunesItem));
 
         // Make PA equivalent to just Itunes, instead of BBC. PA and Itunes equivalent, BBC and
         // C4 equivalent.
@@ -177,6 +181,10 @@ public class TransitiveLookupWriterTest extends TestCase {
         Brand pivot = new Brand("pivot", "cpivot", Publisher.PA);
         Brand left = new Brand("left", "cleft", Publisher.PA);
         Brand right = new Brand("right", "cright", Publisher.PA);
+        
+        store.store(LookupEntry.lookupEntryFrom(pivot));
+        store.store(LookupEntry.lookupEntryFrom(left));
+        store.store(LookupEntry.lookupEntryFrom(right));
 
         Set<Publisher> publishers = ImmutableSet.of(Publisher.PA);
         writer.writeLookup(pivot, ImmutableSet.of(left,right), publishers);
@@ -193,6 +201,9 @@ public class TransitiveLookupWriterTest extends TestCase {
         
         Item paItem = createItem("paItem",Publisher.PA);
         Item c4Item = createItem("c4Item",Publisher.C4);
+        
+        store.store(LookupEntry.lookupEntryFrom(paItem));
+        store.store(LookupEntry.lookupEntryFrom(c4Item));
         
         writer.writeLookup(paItem, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.PA));
         writer.writeLookup(c4Item, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.C4));
@@ -214,6 +225,11 @@ public class TransitiveLookupWriterTest extends TestCase {
         Item c4Item = createItem("c4Item1",Publisher.C4);
         Item bbcItem = createItem("bbcItem1",Publisher.BBC);
         Item fiveItem = createItem("fiveItem1", Publisher.FIVE);
+        
+        store.store(LookupEntry.lookupEntryFrom(paItem));
+        store.store(LookupEntry.lookupEntryFrom(c4Item));
+        store.store(LookupEntry.lookupEntryFrom(bbcItem));
+        store.store(LookupEntry.lookupEntryFrom(fiveItem));
         
         writer.writeLookup(paItem, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.PA));
         writer.writeLookup(c4Item, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.C4));
@@ -272,11 +288,11 @@ public class TransitiveLookupWriterTest extends TestCase {
         Item paItem = createItem("paItem2",Publisher.PA);
         Item pnItem = createItem("pnItem2",Publisher.PREVIEW_NETWORKS);
         Item bbcItem = createItem("bbcItem2",Publisher.BBC);
+        
+        store.store(LookupEntry.lookupEntryFrom(paItem));
+        store.store(LookupEntry.lookupEntryFrom(pnItem));
+        store.store(LookupEntry.lookupEntryFrom(bbcItem));
     
-        writer.writeLookup(paItem, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.PA));
-        writer.writeLookup(pnItem, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.PREVIEW_NETWORKS));
-        writer.writeLookup(bbcItem, ImmutableSet.<Content> of(), ImmutableSet.of(Publisher.BBC));
-
         //Make PA and BBC equivalent
         writer.writeLookup(paItem, ImmutableSet.of(bbcItem), ImmutableSet.of(Publisher.PA, Publisher.BBC));
         

@@ -1,7 +1,7 @@
 package org.atlasapi.media.content.util;
 
+import org.atlasapi.media.content.LookupRef;
 import org.atlasapi.media.content.ResolvedContent;
-import org.atlasapi.persistence.lookup.entry.LookupRef;
 
 import com.google.common.base.Predicates;
 
