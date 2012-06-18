@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import java.util.Collections;
 import org.atlasapi.serialization.json.configuration.messaging.MessagingModule;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
@@ -24,6 +25,7 @@ public class JsonFactory {
     public static ObjectMapper makeJsonMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, SerializationFeature.WRITE_NULL_MAP_VALUES);
+        mapper.registerModule(new JodaModule());
         mapper.registerModule(new GuavaModule());
         mapper.registerModule(new GenericModule());
         mapper.registerModule(new ModelModule());
@@ -56,7 +58,7 @@ public class JsonFactory {
         }
     }
     
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_ARRAY, property = "@class")
     private static interface ObjectConfiguration {
     }
 }

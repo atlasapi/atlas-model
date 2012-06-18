@@ -8,12 +8,18 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
+import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.EntityType;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
+import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -59,6 +65,47 @@ public class JsonFactoryTest {
         String versionsJson = mapper.writeValueAsString(item.getVersions());
         Collection<Version> readVersions = mapper.readValue(versionsJson, TypeFactory.defaultInstance().constructCollectionType(Collection.class, Version.class));
         assertEquals(1, readVersions.size());
+    }
+
+    @Test
+    public void testUnfilteredContainer() throws Exception {
+        Container container = new Container("uri", "curie", Publisher.BBC);
+        container.setId(1L);
+        container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
+        container.setChildRefs(Arrays.asList(new ChildRef("child", "sort", new DateTime(), EntityType.ITEM)));
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+
+        String json = mapper.writeValueAsString(container);
+        Container read = mapper.readValue(json, Container.class);
+        assertEquals(1, read.getClips().size());
+        assertEquals(1, read.getChildRefs().size());
+    }
+
+    @Test
+    public void testFilteredContainer() throws Exception {
+        Container container = new Container("uri", "curie", Publisher.BBC);
+        container.setId(1L);
+        container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
+        container.setChildRefs(Arrays.asList(new ChildRef("child", "sort", new DateTime(), EntityType.ITEM)));
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+        FilterProvider filters = new SimpleFilterProvider().addFilter(FilteredItemConfiguration.FILTER, SimpleBeanPropertyFilter.serializeAllExcept(Collections.EMPTY_SET)).
+                addFilter(FilteredContainerConfiguration.FILTER, SimpleBeanPropertyFilter.serializeAllExcept(FilteredContainerConfiguration.CLIPS_FILTER, FilteredContainerConfiguration.CHILD_REFS_FILTER));
+        mapper.setFilters(filters);
+
+        String containerJson = mapper.writeValueAsString(container);
+        Container readContainer = mapper.readValue(containerJson, Container.class);
+        assertEquals(0, readContainer.getClips().size());
+        assertEquals(0, readContainer.getChildRefs().size());
+
+        String clipsJson = mapper.writeValueAsString(container.getClips());
+        Collection<Clip> readClips = mapper.readValue(clipsJson, TypeFactory.defaultInstance().constructCollectionType(Collection.class, Clip.class));
+        assertEquals(1, readClips.size());
+
+        String childrenJson = mapper.writeValueAsString(container.getChildRefs());
+        Collection<ChildRef> readChildren = mapper.readValue(childrenJson, TypeFactory.defaultInstance().constructCollectionType(Collection.class, ChildRef.class));
+        assertEquals(1, readChildren.size());
     }
 
     @Test
