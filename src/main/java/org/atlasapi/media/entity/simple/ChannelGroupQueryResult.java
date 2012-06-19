@@ -3,8 +3,9 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
+import java.util.Iterator;
 
-public class ChannelGroupQueryResult {
+public class ChannelGroupQueryResult implements Iterable<ChannelGroup> {
     
     private List<ChannelGroup> channels = ImmutableList.of();
 
@@ -21,6 +22,11 @@ public class ChannelGroupQueryResult {
 
     public void setChannels(List<ChannelGroup> channels) {
         this.channels = ImmutableList.copyOf(channels);
+    }
+
+    @Override
+    public Iterator<ChannelGroup> iterator() {
+        return channels.iterator();
     }
 
 }
