@@ -161,7 +161,7 @@ public class ApplicationConfiguration {
     }
     
     private ImmutableList<Publisher> peoplePrecedence() {
-        return ImmutableList.of(Publisher.RADIO_TIMES);
+        return ImmutableList.of(Publisher.RADIO_TIMES, Publisher.PA, Publisher.BBC, Publisher.C4, Publisher.ITV);
     }
     
     public boolean peoplePrecedenceEnabled() {
