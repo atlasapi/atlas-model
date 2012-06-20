@@ -8,6 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class AbstractEventConfiguration {
 
     @JsonCreator
-    AbstractEventConfiguration(@JsonProperty("changeId") String changeId, @JsonProperty("entityId") String entityId, @JsonProperty("entityType") String entityType) {
+    AbstractEventConfiguration(
+            @JsonProperty("changeId") String changeId,
+            @JsonProperty("entityId") String entityId,
+            @JsonProperty("entityType") String entityType,
+            @JsonProperty("entitySource") String entitySource) {
+        
     }
+    
 }
