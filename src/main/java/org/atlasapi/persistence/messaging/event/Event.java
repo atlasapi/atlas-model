@@ -22,7 +22,12 @@ public interface Event {
      */
     String getEntityType();
     
-    /*
+    /**
+     * Get the source identifier of the entity to which this event refers.
+     */
+    String getEntitySource();
+    
+    /**
      * Dispatch this event to the given {@link org.atlasapi.persistence.messaging.worker.Worker}.
      */
     void dispatchTo(Worker worker);
