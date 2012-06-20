@@ -7,8 +7,8 @@ import org.atlasapi.persistence.messaging.worker.Worker;
  */
 public class EntityUpdatedEvent extends AbstractEvent {
 
-    public EntityUpdatedEvent(String changeId, String entityId, String entityType) {
-        super(changeId, entityId, entityType);
+    public EntityUpdatedEvent(String changeId, String entityId, String entityType, String entitySource) {
+        super(changeId, entityId, entityType, entitySource);
     }
 
     @Override
