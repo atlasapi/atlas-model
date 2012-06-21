@@ -1,6 +1,6 @@
-package org.atlasapi.persistence.messaging.event;
+package org.atlasapi.messaging.event;
 
-import org.atlasapi.persistence.messaging.worker.Worker;
+import org.atlasapi.messaging.worker.Worker;
 import org.joda.time.DateTime;
 
 /**
