@@ -1,6 +1,7 @@
 package org.atlasapi.persistence.messaging.event;
 
 import org.atlasapi.persistence.messaging.worker.Worker;
+import org.joda.time.DateTime;
 
 /**
  * Base interface for events to be dispatched to {@link org.atlasapi.persistence.messaging.worker.Worker}s.
@@ -11,6 +12,11 @@ public interface Event {
      * Get a unique id for the changeset represented by this event.
      */
     String getChangeId();
+    
+    /**
+     * When the event happened
+     */
+    DateTime getDateTime();
     
     /**
      * Get the id of the entity this event refers to.
