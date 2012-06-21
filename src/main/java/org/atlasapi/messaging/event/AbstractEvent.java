@@ -1,4 +1,4 @@
-package org.atlasapi.persistence.messaging.event;
+package org.atlasapi.messaging.event;
 
 import org.joda.time.DateTime;
 
