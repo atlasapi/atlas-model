@@ -1,16 +1,20 @@
 package org.atlasapi.persistence.messaging.event;
 
+import org.joda.time.DateTime;
+
 /**
  */
 public abstract class AbstractEvent implements Event {
     
     private final String changeId;
+    private final DateTime timestamp;
     private final String entityId;
     private final String entityType;
     private final String entitySource;
 
-    public AbstractEvent(String changeId, String entityId, String entityType, String entitySource) {
+    public AbstractEvent(String changeId, DateTime timestamp, String entityId, String entityType, String entitySource) {
         this.changeId = changeId;
+        this.timestamp = timestamp;
         this.entityId = entityId;
         this.entityType = entityType;
         this.entitySource = entitySource;
@@ -19,6 +23,11 @@ public abstract class AbstractEvent implements Event {
     @Override
     public String getChangeId() {
         return changeId;
+    }
+    
+    @Override
+    public DateTime getDateTime() {
+        return timestamp;
     }
 
     @Override
