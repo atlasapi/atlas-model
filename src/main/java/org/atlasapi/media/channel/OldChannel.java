@@ -132,6 +132,7 @@ public class OldChannel extends Channel implements SelfModelling {
     public static final OldChannel FILM_4 = new OldChannel("Film 4", "http://film4.com", "film4");
     public static final OldChannel E_FOUR = new OldChannel("E4", "http://www.e4.com", "e4");
     public static final OldChannel FOUR_MUSIC = new OldChannel("4 Music", "http://www.4music.com", "4music");
+    public static final OldChannel FOUR_SEVEN = new OldChannel("4Seven", "www.channel4.com/4seven", "4music");
 
     public static final OldChannel FIVE = new OldChannel("Five", "http://www.five.tv", "five");
     public static final OldChannel FIVE_PLUS1 = new OldChannel("Five +1", "http://www.five.tv/plus1", "fiveplus1");
