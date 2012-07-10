@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.atlasapi.media.channel.OldChannel;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -133,6 +135,7 @@ public class Channel implements SelfModelling {
     public static final Channel FILM_4 = new Channel("Film 4", "http://film4.com", "film4");
     public static final Channel E_FOUR = new Channel("E4", "http://www.e4.com", "e4");
     public static final Channel FOUR_MUSIC = new Channel("4 Music", "http://www.4music.com", "4music");
+    public static final Channel FOUR_SEVEN = new Channel("4seven", "http://www.channel4.com/4seven", "4seven");
 
     public static final Channel FIVE = new Channel("Five", "http://www.five.tv", "five");
     public static final Channel FIVE_PLUS1 = new Channel("Five +1", "http://www.five.tv/plus1", "fiveplus1");
