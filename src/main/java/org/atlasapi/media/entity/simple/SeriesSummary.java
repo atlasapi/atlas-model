@@ -12,6 +12,7 @@ public class SeriesSummary extends Identified {
 	private String title;
 	private String description;
 	private Integer seriesNumber;
+    private Integer totalEpisodes;
 	
 	public SeriesSummary() { /* required for XML/JSON tools */ }
 	
@@ -42,6 +43,14 @@ public class SeriesSummary extends Identified {
 	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
 	}
+
+    public Integer getTotalEpisodes() {
+        return totalEpisodes;
+    }
+
+    public void setTotalEpisodes(Integer totalEpisodes) {
+        this.totalEpisodes = totalEpisodes;
+    }
 	
 	public SeriesSummary copy() {
         SeriesSummary copy = new SeriesSummary();
@@ -51,6 +60,7 @@ public class SeriesSummary extends Identified {
         copy.setTitle(getTitle());
         copy.setDescription(getDescription());
         copy.setSeriesNumber(getSeriesNumber());
+        copy.setTotalEpisodes(getTotalEpisodes());
         
         return copy;
     }
