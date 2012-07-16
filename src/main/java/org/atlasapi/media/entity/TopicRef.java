@@ -8,6 +8,7 @@ public class TopicRef {
     private Float weighting;
     private Long topic;
     private Relationship relationship;
+    private Publisher publisher;
 
     public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship) {
         this.topic = topic.getId();
@@ -57,6 +58,14 @@ public class TopicRef {
 
     public Relationship getRelationship() {
         return relationship;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
     }
 
     @Override
