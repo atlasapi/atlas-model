@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.atlasapi.media.channel.OldChannel;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -127,12 +129,14 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_RADIO_RADIOCYMRU = new Channel("BBC Radio Cymru", "http://www.bbc.co.uk/services/radiocymru", "radiocymru");
     public static final Channel BBC_RADIO_RADIO4_LW = new Channel("BBC Radio 4 LW", "http://www.bbc.co.uk/services/radio4/lw", "radio4lw");
     public static final Channel BBC_RADIO_RADIO4_EXTRA = new Channel("BBC Radio 4 Extra", "http://www.bbc.co.uk/services/radio4extra", "radio4extra");
-
+    public static final Channel BBC_RADIO_5LIVEOLYMPICSEXTRA = new Channel("BBC Radio 5 live Olympics Extra", "http://www.bbc.co.uk/services/5liveolympicsextra", "5liveolympicsextra");
+    
     public static final Channel CHANNEL_FOUR = new Channel("Channel 4", "http://www.channel4.com", "channel4");
     public static final Channel MORE_FOUR = new Channel("More 4", "http://www.channel4.com/more4", "more4");
     public static final Channel FILM_4 = new Channel("Film 4", "http://film4.com", "film4");
     public static final Channel E_FOUR = new Channel("E4", "http://www.e4.com", "e4");
     public static final Channel FOUR_MUSIC = new Channel("4 Music", "http://www.4music.com", "4music");
+    public static final Channel FOUR_SEVEN = new Channel("4seven", "http://www.channel4.com/4seven", "4seven");
 
     public static final Channel FIVE = new Channel("Five", "http://www.five.tv", "five");
     public static final Channel FIVE_PLUS1 = new Channel("Five +1", "http://www.five.tv/plus1", "fiveplus1");
