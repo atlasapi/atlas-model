@@ -10,6 +10,8 @@ public class TopicRef {
 	private float weighting;
 	private boolean supervised;
 	private Topic topic;
+    private String relationship;
+    private PublisherDetails publisher;
 	
 	public float getWeighting() {
 		return weighting;
@@ -34,5 +36,20 @@ public class TopicRef {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
-	
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setPublisher(PublisherDetails publisher) {
+        this.publisher = publisher;
+    }
+
+    public PublisherDetails getPublisher() {
+        return publisher;
+    }
 }
