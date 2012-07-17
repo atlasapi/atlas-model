@@ -129,7 +129,8 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_RADIO_RADIOCYMRU = new Channel("BBC Radio Radiocymru", "http://www.bbc.co.uk/services/radiocymru", "radiocymru");
     public static final Channel BBC_RADIO_RADIO4_LW = new Channel("BBC Radio Radio4 LW", "http://www.bbc.co.uk/services/radio4/lw", "radio4lw");
     public static final Channel BBC_RADIO_RADIO4_EXTRA = new Channel("BBC Radio Radio4 Extra", "http://www.bbc.co.uk/services/radio4extra", "radio4extra");
-
+    public static final Channel BBC_RADIO_5LIVEOLYMPICSEXTRA = new Channel("BBC Radio 5 live Olympics Extra", "http://www.bbc.co.uk/services/5liveolympicsextra", "5liveolympicsextra");
+    
     public static final Channel CHANNEL_FOUR = new Channel("Channel 4", "http://www.channel4.com", "channel4");
     public static final Channel MORE_FOUR = new Channel("More 4", "http://www.channel4.com/more4", "more4");
     public static final Channel FILM_4 = new Channel("Film 4", "http://film4.com", "film4");

@@ -126,6 +126,7 @@ public class OldChannel extends Channel implements SelfModelling {
     public static final OldChannel BBC_RADIO_RADIOCYMRU = new OldChannel("BBC Radio Radiocymru", "http://www.bbc.co.uk/services/radiocymru", "radiocymru");
     public static final OldChannel BBC_RADIO_RADIO4_LW = new OldChannel("BBC Radio Radio4 LW", "http://www.bbc.co.uk/services/radio4/lw", "radio4lw");
     public static final OldChannel BBC_RADIO_RADIO4_EXTRA = new OldChannel("BBC Radio Radio4 Extra", "http://www.bbc.co.uk/services/radio4extra", "radio4extra");
+    public static final OldChannel BBC_RADIO_5LIVEOLYMPICSEXTRA = new OldChannel("BBC Radio 5 live Olympics Extra", "http://www.bbc.co.uk/services/5liveolympicsextra", "5liveolympicsextra");
 
     public static final OldChannel CHANNEL_FOUR = new OldChannel("Channel 4", "http://www.channel4.com", "channel4");
     public static final OldChannel MORE_FOUR = new OldChannel("More 4", "http://www.channel4.com/more4", "more4");
