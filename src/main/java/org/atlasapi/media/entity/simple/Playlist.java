@@ -30,6 +30,7 @@ public class Playlist extends Description {
 	private List<ContentIdentifier> content = Lists.newArrayList();
     private Set<ContentIdentifier> upcomingContent = Sets.newHashSet();
     private Set<ContentIdentifier> availableContent = Sets.newHashSet();
+    private Set<ContentIdentifier> recentContent = Sets.newHashSet();
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
@@ -118,5 +119,22 @@ public class Playlist extends Description {
     })
     public Set<ContentIdentifier> getAvailableContent() {
         return availableContent;
+    }
+
+    public void setRecentContent(Iterable<ContentIdentifier> filteredRefs) {
+        this.recentContent = ImmutableSet.copyOf(filteredRefs);
+    }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="available_content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
+    public Set<ContentIdentifier> getRecentContent() {
+        return recentContent;
     }
 }
