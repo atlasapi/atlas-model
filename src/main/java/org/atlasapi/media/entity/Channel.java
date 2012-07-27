@@ -1186,6 +1186,7 @@ public class Channel implements SelfModelling {
     public static final Channel BBCOLYMPICS17HD = new Channel("BBCOlympics17HD", CHANNEL_URI_PREFIX+"bbcolympics17hd", "bbcolympics17hd");
     public static final Channel BBCOLYMPICS18 = new Channel("BBCOlympics18", CHANNEL_URI_PREFIX+"bbcolympics18", "bbcolympics18");
     public static final Channel BBCOLYMPICS18HD = new Channel("BBCOlympics18HD", CHANNEL_URI_PREFIX+"bbcolympics18hd", "bbcolympics18hd");
+    public static final Channel BBCOLYMPICS19 = new Channel("BBCOlympics19", CHANNEL_URI_PREFIX+"bbcolympics19", "bbcolympics19");
     public static final Channel BBCOLYMPICS19HD = new Channel("BBCOlympics19HD", CHANNEL_URI_PREFIX+"bbcolympics19hd", "bbcolympics19hd");
     public static final Channel BBCOLYMPICS20 = new Channel("BBCOlympics20", CHANNEL_URI_PREFIX+"bbcolympics20", "bbcolympics20");
     public static final Channel BBCOLYMPICS20HD = new Channel("BBCOlympics20HD", CHANNEL_URI_PREFIX+"bbcolympics20hd", "bbcolympics20hd");
