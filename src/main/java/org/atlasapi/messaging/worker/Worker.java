@@ -6,7 +6,7 @@ import org.atlasapi.messaging.EntityUpdatedMessage;
 import org.atlasapi.messaging.ReplayMessage;
 
 /**
- * Base interface for workers that need to process {@link org.atlasapi.persistence.messaging.event.Event}s.
+ * Base interface for workers that need to process {@link org.atlasapi.persistence.messaging.Message}s.
  */
 public interface Worker {
     
