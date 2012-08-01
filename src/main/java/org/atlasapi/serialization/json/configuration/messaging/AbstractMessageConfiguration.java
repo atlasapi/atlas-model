@@ -1,17 +1,16 @@
 package org.atlasapi.serialization.json.configuration.messaging;
 
 import org.joda.time.DateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  */
-public abstract class AbstractEventConfiguration {
+public abstract class AbstractMessageConfiguration {
 
     @JsonCreator
-    AbstractEventConfiguration(
-            @JsonProperty("changeId") String changeId,
+    AbstractMessageConfiguration(
+            @JsonProperty("messageId") String messageId,
             @JsonProperty("timestamp") DateTime timestamp,
             @JsonProperty("entityId") String entityId,
             @JsonProperty("entityType") String entityType,

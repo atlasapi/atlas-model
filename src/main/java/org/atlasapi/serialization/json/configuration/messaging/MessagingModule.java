@@ -2,7 +2,7 @@ package org.atlasapi.serialization.json.configuration.messaging;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.atlasapi.messaging.event.EntityUpdatedEvent;
+import org.atlasapi.messaging.EntityUpdatedMessage;
 
 /**
  */
@@ -15,6 +15,6 @@ public class MessagingModule extends SimpleModule {
     @Override
     public void setupModule(Module.SetupContext context) {
         super.setupModule(context);
-        context.setMixInAnnotations(EntityUpdatedEvent.class, AbstractEventConfiguration.class);
+        context.setMixInAnnotations(EntityUpdatedMessage.class, AbstractMessageConfiguration.class);
     }
 }
