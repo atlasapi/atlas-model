@@ -128,7 +128,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testEntityUpdatedMessage() throws Exception {
-        Message message = new EntityUpdatedMessage("1", Long.MIN_VALUE, null, null, null);
+        Message message = new EntityUpdatedMessage("1", new DateTime(Long.MIN_VALUE), null, null, null);
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -139,7 +139,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testBeginReplayMessage() throws Exception {
-        Message message = new BeginReplayMessage("1", Long.MIN_VALUE, null, null, null);
+        Message message = new BeginReplayMessage("1", new DateTime(Long.MIN_VALUE), null, null, null);
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -150,7 +150,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testEndReplayMessage() throws Exception {
-        Message message = new EndReplayMessage("1", Long.MIN_VALUE, null, null, null);
+        Message message = new EndReplayMessage("1", new DateTime(Long.MIN_VALUE), null, null, null);
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -161,7 +161,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testReplayMessage() throws Exception {
-        Message message = new ReplayMessage("1", Long.MIN_VALUE, null, null, null, null);
+        Message message = new ReplayMessage("1", new DateTime(Long.MIN_VALUE), null, null, null, null);
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
