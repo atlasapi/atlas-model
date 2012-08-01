@@ -1,19 +1,19 @@
-package org.atlasapi.messaging.event;
+package org.atlasapi.messaging;
 
 import org.joda.time.DateTime;
 
 /**
  */
-public abstract class AbstractEvent implements Event {
+public abstract class AbstractMessage implements Message {
     
-    private final String changeId;
+    private final String messageId;
     private final DateTime timestamp;
     private final String entityId;
     private final String entityType;
     private final String entitySource;
 
-    public AbstractEvent(String changeId, DateTime timestamp, String entityId, String entityType, String entitySource) {
-        this.changeId = changeId;
+    public AbstractMessage(String messageId, DateTime timestamp, String entityId, String entityType, String entitySource) {
+        this.messageId = messageId;
         this.timestamp = timestamp;
         this.entityId = entityId;
         this.entityType = entityType;
@@ -21,8 +21,8 @@ public abstract class AbstractEvent implements Event {
     }
 
     @Override
-    public String getChangeId() {
-        return changeId;
+    public String getMessageId() {
+        return messageId;
     }
     
     @Override
