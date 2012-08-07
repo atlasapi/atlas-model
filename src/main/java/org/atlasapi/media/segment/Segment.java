@@ -58,7 +58,7 @@ public class Segment extends Identified {
         return this.identifier;
     }
 
-    void setIdentifier(String identifier) {
+    public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
     
