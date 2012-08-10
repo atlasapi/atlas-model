@@ -17,13 +17,27 @@ public interface EquivalentContentResolver {
      * Only content from the given sources is resolved.
      * 
      * @param uris
-     *            - requested keys of equivalent content.
+     *            - requested URI keys of equivalent content.
      * @param selectedSources
      *            - sources of the equivalent set to resolve.
      * @param activeAnnotations
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolve(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    
+    /**
+     * Resolves the equivalent sets of content for a given set of source URIs.
+     * Only content from the given sources is resolved.
+     * 
+     * @param ids
+     *            - requested numeric keys of equivalent content.
+     * @param selectedSources
+     *            - sources of the equivalent set to resolve.
+     * @param activeAnnotations
+     *            - components of the model to resolve.
+     * @return EquivalentContent with an entry for each of the requested URIs.
+     */
+    EquivalentContent resolveIds(Iterable<Long> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
 
 }
