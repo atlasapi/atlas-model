@@ -1,5 +1,12 @@
 package org.atlasapi.serialization.json;
 
+import java.util.Collections;
+
+import org.atlasapi.serialization.json.configuration.messaging.MessagingModule;
+import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
+import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
+import org.atlasapi.serialization.json.configuration.model.ModelModule;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -12,13 +19,6 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import java.util.Collection;
-import java.util.Collections;
-import org.atlasapi.serialization.json.configuration.messaging.MessagingModule;
-import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
-import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
-import org.atlasapi.serialization.json.configuration.model.ModelModule;
-import org.joda.time.LocalDateTime;
 
 /**
  */
