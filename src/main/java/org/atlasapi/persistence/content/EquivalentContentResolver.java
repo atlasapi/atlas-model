@@ -17,7 +17,7 @@ public interface EquivalentContentResolver {
      * Only content from the given sources is resolved.
      * 
      * @param uris
-     *            - requested URI keys of equivalent content.
+     *            - requested keys of equivalent content.
      * @param selectedSources
      *            - sources of the equivalent set to resolve.
      * @param activeAnnotations
