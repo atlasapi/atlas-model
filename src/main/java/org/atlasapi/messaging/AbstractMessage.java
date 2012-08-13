@@ -1,18 +1,16 @@
 package org.atlasapi.messaging;
 
-import org.joda.time.DateTime;
-
 /**
  */
 public abstract class AbstractMessage implements Message {
-    
+
     private final String messageId;
-    private final DateTime timestamp;
+    private final Long timestamp;
     private final String entityId;
     private final String entityType;
     private final String entitySource;
 
-    public AbstractMessage(String messageId, DateTime timestamp, String entityId, String entityType, String entitySource) {
+    public AbstractMessage(String messageId, Long timestamp, String entityId, String entityType, String entitySource) {
         this.messageId = messageId;
         this.timestamp = timestamp;
         this.entityId = entityId;
@@ -24,9 +22,9 @@ public abstract class AbstractMessage implements Message {
     public String getMessageId() {
         return messageId;
     }
-    
+
     @Override
-    public DateTime getDateTime() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
@@ -39,10 +37,24 @@ public abstract class AbstractMessage implements Message {
     public String getEntityType() {
         return entityType;
     }
-    
+
     @Override
     public String getEntitySource() {
         return entitySource;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Message) {
+            Message other = (Message) o;
+            return this.messageId.equals(other.getMessageId());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.messageId.hashCode();
+    }
 }
