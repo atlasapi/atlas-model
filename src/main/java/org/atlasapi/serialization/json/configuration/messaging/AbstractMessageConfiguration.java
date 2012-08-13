@@ -11,7 +11,7 @@ public abstract class AbstractMessageConfiguration {
     @JsonCreator
     AbstractMessageConfiguration(
             @JsonProperty("messageId") String messageId,
-            @JsonProperty("timestamp") DateTime timestamp,
+            @JsonProperty("timestamp") Long timestamp,
             @JsonProperty("entityId") String entityId,
             @JsonProperty("entityType") String entityType,
             @JsonProperty("entitySource") String entitySource) {
