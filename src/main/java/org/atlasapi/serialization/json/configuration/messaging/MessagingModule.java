@@ -6,7 +6,6 @@ import org.atlasapi.messaging.BeginReplayMessage;
 import org.atlasapi.messaging.EndReplayMessage;
 import org.atlasapi.messaging.EntityUpdatedMessage;
 import org.atlasapi.messaging.ReplayMessage;
-import org.atlasapi.messaging.EntityUpdatedMessage;
 
 /**
  */

@@ -1,6 +1,5 @@
 package org.atlasapi.serialization.json.configuration.messaging;
 
-import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
