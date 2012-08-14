@@ -17,6 +17,11 @@ import org.atlasapi.media.entity.EntityType;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
+import org.atlasapi.messaging.BeginReplayMessage;
+import org.atlasapi.messaging.EndReplayMessage;
+import org.atlasapi.messaging.EntityUpdatedMessage;
+import org.atlasapi.messaging.Message;
+import org.atlasapi.messaging.ReplayMessage;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.joda.time.DateTime;
@@ -118,5 +123,49 @@ public class JsonFactoryTest {
         String json = mapper.writeValueAsString(item);
         Content read = mapper.readValue(json, Content.class);
         assertTrue(read instanceof Item);
+    }
+    
+    @Test
+    public void testEntityUpdatedMessage() throws Exception {
+        Message message = new EntityUpdatedMessage("1", Long.MIN_VALUE, null, null, null);
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+
+        String json = mapper.writeValueAsString(message);
+        Message read = mapper.readValue(json, Message.class);
+        assertEquals(message, read);
+    }
+    
+    @Test
+    public void testBeginReplayMessage() throws Exception {
+        Message message = new BeginReplayMessage("1", Long.MIN_VALUE, null, null, null);
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+
+        String json = mapper.writeValueAsString(message);
+        Message read = mapper.readValue(json, Message.class);
+        assertEquals(message, read);
+    }
+    
+    @Test
+    public void testEndReplayMessage() throws Exception {
+        Message message = new EndReplayMessage("1", Long.MIN_VALUE, null, null, null);
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+
+        String json = mapper.writeValueAsString(message);
+        Message read = mapper.readValue(json, Message.class);
+        assertEquals(message, read);
+    }
+    
+    @Test
+    public void testReplayMessage() throws Exception {
+        Message message = new ReplayMessage("1", Long.MIN_VALUE, null, null, null, null);
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+
+        String json = mapper.writeValueAsString(message);
+        Message read = mapper.readValue(json, Message.class);
+        assertEquals(message, read);
     }
 }
