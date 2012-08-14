@@ -1,7 +1,6 @@
 package org.atlasapi.messaging;
 
 import org.atlasapi.messaging.worker.Worker;
-import org.joda.time.DateTime;
 
 /**
  * Base interface for messages to be dispatched to {@link org.atlasapi.persistence.messaging.worker.Worker}s.
@@ -14,9 +13,9 @@ public interface Message {
     String getMessageId();
     
     /**
-     * Get the date when the message happened
+     * Get the timestamp when the message happened
      */
-    DateTime getDateTime();
+    Long getTimestamp();
     
     /**
      * Get the id of the entity this message refers to.
