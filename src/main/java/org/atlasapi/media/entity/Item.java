@@ -47,6 +47,7 @@ public class Item extends Content {
     private Boolean blackAndWhite;
     private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private String sortKey;
+    private ContainerSummary containerSummary;
 
     public Item(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -260,16 +261,74 @@ public class Item extends Content {
     public Iterable<Location> flattenLocations() {
         return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
     }
-    
+
+    public ContainerSummary getContainerSummary() {
+        return containerSummary;
+    }
+
+    public void setContainerSummary(ContainerSummary containerSummary) {
+        this.containerSummary = containerSummary;
+    }
+
     @Override
     protected String getSortKey() {
         return SortKey.keyFrom(this);
     }
     
     public static final Predicate<Item> IS_AVAILABLE = new Predicate<Item>() {
+
         @Override
         public boolean apply(Item input) {
             return input.isAvailable();
         }
     };
+
+    public static class ContainerSummary {
+
+        private String type;
+        private String title;
+        private String description;
+        private Integer seriesNumber;
+
+        public ContainerSummary(String type, String title, String description, Integer seriesNumber) {
+            this.title = title;
+            this.description = description;
+            this.seriesNumber = seriesNumber;
+        }
+
+        private ContainerSummary() {
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public Integer getSeriesNumber() {
+            return seriesNumber;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setSeriesNumber(Integer seriesNumber) {
+            this.seriesNumber = seriesNumber;
+        }
+    }
 }
