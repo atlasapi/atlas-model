@@ -31,6 +31,7 @@ public class Item extends Description {
 	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
     private List<SegmentEvent> segmentEvents;
 	
+    private DisplayTitle displayTitle;
 	private BrandSummary container;
 	private SeriesSummary seriesSummary;
 	
@@ -99,6 +100,15 @@ public class Item extends Description {
 		}
 		return false;
 	}
+    
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="displayTitle")
+    public DisplayTitle getDisplayTitle() {
+        return displayTitle;
+    }
+
+    public void setDisplayTitle(DisplayTitle displayTitle) {
+        this.displayTitle = displayTitle;
+    }
 
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="container")
 	public BrandSummary getBrandSummary() {
@@ -185,6 +195,10 @@ public class Item extends Description {
         copy.setDuration(duration);
         copy.setLocations(Iterables.transform(getLocations(), Location.TO_COPY));
         copy.setBroadcasts(Iterables.transform(getBroadcasts(), Broadcast.TO_COPY));
+        
+        if (getDisplayTitle() != null) {
+            copy.setDisplayTitle(getDisplayTitle().copy());
+        }
         
         if (getBrandSummary() != null) {
             copy.setBrandSummary(getBrandSummary().copy());
