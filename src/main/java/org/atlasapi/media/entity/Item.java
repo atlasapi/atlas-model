@@ -42,7 +42,6 @@ public class Item extends Content {
 
     private ParentRef parent;
     private Set<Version> versions = Sets.newHashSet();
-    private List<CrewMember> people = Lists.newArrayList();
     private boolean isLongForm = false;
     private Boolean blackAndWhite;
     private Set<Country> countriesOfOrigin = Sets.newHashSet();
@@ -134,22 +133,6 @@ public class Item extends Content {
         return people();
     }
 
-    public List<CrewMember> people() {
-        return people;
-    }
-
-    public List<Actor> actors() {
-        return Lists.<Actor>newArrayList(Iterables.filter(people, Actor.class));
-    }
-
-    public void addPerson(CrewMember person) {
-        people.add(person);
-    }
-
-    public void setPeople(List<CrewMember> people) {
-        this.people = people;
-    }
-
     public void setBlackAndWhite(Boolean blackAndWhite) {
         this.blackAndWhite = blackAndWhite;
     }
@@ -214,7 +197,6 @@ public class Item extends Content {
             to.parent = from.parent;
         }
         to.isLongForm = from.isLongForm;
-        to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
         to.versions = versions;
         to.blackAndWhite = from.blackAndWhite;
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
