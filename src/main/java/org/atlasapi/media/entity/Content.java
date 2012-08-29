@@ -30,6 +30,7 @@ public abstract class Content extends Described {
     private Set<RelatedLink> relatedLinks = ImmutableSet.of();
     private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
     private ImmutableList<ContentGroupRef> contentGroupRefs = ImmutableList.of();
+    private List<CrewMember> people = Lists.newArrayList();
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -109,6 +110,23 @@ public abstract class Content extends Described {
     public void addRelatedLink(RelatedLink link) {
         relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
     }
+    
+    public List<CrewMember> people() {
+        return people;
+    }
+
+    public List<Actor> actors() {
+        return Lists.<Actor>newArrayList(Iterables.filter(people, Actor.class));
+    }
+
+    public void addPerson(CrewMember person) {
+        people.add(person);
+    }
+
+    public void setPeople(List<CrewMember> people) {
+        this.people = people;
+    }
+
 
     public static void copyTo(Content from, Content to) {
         Described.copyTo(from, to);
@@ -117,6 +135,7 @@ public abstract class Content extends Described {
         to.relatedLinks = from.relatedLinks;
         to.topicRefs = from.topicRefs;
         to.readHash = from.readHash;
+        to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
     }
 
     public void setReadHash(String readHash) {
