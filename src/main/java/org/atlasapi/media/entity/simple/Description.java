@@ -40,6 +40,7 @@ public abstract class Description extends Aliased {
     private List<Product> products = Lists.newArrayList();
     private List<ContentGroup> contentGroups = Lists.newArrayList();
     private Set<String> sameAs = Sets.newHashSet();
+    private List<Person> people = Lists.newArrayList();
     private String mediaType;
     private String specialization;
     private boolean scheduleOnly = false;
@@ -186,6 +187,16 @@ public abstract class Description extends Aliased {
     public String getPresentationChannel() {
         return this.presentationChannel;
     }
+    
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="people")
+    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="people")
+    public List<Person> getPeople() {
+        return people;
+    }
+    
+    public void setPeople(Iterable<Person> people) {
+        this.people = Lists.newArrayList(people);
+    }
 
     protected void copyTo(Description destination) {
         Preconditions.checkNotNull(destination);
@@ -213,6 +224,13 @@ public abstract class Description extends Aliased {
         destination.setSpecialization(getSpecialization());
         destination.setScheduleOnly(isScheduleOnly());
         destination.setPresentationChannel(getPresentationChannel());
+        
+        Set<Person> people = Sets.newHashSet();
+        for (Person person: this.people) {
+            people.add(person.copy());
+        }
+        destination.setPeople(people);
+        
     }
 
     public boolean isScheduleOnly() {

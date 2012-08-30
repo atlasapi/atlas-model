@@ -14,7 +14,6 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
 
@@ -35,7 +34,6 @@ public class Item extends Description {
     private DisplayTitle displayTitle;
 	private BrandSummary container;
 	private SeriesSummary seriesSummary;
-	private List<Person> people = Lists.newArrayList();
 	
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
@@ -59,16 +57,6 @@ public class Item extends Description {
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="location")
 	public Set<Location> getLocations() {
 		return locations;
-	}
-	
-	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="people")
-    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="people")
-    public List<Person> getPeople() {
-        return people;
-    }
-	
-	public void setPeople(Iterable<Person> people) {
-	    this.people = Lists.newArrayList(people);
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
@@ -218,12 +206,6 @@ public class Item extends Description {
         if (getSeriesSummary() != null) {
             copy.setSeriesSummary(getSeriesSummary().copy());
         }
-        
-        Set<Person> people = Sets.newHashSet();
-        for (Person person: this.people) {
-            people.add(person.copy());
-        }
-        copy.setPeople(people);
         
         copy.setBlackAndWhite(isBlackAndWhite());
         copy.setCountriesOfOrigin(getCountriesOfOrigin());
