@@ -1201,6 +1201,13 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_SPORT_INTERACTIVE_FREEVIEW_2 = new Channel("BBC Sport Interactive Freeview 2", CHANNEL_URI_PREFIX+"bbcsportinteractivefreeview2", "bbcsportinteractivefreeview2");    
     public static final Channel EUROSPORT_3D = new Channel("Eurosport 3D", CHANNEL_URI_PREFIX+"eurosport3d", "eurosport3d");
     
+    public static final Channel C4_PARALYMPICS_EXTRA_1 = new Channel("C4 Paralympics Extra 1", CHANNEL_URI_PREFIX+"c4paralympicsextra1", "c4paralympicsextra1");
+    public static final Channel C4_PARALYMPICS_EXTRA_2 = new Channel("C4 Paralympics Extra 2", CHANNEL_URI_PREFIX+"c4paralympicsextra2", "c4paralympicsextra2");
+    public static final Channel C4_PARALYMPICS_EXTRA_3 = new Channel("C4 Paralympics Extra 3", CHANNEL_URI_PREFIX+"c4paralympicsextra3", "c4paralympicsextra3");
+    public static final Channel C4_PARALYMPICS_EXTRA_1_HD = new Channel("C4 Paralympics Extra 1 HD", CHANNEL_URI_PREFIX+"c4paralympicsextra1hd", "c4paralympicsextra1hd");
+    public static final Channel C4_PARALYMPICS_EXTRA_2_HD = new Channel("C4 Paralympics Extra 2 HD", CHANNEL_URI_PREFIX+"c4paralympicsextra2hd", "c4paralympicsextra2hd");
+    public static final Channel C4_PARALYMPICS_EXTRA_3_HD = new Channel("C4 Paralympics Extra 3 HD", CHANNEL_URI_PREFIX+"c4paralympicsextra3hd", "c4paralympicsextra3hd");
+    
     private final String uri;
     private final String title;
 
