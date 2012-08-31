@@ -16,6 +16,7 @@ import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.EntityType;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.TopicRef;
 import org.atlasapi.media.entity.Version;
 import org.atlasapi.messaging.BeginReplayMessage;
 import org.atlasapi.messaging.EndReplayMessage;
@@ -38,6 +39,7 @@ public class JsonFactoryTest {
         item.setId(1L);
         item.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
         item.setVersions(Sets.newHashSet(new Version()));
+        item.setTopicRefs(Arrays.asList(new TopicRef(1l, 0.0f, Boolean.TRUE, TopicRef.Relationship.ABOUT)));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
