@@ -32,7 +32,12 @@ public class ApplicationConfiguration {
 	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledPublishers, List<Publisher> precedence) {
         this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
         this.enabledSources = enabledPublishers;
-		this.precedence = precedence;
+        if(precedence == null) {
+            this.precedence = null;
+        }
+        else {
+            this.precedence = appendMissingPublishersTo(precedence);
+        }
 	}
 	
 	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence) {
@@ -128,11 +133,11 @@ public class ApplicationConfiguration {
 		return precedence != null;
 	}
 
-	public Iterable<Publisher> orderdPublishers() {
+	public List<Publisher> orderdPublishers() {
 		if (!precedenceEnabled()) {
 			return ImmutableList.copyOf(Publisher.values());
 		}
-		return appendMissingPublishersTo(precedence);
+		return precedence;
 	}
 	
     /**
