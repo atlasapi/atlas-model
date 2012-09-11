@@ -25,11 +25,15 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.query.Selection;
+import java.util.Set;
+import org.atlasapi.output.Annotation;
 
 public class ContentQuery {
 
 	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);
 
+    private ImmutableSet<Annotation> annotations;
+    
 	private ImmutableSet<AtomicQuery> operands;
 	
 	/*
@@ -41,7 +45,7 @@ public class ContentQuery {
 	private final Selection selection;
 
 	private final ApplicationConfiguration configuration;
-	
+    	
 	public ContentQuery(AtomicQuery operand) {
 		this(ImmutableList.of(operand), Selection.ALL);
 	}
@@ -53,9 +57,14 @@ public class ContentQuery {
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
 		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
+    
+    public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
+		this(operands, Annotation.defaultAnnotations(), selection, configuration);
+	}
 
-	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
+	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, ApplicationConfiguration configuration) {
 		this.operands = ImmutableSet.copyOf(operands);
+        this.annotations = ImmutableSet.copyOf(annotations);
 		this.selection = selection;
 		this.configuration = configuration;
 		this.softConstraints = ImmutableSet.of();
@@ -98,6 +107,16 @@ public class ContentQuery {
 	
 	public ApplicationConfiguration getConfiguration() {
 		return configuration;
+	}
+
+    public ImmutableSet<Annotation> getAnnotations() {
+        return annotations;
+    }
+    
+    public ContentQuery copyWithAnnotations(Set<Annotation> annotations) {
+		ContentQuery newQuery = new ContentQuery(operands, annotations, selection, configuration);
+        newQuery.setSoftConstraints(softConstraints);
+		return newQuery;
 	}
 
 	public ContentQuery copyWithOperands(Iterable<AtomicQuery> newConjucts) {
