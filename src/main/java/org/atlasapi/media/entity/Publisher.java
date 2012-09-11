@@ -29,7 +29,7 @@ public enum Publisher {
     TVBLOB("TV Blob", "tvblob.com", Countries.IT, SourceStatus.AVAILABLE_ENABLED),
     ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
     HBO("HBO", "hbo.com", Countries.US, SourceStatus.AVAILABLE_ENABLED),
-    ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
+    ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
     PA("PA", "pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE),
