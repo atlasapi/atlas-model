@@ -22,6 +22,18 @@ public class SearchQuery {
 	private final Maybe<Float> priorityChannelWeighting;
 	private final Maybe<Float> firstBroadcastWeighting;
 
+    public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
+	}
+    
+    public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
+	}
+    
+    public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
+		this(term, selection, includedSpecializations, includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
+	}
+    
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
 		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting);
 	}
