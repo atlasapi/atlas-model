@@ -1209,6 +1209,8 @@ public class Channel implements SelfModelling {
     public static final Channel C4_PARALYMPICS_EXTRA_3_HD = new Channel("C4 Paralympics Extra 3 HD", CHANNEL_URI_PREFIX+"c4paralympicsextra3hd", "c4paralympicsextra3hd");
     
     public static final Channel HEAT_TV = new Channel("Heat TV", CHANNEL_URI_PREFIX+"heattv", "heattv");
+    public static final Channel FASHION_TV = new Channel("Fashion TV", CHANNEL_URI_PREFIX+"fashiontv", "fashiontv");
+    
     
     private final String uri;
     private final String title;
