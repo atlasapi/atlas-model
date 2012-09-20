@@ -8,10 +8,12 @@ import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Description;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.ParentRef;
+import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
@@ -44,5 +46,7 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(Topic   .class, TopicConfiguration.class);
         context.setMixInAnnotations(Description.class, DescriptionConfiguration.class);
         context.setMixInAnnotations(ProductLocation.class, ProductLocationConfiguration.class);
+        context.setMixInAnnotations(ContentGroup.class, FilteredContentGroupConfiguration.class);
+        context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
     }
 }
