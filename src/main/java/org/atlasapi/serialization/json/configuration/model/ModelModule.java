@@ -1,9 +1,5 @@
 package org.atlasapi.serialization.json.configuration.model;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.metabroadcast.common.currency.Price;
-import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
@@ -19,20 +15,13 @@ import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
+import org.atlasapi.persistence.lookup.entry.LookupEntry;
+import org.atlasapi.serialization.json.LookupEntryConfiguration;
+
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.Certificate;
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Description;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.LookupRef;
-import org.atlasapi.media.entity.ParentRef;
-import org.atlasapi.media.entity.RelatedLink;
-import org.atlasapi.media.entity.ReleaseDate;
-import org.atlasapi.media.entity.Subtitles;
-import org.atlasapi.media.entity.Topic;
-import org.atlasapi.media.product.ProductLocation;
 
 /**
  */
@@ -62,5 +51,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(ProductLocation.class, ProductLocationConfiguration.class);
         context.setMixInAnnotations(ContentGroup.class, FilteredContentGroupConfiguration.class);
         context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
+        context.setMixInAnnotations(LookupEntry.class, LookupEntryConfiguration.class);
     }
 }
