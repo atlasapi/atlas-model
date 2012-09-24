@@ -10,25 +10,22 @@ import com.google.common.base.Objects;
  */
 public class Description {
     
-    public static final Description EMPTY = new Description("","","","","","");
+    public static final Description EMPTY = new Description("","","","");
     
     public static class Builder {
 
         private String title;
-
-        private String shortSynopsis;
-        private String mediumSynopsis;
-        private String longSynopsis;
+        private String synopsis;
 
         private String image;
         private String thumbnail;
+
         
         private Builder() {}
         
-        private Builder(String t, String ss, String ms, String ls, String img, String thmb) {
+        private Builder(String t, String synopsis, String img, String thmb) {
             this.title = t;
-            this.shortSynopsis = ss;
-            this.longSynopsis = ls;
+            this.synopsis = synopsis;
             this.image = img;
             this.thumbnail = thmb;
         }
@@ -38,18 +35,8 @@ public class Description {
             return this;
         }
 
-        public Builder withShortSynopsis(String shortSynopsis) {
-            this.shortSynopsis = shortSynopsis;
-            return this;
-        }
-
-        public Builder withMediumSynopsis(String mediumSynopsis) {
-            this.mediumSynopsis = mediumSynopsis;
-            return this;
-        }
-
-        public Builder withLongSynopsis(String longSynopsis) {
-            this.longSynopsis = longSynopsis;
+        public Builder withSynopsis(String synopsis) {
+            this.synopsis = synopsis;
             return this;
         }
 
@@ -64,7 +51,7 @@ public class Description {
         }
 
         public Description build() {
-            return new Description(title, shortSynopsis, mediumSynopsis, longSynopsis, image, thumbnail);
+            return new Description(title, synopsis, image, thumbnail);
         }
     }
 
@@ -72,21 +59,17 @@ public class Description {
         return new Builder();
     }
     
-    public Description(String title, String shortSynopsis, String mediumSynopsis, String longSynopsis, String image, String thumbnail) {
+    public Description(String title, String synopsis, String image, String thumbnail) {
         this.title = title;
-        this.shortSynopsis = shortSynopsis;
-        this.mediumSynopsis = mediumSynopsis;
-        this.longSynopsis = longSynopsis;
+        this.synopsis = synopsis;
         this.image = image;
         this.thumbnail = thumbnail;
-        this.hash = Objects.hashCode(title,shortSynopsis,mediumSynopsis,longSynopsis,image,thumbnail);
+        this.hash = Objects.hashCode(title,synopsis,image,thumbnail);
     }
     
     private final String title;
     
-    private final String shortSynopsis;
-    private final String mediumSynopsis;
-    private final String longSynopsis;
+    private final String synopsis;
 
     private final String image;
     private final String thumbnail;
@@ -97,16 +80,8 @@ public class Description {
         return this.title;
     }
 
-    public String getShortSynopsis() {
-        return this.shortSynopsis;
-    }
-
-    public String getMediumSynopsis() {
-        return this.mediumSynopsis;
-    }
-
-    public String getLongSynopsis() {
-        return this.longSynopsis;
+    public String getSynopsis() {
+        return this.synopsis;
     }
 
     public String getImage() {
@@ -118,7 +93,7 @@ public class Description {
     }
     
     public Builder copy() {
-        return new Builder(title, shortSynopsis, mediumSynopsis, longSynopsis, image, thumbnail);
+        return new Builder(title, synopsis, image, thumbnail);
     }
     
     @Override
