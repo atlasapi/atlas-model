@@ -17,6 +17,8 @@ import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
+import org.atlasapi.persistence.lookup.entry.LookupEntry;
+import org.atlasapi.serialization.json.LookupEntryConfiguration;
 
 /**
  */
@@ -44,5 +46,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(Topic   .class, TopicConfiguration.class);
         context.setMixInAnnotations(Description.class, DescriptionConfiguration.class);
         context.setMixInAnnotations(ProductLocation.class, ProductLocationConfiguration.class);
+        context.setMixInAnnotations(LookupEntry.class, LookupEntryConfiguration.class);
     }
 }
