@@ -117,7 +117,7 @@ public class Identified {
 	public Set<String> getAllUris() {
 		Set<String> allUris = Sets.newHashSet(getAliasUrls());
 		allUris.add(getCanonicalUri());
-		return Collections.unmodifiableSet(allUris);
+		return ImmutableSet.copyOf(allUris);
 	}
 	
 	@Override
