@@ -4,9 +4,7 @@ public class Segment extends Identified {
 
     private String title;
 
-    private String shortSynopsis;
-    private String mediumSynopsis;
-    private String longSynopsis;
+    private String description;
 
     private String type;
     private Integer duration;
@@ -16,16 +14,8 @@ public class Segment extends Identified {
         return this.title;
     }
 
-    public String getShortSynopsis() {
-        return this.shortSynopsis;
-    }
-
-    public String getMediumSynopsis() {
-        return this.mediumSynopsis;
-    }
-
-    public String getLongSynopsis() {
-        return this.longSynopsis;
+    public String getDescription() {
+        return this.description;
     }
 
     public String getType() {
@@ -44,16 +34,8 @@ public class Segment extends Identified {
         this.title = title;
     }
 
-    public void setShortSynopsis(String shortSynopsis) {
-        this.shortSynopsis = shortSynopsis;
-    }
-
-    public void setMediumSynopsis(String mediumSynopsis) {
-        this.mediumSynopsis = mediumSynopsis;
-    }
-
-    public void setLongSynopsis(String longSynopsis) {
-        this.longSynopsis = longSynopsis;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setType(String type) {

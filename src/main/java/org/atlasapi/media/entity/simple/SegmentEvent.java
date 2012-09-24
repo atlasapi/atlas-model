@@ -8,9 +8,7 @@ public class SegmentEvent extends Identified {
     
     private String title;
 
-    private String shortSynopsis;
-    private String mediumSynopsis;
-    private String longSynopsis;
+    private String description;
 
     private Segment segment;
 
@@ -46,28 +44,12 @@ public class SegmentEvent extends Identified {
         this.title = title;
     }
 
-    public String getShortSynopsis() {
-        return this.shortSynopsis;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setShortSynopsis(String shortSynopsis) {
-        this.shortSynopsis = shortSynopsis;
-    }
-
-    public String getMediumSynopsis() {
-        return this.mediumSynopsis;
-    }
-
-    public void setMediumSynopsis(String mediumSynopsis) {
-        this.mediumSynopsis = mediumSynopsis;
-    }
-
-    public String getLongSynopsis() {
-        return this.longSynopsis;
-    }
-
-    public void setLongSynopsis(String longSynopsis) {
-        this.longSynopsis = longSynopsis;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Segment getSegment() {
