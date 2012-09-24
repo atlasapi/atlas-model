@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -97,7 +98,7 @@ public class Identified {
 	public Set<String> getAllUris() {
 		Set<String> allUris = Sets.newHashSet(getAliases());
 		allUris.add(getCanonicalUri());
-		return Collections.unmodifiableSet(allUris);
+		return ImmutableSet.copyOf(allUris);
 	}
 	
 	@Override

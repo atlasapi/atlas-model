@@ -20,7 +20,7 @@ public class LookupEntry {
         DateTime now = new DateTime(DateTimeZones.UTC);
         LookupRef lookupRef = LookupRef.from(c);
         ImmutableSet<LookupRef> reflexiveSet = ImmutableSet.of(lookupRef);
-        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAliases(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
+        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAllUris(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
     }
     
     public static Function<LookupEntry,String> TO_ID = new Function<LookupEntry, String>() {
