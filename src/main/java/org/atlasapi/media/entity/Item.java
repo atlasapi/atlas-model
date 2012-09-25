@@ -291,6 +291,7 @@ public class Item extends Content {
         private Integer seriesNumber;
 
         public ContainerSummary(String type, String title, String description, Integer seriesNumber) {
+            this.type = type;
             this.title = title;
             this.description = description;
             this.seriesNumber = seriesNumber;
