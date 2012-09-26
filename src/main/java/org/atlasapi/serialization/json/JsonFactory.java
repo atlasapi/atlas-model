@@ -55,6 +55,7 @@ public class JsonFactory {
         
         @Override
         public void setupModule(SetupContext context) {
+            
             super.setupModule(context);
             context.setMixInAnnotations(Object.class, ObjectConfiguration.class);
         }
@@ -64,3 +65,4 @@ public class JsonFactory {
     private static interface ObjectConfiguration {
     }
 }
+
