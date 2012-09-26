@@ -21,11 +21,12 @@ import org.atlasapi.serialization.json.ContentRefConfiguration;
 import org.atlasapi.serialization.json.EquivalenceSummaryConfiguration;
 import org.atlasapi.serialization.json.LookupEntryConfiguration;
 import org.atlasapi.serialization.json.PublisherConfiguration;
-
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
+import org.atlasapi.media.entity.ContentGroup;
+import org.atlasapi.media.entity.Person;
 
 /**
  */
@@ -37,8 +38,8 @@ public class ModelModule extends SimpleModule {
 
     @Override
     public void setupModule(Module.SetupContext context) {
-        addKeyDeserializer(Publisher.class, new PublisherConfiguration.PublisherKeyDeserializer());
         super.setupModule(context);
+        this.addKeyDeserializer(Publisher.class, new PublisherConfiguration.PublisherKeyDeserializer());
         context.setMixInAnnotations(Container.class, FilteredContainerConfiguration.class);
         context.setMixInAnnotations(Item.class, FilteredItemConfiguration.class);
         context.setMixInAnnotations(Broadcast.class, BroadcastConfiguration.class);
@@ -51,11 +52,13 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(Subtitles.class, SubtitlesConfiguration.class);
         context.setMixInAnnotations(ReleaseDate.class, ReleaseDateConfiguration.class);
         context.setMixInAnnotations(Certificate.class, CertificateConfiguration.class);
-        context.setMixInAnnotations(Topic   .class, TopicConfiguration.class);
+        context.setMixInAnnotations(Topic.class, TopicConfiguration.class);
         context.setMixInAnnotations(Description.class, DescriptionConfiguration.class);
         context.setMixInAnnotations(ProductLocation.class, ProductLocationConfiguration.class);
         context.setMixInAnnotations(LookupEntry.class, LookupEntryConfiguration.class);
         context.setMixInAnnotations(EquivalenceSummary.class, EquivalenceSummaryConfiguration.class);
         context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
+        context.setMixInAnnotations(ContentGroup.class, FilteredContentGroupConfiguration.class);
+        context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
     }
 }
