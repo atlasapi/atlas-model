@@ -28,6 +28,9 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
+import org.atlasapi.media.entity.ContentGroup;
+import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.segment.SegmentRef;
 
 /**
  */
@@ -61,5 +64,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(LookupEntry.class, LookupEntryConfiguration.class);
         context.setMixInAnnotations(EquivalenceSummary.class, EquivalenceSummaryConfiguration.class);
         context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
+        context.setMixInAnnotations(SegmentRef.class, SegmentRefConfiguration.class);
     }
 }
