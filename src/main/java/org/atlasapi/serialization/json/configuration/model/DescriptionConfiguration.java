@@ -9,9 +9,7 @@ public abstract class DescriptionConfiguration {
 
     @JsonCreator
     DescriptionConfiguration(@JsonProperty("title") String title,
-            @JsonProperty("shortSynopsis") String shortSynopsis,
-            @JsonProperty("mediumSynopsis") String mediumSynopsis,
-            @JsonProperty("longSynopsis") String longSynopsis,
+            @JsonProperty("synopsis") String synopsis,
             @JsonProperty("image") String image,
             @JsonProperty("thumbnail") String thumbnail) {
     }

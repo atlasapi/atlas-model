@@ -27,6 +27,7 @@ import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.segment.SegmentRef;
 
 /**
  */
@@ -60,5 +61,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
         context.setMixInAnnotations(ContentGroup.class, FilteredContentGroupConfiguration.class);
         context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
+        context.setMixInAnnotations(SegmentRef.class, SegmentRefConfiguration.class);
     }
 }
