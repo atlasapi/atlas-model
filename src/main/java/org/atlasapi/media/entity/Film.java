@@ -8,12 +8,9 @@ import com.google.common.collect.Sets;
 
 public class Film extends Item {
     
-    private Integer year = null;
     private String websiteUrl = null;
     private Set<Subtitles> subtitles = ImmutableSet.of();
-    private Set<String> languages = ImmutableSet.of();
     private Set<ReleaseDate> releaseDates = ImmutableSet.of();
-    private Set<Certificate> certificates = ImmutableSet.of();
     
     public Film(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -22,14 +19,6 @@ public class Film extends Item {
     
     public Film() {
         setSpecialization(Specialization.FILM);
-    }
-    
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-    
-    public Integer getYear() {
-        return year;
     }
     
     public void setWebsiteUrl(String websiteUrl) {
@@ -48,14 +37,6 @@ public class Film extends Item {
         this.subtitles = ImmutableSet.copyOf(subtitles);
     }
 
-    public Set<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Iterable<String> languages) {
-        this.languages = ImmutableSet.copyOf(languages);
-    }
-    
     public Set<ReleaseDate> getReleaseDates() {
         return releaseDates;
     }
@@ -64,14 +45,6 @@ public class Film extends Item {
         this.releaseDates = ImmutableSet.copyOf(releaseDates);
     }
 
-    public Set<Certificate> getCertificates() {
-        return certificates;
-    }
-
-    public void setCertificates(Iterable<Certificate> certificates) {
-        this.certificates = ImmutableSet.copyOf(certificates);
-    }
-    
     @Override
 	public Film copy() {
 	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
@@ -81,12 +54,9 @@ public class Film extends Item {
 	public Film copyWithVersions(Set<Version> versions) {
 	    Film film = new Film();
 	    Item.copyToWithVersions(this, film, versions);
-	    film.setYear(getYear());
 	    film.setWebsiteUrl(getWebsiteUrl());
 	    film.setSubtitles(getSubtitles());
-	    film.setLanguages(getLanguages());
 	    film.setReleaseDates(getReleaseDates());
-	    film.setCertificates(getCertificates());
 	    return film;
 	}
 
