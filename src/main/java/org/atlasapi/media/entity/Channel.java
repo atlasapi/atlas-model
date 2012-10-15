@@ -1215,7 +1215,7 @@ public class Channel implements SelfModelling {
     private final String uri;
     private final String title;
     
-    private final boolean highDefinition;
+    private final Boolean highDefinition;
 
     private final static List<Channel> VOD_SERVICES = ImmutableList.of(BBC_IPLAYER, HULU, C4_4OD, YOUTUBE, SEESAW);
     private final String key;
@@ -1252,7 +1252,7 @@ public class Channel implements SelfModelling {
         fieldNameMap = fieldNameMapBuilder.build();
     }
 
-    public Channel(String title, String uri, String key, boolean highDefinition) {
+    public Channel(String title, String uri, String key, Boolean highDefinition) {
         this.title = title;
         this.uri = uri;
         this.highDefinition = highDefinition;
