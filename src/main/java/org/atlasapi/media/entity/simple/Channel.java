@@ -9,7 +9,7 @@ public class Channel extends Aliased {
     private PublisherDetails publisher;
     private String title;
     private String mediaType;
-    private boolean highDefinition;
+    private Boolean highDefinition;
     private Set<ChannelGroup> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
@@ -25,7 +25,7 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
-    public void setHighDefinition(boolean highDefinition) {
+    public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
     }
 
@@ -41,7 +41,7 @@ public class Channel extends Aliased {
         return this.mediaType;
     }
     
-    public boolean getHighDefinition() {
+    public Boolean getHighDefinition() {
         return highDefinition;
     }
 
