@@ -62,4 +62,10 @@ public abstract class AbstractMessage implements Message {
     public int hashCode() {
         return this.messageId.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return messageId;
+    }
+    
 }
