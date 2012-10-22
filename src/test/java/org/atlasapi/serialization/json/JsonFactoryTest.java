@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
 /**
  */
 public class JsonFactoryTest {
-
+    
     @Test
     public void testUnfilteredItem() throws Exception {
         Item item = new Item("uri", "curie", Publisher.BBC);

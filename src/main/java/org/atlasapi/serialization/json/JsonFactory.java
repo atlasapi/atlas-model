@@ -7,6 +7,7 @@ import org.atlasapi.serialization.json.configuration.messaging.MessagingModule;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.atlasapi.serialization.json.configuration.model.ModelModule;
+import org.atlasapi.serialization.json.configuration.model.PublisherConfiguration;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;

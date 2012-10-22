@@ -1,4 +1,4 @@
-package org.atlasapi.serialization.json;
+package org.atlasapi.serialization.json.configuration.model;
 
 import java.util.Set;
 
