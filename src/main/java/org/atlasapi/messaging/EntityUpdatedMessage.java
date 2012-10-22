@@ -12,6 +12,11 @@ public class EntityUpdatedMessage extends AbstractMessage {
     }
 
     @Override
+    public boolean canCoalesce() {
+        return true;
+    }
+
+    @Override
     public void dispatchTo(Worker worker) {
         worker.process(this);
     }
