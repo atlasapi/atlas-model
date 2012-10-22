@@ -17,10 +17,6 @@ import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
-import org.atlasapi.serialization.json.ContentRefConfiguration;
-import org.atlasapi.serialization.json.EquivalenceSummaryConfiguration;
-import org.atlasapi.serialization.json.LookupEntryConfiguration;
-import org.atlasapi.serialization.json.PublisherConfiguration;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.metabroadcast.common.currency.Price;
@@ -62,5 +58,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(ContentGroup.class, FilteredContentGroupConfiguration.class);
         context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
         context.setMixInAnnotations(SegmentRef.class, SegmentRefConfiguration.class);
+        context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
     }
 }
