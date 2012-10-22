@@ -33,6 +33,11 @@ public interface Message {
     String getEntitySource();
     
     /**
+     * 
+     */
+    boolean canCoalesce();
+    
+    /**
      * Dispatch this message to the given {@link org.atlasapi.persistence.messaging.worker.Worker}.
      */
     void dispatchTo(Worker worker);

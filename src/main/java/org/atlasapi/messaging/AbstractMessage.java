@@ -44,6 +44,11 @@ public abstract class AbstractMessage implements Message {
     }
 
     @Override
+    public boolean canCoalesce() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o instanceof Message) {
             Message other = (Message) o;
