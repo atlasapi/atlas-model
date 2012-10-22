@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.time.DateTimeZones;
+import java.util.HashSet;
 
 public class LookupEntry {
     
@@ -70,9 +71,9 @@ public class LookupEntry {
         this.id = id;
         this.self = self;
         this.aliases = aliases;
-        this.directEquivalents = ImmutableSet.copyOf(directEquivs);
-        this.explicit = ImmutableSet.copyOf(explicit);
-        this.equivs = ImmutableSet.copyOf(equivs);
+        this.directEquivalents = directEquivs != null ? ImmutableSet.copyOf(directEquivs) : ImmutableSet.<LookupRef>of();
+        this.explicit = explicit != null ? ImmutableSet.copyOf(explicit) : ImmutableSet.<LookupRef>of();
+        this.equivs = equivs != null ? ImmutableSet.copyOf(equivs) : ImmutableSet.<LookupRef>of();
         this.created = created;
         this.updated = updated;
     }

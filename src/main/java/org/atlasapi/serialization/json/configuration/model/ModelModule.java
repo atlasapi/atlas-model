@@ -18,19 +18,13 @@ import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
+import org.atlasapi.media.segment.SegmentRef;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
-import org.atlasapi.serialization.json.ContentRefConfiguration;
-import org.atlasapi.serialization.json.EquivalenceSummaryConfiguration;
-import org.atlasapi.serialization.json.LookupEntryConfiguration;
-import org.atlasapi.serialization.json.PublisherConfiguration;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
-import org.atlasapi.media.entity.ContentGroup;
-import org.atlasapi.media.entity.Person;
-import org.atlasapi.media.segment.SegmentRef;
 
 /**
  */
