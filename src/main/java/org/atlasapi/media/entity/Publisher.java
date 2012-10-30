@@ -7,6 +7,7 @@ import org.atlasapi.application.SourceStatus;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
@@ -111,5 +112,11 @@ public enum Publisher {
 
     public SourceStatus getDefaultSourceStatus() {
         return defaultStatus;
+    }
+    
+    private static final ImmutableSet<Publisher> ALL = ImmutableSet.copyOf(values());
+    
+    public static final ImmutableSet<Publisher> all() {
+        return ALL;
     }
 }
