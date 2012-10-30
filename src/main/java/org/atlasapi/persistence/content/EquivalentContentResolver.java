@@ -24,7 +24,7 @@ public interface EquivalentContentResolver {
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations, boolean withAliases);
     
     /**
      * Resolves the equivalent sets of content for a given set of source URIs.
