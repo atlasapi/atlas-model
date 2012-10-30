@@ -32,7 +32,7 @@ public class Song extends Item {
         return duration != null ? Duration.standardSeconds(duration) : null;
     }
 	
-	protected Song() {}
+	public Song() {}
 	
 	@Override
 	public Song copy() {
