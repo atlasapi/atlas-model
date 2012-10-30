@@ -19,32 +19,41 @@ import com.google.common.collect.Sets;
 
 public class ApplicationConfiguration {
 	
-	public static final ApplicationConfiguration DEFAULT_CONFIGURATION = defaultConfiguration();
+    @Deprecated
+    /**
+     * Use defaultConfiguration
+     */
+	public static final ApplicationConfiguration DEFAULT_CONFIGURATION = new ApplicationConfiguration(ImmutableMap.<Publisher, SourceStatus>of(), null);
 	
-    private static final ApplicationConfiguration defaultConfiguration() {
-        return new ApplicationConfiguration(ImmutableMap.<Publisher, SourceStatus>of(), null);
+    public static final ApplicationConfiguration defaultConfiguration() {
+        return DEFAULT_CONFIGURATION;
     }
 	
 	private final Map<Publisher, SourceStatus> sourceStatuses;
 	private final Set<Publisher> enabledSources;
 	private final List<Publisher> precedence;
+	private final ImmutableSet<Publisher> writableSources;
 	
-	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledPublishers, List<Publisher> precedence) {
+	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledSources, List<Publisher> precedence, Iterable<Publisher> writable) {
         this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
-        this.enabledSources = enabledPublishers;
+        this.enabledSources = ImmutableSet.copyOf(enabledSources);
         if(precedence == null) {
             this.precedence = null;
-        }
-        else {
+        } else {
             this.precedence = appendMissingPublishersTo(precedence);
         }
+        this.writableSources = ImmutableSet.copyOf(writable);
 	}
 	
 	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence) {
-	    this(sourceStatuses, enabledPublishers(sourceStatuses), precedence);
+	    this(sourceStatuses, precedence, ImmutableSet.<Publisher>of());
 	}
 
-	private static Set<Publisher> enabledPublishers(Map<Publisher, SourceStatus> sourceStatuses) {
+	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources) {
+	    this(sourceStatuses, enabledPublishers(sourceStatuses), precedence, writableSources);
+	}
+
+    private static Set<Publisher> enabledPublishers(Map<Publisher, SourceStatus> sourceStatuses) {
 	    return ImmutableSet.copyOf(Maps.filterValues(allSourcesStatuses(sourceStatuses), SourceStatus.IS_ENABLED).keySet());
     }
 
@@ -103,7 +112,7 @@ public class ApplicationConfiguration {
             mutablePublishers.remove(source);
         }
         
-        return new ApplicationConfiguration(mutableSources, mutablePublishers, precedence);
+        return new ApplicationConfiguration(mutableSources, mutablePublishers, precedence, writableSources);
     }
     
     public ApplicationConfiguration withSources(Map<Publisher, SourceStatus> statuses) {
@@ -120,6 +129,18 @@ public class ApplicationConfiguration {
     public ApplicationConfiguration copyWithNullPrecedence() {
         return new ApplicationConfiguration(sourceStatuses, null);
     }
+    
+    public ApplicationConfiguration copyWithWritableSources(Iterable<Publisher> writable) {
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writable);
+    }
+    
+    public boolean canWrite(Publisher source) {
+        return writableSources.contains(source);
+    }
+    
+    public ImmutableSet<Publisher> writableSources() {
+        return writableSources;
+    }
 	
 	public Ordering<Publisher> publisherPrecedenceOrdering() {
 		return Ordering.explicit(precedence);
@@ -135,7 +156,7 @@ public class ApplicationConfiguration {
 
 	public List<Publisher> orderdPublishers() {
 		if (!precedenceEnabled()) {
-			return ImmutableList.copyOf(Publisher.values());
+			return Publisher.all().asList();
 		}
 		return precedence;
 	}
