@@ -50,6 +50,11 @@ public enum Publisher {
     EMI_MUSIC("EMI Music", "emimusic.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     BBC_KIWI("BBC Kiwi", "kiwi.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    BBC_MUSIC("BBC Music","music.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
+    SPOTIFY("Spotify", "spotify.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    SOUNDCLOUD("Soundcloud", "soundcloud.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    RDIO("rdio", "rdio.com",Countries.ALL, SourceStatus.UNAVAILABLE),
+    AMAZON_UK("Amazon UK", "amazon.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
