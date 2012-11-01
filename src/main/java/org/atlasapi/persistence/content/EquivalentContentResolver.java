@@ -22,6 +22,8 @@ public interface EquivalentContentResolver {
      *            - sources of the equivalent set to resolve.
      * @param activeAnnotations
      *            - components of the model to resolve.
+     * @param withAliases 
+     *            - whether aliases should be resolved or not.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
     EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations, boolean withAliases);
