@@ -47,6 +47,7 @@ public enum Publisher {
     VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    BBC_RD_TOPIC("BBC R&D Live Topics", "http://live-topics.prototype0.net/", Countries.GB, SourceStatus.UNAVAILABLE),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
