@@ -14,32 +14,32 @@ import com.google.common.collect.Sets;
 public class Channel extends Identified {
     // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
     public static final int MAX_KEY_LENGTH = 31;
-
+    
     private Publisher publisher;
     private String title;
-	private MediaType mediaType;
-	private String key;
-	private Boolean highDefinition;
+    private MediaType mediaType;
+    private String key;
+    private Boolean highDefinition;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom = Sets.newHashSet();
-
-	public Channel() {
+    
+    public Channel() {
     	
     }
     
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-    	super(uri);
-    	this.publisher = publisher;
+    	    super(uri);
+    	    this.publisher = publisher;
         this.title = title;
         this.key = key;
         this.highDefinition = highDefinition;
         this.mediaType = mediaType;
     }
-
+    
     public String uri() {
         return getCanonicalUri();
     }
-
+    
     public String title() {
         return title;
     }
@@ -47,15 +47,15 @@ public class Channel extends Identified {
     public Boolean highDefinition() {
         return highDefinition;
     }
-
+    
     public MediaType mediaType() {
-    	return mediaType;
+        return mediaType;
     }
     
     public Publisher publisher() {
-    	return publisher;
+        return publisher;
     }
-
+    
     public Publisher broadcaster() {
         return broadcaster;
     }
@@ -66,17 +66,17 @@ public class Channel extends Identified {
     
     @Deprecated
     public String key() {
-    	return key;
+        return key;
     }
     
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
-
+    
     public void setMediaType(MediaType mediaType) {
         this.mediaType = mediaType;
     }
@@ -96,7 +96,7 @@ public class Channel extends Identified {
     public void setAvailableFrom(Iterable<Publisher> availableOn) {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -104,14 +104,15 @@ public class Channel extends Identified {
         }
         if (obj instanceof Channel) {
             Channel target = (Channel) obj;
-            return getId() != null ? Objects.equal(getId(), target.getId()) : Objects.equal(uri(), target.uri());
+            return getId() != null ? Objects.equal(getId(), target.getId()) 
+                                   : Objects.equal(uri(), target.uri());
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return getId() != null ? Objects.hashCode(getId()) : Objects.hashCode(uri());
+        return getId() != null ? getId().hashCode() : uri().hashCode();
     }
     
     @Override
