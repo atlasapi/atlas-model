@@ -1,6 +1,14 @@
 package org.atlasapi.media.entity;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 
 public class TopicRef {
 
@@ -109,6 +117,28 @@ public class TopicRef {
         @Override
         public String toString() {
             return name;
+        }
+        
+        private static ImmutableSet<Relationship> ALL = ImmutableSet.copyOf(values());
+        
+        public static ImmutableSet<Relationship> all() {
+            return ALL;
+        }
+        
+        private static ImmutableMap<String, Optional<Relationship>> LOOKUP = ImmutableMap.copyOf(
+            Maps.transformValues(Maps.uniqueIndex(all(), Functions.toStringFunction()),
+                new Function<Relationship, Optional<Relationship>>() {
+                    @Override
+                    public Optional<Relationship> apply(@Nullable Relationship input) {
+                        return Optional.fromNullable(input);
+                    }
+            }
+        ));
+        
+        public static Optional<Relationship> fromString(String relationship) {
+            Optional<Relationship> possibleRelationship = LOOKUP.get(relationship);
+            return possibleRelationship != null ? possibleRelationship
+                                                : Optional.<Relationship>absent();
         }
     }
 }
