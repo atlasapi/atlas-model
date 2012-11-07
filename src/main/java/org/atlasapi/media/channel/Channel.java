@@ -9,31 +9,104 @@ import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
-    // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
-    public static final int MAX_KEY_LENGTH = 31;
     
-    private Publisher publisher;
+    public static final Builder builder() {
+        return new Builder();
+    }
+    
+    public static class Builder {
+        
+        private Publisher source;
+        private String uri;
+        private String key;
+        private Publisher broadcaster;
+        private String title;
+        private String image;
+        private MediaType mediaType;
+        private Boolean highDefinition;
+        private Set<Publisher> availableFrom = ImmutableSet.of();
+        
+        public Builder withSource(Publisher source) {
+            this.source = source;
+            return this;
+        };
+        
+        public Builder withUri(String uri) {
+            this.uri = uri;
+            return this;
+        }
+        
+        public Builder withTitle(String title) {
+            this.title = title;
+            return this;
+        };
+        
+        public Builder withImage(String image) {
+            this.image = image;
+            return this;
+        };
+        
+        public Builder withMediaType(MediaType mediaType) {
+            this.mediaType = mediaType;
+            return this;
+        };
+        
+        @Deprecated
+        public Builder withKey(String key) {
+            this.key = key;
+            return this;
+        };
+        
+        public Builder withHighDefinition(Boolean highDefinition) {
+            this.highDefinition = highDefinition;
+            return this;
+        };
+        
+        public Builder withBroadcaster(Publisher broadcaster) {
+            this.broadcaster = broadcaster;
+            return this;
+        };
+        
+        public Builder withAvailableFrom(Iterable<Publisher> availableFrom) {
+            this.availableFrom = ImmutableSet.copyOf(availableFrom);
+            return this;
+        };
+        
+        public Channel build() {
+            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, image);
+        }
+    }
+    
+    
+    private Publisher source;
     private String title;
+    private String image;
     private MediaType mediaType;
     private String key;
     private Boolean highDefinition;
     private Publisher broadcaster;
-    private Set<Publisher> availableFrom = Sets.newHashSet();
+    private Set<Publisher> availableFrom;
     
-    public Channel() {
-    	
+    @Deprecated
+    public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
+        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), null);
     }
     
-    public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
+    @Deprecated //Required for OldChannel
+    protected Channel() { }
+    
+    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, String image) {
     	    super(uri);
-    	    this.publisher = publisher;
+    	    this.source = publisher;
         this.title = title;
+        this.image = image;
         this.key = key;
         this.highDefinition = highDefinition;
         this.mediaType = mediaType;
+        this.broadcaster = broadcaster;
+        this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
     public String uri() {
@@ -52,8 +125,8 @@ public class Channel extends Identified {
         return mediaType;
     }
     
-    public Publisher publisher() {
-        return publisher;
+    public Publisher source() {
+        return source;
     }
     
     public Publisher broadcaster() {
@@ -69,8 +142,12 @@ public class Channel extends Identified {
         return key;
     }
     
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public String image() {
+        return image;
+    }
+    
+    public void setSource(Publisher source) {
+        this.source = source;
     }
     
     public void setTitle(String title) {
@@ -97,6 +174,10 @@ public class Channel extends Identified {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
     }
     
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -117,7 +198,10 @@ public class Channel extends Identified {
     
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).addValue(getId()).addValue(getCanonicalUri()).toString();
+        return Objects.toStringHelper(this)
+                .addValue(getId())
+                .addValue(getCanonicalUri())
+                .toString();
     }
     
     public static final Function<Channel, String> TO_KEY = new Function<Channel, String>() {
