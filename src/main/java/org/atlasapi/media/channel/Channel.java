@@ -19,6 +19,7 @@ public class Channel extends Identified {
     private String title;
 	private MediaType mediaType;
 	private String key;
+	private Boolean highDefinition;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom = Sets.newHashSet();
 
@@ -26,11 +27,12 @@ public class Channel extends Identified {
     	
     }
     
-    public Channel(Publisher publisher, String title, String key, MediaType mediaType, String uri) {
+    public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
     	super(uri);
     	this.publisher = publisher;
         this.title = title;
         this.key = key;
+        this.highDefinition = highDefinition;
         this.mediaType = mediaType;
     }
 
@@ -40,6 +42,10 @@ public class Channel extends Identified {
 
     public String title() {
         return title;
+    }
+    
+    public Boolean highDefinition() {
+        return highDefinition;
     }
 
     public MediaType mediaType() {
@@ -77,6 +83,10 @@ public class Channel extends Identified {
     
     public void setKey(String key) {
         this.key = key;
+    }
+    
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
     }
     
     public void setBroadcaster(Publisher broadcaster) {
