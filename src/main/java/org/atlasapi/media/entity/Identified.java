@@ -44,6 +44,8 @@ public class Identified {
 	 */
 	private DateTime lastUpdated;
 	
+	private DateTime equivalenceUpdate;
+	
 	public Identified(String uri, String curie) {
 		this.canonicalUri = uri;
 		this.curie = curie;
@@ -147,6 +149,14 @@ public class Identified {
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public DateTime getEquivalenceUpdate() {
+	    return equivalenceUpdate;
+	}
+	
+	public void setEquivalenceUpdate(DateTime equivalenceUpdate) {
+	    this.equivalenceUpdate = equivalenceUpdate;
 	}
 	
 	public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {
