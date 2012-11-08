@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 public class Audit {
 
     private DateTime lastUpdated;
-    private DateTime equivalenceLastUdpated;
+    private DateTime equivalenceLastUpdated;
 
     public DateTime getLastUpdated() {
         return this.lastUpdated;
@@ -16,11 +16,11 @@ public class Audit {
     }
 
     public DateTime getEquivalenceLastUdpated() {
-        return this.equivalenceLastUdpated;
+        return this.equivalenceLastUpdated;
     }
 
     public void setEquivalenceLastUdpated(DateTime equivalenceUdpate) {
-        this.equivalenceLastUdpated = equivalenceUdpate;
+        this.equivalenceLastUpdated = equivalenceUdpate;
     }
 
     
