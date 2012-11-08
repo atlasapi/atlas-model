@@ -11,8 +11,7 @@ public class Identified {
 	protected String curie;
 	protected String id;
 	protected String type;
-	protected DateTime lastUpdated;
-	protected DateTime equivalenceUdpate;
+	protected Audit audit;
 	
 	public Identified(String uri) {
 		this.uri = uri;
@@ -76,20 +75,12 @@ public class Identified {
         return type;
     }
 
-	public DateTime getLastUpdated() {
-        return this.lastUpdated;
+    public Audit getAudit() {
+        return this.audit;
     }
 
-    public void setLastUpdated(DateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public DateTime getEquivalenceUdpate() {
-        return this.equivalenceUdpate;
-    }
-
-    public void setEquivalenceUdpate(DateTime equivalenceUdpate) {
-        this.equivalenceUdpate = equivalenceUdpate;
+    public void setAudit(Audit audit) {
+        this.audit = audit;
     }
 
     protected void copyTo(Identified destination) {
