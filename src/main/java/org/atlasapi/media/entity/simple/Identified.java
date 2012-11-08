@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import org.joda.time.DateTime;
+
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
@@ -9,6 +11,8 @@ public class Identified {
 	protected String curie;
 	protected String id;
 	protected String type;
+	protected DateTime lastUpdated;
+	protected DateTime equivalenceUdpate;
 	
 	public Identified(String uri) {
 		this.uri = uri;
@@ -71,8 +75,24 @@ public class Identified {
     public String getType() {
         return type;
     }
-	
-	protected void copyTo(Identified destination) {
+
+	public DateTime getLastUpdated() {
+        return this.lastUpdated;
+    }
+
+    public void setLastUpdated(DateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public DateTime getEquivalenceUdpate() {
+        return this.equivalenceUdpate;
+    }
+
+    public void setEquivalenceUdpate(DateTime equivalenceUdpate) {
+        this.equivalenceUdpate = equivalenceUdpate;
+    }
+
+    protected void copyTo(Identified destination) {
         Preconditions.checkNotNull(destination);
         
         destination.setUri(getUri());
