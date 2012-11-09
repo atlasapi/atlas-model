@@ -109,8 +109,10 @@ public class TopicRef {
         ABOUT("about"),
         TWITTER_AUDIENCE("twitter:audience"),
         TWITTER_AUDIENCE_RELATED("twitter:audience-related"),
+        TWITTER_AUDIENCE_REALTIME("twitter:audience:realtime"),
         TRANSCRIPTION("transcription"),
-        TRANSCRIPTION_SUBTITLES("transcription:subtitles");
+        TRANSCRIPTION_SUBTITLES("transcription:subtitles"),
+        TRANSCRIPTION_SUBTITLES_REALTIME("transcription:subtitles:realtime");
         private final String name;
 
         private Relationship(String name) {
