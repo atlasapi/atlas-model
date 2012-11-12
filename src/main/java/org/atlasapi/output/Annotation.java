@@ -36,7 +36,8 @@ public enum Annotation {
     PRODUCTS,
     RECENTLY_BROADCAST,
     CHANNELS,
-    PUBLISHER;
+    PUBLISHER,
+    AUDIT;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
