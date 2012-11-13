@@ -47,6 +47,7 @@ public enum Publisher {
     THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    CANARY("Canary", "canary.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     BBC_MUSIC("BBC Music","music.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     SPOTIFY("Spotify", "spotify.com", Countries.ALL, SourceStatus.UNAVAILABLE),
