@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
@@ -58,6 +57,7 @@ public class Location extends Version {
     private Boolean videoProgressiveScan;
     private Integer videoVerticalSize;
 
+    private Date actualAvailabilityStart;
     private Date availabilityStart;
     private Date availabilityEnd;
     private Date drmPlayableFrom;
@@ -75,6 +75,7 @@ public class Location extends Version {
     private String embedCode;
     private String embedId;
     private String platform;
+    private String network;
 
     private boolean available = true;
 
@@ -263,6 +264,14 @@ public class Location extends Version {
     public void setVideoVerticalSize(Integer videoVerticalSize) {
         this.videoVerticalSize = videoVerticalSize;
     }
+    
+    public Date getActualAvailabilityStart() {
+        return actualAvailabilityStart;
+    }
+    
+    public void setActualAvailabilityStart(Date actualAvailabilityStart) {
+        this.actualAvailabilityStart = actualAvailabilityStart;
+    }
 
     public Date getAvailabilityStart() {
         return availabilityStart;
@@ -361,6 +370,14 @@ public class Location extends Version {
     	return platform;
     }
     
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+    
+    public String getNetwork() {
+        return network;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Location) {
@@ -370,8 +387,10 @@ public class Location extends Version {
             } else if (!Strings.isNullOrEmpty(uri)) {
                 return transportType.equals(target.transportType) 
                     && Objects.equal(uri, target.uri)
+                    && Objects.equal(actualAvailabilityStart, target.actualAvailabilityStart)
                     && Objects.equal(availabilityStart, target.availabilityStart)
                     && Objects.equal(platform, target.platform)
+                    && Objects.equal(network, target.network)
                     && Objects.equal(availableCountries, target.availableCountries);
             } else {
                 return super.equals(obj);
@@ -387,7 +406,7 @@ public class Location extends Version {
         } else if (TransportType.EMBED.toString().equals(transportType) && !Strings.isNullOrEmpty(embedId)) {
             return embedId.hashCode();
         } else if (!Strings.isNullOrEmpty(uri)) {
-            return Objects.hashCode(uri, transportType, availabilityStart, platform, availableCountries);
+            return Objects.hashCode(uri, transportType, actualAvailabilityStart, availabilityStart, platform, network, availableCountries);
         } else {
             return super.hashCode();
         }
@@ -429,6 +448,9 @@ public class Location extends Version {
         copy.setVideoHorizontalSize(getVideoHorizontalSize());
         copy.setVideoProgressiveScan(getVideoProgressiveScan());
         copy.setVideoVerticalSize(getVideoVerticalSize());
+        if (getActualAvailabilityStart() != null) {
+            copy.setActualAvailabilityStart((Date) getActualAvailabilityStart().clone());
+        }
         if (getAvailabilityStart() != null) {
             copy.setAvailabilityStart((Date) getAvailabilityStart().clone());
         }
@@ -450,6 +472,7 @@ public class Location extends Version {
         copy.setEmbedCode(getEmbedCode());
         copy.setEmbedId(getEmbedId());
         copy.setPlatform(getPlatform());
+        copy.setNetwork(getNetwork());
         
         return copy;
     }
