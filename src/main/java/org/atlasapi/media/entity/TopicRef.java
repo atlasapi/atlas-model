@@ -17,19 +17,26 @@ public class TopicRef {
     private Long topic;
     private Relationship relationship;
     private Publisher publisher;
+    private Integer offset;
 
     public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship) {
-        this.topic = topic.getId();
-        this.weighting = weighting;
-        this.supervised = supervised;
-        this.relationship = relationship;
+        this(topic, weighting, supervised, relationship, null);
+    }
+
+    public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
+        this(topic.getId(), weighting, supervised, relationship, offset);
     }
 
     public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship) {
+        this(topicId, weighting, supervised, relationship, null);
+    }
+
+    public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
         this.topic = topicId;
         this.weighting = weighting;
         this.supervised = supervised;
         this.relationship = relationship;
+        this.offset = offset;
     }
 
     public void setTopic(Topic topic) {
@@ -66,6 +73,14 @@ public class TopicRef {
 
     public Relationship getRelationship() {
         return relationship;
+    }
+    
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+    
+    public Integer getOffset() {
+        return this.offset;
     }
 
     public void setPublisher(Publisher publisher) {
