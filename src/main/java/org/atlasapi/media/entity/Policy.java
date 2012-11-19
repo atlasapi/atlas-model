@@ -212,6 +212,8 @@ public class Policy extends Identified {
 	    copy.price = price;
 	    copy.revenueContract = revenueContract;
 	    copy.platform = platform;
+	    copy.network = network;
+	    copy.actualAvailabilityStart = actualAvailabilityStart;
 	    return copy;
 	}
 	
