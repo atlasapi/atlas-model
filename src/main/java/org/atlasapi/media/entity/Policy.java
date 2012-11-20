@@ -21,7 +21,6 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
@@ -45,7 +44,7 @@ public class Policy extends Identified {
 	
 	private Platform platform;
 	
-	private Optional<Network> network = Optional.absent();
+	private Network network;
 	
 	private DateTime actualAvailabilityStart;
     
@@ -86,7 +85,7 @@ public class Policy extends Identified {
     }
     
     @RdfProperty(relation=false)
-    public Optional<Network> getNetwork() {
+    public Network getNetwork() {
         return network;
     }
     
@@ -139,7 +138,7 @@ public class Policy extends Identified {
 	}
 	
 	public void setNetwork(Network network) {
-	    this.network = Optional.fromNullable(network);
+	    this.network = network;
 	}
     
     public void setActualAvailabilityStart(DateTime actualAvailabilityStart) {
