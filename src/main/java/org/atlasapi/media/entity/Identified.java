@@ -14,7 +14,6 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -44,6 +43,8 @@ public class Identified {
 	 * {@link Identified} was last updated
 	 */
 	private DateTime lastUpdated;
+	
+	private DateTime equivalenceUpdate;
 	
 	public Identified(String uri, String curie) {
 		this.canonicalUri = uri;
@@ -98,7 +99,7 @@ public class Identified {
 	public Set<String> getAllUris() {
 		Set<String> allUris = Sets.newHashSet(getAliases());
 		allUris.add(getCanonicalUri());
-		return ImmutableSet.copyOf(allUris);
+		return Collections.unmodifiableSet(allUris);
 	}
 	
 	@Override
@@ -148,6 +149,14 @@ public class Identified {
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public DateTime getEquivalenceUpdate() {
+	    return equivalenceUpdate;
+	}
+	
+	public void setEquivalenceUpdate(DateTime equivalenceUpdate) {
+	    this.equivalenceUpdate = equivalenceUpdate;
 	}
 	
 	public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {

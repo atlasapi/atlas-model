@@ -31,6 +31,9 @@ public abstract class Content extends Described {
     private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
     private ImmutableList<ContentGroupRef> contentGroupRefs = ImmutableList.of();
     private List<CrewMember> people = Lists.newArrayList();
+    private Set<String> languages = ImmutableSet.of();
+    private Set<Certificate> certificates = ImmutableSet.of();
+    private Integer year = null;
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -136,6 +139,9 @@ public abstract class Content extends Described {
         to.topicRefs = from.topicRefs;
         to.readHash = from.readHash;
         to.people = Lists.newArrayList(Iterables.transform(from.people, CrewMember.COPY));
+        to.languages = from.languages;
+        to.certificates = from.certificates;
+        to.year = from.year;
     }
 
     public void setReadHash(String readHash) {
@@ -145,11 +151,35 @@ public abstract class Content extends Described {
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
     }
-    
+
     protected String getSortKey() {
         return SortKey.DEFAULT.name();
     }
     
+    public Set<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Iterable<String> languages) {
+        this.languages = ImmutableSet.copyOf(languages);
+    }
+
+    public Set<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(Iterable<Certificate> certificates) {
+        this.certificates = ImmutableSet.copyOf(certificates);
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
     public static final Function<Content, List<Clip>> TO_CLIPS = new Function<Content, List<Clip>>() {
         @Override
         public List<Clip> apply(Content input) {

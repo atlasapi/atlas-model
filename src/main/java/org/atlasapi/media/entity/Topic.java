@@ -61,8 +61,6 @@ public class Topic extends Described {
     public Topic(Long id, String namespace, String value) {
         setId(id);
         setMediaType(null);
-        this.namespace = namespace;
-        this.value = value;
     }
     
     @Override

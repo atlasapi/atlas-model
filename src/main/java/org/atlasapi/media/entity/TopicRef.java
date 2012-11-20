@@ -1,6 +1,14 @@
 package org.atlasapi.media.entity;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 
 public class TopicRef {
 
@@ -9,24 +17,31 @@ public class TopicRef {
     private Long topic;
     private Relationship relationship;
     private Publisher publisher;
+    private Integer offset;
 
     public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship) {
-        this.topic = topic.getId();
-        this.weighting = weighting;
-        this.supervised = supervised;
-        this.relationship = relationship;
+        this(topic, weighting, supervised, relationship, null);
+    }
+
+    public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
+        this(topic.getId(), weighting, supervised, relationship, offset);
     }
 
     public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship) {
+        this(topicId, weighting, supervised, relationship, null);
+    }
+
+    public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
         this.topic = topicId;
         this.weighting = weighting;
         this.supervised = supervised;
         this.relationship = relationship;
+        this.offset = offset;
     }
 
     private TopicRef() {
     }
-    
+
     public void setTopic(Topic topic) {
         this.topic = topic.getId();
     }
@@ -61,6 +76,14 @@ public class TopicRef {
 
     public Relationship getRelationship() {
         return relationship;
+    }
+    
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+    
+    public Integer getOffset() {
+        return this.offset;
     }
 
     public void setPublisher(Publisher publisher) {
@@ -101,8 +124,10 @@ public class TopicRef {
         ABOUT("about"),
         TWITTER_AUDIENCE("twitter:audience"),
         TWITTER_AUDIENCE_RELATED("twitter:audience-related"),
+        TWITTER_AUDIENCE_REALTIME("twitter:audience:realtime"),
         TRANSCRIPTION("transcription"),
-        TRANSCRIPTION_SUBTITLES("transcription:subtitles");
+        TRANSCRIPTION_SUBTITLES("transcription:subtitles"),
+        TRANSCRIPTION_SUBTITLES_REALTIME("transcription:subtitles:realtime");
         private final String name;
 
         private Relationship(String name) {
@@ -113,6 +138,27 @@ public class TopicRef {
         public String toString() {
             return name;
         }
+        
+        private static ImmutableSet<Relationship> ALL = ImmutableSet.copyOf(values());
+        
+        public static ImmutableSet<Relationship> all() {
+            return ALL;
+        }
+        
+        private static ImmutableMap<String, Optional<Relationship>> LOOKUP = ImmutableMap.copyOf(
+            Maps.transformValues(Maps.uniqueIndex(all(), Functions.toStringFunction()),
+                new Function<Relationship, Optional<Relationship>>() {
+                    @Override
+                    public Optional<Relationship> apply(@Nullable Relationship input) {
+                        return Optional.fromNullable(input);
+                    }
+            }
+        ));
+        
+        public static Optional<Relationship> fromString(String relationship) {
+            Optional<Relationship> possibleRelationship = LOOKUP.get(relationship);
+            return possibleRelationship != null ? possibleRelationship
+                                                : Optional.<Relationship>absent();
+        }
     }
-
 }

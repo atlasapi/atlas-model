@@ -7,6 +7,7 @@ import org.atlasapi.application.SourceStatus;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
@@ -41,12 +42,21 @@ public enum Publisher {
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE),
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
+    THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     MUSIC_BRAINZ("MusicBrainz", "musicbrainz.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     EMI_PUB("EMI Music Publishing", "emimusicpub.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    EMI_MUSIC("EMI Music", "emimusic.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    BBC_KIWI("BBC Kiwi", "kiwi.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE),
+    CANARY("Canary", "canary.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    BBC_MUSIC("BBC Music","music.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
+    SPOTIFY("Spotify", "spotify.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    SOUNDCLOUD("Soundcloud", "soundcloud.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    RDIO("rdio", "rdio.com",Countries.ALL, SourceStatus.UNAVAILABLE),
+    AMAZON_UK("Amazon UK", "amazon.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
+    BBC_RD_TOPIC("BBC R&D Live Topics", "live-topics.prototype0.net", Countries.GB, SourceStatus.UNAVAILABLE),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
@@ -111,5 +121,11 @@ public enum Publisher {
 
     public SourceStatus getDefaultSourceStatus() {
         return defaultStatus;
+    }
+    
+    private static final ImmutableSet<Publisher> ALL = ImmutableSet.copyOf(values());
+    
+    public static final ImmutableSet<Publisher> all() {
+        return ALL;
     }
 }
