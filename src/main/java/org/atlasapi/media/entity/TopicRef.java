@@ -41,7 +41,7 @@ public class TopicRef {
 
     private TopicRef() {
     }
-    
+
     public void setTopic(Topic topic) {
         this.topic = topic.getId();
     }
@@ -161,5 +161,4 @@ public class TopicRef {
                                                 : Optional.<Relationship>absent();
         }
     }
-
 }

@@ -151,7 +151,7 @@ public abstract class Content extends Described {
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
     }
-    
+
     protected String getSortKey() {
         return SortKey.DEFAULT.name();
     }
