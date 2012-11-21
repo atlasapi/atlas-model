@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.base.Maybe;
@@ -1098,7 +1097,7 @@ public class OldChannel extends Channel implements SelfModelling {
     }
 
     public static List<OldChannel> fromKeys(Iterable<String> keys) {
-        Builder<OldChannel> builder = ImmutableList.builder();
+        ImmutableList.Builder<OldChannel> builder = ImmutableList.builder();
 
         for (String key : keys) {
             Maybe<OldChannel> channel = fromKey(key);
@@ -1111,7 +1110,7 @@ public class OldChannel extends Channel implements SelfModelling {
     }
 
     public static List<String> toKeys(Iterable<OldChannel> channels) {
-        Builder<String> keys = ImmutableList.builder();
+        ImmutableList.Builder<String> keys = ImmutableList.builder();
 
         for (OldChannel channel : channels) {
             keys.add(channel.key());
