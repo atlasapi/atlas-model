@@ -42,6 +42,7 @@ public abstract class Described extends Identified {
 	
 	protected Publisher publisher;
 	private String image;
+	private Set<Image> images;
 	private String thumbnail;
 	
 	private DateTime firstSeen;
@@ -192,6 +193,14 @@ public abstract class Described extends Identified {
         return this.presentationChannel;
     }
     
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
+    }
+    
+    public Set<Image> getImages() {
+        return images;
+    }
+    
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -208,6 +217,7 @@ public abstract class Described extends Identified {
         to.title = from.title;
         to.scheduleOnly = from.scheduleOnly;
         to.presentationChannel = from.presentationChannel;
+        to.images = from.images;
     }
     
     public abstract Described copy();
