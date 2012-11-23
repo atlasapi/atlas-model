@@ -30,6 +30,7 @@ public abstract class Description extends Aliased {
     private String description;
     private PublisherDetails publisher;
     private String image;
+    private Set<Image> images;
     private String thumbnail;
     private Set<String> genres = Sets.newHashSet();
     private Set<String> tags = Sets.newHashSet();
@@ -76,6 +77,10 @@ public abstract class Description extends Aliased {
     public void setTags(Iterable<String> tags) {
         this.tags = Sets.newHashSet(tags);
     }
+    
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
+    }
 
     public PublisherDetails getPublisher() {
         return publisher;
@@ -87,6 +92,10 @@ public abstract class Description extends Aliased {
 
     public String getImage() {
         return image;
+    }
+    
+    public Set<Image> getImages() {
+        return images;
     }
 
     public void setImage(String image) {
