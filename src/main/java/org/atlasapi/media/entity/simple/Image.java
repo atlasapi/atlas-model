@@ -40,7 +40,7 @@ public class Image extends Identified {
         return height;
     }
     
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
     
@@ -48,7 +48,7 @@ public class Image extends Identified {
         return width;
     }
     
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
     
