@@ -43,6 +43,10 @@ public class Policy extends Identified {
 	private Price price;
 	
 	private Platform platform;
+	
+	private Network network;
+	
+	private DateTime actualAvailabilityStart;
     
 	@RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
     public Set<Country> getAvailableCountries() {
@@ -78,6 +82,16 @@ public class Policy extends Identified {
     @RdfProperty(relation=false)
     public Platform getPlatform() {
     	return platform;
+    }
+    
+    @RdfProperty(relation=false)
+    public Network getNetwork() {
+        return network;
+    }
+    
+    @RdfProperty(relation=false)
+    public DateTime getActualAvailabilityStart() { 
+        return actualAvailabilityStart;
     }
     
     public void setAvailabilityEnd(DateTime availabilityEnd) {
@@ -122,6 +136,14 @@ public class Policy extends Identified {
 	public void setPlatform(Platform platform) {
 		this.platform = platform;
 	}
+	
+	public void setNetwork(Network network) {
+	    this.network = network;
+	}
+    
+    public void setActualAvailabilityStart(DateTime actualAvailabilityStart) {
+        this.actualAvailabilityStart = actualAvailabilityStart;
+    }
 	
 	public Policy withPrice(Price price) {
 	    setPrice(price);
@@ -189,11 +211,16 @@ public class Policy extends Identified {
 	    copy.price = price;
 	    copy.revenueContract = revenueContract;
 	    copy.platform = platform;
+	    copy.network = network;
+	    copy.actualAvailabilityStart = actualAvailabilityStart;
 	    return copy;
 	}
 	
 	public enum Platform {
-		XBOX;
+		XBOX,
+		PC,
+		IOS;
+		
 		
 		public String key() {
 			return name().toLowerCase();
@@ -207,5 +234,23 @@ public class Policy extends Identified {
 			}
 			return null;
 		}
+	}
+	
+	public enum Network {
+	    WIFI,
+	    THREE_G;
+	    
+	    public String key() {
+	        return name().toLowerCase();
+	    }
+	    
+	    public static Network fromKey(String key) {
+	        for (Network network : values()) {
+	            if (network.key().equals(key)) {
+	                return network;
+	            }
+	        }
+	        return null;
+	    }
 	}
 }
