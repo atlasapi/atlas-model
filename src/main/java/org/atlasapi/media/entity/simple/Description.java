@@ -28,6 +28,7 @@ public abstract class Description extends Aliased {
 
     private String title;
     private String description;
+    private Descriptions descriptions;
     private PublisherDetails publisher;
     private String image;
     private String thumbnail;
@@ -133,6 +134,14 @@ public abstract class Description extends Aliased {
 
     public String getTitle() {
         return title;
+    }
+    
+    public Descriptions getDescriptions() {
+        return descriptions;
+    }
+    
+    public void setDescriptions(Descriptions descriptions) {
+        this.descriptions =  descriptions;
     }
 
     public String getDescription() {

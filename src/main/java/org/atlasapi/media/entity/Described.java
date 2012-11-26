@@ -32,6 +32,8 @@ public abstract class Described extends Identified {
 
 	private String title;
 	
+	private Synopses synopses;
+	
 	private String description;
 		
 	private MediaType mediaType = MediaType.VIDEO;
@@ -95,10 +97,19 @@ public abstract class Described extends Identified {
 		this.title = title;
 	}
 
+    @RdfProperty(namespace = DC.NS)
+    public Synopses getSynopses() {
+        return this.synopses;
+    }
+
 	@RdfProperty(namespace = DC.NS)
 	public String getDescription() {
 		return this.description;
 	}
+
+    public void setSynopses(Synopses synopses) {
+        this.synopses = synopses;
+    }
 
 	public void setDescription(String description) {
 		this.description = description;
