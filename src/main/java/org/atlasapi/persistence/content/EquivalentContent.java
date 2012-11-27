@@ -38,26 +38,26 @@ public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
             Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_ID);
             Set<LookupRef> allRefs = ImmutableSet.copyOf(refMap.values());
 
-            ImmutableSet.Builder<Content> equivContents = ImmutableSet.builder();
+            Set<Content> equivContents = Sets.newHashSetWithExpectedSize(refMap.size());
             for (Content content : contents) {
                 LookupRef ref = refMap.get(content.getCanonicalUri());
                 Set<LookupRef> equivs = Sets.filter(allRefs, Predicates.not(Predicates.equalTo(ref)));
                 content.setEquivalentTo(ImmutableSet.copyOf(equivs));
                 equivContents.add(content);
             }
-            return equivContents.build();
+            return equivContents;
         }
 
     }
 
-    private ImmutableSetMultimap<String, Content> entries;
+    private SetMultimap<String, Content> entries;
     
     private EquivalentContent(SetMultimap<String, Content> entries) {
         this.entries = ImmutableSetMultimap.copyOf(entries);
     }
 
     @Override
-    protected ImmutableSetMultimap<String, Content> delegate() {
+    protected SetMultimap<String, Content> delegate() {
         return entries;
     }
 
