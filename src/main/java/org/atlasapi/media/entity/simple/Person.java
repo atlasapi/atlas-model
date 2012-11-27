@@ -15,6 +15,7 @@ public class Person extends Aliased {
 	private String name;
 	private String profileLink;
 	private String role;
+	private String displayRole;
 	private String character;
 	private List<ContentIdentifier> content;
 	
@@ -32,6 +33,14 @@ public class Person extends Aliased {
 	public void setRole(String role) {
 	    this.role = role;
 	}
+    
+    public String getDisplayRole() {
+        return displayRole;
+    }
+    
+    public void setDisplayRole(String displayRole) {
+        this.displayRole = displayRole;
+    }
 	
 	public void setName(String name) {
 		this.name = name;
@@ -59,6 +68,7 @@ public class Person extends Aliased {
 	    person.name = name;
 	    person.profileLink = profileLink;
 	    person.role = role;
+	    person.displayRole = displayRole;
 	    person.character = character;
 	    return person;
 	}
