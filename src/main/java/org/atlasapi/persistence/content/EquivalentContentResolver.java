@@ -1,6 +1,5 @@
 package org.atlasapi.persistence.content;
 
-import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.media.entity.Publisher;
@@ -27,7 +26,7 @@ public interface EquivalentContentResolver {
      *            - whether aliases should be resolved or not.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveUris(Iterable<String> uris, List<Publisher> selectedSources, Set<Annotation> activeAnnotations, boolean withAliases);
+    EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations, boolean withAliases);
     
     /**
      * Resolves the equivalent sets of content for a given set of source URIs.
@@ -41,6 +40,6 @@ public interface EquivalentContentResolver {
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveIds(Iterable<Long> ids, List<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    EquivalentContent resolveIds(Iterable<Long> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
 
 }
