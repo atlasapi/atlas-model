@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,6 +23,7 @@ import org.atlasapi.messaging.EndReplayMessage;
 import org.atlasapi.messaging.EntityUpdatedMessage;
 import org.atlasapi.messaging.Message;
 import org.atlasapi.messaging.ReplayMessage;
+import org.atlasapi.persistence.lookup.entry.LookupEntry;
 import org.atlasapi.serialization.json.configuration.model.FilteredContainerConfiguration;
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.joda.time.DateTime;
@@ -168,5 +170,19 @@ public class JsonFactoryTest {
         String json = mapper.writeValueAsString(message);
         Message read = mapper.readValue(json, Message.class);
         assertEquals(message, read);
+    }
+    
+    @Test
+    public void testLookupEntry() throws Exception {
+        Item item = new Item("item", "item", Publisher.BBC);
+        item.setAliasUrls(ImmutableList.of("alias1","alias2"));
+        item.setId(1234l);
+        LookupEntry entry = LookupEntry.lookupEntryFrom(item);
+
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+        
+        String json = mapper.writeValueAsString(entry);
+        LookupEntry read = mapper.readValue(json, LookupEntry.class);
+        assertEquals(entry, read);
     }
 }
