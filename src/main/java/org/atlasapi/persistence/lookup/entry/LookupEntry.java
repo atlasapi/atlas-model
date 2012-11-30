@@ -13,15 +13,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.time.DateTimeZones;
-import java.util.HashSet;
 
 public class LookupEntry {
     
     public static LookupEntry lookupEntryFrom(Content c) {
         DateTime now = new DateTime(DateTimeZones.UTC);
         LookupRef lookupRef = LookupRef.from(c);
+        Set<String> aliases = ImmutableSet.copyOf(c.getAllUris());
         ImmutableSet<LookupRef> reflexiveSet = ImmutableSet.of(lookupRef);
-        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAllUris(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
+        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, aliases, reflexiveSet, reflexiveSet, reflexiveSet, now, now);
     }
     
     public static Function<LookupEntry,String> TO_ID = new Function<LookupEntry, String>() {
