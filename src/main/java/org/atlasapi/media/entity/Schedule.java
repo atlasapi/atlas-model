@@ -1,6 +1,5 @@
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -15,18 +14,18 @@ import com.google.common.collect.ImmutableList;
 public final class Schedule {
 
     private final Interval interval;
-    private final List<ScheduleChannel> scheduleChannels;
+    private final List<ChannelSchedule> channelSchedules;
     
     public static Schedule fromChannelMap(Map<Channel, List<Item>> channelMap, Interval interval) {
-        ImmutableList.Builder<ScheduleChannel> scheduleChannels = ImmutableList.builder();
+        ImmutableList.Builder<ChannelSchedule> scheduleChannels = ImmutableList.builder();
         for (Entry<Channel, List<Item>> channel: channelMap.entrySet()) {
-            scheduleChannels.add(new ScheduleChannel(channel.getKey(), channel.getValue()));
+            scheduleChannels.add(new ChannelSchedule(channel.getKey(), interval, channel.getValue()));
         }
         return new Schedule(scheduleChannels.build(), interval);
     }
 
-    public Schedule(List<ScheduleChannel> scheduleChannels, Interval interval) {
-        this.scheduleChannels = scheduleChannels;
+    public Schedule(List<ChannelSchedule> channelSchedules, Interval interval) {
+        this.channelSchedules = channelSchedules;
         this.interval = interval;
     }
     
@@ -34,64 +33,31 @@ public final class Schedule {
         return interval;
     }
 
-    public List<ScheduleChannel> scheduleChannels() {
-        return this.scheduleChannels;
-    }
-
-    public static class ScheduleChannel {
-        private final Channel channel;
-        private final List<Item> entries;
-
-        public ScheduleChannel(Channel channel, Iterable<Item> entries) {
-            checkNotNull(channel);
-            checkNotNull(entries);
-            this.channel = channel;
-            this.entries = ImmutableList.copyOf(entries);
-        }
-
-        public Channel channel() {
-            return channel;
-        }
-
-        public List<Item> items() {
-            return entries;
-        }
-        
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof ScheduleChannel) {
-                ScheduleChannel scheduleChannel = (ScheduleChannel) obj;
-                return channel.equals(scheduleChannel.channel) && entries.equals(scheduleChannel.entries);
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return channel.hashCode();
-        }
-
-        @Override
-        public String toString() {
-            return Objects.toStringHelper(ScheduleChannel.class).addValue(channel).addValue(entries).toString();
-        }
+    public List<ChannelSchedule> channelSchedules() {
+        return this.channelSchedules;
     }
 
     @Override
     public int hashCode() {
-        return scheduleChannels.hashCode();
+        return channelSchedules.hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Schedule) {
-            return scheduleChannels.equals(((Schedule) obj).scheduleChannels);
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof Schedule) {
+            Schedule other = (Schedule) that;
+            return channelSchedules.equals(other.channelSchedules);
         }
         return false;
     }
     
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).addValue(scheduleChannels).toString();
+        return Objects.toStringHelper(this)
+            .addValue(channelSchedules)
+            .toString();
     }
 }
