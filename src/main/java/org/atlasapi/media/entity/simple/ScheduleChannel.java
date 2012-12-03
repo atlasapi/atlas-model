@@ -6,50 +6,21 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 @XmlType(name="channel", namespace=PLAY_SIMPLE_XML.NS)
 public class ScheduleChannel {
 	
-    private String channelUri;
-    private String channelTitle;
-    private String channelKey;
     private Channel channel;
-    
-    public String getChannelTitle() {
-        return channelTitle;
-    }
-
-    public void setChannelTitle(String channelTitle) {
-        this.channelTitle = channelTitle;
-    }
-
-    public String getChannelKey() {
-        return channelKey;
-    }
-
-    public void setChannelKey(String channelKey) {
-        this.channelKey = channelKey;
-    }
-
-    private List<Item> items = Lists.newArrayList();
-    
-    public String getChannelUri() {
-        return channelUri;
-    }
+    private List<Item> content = Lists.newArrayList();
     
     public List<Item> getItems() {
-        return items;
+        return content;
     }
     
-    public void setChannelUri(String channelUri) {
-        this.channelUri = channelUri;
-    }
-
     public void setItems(List<Item> items) {
-        this.items = items;
+        this.content = items;
     }
     
     public void setChannel(Channel channel) {
@@ -61,30 +32,29 @@ public class ScheduleChannel {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof ScheduleChannel) {
-            ScheduleChannel scheduleChannel = (ScheduleChannel) obj;
-            return channelUri.equals(scheduleChannel.channelUri) && items.equals(scheduleChannel.items);
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof ScheduleChannel) {
+            ScheduleChannel other = (ScheduleChannel) that;
+            return Objects.equal(channel, other.channel) 
+                && Objects.equal(content, other.content);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return channelUri.hashCode();
+        return Objects.hashCode(channel, content);
     }
     
     @Override
     public String toString() {
-        return Objects.toStringHelper(ScheduleChannel.class).addValue(channelUri).addValue(items).toString();
+        return Objects.toStringHelper(ScheduleChannel.class)
+            .add("channel", channel)
+            .add("content", content)
+            .toString();
     }
-    
-    public static Function<ScheduleChannel, String> TO_KEY = new Function<ScheduleChannel, String>() {
-
-		@Override
-		public String apply(ScheduleChannel input) {
-			return input.getChannelKey();
-		}
-    };
 
 }
