@@ -6,15 +6,15 @@ import com.google.common.collect.ImmutableSet;
 
 public class Channel extends Aliased {
 
-    private PublisherDetails publisher;
+    private PublisherDetails source;
     private String title;
     private String mediaType;
     private Set<ChannelGroup> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
 
-    public void setPublisherDetails(PublisherDetails publisherDetails) {
-        this.publisher = publisherDetails;
+    public void setSourceDetails(PublisherDetails publisherDetails) {
+        this.source = publisherDetails;
     }
 
     public void setTitle(String title) {
@@ -24,9 +24,9 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
-
-    public PublisherDetails getPublisherDetails() {
-        return this.publisher;
+    
+    public PublisherDetails getSourceDetails() {
+        return this.source;
     }
 
     public String getTitle() {

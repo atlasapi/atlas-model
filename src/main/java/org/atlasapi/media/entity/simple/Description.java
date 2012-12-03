@@ -28,7 +28,7 @@ public abstract class Description extends Aliased {
 
     private String title;
     private String description;
-    private PublisherDetails publisher;
+    private PublisherDetails source;
     private String image;
     private String thumbnail;
     private Set<String> genres = Sets.newHashSet();
@@ -74,12 +74,12 @@ public abstract class Description extends Aliased {
         this.tags = Sets.newHashSet(tags);
     }
 
-    public PublisherDetails getPublisher() {
-        return publisher;
+    public PublisherDetails getSource() {
+        return source;
     }
 
-    public void setPublisher(PublisherDetails publisher) {
-        this.publisher = publisher;
+    public void setSource(PublisherDetails source) {
+        this.source = source;
     }
 
     public String getImage() {
@@ -207,8 +207,8 @@ public abstract class Description extends Aliased {
         destination.setTitle(getTitle());
         destination.setDescription(getDescription());
 
-        if (getPublisher() != null) {
-            destination.setPublisher(getPublisher().copy());
+        if (getSource() != null) {
+            destination.setSource(getSource().copy());
         }
 
         destination.setImage(getImage());

@@ -127,7 +127,7 @@ public class ItemTestDataBuilder {
         item.setGenres(genres);
         item.setImage(image);
         item.setLocations(locations);
-        item.setPublisher(publisher);
+        item.setSource(publisher);
         item.setSameAs(sameAs);
         item.setSeriesNumber(seriesNumber);
         item.setSeriesSummary(seriesSummary);
