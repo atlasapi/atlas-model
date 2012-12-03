@@ -89,7 +89,7 @@ public class PlaylistTestDataBuilder {
         playlist.setDescription(description);
         playlist.setGenres(genres);
         playlist.setImage(image);
-        playlist.setPublisher(publisher);
+        playlist.setSource(publisher);
         playlist.setSameAs(sameAs);
         playlist.setTags(tags);
         playlist.setThumbnail(thumbnail);

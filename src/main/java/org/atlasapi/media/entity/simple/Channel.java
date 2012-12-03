@@ -23,7 +23,7 @@ public class Channel extends Aliased {
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
     private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
 
-    private PublisherDetails publisher;
+    private PublisherDetails source;
     private String title;
     private String image;
     private String mediaType;
@@ -39,8 +39,8 @@ public class Channel extends Aliased {
     private Date startDate;
     private Date endDate;
 
-    public void setPublisherDetails(PublisherDetails publisherDetails) {
-        this.publisher = publisherDetails;
+    public void setSourceDetails(PublisherDetails publisherDetails) {
+        this.source = publisherDetails;
     }
 
     public void setTitle(String title) {
@@ -68,8 +68,8 @@ public class Channel extends Aliased {
     }
 
     @XmlElement(name = "publisher")
-    public PublisherDetails getPublisherDetails() {
-        return this.publisher;
+    public PublisherDetails getSourceDetails() {
+        return this.source;
     }
 
     public String getTitle() {
