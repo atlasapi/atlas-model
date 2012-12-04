@@ -11,6 +11,7 @@ import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.entity.ContentGroupRef;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.ParentRef;
 import org.atlasapi.media.entity.RelatedLink;
@@ -52,6 +53,7 @@ public class JsonFactory {
             context.setMixInAnnotations(RelatedLink.class, RelatedLinkConfiguration.class);
             context.setMixInAnnotations(ParentRef.class, ParentRefConfiguration.class);
             context.setMixInAnnotations(ChildRef.class, ChildRefConfiguration.class);
+            context.setMixInAnnotations(ContentGroupRef.class, ContentGroupRefConfiguration.class);
         }
     }
 }

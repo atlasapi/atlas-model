@@ -1,11 +1,15 @@
 package org.atlasapi.serialization.json;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.Sets;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +18,7 @@ import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
+import org.atlasapi.media.entity.ContentGroupRef;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -61,5 +66,18 @@ public class JsonFactoryTest {
         String versionsJson = mapper.writer(filters).writeValueAsString(item.getVersions());
         Collection<Version> readVersions = mapper.readValue(versionsJson, TypeFactory.defaultInstance().constructCollectionType(Collection.class, Version.class));
         assertEquals(1, readVersions.size());
+    }
+    
+    @Test
+    public void testContentGroupRef() throws Exception {
+        
+        ContentGroupRef ref = new ContentGroupRef(1234l, "uri");
+        
+        ObjectMapper mapper = JsonFactory.makeJsonMapper();
+        
+        String jsonString = mapper.writeValueAsString(ref);
+        
+        mapper.readValue(jsonString, ContentGroupRef.class);
+        
     }
 }
