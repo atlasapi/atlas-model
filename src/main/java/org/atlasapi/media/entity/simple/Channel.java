@@ -38,7 +38,7 @@ public class Channel extends Aliased {
     }
 
     public void setChannelGroups(Iterable<ChannelGroup> groups) {
-        this.channelGroups = ImmutableSet.copyOf(groups);
+        this.channelGroups = groups == null ? null : ImmutableSet.copyOf(groups);
     }
 
     public Set<ChannelGroup> getChannelGroups() {
@@ -54,7 +54,7 @@ public class Channel extends Aliased {
     }
     
     public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
-        this.availableFrom = ImmutableSet.copyOf(availableFrom);
+        this.availableFrom = availableFrom == null ? null : ImmutableSet.copyOf(availableFrom);
     }
     
     public Set<PublisherDetails> getAvailableFrom() {
