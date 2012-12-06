@@ -59,6 +59,7 @@ public enum Publisher {
     BBC_RD_TOPIC("BBC R&D Live Topics", "live-topics.prototype0.net", Countries.GB, SourceStatus.UNAVAILABLE),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE),
     PA_FEATURES("PA Features", "features.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();

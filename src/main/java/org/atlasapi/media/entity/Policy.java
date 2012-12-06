@@ -219,7 +219,10 @@ public class Policy extends Identified {
 	public enum Platform {
 		XBOX,
 		PC,
-		IOS;
+		IOS,
+		BTVISION_CARDINAL,
+		BTVISION_CLASSIC,
+		YOUVIEW;
 		
 		
 		public String key() {
