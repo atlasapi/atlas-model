@@ -17,6 +17,11 @@ public enum MediaType {
 	    return this.name().toLowerCase();
 	}
 	
+	@Override
+	public String toString() {
+	    return toKey();
+	}
+	
 	private static final ImmutableSet<MediaType> ALL = ImmutableSet.copyOf(values());
 	
 	public static final ImmutableSet<MediaType> all() {
