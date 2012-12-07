@@ -6,16 +6,20 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.metabroadcast.common.text.MoreStrings;
 
 public enum Annotation {
-
+    //The order of these entries defines the order of output fields
+    ID_SUMMARY,
+    ID,
+    EXTENDED_ID, 
     DESCRIPTION,
     EXTENDED_DESCRIPTION,
-    BRAND_SUMMARY,   
+    BRAND_REFERENCE,
+    BRAND_SUMMARY,
+    SERIES_REFERENCE,
     SERIES_SUMMARY,
     SUB_ITEMS,
     CLIPS,
@@ -47,7 +51,13 @@ public enum Annotation {
         PEOPLE,
         CLIPS
     );
-    public static final BiMap<String, Annotation> LOOKUP = HashBiMap.create(Maps.uniqueIndex(ImmutableList.copyOf(Annotation.values()), Functions.compose(MoreStrings.TO_LOWER, Functions.toStringFunction())));
+    private static final ImmutableSet<Annotation> ALL = ImmutableSet.copyOf(values());
+    
+    public static final ImmutableSet<Annotation> all() {
+        return ALL;
+    }
+    
+    public static final BiMap<String, Annotation> LOOKUP = HashBiMap.create(Maps.uniqueIndex(all(), Functions.compose(MoreStrings.TO_LOWER, Functions.toStringFunction())));
     
     public static final Set<Annotation> defaultAnnotations() {
         return defaultAnnotations;

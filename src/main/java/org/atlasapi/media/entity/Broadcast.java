@@ -25,7 +25,6 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Ordering;
 import com.metabroadcast.common.base.Maybe;
 
 /**
@@ -287,6 +286,13 @@ public class Broadcast extends Identified {
         @Override
         public DateTime apply(Broadcast input) {
             return input.getTransmissionTime();
+        }
+    };
+
+    public static final Predicate<Broadcast> ACTIVELY_PUBLISHED = new Predicate<Broadcast>() {
+        @Override
+        public boolean apply(Broadcast input) {
+            return input.isActivelyPublished();
         }
     };
 }
