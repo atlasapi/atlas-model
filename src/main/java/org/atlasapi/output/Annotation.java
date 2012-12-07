@@ -36,6 +36,7 @@ public enum Annotation {
     PRODUCTS,
     RECENTLY_BROADCAST,
     CHANNELS,
+    CHANNEL_SUMMARY,
     PUBLISHER,
     AUDIT;
     
