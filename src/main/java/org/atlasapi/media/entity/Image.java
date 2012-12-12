@@ -107,4 +107,5 @@ public class Image extends Identified {
                     && (input.getAvailabilityEnd() == null || new DateTime(input.getAvailabilityEnd()).isAfterNow());
         }
     };
+
 }
