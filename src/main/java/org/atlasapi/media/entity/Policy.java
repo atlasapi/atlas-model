@@ -21,7 +21,6 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
