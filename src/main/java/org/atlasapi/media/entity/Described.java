@@ -31,6 +31,12 @@ import com.metabroadcast.common.text.MoreStrings;
 public abstract class Described extends Identified {
 
 	private String title;
+
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
+	
+	private Synopses synopses;
 	
 	private String description;
 		
@@ -42,6 +48,7 @@ public abstract class Described extends Identified {
 	
 	protected Publisher publisher;
 	private String image;
+	private Set<Image> images;
 	private String thumbnail;
 	
 	private DateTime firstSeen;
@@ -95,14 +102,50 @@ public abstract class Described extends Identified {
 		this.title = title;
 	}
 
+    @RdfProperty(namespace = DC.NS)
+    public Synopses getSynopses() {
+        return this.synopses;
+    }
+
 	@RdfProperty(namespace = DC.NS)
 	public String getDescription() {
 		return this.description;
 	}
 
+    public void setSynopses(Synopses synopses) {
+        this.synopses = synopses;
+    }
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    @RdfProperty(namespace = DC.NS)
+    public String getShortDescription() {
+        return this.shortDescription;
+    }
+
+    @RdfProperty(namespace = DC.NS)
+    public String getMediumDescription() {
+        return this.mediumDescription;
+    }
+
+    @RdfProperty(namespace = DC.NS)
+    public String getLongDescription() {
+        return this.longDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+    
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 
 	public Set<String> getTags() {
 		return tags;
@@ -192,6 +235,14 @@ public abstract class Described extends Identified {
         return this.presentationChannel;
     }
     
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
+    }
+    
+    public Set<Image> getImages() {
+        return images;
+    }
+    
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -208,6 +259,7 @@ public abstract class Described extends Identified {
         to.title = from.title;
         to.scheduleOnly = from.scheduleOnly;
         to.presentationChannel = from.presentationChannel;
+        to.images = from.images;
     }
     
     public abstract Described copy();

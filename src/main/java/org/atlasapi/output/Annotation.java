@@ -6,6 +6,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.metabroadcast.common.text.MoreStrings;
@@ -40,7 +41,9 @@ public enum Annotation {
     PRODUCTS,
     RECENTLY_BROADCAST,
     CHANNELS,
-    PUBLISHER;
+    CHANNEL_SUMMARY,
+    PUBLISHER,
+    AUDIT;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
