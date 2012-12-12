@@ -165,7 +165,7 @@ public class ApplicationConfiguration {
      * Temporary: these should be persisted and not hardcoded
      */
     private ImmutableList<Publisher> imagePrecedence() {
-        return ImmutableList.of(Publisher.BBC, Publisher.C4, Publisher.PA);
+        return ImmutableList.of(Publisher.PA, Publisher.BBC, Publisher.C4);
     }
     
     public boolean imagePrecedenceEnabled() {
