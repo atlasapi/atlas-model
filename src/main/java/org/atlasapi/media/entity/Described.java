@@ -31,6 +31,10 @@ import com.metabroadcast.common.text.MoreStrings;
 public abstract class Described extends Identified {
 
 	private String title;
+
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
 	
 	private String description;
 		
@@ -103,6 +107,33 @@ public abstract class Described extends Identified {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    @RdfProperty(namespace = DC.NS)
+    public String getShortDescription() {
+        return this.shortDescription;
+    }
+
+    @RdfProperty(namespace = DC.NS)
+    public String getMediumDescription() {
+        return this.mediumDescription;
+    }
+
+    @RdfProperty(namespace = DC.NS)
+    public String getLongDescription() {
+        return this.longDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+    
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 
 	public Set<String> getTags() {
 		return tags;
