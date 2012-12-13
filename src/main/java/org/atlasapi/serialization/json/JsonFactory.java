@@ -1,5 +1,15 @@
 package org.atlasapi.serialization.json;
 
+import org.atlasapi.equiv.ContentRef;
+import org.atlasapi.equiv.EquivalenceSummary;
+import org.atlasapi.media.entity.Broadcast;
+import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.entity.ParentRef;
+import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.RelatedLink;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -8,12 +18,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.metabroadcast.common.intl.Country;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.ParentRef;
-import org.atlasapi.media.entity.RelatedLink;
 
 /**
  */
@@ -41,6 +45,8 @@ public class JsonFactory {
 
         @Override
         public void setupModule(SetupContext context) {
+            addKeyDeserializer(Publisher.class, new PublisherConfiguration.PublisherKeyDeserializer());
+            
             super.setupModule(context);
             //
             context.setMixInAnnotations(Object.class, ObjectConfiguration.class);
@@ -52,6 +58,9 @@ public class JsonFactory {
             context.setMixInAnnotations(RelatedLink.class, RelatedLinkConfiguration.class);
             context.setMixInAnnotations(ParentRef.class, ParentRefConfiguration.class);
             context.setMixInAnnotations(ChildRef.class, ChildRefConfiguration.class);
+            context.setMixInAnnotations(EquivalenceSummary.class, EquivalenceSummaryConfiguration.class);
+            context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
         }
     }
+    
 }
