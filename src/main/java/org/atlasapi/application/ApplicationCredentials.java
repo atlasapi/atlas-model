@@ -11,14 +11,16 @@ public class ApplicationCredentials {
 
 	private final String apiKey;
 	private final Set<IpRange> ipAddresses ;
+	private final boolean enabled;
 	
-	public ApplicationCredentials(String apiKey, Set<IpRange> ipAddresses) {
+	public ApplicationCredentials(String apiKey, Set<IpRange> ipAddresses, boolean enabled) {
         this.apiKey = checkNotNull(apiKey);
         this.ipAddresses = ipAddresses != null ? ImmutableSet.copyOf(ipAddresses) : ImmutableSet.<IpRange>of();
-    }
+        this.enabled = enabled;
+	}
 	
-	public ApplicationCredentials(String apiKey) {
-	    this(apiKey, ImmutableSet.<IpRange>of());
+	public ApplicationCredentials(String apiKey, boolean enabled) {
+	    this(apiKey, ImmutableSet.<IpRange>of(), enabled);
     }
 	
 	public String getApiKey() {
@@ -26,11 +28,23 @@ public class ApplicationCredentials {
 	}
 	
 	public ApplicationCredentials copyWithIpAddresses(Iterable<IpRange> ipAddresses) {
-		return new ApplicationCredentials(apiKey, ImmutableSet.copyOf(ipAddresses));
+		return new ApplicationCredentials(apiKey, ImmutableSet.copyOf(ipAddresses), enabled);
+	}
+	
+	public ApplicationCredentials copyEnabled() {
+		return new ApplicationCredentials(apiKey, ImmutableSet.copyOf(ipAddresses), true);
+	}
+	
+	public ApplicationCredentials copyDisabled() {
+		return new ApplicationCredentials(apiKey, ImmutableSet.copyOf(ipAddresses), false);
 	}
 	
 	public Set<IpRange> getIpAddressRanges() {
 		return ipAddresses;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
 	}
 	
 }
