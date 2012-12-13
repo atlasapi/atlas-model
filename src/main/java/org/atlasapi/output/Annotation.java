@@ -1,15 +1,13 @@
 package org.atlasapi.output;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
-import com.google.common.base.Functions;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.metabroadcast.common.text.MoreStrings;
+import com.metabroadcast.common.collect.ImmutableOptionalMap;
 
 public enum Annotation {
     //The order of these entries defines the order of output fields
@@ -51,6 +49,41 @@ public enum Annotation {
     PUBLISHER,
     IMAGES;
     
+    public String toKey() {
+        return name().toLowerCase();
+    }
+    
+    private static final Function<Annotation, String> TO_KEY = new Function<Annotation, String>() {
+        @Override
+        public String apply(Annotation input) {
+            return input.toKey();
+        }
+    };
+    
+    public static final Function<Annotation, String> toKeyFunction() {
+        return TO_KEY;
+    }
+
+    private static final ImmutableSet<Annotation> ALL = ImmutableSet.copyOf(values());
+    
+    public static final ImmutableSet<Annotation> all() {
+        return ALL;
+    }
+
+    private static final Map<String,Optional<Annotation>> lookup = ImmutableOptionalMap.fromMap(Maps.uniqueIndex(all(), TO_KEY));
+    
+    public static final Map<String, Optional<Annotation>> lookup() {
+        return lookup;
+    }
+    
+    public static final Optional<Annotation> fromKey(String key) {
+        return lookup.get(key);
+    }
+    
+    public static final Set<Annotation> defaultAnnotations() {
+        return defaultAnnotations;
+    }
+
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
         EXTENDED_DESCRIPTION,
@@ -60,26 +93,5 @@ public enum Annotation {
         PEOPLE,
         CLIPS
     );
-    private static final ImmutableSet<Annotation> ALL = ImmutableSet.copyOf(values());
     
-    public static final ImmutableSet<Annotation> all() {
-        return ALL;
-    }
-    
-    public static final BiMap<String, Annotation> LOOKUP = HashBiMap.create(Maps.uniqueIndex(all(), Functions.compose(MoreStrings.TO_LOWER, Functions.toStringFunction())));
-    
-    public static final Set<Annotation> defaultAnnotations() {
-        return defaultAnnotations;
-    }
-    
-    public String toKey() {
-        return name().toLowerCase();
-    }
-    
-    public static final Function<Annotation, String> TO_KEY = new Function<Annotation, String>() {
-        @Override
-        public String apply(Annotation input) {
-            return input.toKey();
-        }
-    };
 }
