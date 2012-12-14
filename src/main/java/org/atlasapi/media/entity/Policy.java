@@ -224,7 +224,6 @@ public class Policy extends Identified {
 		BTVISION_CLASSIC,
 		YOUVIEW;
 		
-		
 		public String key() {
 			return name().toLowerCase();
 		}
@@ -240,8 +239,18 @@ public class Policy extends Identified {
 	}
 	
 	public enum Network {
-	    WIFI,
-	    THREE_G;
+	    WIFI("wifi"),
+	    THREE_G("3g");
+	    
+	    private final String title;
+	    
+	    Network(String title) {
+            this.title = title;
+	    }
+	    
+	    public String getTitle() {
+	        return title;
+	    }
 	    
 	    public String key() {
 	        return name().toLowerCase();
