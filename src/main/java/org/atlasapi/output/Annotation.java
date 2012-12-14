@@ -84,13 +84,7 @@ public enum Annotation {
     }
 
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
-        DESCRIPTION,
-        EXTENDED_DESCRIPTION,
-        SUB_ITEMS,
-        BROADCASTS,
-        LOCATIONS,
-        PEOPLE,
-        CLIPS
+        ID_SUMMARY
     );
     
 }
