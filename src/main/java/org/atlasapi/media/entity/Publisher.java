@@ -57,6 +57,7 @@ public enum Publisher {
     RDIO("rdio", "rdio.com",Countries.ALL, SourceStatus.UNAVAILABLE),
     AMAZON_UK("Amazon UK", "amazon.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     BBC_RD_TOPIC("BBC R&D Live Topics", "live-topics.prototype0.net", Countries.GB, SourceStatus.UNAVAILABLE),
+    PA_PEOPLE("PA People Profiles", "people.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE),
     PA_FEATURES("PA Features", "features.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE),
