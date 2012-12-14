@@ -7,10 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
+import org.joda.time.DateTime;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="person", namespace=PLAY_SIMPLE_XML.NS)
-public class Person extends Aliased {
+public class Person extends Description {
 
 	private String name;
 	private String profileLink;
@@ -18,6 +19,12 @@ public class Person extends Aliased {
 	private String displayRole;
 	private String character;
 	private List<ContentIdentifier> content;
+	private String givenName;
+    private String familyName;
+    private String gender;
+    private DateTime birthDate;
+    private String birthPlace;
+    private Set<String> quotes;
 	
 	public Person() {
     }
@@ -62,7 +69,63 @@ public class Person extends Aliased {
         this.content = content;
     }
 	
-	public Person copy() {
+	public String getProfileLink() {
+        return profileLink;
+    }
+
+    public void setProfileLink(String profileLink) {
+        this.profileLink = profileLink;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public DateTime getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(DateTime birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
+    public Set<String> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(Set<String> quotes) {
+        this.quotes = quotes;
+    }
+
+    public Person copy() {
 	    Person person = new Person();
 	    super.copyTo(person);
 	    person.name = name;
@@ -70,6 +133,12 @@ public class Person extends Aliased {
 	    person.role = role;
 	    person.displayRole = displayRole;
 	    person.character = character;
+	    person.givenName = givenName;
+	    person.familyName = familyName;
+	    person.gender = gender;
+	    person.birthDate = birthDate;
+	    person.birthPlace = birthPlace;
+	    person.quotes = quotes;
 	    return person;
 	}
 	
