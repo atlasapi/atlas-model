@@ -197,4 +197,28 @@ public class ApplicationConfiguration {
     public Ordering<Publisher> peoplePrecedenceOrdering() {
         return Ordering.explicit(appendMissingPublishersTo(peoplePrecedence()));
     }
+    
+    public ApplicationConfiguration withWritableSource(Publisher source) {
+    	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
+    	mutableWritableSources.add(source);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources);
+    }
+    
+    public ApplicationConfiguration withWritableSourceRemoved(Publisher source) {
+    	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
+    	mutableWritableSources.remove(source);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources);
+    }
+    
+    public ApplicationConfiguration withWritableSource(Set<Publisher> publishers) {
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, publishers);
+    }
+    
+    public ApplicationConfiguration enableWritableSource(Publisher source) {
+        return withWritableSource(source);
+    }
+    
+    public ApplicationConfiguration disableWritableSource(Publisher source) {
+        return withWritableSourceRemoved(source);
+    }
 }
