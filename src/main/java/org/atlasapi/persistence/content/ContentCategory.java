@@ -1,6 +1,5 @@
 package org.atlasapi.persistence.content;
 
-import java.util.Set;
 
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Described;
@@ -16,12 +15,14 @@ public enum ContentCategory {
     TOP_LEVEL_ITEM("topLevelItems"),
     PROGRAMME_GROUP("programmeGroups"),
     CONTAINER("containers"),
+    // This shouldn't be here.
     CONTENT_GROUP("contentGroups");
-    //
-    public static final Set<ContentCategory> ITEMS = ImmutableSet.of(TOP_LEVEL_ITEM, CHILD_ITEM);
-    public static final Set<ContentCategory> CONTAINERS = ImmutableSet.of(CONTAINER, PROGRAMME_GROUP);
-    public static final Set<ContentCategory> TOP_LEVEL_CONTENT = ImmutableSet.of(CONTENT_GROUP, CONTAINER, TOP_LEVEL_ITEM);
-    //
+
+    public static final ImmutableSet<ContentCategory> ALL = ImmutableSet.copyOf(ContentCategory.values());
+    public static final ImmutableSet<ContentCategory> ITEMS = ImmutableSet.of(TOP_LEVEL_ITEM, CHILD_ITEM);
+    public static final ImmutableSet<ContentCategory> CONTAINERS = ImmutableSet.of(CONTAINER, PROGRAMME_GROUP);
+    public static final ImmutableSet<ContentCategory> TOP_LEVEL_CONTENT = ImmutableSet.of(CONTENT_GROUP, CONTAINER, TOP_LEVEL_ITEM);
+
     private String name;
 
     ContentCategory(String name) {
