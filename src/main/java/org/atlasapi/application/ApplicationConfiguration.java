@@ -173,7 +173,8 @@ public class ApplicationConfiguration {
     }
     
     public Ordering<Publisher> imagePrecedenceOrdering() {
-        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
+//        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
+        return publisherPrecedenceOrdering();
     }
 
     private List<Publisher> appendMissingPublishersTo(Iterable<Publisher> selected) {
