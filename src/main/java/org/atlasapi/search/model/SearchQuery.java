@@ -4,11 +4,14 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Publisher;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.query.Selection;
+import com.metabroadcast.common.url.QueryStringParameters;
+import com.metabroadcast.common.url.UrlEncoding;
+
 import org.atlasapi.media.entity.Specialization;
-import org.atlasapi.search.model.SearchQuery.Builder;
 
 public class SearchQuery {
     
@@ -77,6 +80,8 @@ public class SearchQuery {
             return this;
         }
     }
+
+    private static final Joiner CSV = Joiner.on(',');
 
 	private final String term;
 	private final Selection selection;
@@ -153,5 +158,23 @@ public class SearchQuery {
     
     public Boolean topLevelOnly() {
         return this.topLevelOnly;
+    }
+    
+    public QueryStringParameters toQueryStringParameters() {
+        QueryStringParameters params = new QueryStringParameters()
+            .add("title", UrlEncoding.encode(term))
+            .addAll(selection.asQueryStringParameters())
+            .add("specializations", CSV.join(includedSpecializations))
+            .add("publishers", CSV.join(includedPublishers))
+            .add("titleWeighting", String.valueOf(titleWeighting))
+            .add("broadcastWeighting",  String.valueOf(broadcastWeighting))
+            .add("catchupWeighting",  String.valueOf(catchupWeighting));
+        if (topLevelOnly != null) {
+            params.add("topLevelOnly", topLevelOnly.toString());
+        }
+        if (type != null) {
+            params.add("type", type);
+        }
+        return params;
     }
 }
