@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.query.Selection;
 import org.atlasapi.media.entity.Specialization;
+import org.atlasapi.search.model.SearchQuery.Builder;
 
 public class SearchQuery {
     
@@ -24,6 +25,8 @@ public class SearchQuery {
         private float title = 0;
         private float broadcast = 0;
         private float catchup = 0;
+        private String type;
+        private Boolean topLevel;
 
         public Builder(String query) {
             this.query = query;
@@ -59,9 +62,19 @@ public class SearchQuery {
             return this;
         }
         
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+        
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup);
+                publishers, title, broadcast, catchup, type, topLevel);
+        }
+
+        public Builder isTopLevel(Boolean topLevel) {
+            this.topLevel = topLevel;
+            return this;
         }
     }
 
@@ -72,13 +85,15 @@ public class SearchQuery {
     private final float titleWeighting;
     private final float broadcastWeighting;
     private final float catchupWeighting;
+    private final String type;
+    private Boolean topLevelOnly;
 
     /**
      * Use a Builder 
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting);
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null);
 	}
     
     /**
@@ -86,15 +101,20 @@ public class SearchQuery {
      */
     @Deprecated
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting);
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null);
 	}
     
-    public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
+    public SearchQuery(String term, Selection selection, 
+       Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, 
+       float titleWeighting, float broadcastWeighting, float availabilityWeighting, 
+       String type, Boolean topLevelOnly) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
         this.broadcastWeighting = broadcastWeighting;
         this.catchupWeighting = availabilityWeighting;
+        this.type = type;
+        this.topLevelOnly = topLevelOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 	}
@@ -125,5 +145,13 @@ public class SearchQuery {
 
     public float getCatchupWeighting() {
         return catchupWeighting;
+    }
+    
+    public String type() {
+        return this.type;
+    }
+    
+    public Boolean topLevelOnly() {
+        return this.topLevelOnly;
     }
 }
