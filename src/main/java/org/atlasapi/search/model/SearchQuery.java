@@ -4,10 +4,14 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Publisher;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.query.Selection;
+import com.metabroadcast.common.url.QueryStringParameters;
+import com.metabroadcast.common.url.UrlEncoding;
+
 import org.atlasapi.media.entity.Specialization;
 
 public class SearchQuery {
@@ -27,6 +31,8 @@ public class SearchQuery {
         private float catchup = 0;
         private Maybe<Float> priorityChannelWeighting = Maybe.nothing();
         private Maybe<Float> firstBroadcastWeighting = Maybe.nothing();
+        private String type;
+        private Boolean topLevel;
 
         public Builder(String query) {
             this.query = query;
@@ -71,12 +77,26 @@ public class SearchQuery {
             this.firstBroadcastWeighting  = Maybe.fromPossibleNullValue(firstBroadcastWeighting);
             return this;
         }
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+        
+        public Builder isTopLevel(Boolean topLevel) {
+            this.topLevel = topLevel;
+            return this;
+        }
         
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup, priorityChannelWeighting, firstBroadcastWeighting);
+                    publishers, title, broadcast, catchup, 
+                    priorityChannelWeighting, firstBroadcastWeighting, 
+                    type, topLevel);
         }
     }
+
+    private static final Joiner CSV = Joiner.on(',');
 
 	private final String term;
 	private final Selection selection;
@@ -87,21 +107,15 @@ public class SearchQuery {
     private final float catchupWeighting;
 	private final Maybe<Float> priorityChannelWeighting;
 	private final Maybe<Float> firstBroadcastWeighting;
+    private final String type;
+    private Boolean topLevelOnly;
 
     /**
      * Use a Builder 
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
-	}
-    
-    /**
-     * Use a Builder 
-     */
-    @Deprecated
-    public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing(), null, null);
 	}
     
     /**
@@ -109,7 +123,7 @@ public class SearchQuery {
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, includedSpecializations, includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing());
+		this(term, selection, includedSpecializations, includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, Maybe.<Float>nothing(), Maybe.<Float>nothing(), null, null);
 	}
     
     /**
@@ -117,7 +131,7 @@ public class SearchQuery {
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting);
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting, null, null);
 	}
     
     /**
@@ -125,15 +139,17 @@ public class SearchQuery {
      */
     @Deprecated
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting);
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, priorityChannelWeighting, firstBroadcastWeighting, null, null);
 	}
     
-    public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting) {
+    public SearchQuery(String term, Selection selection, Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting, Maybe<Float> priorityChannelWeighting, Maybe<Float> firstBroadcastWeighting, String type, Boolean topLevelOnly) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
         this.broadcastWeighting = broadcastWeighting;
         this.catchupWeighting = availabilityWeighting;
+        this.type = type;
+        this.topLevelOnly = topLevelOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 		this.priorityChannelWeighting = priorityChannelWeighting;
@@ -169,10 +185,42 @@ public class SearchQuery {
     }
     
     public Maybe<Float> getPriorityChannelWeighting() {
-    	return priorityChannelWeighting;
+    	    return priorityChannelWeighting;
     }
     
     public Maybe<Float> getFirstBroadcastWeighting() {
-    	return firstBroadcastWeighting;
+    	    return firstBroadcastWeighting;
+    }
+    
+    	public String type() {
+        return this.type;
+    }
+    
+    public Boolean topLevelOnly() {
+        return this.topLevelOnly;
+    }
+    
+    public QueryStringParameters toQueryStringParameters() {
+        QueryStringParameters params = new QueryStringParameters()
+            .add("title", UrlEncoding.encode(term))
+            .addAll(selection.asQueryStringParameters())
+            .add("specializations", CSV.join(includedSpecializations))
+            .add("publishers", CSV.join(includedPublishers))
+            .add("titleWeighting", String.valueOf(titleWeighting))
+            .add("broadcastWeighting",  String.valueOf(broadcastWeighting))
+            .add("catchupWeighting",  String.valueOf(catchupWeighting));
+        if (topLevelOnly != null) {
+            params.add("topLevelOnly", topLevelOnly.toString());
+        }
+        if (type != null) {
+            params.add("type", type);
+        }
+        if (priorityChannelWeighting.hasValue()) {
+            params.add("priorityChannelWeighting",priorityChannelWeighting.requireValue().toString());
+        }
+        if (firstBroadcastWeighting.hasValue()) {
+            params.add("firstBroadcastWeighting",firstBroadcastWeighting.requireValue().toString());
+        }
+        return params;
     }
 }
