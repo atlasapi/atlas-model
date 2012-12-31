@@ -9,6 +9,7 @@ import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
     
@@ -27,6 +28,8 @@ public class Channel extends Identified {
         private MediaType mediaType;
         private Boolean highDefinition;
         private Set<Publisher> availableFrom = ImmutableSet.of();
+        private Set<Channel> variations = Sets.newHashSet();
+        private Channel parent;
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -74,8 +77,23 @@ public class Channel extends Identified {
             return this;
         };
         
+        public Builder withVariations(Iterable<Channel> variations) {
+            this.variations = Sets.newHashSet(variations);
+            return this;
+        };
+        
+        public Builder withVariation(Channel variation) {
+            this.variations.add(variation);
+            return this;
+        };
+        
+        public Builder withParent(Channel parent) {
+            this.parent = parent;
+            return this;
+        }
+        
         public Channel build() {
-            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, image);
+            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, variations, parent, image);
         }
     }
     
@@ -88,25 +106,29 @@ public class Channel extends Identified {
     private Boolean highDefinition;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
+    private Set<Channel> variations;
+    private Channel parent;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), null);
+        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), ImmutableSet.<Channel>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, String image) {
+    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Channel> variations, Channel parent, String image) {
     	    super(uri);
     	    this.source = publisher;
         this.title = title;
+        this.parent = parent;
         this.image = image;
         this.key = key;
         this.highDefinition = highDefinition;
         this.mediaType = mediaType;
         this.broadcaster = broadcaster;
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
+        this.variations = Sets.newHashSet(variations);
     }
     
     public String uri() {
@@ -135,6 +157,14 @@ public class Channel extends Identified {
     
     public Set<Publisher> availableFrom() {
         return availableFrom;
+    }
+    
+    public Set<Channel> variations() {
+        return variations;
+    }
+    
+    public Channel parent() {
+        return parent;
     }
     
     @Deprecated
@@ -172,6 +202,18 @@ public class Channel extends Identified {
     
     public void setAvailableFrom(Iterable<Publisher> availableOn) {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
+    }
+    
+    public void setVariations(Iterable<Channel> variations) {
+        this.variations = Sets.newHashSet(variations);
+    }
+    
+    public void addVariation(Channel variation) {
+        this.variations.add(variation);
+    }
+    
+    public void setParent(Channel parent) {
+        this.parent = parent;
     }
     
     public void setImage(String image) {
