@@ -3,7 +3,7 @@ package org.atlasapi.persistence.content;
 import java.util.Map;
 import java.util.Set;
 
-import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.LookupRef;
 
 import com.google.common.base.Predicates;

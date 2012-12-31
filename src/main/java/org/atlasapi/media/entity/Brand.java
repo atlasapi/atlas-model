@@ -16,6 +16,7 @@ permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
+import org.atlasapi.media.content.Container;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
