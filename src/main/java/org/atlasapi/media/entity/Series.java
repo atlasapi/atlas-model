@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity;
 
+import org.atlasapi.media.content.Container;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;

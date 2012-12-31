@@ -22,6 +22,8 @@ import java.util.Set;
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
+import org.atlasapi.media.content.Container;
+import org.atlasapi.media.content.Content;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 

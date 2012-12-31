@@ -2,10 +2,10 @@ package org.atlasapi.serialization.json.configuration.model;
 
 import org.atlasapi.equiv.ContentRef;
 import org.atlasapi.equiv.EquivalenceSummary;
+import org.atlasapi.media.content.Container;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Description;
 import org.atlasapi.media.entity.Item;

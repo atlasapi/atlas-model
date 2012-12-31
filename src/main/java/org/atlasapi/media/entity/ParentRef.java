@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
+import org.atlasapi.media.content.Container;
 
 import com.google.common.base.Function;
 

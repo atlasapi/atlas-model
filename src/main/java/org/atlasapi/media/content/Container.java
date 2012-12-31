@@ -1,8 +1,13 @@
-package org.atlasapi.media.entity;
+package org.atlasapi.media.content;
 
 import java.util.Comparator;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Episode;
+import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
