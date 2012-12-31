@@ -2,7 +2,7 @@ package org.atlasapi.persistence.content;
 
 import java.util.Set;
 
-import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.content.Container;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Series;

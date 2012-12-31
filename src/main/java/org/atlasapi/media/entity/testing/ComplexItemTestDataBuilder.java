@@ -3,9 +3,9 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
+import org.atlasapi.media.content.Container;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
-import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;

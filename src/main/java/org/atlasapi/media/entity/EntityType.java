@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Map;
 
+import org.atlasapi.media.content.Container;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;

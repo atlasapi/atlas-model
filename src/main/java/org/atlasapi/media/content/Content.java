@@ -11,10 +11,24 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
  implied. See the License for the specific language governing
  permissions and limitations under the License. */
-package org.atlasapi.media.entity;
+package org.atlasapi.media.content;
 
 import java.util.List;
 import java.util.Set;
+
+import org.atlasapi.media.entity.Actor;
+import org.atlasapi.media.entity.Certificate;
+import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Clip;
+import org.atlasapi.media.entity.ContentGroupRef;
+import org.atlasapi.media.entity.CrewMember;
+import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.EntityType;
+import org.atlasapi.media.entity.KeyPhrase;
+import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.RelatedLink;
+import org.atlasapi.media.entity.SortKey;
+import org.atlasapi.media.entity.TopicRef;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;

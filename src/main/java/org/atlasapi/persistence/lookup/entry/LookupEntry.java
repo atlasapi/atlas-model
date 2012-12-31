@@ -3,7 +3,7 @@ package org.atlasapi.persistence.lookup.entry;
 import java.util.List;
 import java.util.Set;
 
-import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.LookupRef;
 import org.joda.time.DateTime;
 
