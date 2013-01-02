@@ -46,7 +46,7 @@ public abstract class Content extends Described {
     }
 
     public ChildRef childRef() {
-        return new ChildRef(this.getCanonicalUri(), this.getSortKey(), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
+        return new ChildRef(this.getId(), this.getCanonicalUri(), this.getSortKey(), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
     public List<Clip> getClips() {
