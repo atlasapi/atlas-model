@@ -30,6 +30,7 @@ public class Channel extends Identified {
         private Set<Publisher> availableFrom = ImmutableSet.of();
         private Set<Channel> variations = Sets.newHashSet();
         private Channel parent;
+        private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -92,8 +93,18 @@ public class Channel extends Identified {
             return this;
         }
         
+        public Builder withChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
+            this.channelNumbers = Sets.newHashSet(channelNumbers);
+            return this;
+        };
+        
+        public Builder withChannelNumber(ChannelNumbering channelNumber) {
+            this.channelNumbers.add(channelNumber);
+            return this;
+        };
+        
         public Channel build() {
-            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, variations, parent, image);
+            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, image);
         }
     }
     
@@ -108,16 +119,17 @@ public class Channel extends Identified {
     private Set<Publisher> availableFrom;
     private Set<Channel> variations;
     private Channel parent;
+    private Set<ChannelNumbering> channelNumbers;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), ImmutableSet.<Channel>of(), null, null);
+        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), ImmutableSet.<Channel>of(), null, ImmutableSet.<ChannelNumbering>of(), null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Channel> variations, Channel parent, String image) {
+    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Channel> variations, Channel parent, Iterable<ChannelNumbering> channelNumbers, String image) {
     	    super(uri);
     	    this.source = publisher;
         this.title = title;
@@ -129,6 +141,7 @@ public class Channel extends Identified {
         this.broadcaster = broadcaster;
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
         this.variations = Sets.newHashSet(variations);
+        this.channelNumbers = Sets.newHashSet(channelNumbers);
     }
     
     public String uri() {
@@ -160,11 +173,15 @@ public class Channel extends Identified {
     }
     
     public Set<Channel> variations() {
-        return variations;
+        return ImmutableSet.copyOf(variations);
     }
     
     public Channel parent() {
         return parent;
+    }
+    
+    public Set<ChannelNumbering> channelNumbers() {
+        return ImmutableSet.copyOf(channelNumbers);
     }
     
     @Deprecated
@@ -214,6 +231,14 @@ public class Channel extends Identified {
     
     public void setParent(Channel parent) {
         this.parent = parent;
+    }
+    
+    public void setChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
+        this.channelNumbers = Sets.newHashSet(channelNumbers);
+    }
+    
+    public void addChannelNumber(ChannelNumbering channelNumber) {
+        this.channelNumbers.add(channelNumber);
     }
     
     public void setImage(String image) {

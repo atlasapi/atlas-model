@@ -13,7 +13,7 @@ public class ChannelGroup extends Identified {
     private Publisher publisher;
     private String title;
     private Set<Country> availableCountries;
-    private Set<Long> channels = ImmutableSet.of();
+    private Set<ChannelNumbering> channels = ImmutableSet.of();
 
     public Publisher getPublisher() {
         return publisher;
@@ -39,19 +39,15 @@ public class ChannelGroup extends Identified {
         this.availableCountries = availableCountries;
     }
 
-    public Set<Long> getChannels() {
+    public Set<ChannelNumbering> getChannels() {
         return channels;
     }
 
-    public void setChannels(Iterable<Long> channels) {
+    public void setChannels(Iterable<ChannelNumbering> channels) {
         this.channels = ImmutableSet.copyOf(channels);
     }
     
-    public void addChannel(Channel channel) {
-        addChannel(channel.getId());
-    }
-    
-    public void addChannel(Long id) {
-        this.channels = ImmutableSet.<Long>builder().addAll(channels).add(id).build();
+    public void addChannel(ChannelNumbering channel) {
+        this.channels = ImmutableSet.<ChannelNumbering>builder().addAll(channels).add(channel).build();
     }
 }
