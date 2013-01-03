@@ -28,6 +28,9 @@ public abstract class Description extends Aliased {
 
     private String title;
     private String description;
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
     private PublisherDetails publisher;
     private String image;
     private String thumbnail;
@@ -141,6 +144,30 @@ public abstract class Description extends Aliased {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getMediumDescription() {
+        return mediumDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     public ImmutableSet<String> identifiers() {
