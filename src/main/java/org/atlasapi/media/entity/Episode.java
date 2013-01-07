@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 
@@ -98,4 +99,8 @@ public class Episode extends Item {
 	    return episode;
 	}
 
+    public <V> V accept(ItemVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+    
 }

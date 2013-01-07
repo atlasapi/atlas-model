@@ -200,4 +200,6 @@ public abstract class Content extends Described {
             return input.getClips();
         }
     };
+
+    public abstract <V> V accept(ContentVisitor<V> visitor);
 }

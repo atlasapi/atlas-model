@@ -1,6 +1,8 @@
 package org.atlasapi.media.entity;
 
 import org.atlasapi.media.content.Container;
+import org.atlasapi.media.content.ContainerVisitor;
+import org.atlasapi.media.content.ContentVisitor;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
@@ -79,4 +81,15 @@ public class Series extends Container {
     public Integer getTotalEpisodes() {
         return totalEpisodes;
     }
+    
+    @Override
+    public <V> V accept(ContainerVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+    
+    @Override
+    public <V> V accept(ContentVisitor<V> visitor) {
+        return accept((ContainerVisitor<V>) visitor);
+    }
+    
 }
