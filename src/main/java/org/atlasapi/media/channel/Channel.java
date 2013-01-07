@@ -28,8 +28,8 @@ public class Channel extends Identified {
         private MediaType mediaType;
         private Boolean highDefinition;
         private Set<Publisher> availableFrom = ImmutableSet.of();
-        private Set<Channel> variations = Sets.newHashSet();
-        private Channel parent;
+        private Set<Long> variations = Sets.newHashSet();
+        private Long parent;
         private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
         
         public Builder withSource(Publisher source) {
@@ -78,18 +78,31 @@ public class Channel extends Identified {
             return this;
         };
         
+        public Builder withVariationIds(Iterable<Long> variationIds) {
+            this.variations = Sets.newHashSet(variationIds);
+            return this;
+        };
+        
         public Builder withVariations(Iterable<Channel> variations) {
-            this.variations = Sets.newHashSet(variations);
+            this.variations.clear();
+            for (Channel variation : variations) {
+                withVariation(variation);
+            }
+            return this;
+        };
+        
+        public Builder withVariation(Long variationId) {
+            this.variations.add(variationId);
             return this;
         };
         
         public Builder withVariation(Channel variation) {
-            this.variations.add(variation);
+            this.variations.add(variation.getId());
             return this;
         };
         
         public Builder withParent(Channel parent) {
-            this.parent = parent;
+            this.parent = parent.getId();
             return this;
         }
         
@@ -117,19 +130,19 @@ public class Channel extends Identified {
     private Boolean highDefinition;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
-    private Set<Channel> variations;
-    private Channel parent;
+    private Set<Long> variations;
+    private Long parent;
     private Set<ChannelNumbering> channelNumbers;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), ImmutableSet.<Channel>of(), null, ImmutableSet.<ChannelNumbering>of(), null);
+        this(publisher, title, key, highDefinition, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Channel> variations, Channel parent, Iterable<ChannelNumbering> channelNumbers, String image) {
+    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, String image) {
     	    super(uri);
     	    this.source = publisher;
         this.title = title;
@@ -172,11 +185,11 @@ public class Channel extends Identified {
         return availableFrom;
     }
     
-    public Set<Channel> variations() {
+    public Set<Long> variations() {
         return ImmutableSet.copyOf(variations);
     }
     
-    public Channel parent() {
+    public Long parent() {
         return parent;
     }
     
@@ -222,15 +235,30 @@ public class Channel extends Identified {
     }
     
     public void setVariations(Iterable<Channel> variations) {
-        this.variations = Sets.newHashSet(variations);
+        this.variations.clear();
+        for (Channel variation : variations) {
+            addVariation(variation);
+        }
+    }
+    
+    public void setVariationIds(Iterable<Long> variationIds) {
+        this.variations = Sets.newHashSet(variationIds);
     }
     
     public void addVariation(Channel variation) {
-        this.variations.add(variation);
+        this.variations.add(variation.getId());
+    }
+    
+    public void addVariation(Long variationId) {
+        this.variations.add(variationId);
     }
     
     public void setParent(Channel parent) {
-        this.parent = parent;
+        this.parent = parent.getId();
+    }
+    
+    public void setParent(Long parentId) {
+        this.parent = parentId;
     }
     
     public void setChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
