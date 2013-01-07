@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import org.atlasapi.media.content.ItemVisitor;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
@@ -60,4 +62,8 @@ public class Film extends Item {
 	    return film;
 	}
 
+    public <V> V accept(ItemVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+    
 }

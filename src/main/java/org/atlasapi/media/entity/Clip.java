@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
+import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
@@ -38,4 +39,10 @@ public class Clip extends Item {
             return input.copy();
         }
 	};
+	
+	@Override
+	public <V> V accept(ItemVisitor<V> visitor) {
+	    return visitor.visit(this);
+	}
+	
 }

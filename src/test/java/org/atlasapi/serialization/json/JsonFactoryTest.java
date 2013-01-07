@@ -1,18 +1,15 @@
 package org.atlasapi.serialization.json;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
+import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.EntityType;
@@ -29,7 +26,14 @@ import org.atlasapi.serialization.json.configuration.model.FilteredContainerConf
 import org.atlasapi.serialization.json.configuration.model.FilteredItemConfiguration;
 import org.joda.time.DateTime;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 /**
  */
@@ -77,7 +81,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testUnfilteredContainer() throws Exception {
-        Container container = new Container("uri", "curie", Publisher.BBC);
+        Container container = new Brand("uri", "curie", Publisher.BBC);
         container.setId(1L);
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
         container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));
@@ -92,7 +96,7 @@ public class JsonFactoryTest {
     
     @Test
     public void testFilteredContainer() throws Exception {
-        Container container = new Container("uri", "curie", Publisher.BBC);
+        Container container = new Brand("uri", "curie", Publisher.BBC);
         container.setId(1L);
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
         container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));

@@ -24,6 +24,8 @@ import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.ContentVisitor;
+import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 
@@ -252,6 +254,15 @@ public class Item extends Content {
 
     public void setContainerSummary(ContainerSummary containerSummary) {
         this.containerSummary = containerSummary;
+    }
+    
+    public <V> V accept(ItemVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+    
+    @Override
+    public <V> V accept(ContentVisitor<V> visitor) {
+        return accept((ItemVisitor<V>)visitor);
     }
 
     @Override
