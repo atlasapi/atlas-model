@@ -17,6 +17,7 @@ package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.media.content.Container;
+import org.atlasapi.media.content.ContainerVisitor;
 import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
@@ -46,7 +47,6 @@ public class Brand extends Container {
         this.seriesRefs = ImmutableList.copyOf(seriesRefs);
     }
     
-	@Override
     public Brand toSummary() {
         Brand summary = new Brand(this.getCanonicalUri(), this.getCurie(), this.getPublisher());
         summary.setTitle(this.getTitle());
@@ -67,4 +67,9 @@ public class Brand extends Container {
             return (Brand) input.copy();
         }
     };
+    
+    public <V> V accept(ContainerVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+    
 }
