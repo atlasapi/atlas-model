@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 public class ComplexItemTestDataBuilder {
-    private static Integer uniqueId = 1;
+    private static Long uniqueId = 1L;
     
     private String uri;
     private String curie;
@@ -33,7 +33,7 @@ public class ComplexItemTestDataBuilder {
     private Set<String> tags;
     private String thumbnail;
     private String title;
-    private String id;
+    private Long id;
     private Set<Version> versions;
     
     public static ComplexItemTestDataBuilder complexItem() {
@@ -44,7 +44,7 @@ public class ComplexItemTestDataBuilder {
         uri = "http://test.metabroadcast.com/item/default";
         curie = "mbtest:i-default";
         
-        id = String.valueOf(uniqueId++);
+        id = uniqueId++;
         uri = "http://test.metabroadcast.com/unique/items/" + id;
         curie = "mbtest:i-" + id;
         
@@ -71,6 +71,7 @@ public class ComplexItemTestDataBuilder {
         if (brand != null) {
             item.setContainer(brand);
         }
+        item.setId(id);
         item.setVersions(versions);
         item.setClips(clips);
         item.setMediaType(mediaType);
@@ -102,7 +103,7 @@ public class ComplexItemTestDataBuilder {
         return this;
     }
     
-    public ComplexItemTestDataBuilder withId(String id) {
+    public ComplexItemTestDataBuilder withId(Long id) {
         this.id = id;
         return this;
     }
