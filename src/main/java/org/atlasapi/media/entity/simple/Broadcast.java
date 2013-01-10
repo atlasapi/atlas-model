@@ -1,7 +1,10 @@
 package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -14,6 +17,7 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
@@ -52,6 +56,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Boolean newSeries;
     
     private Channel channel;
+    
+    private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
@@ -204,6 +210,16 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     public void setNewSeries(Boolean newSeries) {
         this.newSeries = newSeries;
     }
+    
+    public void setAliases(Set<String> aliases) {
+        this.aliases = aliases;
+    }
+    
+    @XmlElementWrapper(name="aliases")
+    @XmlElement(name="alias")
+    public Set<String> getAliases() {
+        return aliases;
+    }
 
     @Override
 	public String toString() {
@@ -249,6 +265,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setWidescreen(getWidescreen());
         copy.setSurround(getSurround());
         copy.setLive(getLive());
+        copy.setAliases(getAliases());
         
         return copy;
     }
