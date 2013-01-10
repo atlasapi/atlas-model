@@ -8,6 +8,7 @@ import org.atlasapi.media.entity.SeriesRef;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableMap;
 import com.metabroadcast.common.ids.NumberToShortStringCodec;
 
 public abstract class ContentIdentifier {
@@ -205,7 +206,6 @@ public abstract class ContentIdentifier {
     public int hashCode() {
         return Objects.hashCode(uri);
     }
-
 
 	private static ContentIdentifier create(EntityType type, String uri, String id, Integer seriesNumber) {
 	    switch (type) {
