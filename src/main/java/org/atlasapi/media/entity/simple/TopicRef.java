@@ -12,6 +12,7 @@ public class TopicRef {
 	private Topic topic;
     private String relationship;
     private PublisherDetails publisher;
+    private Integer offset;
 	
 	public float getWeighting() {
 		return weighting;
@@ -51,5 +52,13 @@ public class TopicRef {
 
     public PublisherDetails getPublisher() {
         return publisher;
+    }
+
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 }

@@ -37,10 +37,7 @@ public class Item extends Description {
 	
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
-    private Integer year;
-    private Set<Language> languages = Sets.newHashSet();
     private Set<Subtitles> subtitles = Sets.newHashSet();
-    private Set<Certificate> certificates = Sets.newHashSet();
     private Set<ReleaseDate> releaseDates = Sets.newHashSet();
 	            
 	public Item() { /* required for XML/JSON tools */ }
@@ -100,15 +97,6 @@ public class Item extends Description {
 		}
 		return false;
 	}
-    
-    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="displayTitle")
-    public DisplayTitle getDisplayTitle() {
-        return displayTitle;
-    }
-
-    public void setDisplayTitle(DisplayTitle displayTitle) {
-        this.displayTitle = displayTitle;
-    }
 
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="container")
 	public BrandSummary getBrandSummary() {
@@ -196,10 +184,6 @@ public class Item extends Description {
         copy.setLocations(Iterables.transform(getLocations(), Location.TO_COPY));
         copy.setBroadcasts(Iterables.transform(getBroadcasts(), Broadcast.TO_COPY));
         
-        if (getDisplayTitle() != null) {
-            copy.setDisplayTitle(getDisplayTitle().copy());
-        }
-        
         if (getBrandSummary() != null) {
             copy.setBrandSummary(getBrandSummary().copy());
         }
@@ -247,14 +231,6 @@ public class Item extends Description {
         }
     };
 
-    public Integer getYear() {
-        return year;
-    }
-    
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
     public void setSegments(List<SegmentEvent> segmentEvents) {
         this.segmentEvents = segmentEvents;
     }
@@ -265,32 +241,12 @@ public class Item extends Description {
         return this.segmentEvents;
     }
 
-    public void setOriginalLanguages(Iterable<Language> languages) {
-        this.languages = Sets.newHashSet(languages);
-    }
-
     public void setSubtitles(Iterable<Subtitles> subtitles) {
         this.subtitles = Sets.newHashSet(subtitles);
     }
 
-    public void setCertificates(Iterable<Certificate> certificates) {
-        this.certificates = Sets.newHashSet(certificates);
-    }
-
     public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
         this.releaseDates = Sets.newHashSet(releaseDates);
-    }
-    
-    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="languages")
-    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="language")
-    public Set<Language> getOriginalLanguages() {
-        return this.languages;
-    }
-    
-    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="certificates")
-    @XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="certificate")
-    public Set<Certificate> getCertificates() {
-        return this.certificates;
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="releaseDates")

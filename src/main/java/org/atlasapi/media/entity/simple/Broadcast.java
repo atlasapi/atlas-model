@@ -50,6 +50,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Boolean premier;
     
     private Boolean newSeries;
+    
+    private Channel channel;
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
@@ -162,6 +164,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     public void setWidescreen(Boolean widescreen) {
         this.widescreen = widescreen;
     }
+    
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
 
     public Boolean getSurround() {
         return surround;
@@ -189,6 +195,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     
     public Boolean getNewSeries() {
         return newSeries;
+    }
+    
+    public Channel getChannel() {
+        return channel;
     }
     
     public void setNewSeries(Boolean newSeries) {

@@ -29,6 +29,9 @@ public abstract class Description extends Aliased {
     private String title;
     private String description;
     private PublisherDetails source;
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
     private String image;
     private String thumbnail;
     private Set<String> genres = Sets.newHashSet();
@@ -45,6 +48,9 @@ public abstract class Description extends Aliased {
     private String specialization;
     private boolean scheduleOnly = false;
     private String presentationChannel;
+    private Integer year;
+    private Set<Language> languages = Sets.newHashSet();
+    private Set<Certificate> certificates = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -140,6 +146,30 @@ public abstract class Description extends Aliased {
         this.description = description;
     }
 
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getMediumDescription() {
+        return mediumDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
     public ImmutableSet<String> identifiers() {
         Builder<String> ids = ImmutableSet.builder();
         ids.addAll(aliases);
@@ -224,6 +254,9 @@ public abstract class Description extends Aliased {
         destination.setSpecialization(getSpecialization());
         destination.setScheduleOnly(isScheduleOnly());
         destination.setPresentationChannel(getPresentationChannel());
+        destination.setYear(getYear());
+        destination.setOriginalLanguages(getOriginalLanguages());
+        destination.setCertificates(getCertificates());
         
         Set<Person> people = Sets.newHashSet();
         for (Person person: this.people) {
@@ -300,5 +333,33 @@ public abstract class Description extends Aliased {
 
     public void setProducts(Iterable<Product> products) {
         this.products = ImmutableList.copyOf(products);
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public void setOriginalLanguages(Iterable<Language> languages) {
+        this.languages = Sets.newHashSet(languages);
+    }
+
+    public void setCertificates(Iterable<Certificate> certificates) {
+        this.certificates = Sets.newHashSet(certificates);
+    }
+
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "languages")
+    @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "language")
+    public Set<Language> getOriginalLanguages() {
+        return this.languages;
+    }
+
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "certificates")
+    @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "certificate")
+    public Set<Certificate> getCertificates() {
+        return this.certificates;
     }
 }
