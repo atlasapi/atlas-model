@@ -56,8 +56,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Boolean newSeries;
     
     private Channel channel;
+<<<<<<< HEAD
     
     private Set<String> aliases = Sets.newHashSet();
+=======
+>>>>>>> import ids on refs
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);

@@ -20,6 +20,7 @@ import com.google.common.collect.Ordering;
 @XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
 public class Channel extends Aliased {
 
+<<<<<<< HEAD
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
     private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
 
@@ -31,6 +32,14 @@ public class Channel extends Aliased {
     private Boolean regional;
     private Long timeshift;
     private List<ChannelNumbering> channelGroups;
+=======
+    private PublisherDetails publisher;
+    private String title;
+    private String image;
+    private String mediaType;
+    private Boolean highDefinition;
+    private Set<ChannelGroup> channelGroups;
+>>>>>>> import ids on refs
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
@@ -39,8 +48,8 @@ public class Channel extends Aliased {
     private Date startDate;
     private Date endDate;
 
-    public void setSourceDetails(PublisherDetails publisherDetails) {
-        this.source = publisherDetails;
+    public void setPublisherDetails(PublisherDetails publisherDetails) {
+        this.publisher = publisherDetails;
     }
 
     public void setTitle(String title) {
@@ -54,6 +63,7 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
+<<<<<<< HEAD
     
     public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
@@ -70,6 +80,14 @@ public class Channel extends Aliased {
     @XmlElement(name = "publisher")
     public PublisherDetails getSourceDetails() {
         return this.source;
+=======
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
+    }
+
+    public PublisherDetails getPublisherDetails() {
+        return this.publisher;
+>>>>>>> import ids on refs
     }
 
     public String getTitle() {
@@ -87,6 +105,7 @@ public class Channel extends Aliased {
     public Boolean getHighDefinition() {
         return highDefinition;
     }
+<<<<<<< HEAD
     
     public Boolean getRegional() {
         return regional;
@@ -98,6 +117,11 @@ public class Channel extends Aliased {
 
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+=======
+
+    public void setChannelGroups(Iterable<ChannelGroup> groups) {
+        this.channelGroups = ImmutableSet.copyOf(groups);
+>>>>>>> import ids on refs
     }
 
     @XmlElementWrapper(name = "channelGroups")
@@ -115,7 +139,7 @@ public class Channel extends Aliased {
     }
     
     public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
-        this.availableFrom = availableFrom == null ? null : ImmutableSet.copyOf(availableFrom);
+        this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
     @XmlElementWrapper(name = "availableFrom")
@@ -124,6 +148,7 @@ public class Channel extends Aliased {
         return availableFrom;
     }
 
+<<<<<<< HEAD
     public Channel getParent() {
         return parent;
     }
@@ -172,4 +197,6 @@ public class Channel extends Aliased {
             this.startDate = endDate.toDate();
         }
     }
+=======
+>>>>>>> import ids on refs
 }

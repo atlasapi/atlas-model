@@ -1,15 +1,16 @@
 package org.atlasapi.media.entity.simple;
 
 import java.lang.reflect.Constructor;
+import java.math.BigInteger;
 import java.util.Map;
 
 import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.EntityType;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
+import com.metabroadcast.common.ids.NumberToShortStringCodec;
 
 public abstract class ContentIdentifier {
 
@@ -200,22 +201,20 @@ public abstract class ContentIdentifier {
             .put(EntityType.FILM, FilmIdentifier.class)
     .build();
 
-    public static ContentIdentifier identifierFor(Described described) {
-        return create(EntityType.from(described), described.getCanonicalUri());
-    }
-
-	private static ContentIdentifier create(EntityType type, String uri) {
+	private static ContentIdentifier create(EntityType type, String uri, String id) {
 		try {
             Class<? extends ContentIdentifier> idType = typeMap.get(type);
-            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class);
-            return constructor.newInstance(uri);
+            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class, String.class);
+            return constructor.newInstance(uri, id);
         } catch (Exception e) {
             throw new RuntimeException("Can't create content identifier for " + uri);
         }
 	}
     
-    public static ContentIdentifier identifierFor(ChildRef childRef) {
-        return create(childRef.getType(), childRef.getUri());
+    public static ContentIdentifier identifierFor(ChildRef childRef, NumberToShortStringCodec idCodec) {
+        String id = childRef.getId() != null ? idCodec.encode(BigInteger.valueOf(childRef.getId()))
+                                             : null;
+        return create(childRef.getType(), childRef.getUri(), id);
     }
 
     public static ContentIdentifier identifierFrom(String canonicalUri, String type) {

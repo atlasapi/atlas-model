@@ -32,6 +32,9 @@ public abstract class Description extends Aliased {
     private String mediumDescription;
     private String longDescription;
     private PublisherDetails source;
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
     private String image;
     private Set<Image> images = Sets.newHashSet();
     private String thumbnail;

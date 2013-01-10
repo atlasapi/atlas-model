@@ -25,6 +25,7 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Ordering;
 import com.metabroadcast.common.base.Maybe;
 
 /**
