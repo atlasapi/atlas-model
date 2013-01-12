@@ -15,7 +15,7 @@ public class Channel extends Aliased {
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
 
-    public void setPublisherDetails(PublisherDetails publisherDetails) {
+    public void setSourceDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
     }
 

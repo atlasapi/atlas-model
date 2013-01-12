@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 public class ComplexItemTestDataBuilder {
-    private static Long uniqueId = 1L;
+    private static Long uniqueId = 1000L;
     
     private String uri;
     private String curie;

@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
 import com.metabroadcast.common.time.DateTimeZones;
 
 public class LookupEntry {
-    
+ 
     public static LookupEntry lookupEntryFrom(Content c) {
         DateTime now = new DateTime(DateTimeZones.UTC);
         LookupRef lookupRef = LookupRef.from(c);
@@ -24,7 +24,14 @@ public class LookupEntry {
         return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, aliases, reflexiveSet, reflexiveSet, reflexiveSet, now, now);
     }
     
-    public static Function<LookupEntry,String> TO_ID = new Function<LookupEntry, String>() {
+    public static Function<LookupEntry,Long> TO_ID = new Function<LookupEntry, Long>() {
+        @Override
+        public Long apply(LookupEntry input) {
+            return input.id();
+        }
+    };
+    
+    public static final Function<LookupEntry, String> TO_URI = new Function<LookupEntry, String>() {
         @Override
         public String apply(LookupEntry input) {
             return input.uri();
