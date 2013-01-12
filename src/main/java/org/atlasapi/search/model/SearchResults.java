@@ -1,20 +1,27 @@
 package org.atlasapi.search.model;
 
+import java.util.Iterator;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
-public class SearchResults {
+public class SearchResults implements Iterable<Long> {
 
-	private List<String> results;
+	private ImmutableSet<Long> results;
 
 	public SearchResults() { /* for GSON */ }
 	
-	public SearchResults(Iterable<String> uris) {
-		this.results = ImmutableList.copyOf(uris);
+	public SearchResults(Iterable<Long> uris) {
+	    //ImmutableSet maintains insertion order
+		this.results = ImmutableSet.copyOf(uris);
 	}
 
-	public List<String> toUris() {
-		return results;
+	public List<Long> getIds() {
+		return results.asList();
 	}
+
+    @Override
+    public Iterator<Long> iterator() {
+        return results.iterator();
+    }
 }
