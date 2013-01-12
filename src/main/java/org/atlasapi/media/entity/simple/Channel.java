@@ -48,7 +48,7 @@ public class Channel extends Aliased {
     private Date startDate;
     private Date endDate;
 
-    public void setPublisherDetails(PublisherDetails publisherDetails) {
+    public void setSourceDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
     }
 

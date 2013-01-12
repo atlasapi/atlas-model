@@ -16,7 +16,7 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
 
-public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
+public class EquivalentContent extends ForwardingSetMultimap<Long, Content> {
 
     public static Builder builder() {
         return new Builder();
@@ -24,9 +24,9 @@ public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
 
     public static class Builder {
 
-        private ImmutableSetMultimap.Builder<String,Content> entries = ImmutableSetMultimap.builder();
+        private ImmutableSetMultimap.Builder<Long,Content> entries = ImmutableSetMultimap.builder();
 
-        public void putEquivalents(String key, Iterable<Content> equivalentSet) {
+        public void putEquivalents(Long key, Iterable<Content> equivalentSet) {
             this.entries.putAll(key, setEquivalentToFields(equivalentSet));
         }
 
@@ -35,7 +35,7 @@ public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
         }
         
         private Iterable<Content> setEquivalentToFields(Iterable<Content> contents) {
-            Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_ID);
+            Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_URI);
             Set<LookupRef> allRefs = ImmutableSet.copyOf(refMap.values());
 
             Set<Content> equivContents = Sets.newHashSetWithExpectedSize(refMap.size());
@@ -50,19 +50,19 @@ public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
 
     }
 
-    private SetMultimap<String, Content> entries;
+    private SetMultimap<Long, Content> entries;
     
-    private EquivalentContent(SetMultimap<String, Content> entries) {
+    private EquivalentContent(SetMultimap<Long, Content> entries) {
         this.entries = ImmutableSetMultimap.copyOf(entries);
     }
 
     @Override
-    protected SetMultimap<String, Content> delegate() {
+    protected SetMultimap<Long, Content> delegate() {
         return entries;
     }
 
     private static final EquivalentContent EMPTY_INSTANCE 
-            = new EquivalentContent(ImmutableSetMultimap.<String,Content>of());
+            = new EquivalentContent(ImmutableSetMultimap.<Long,Content>of());
     
     public static EquivalentContent empty() {
         return EMPTY_INSTANCE;
