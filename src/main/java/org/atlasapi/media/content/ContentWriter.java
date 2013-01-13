@@ -1,7 +1,9 @@
 package org.atlasapi.media.content;
 
+import org.atlasapi.media.util.WriteResult;
+
 public interface ContentWriter {
 
-    void writeContent(Content content);
+    <C extends Content> WriteResult<C> writeContent(C content);
     
 }

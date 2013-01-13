@@ -22,12 +22,16 @@ import com.metabroadcast.common.time.DateTimeZones;
  */
 public final class WriteResult<W> implements Comparable<WriteResult<?>> {
 
+    public static final <W> Builder<W> result(W resource, boolean wasWritten) {
+        return new Builder<W>(resource, wasWritten, new DateTime(DateTimeZones.UTC));
+    }
+
     public static final <W> Builder<W> unwritten(W resource) {
-        return new Builder<W>(resource, false, new DateTime(DateTimeZones.UTC));
+        return result(resource, false);
     }
 
     public static final <W> Builder<W> written(W resource) {
-        return new Builder<W>(resource, true, new DateTime(DateTimeZones.UTC));
+        return result(resource, true);
     }
     
     public static final class Builder<W> {
