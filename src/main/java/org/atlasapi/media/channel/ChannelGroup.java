@@ -4,18 +4,20 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Publisher;
+import org.joda.time.LocalDate;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
 
 public abstract class ChannelGroup extends Identified {
 
     private Publisher publisher;
-    private String title;
+    private Set<TemporalString> titles = Sets.newHashSet();
     private Set<Country> availableCountries;
-    private Set<Long> channels = ImmutableSet.of();
     private Set<ChannelNumbering> channelNumberings = ImmutableSet.of();
 
     public Publisher getPublisher() {
@@ -25,13 +27,51 @@ public abstract class ChannelGroup extends Identified {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
+    
     public String getTitle() {
-        return title;
+        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
+            @Override
+            public boolean apply(TemporalString input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                            && input.getEndDate().compareTo(new LocalDate()) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }), null);
+        if (currentTitle != null) {
+            return currentTitle.getValue();
+        }
+        return null;
+    }
+    
+    public Iterable<TemporalString> getAllTitles() {
+        return ImmutableSet.copyOf(titles);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void addTitle(String title) {
+        addTitle(title, null, null);
+    }
+
+    public void addTitle(String title, LocalDate startDate) {
+        addTitle(title, startDate, null);
+    }
+
+    public void addTitle(String title, LocalDate startDate, LocalDate endDate) {
+        this.titles.add(new TemporalString(title, startDate, endDate));
+    }
+
+    public void addTitle(TemporalString title) {
+        this.titles.add(title);
+    }
+
+    public void setTitles(Iterable<TemporalString> titles) {
+        this.titles = Sets.newHashSet(titles);
     }
 
     public Set<Country> getAvailableCountries() {
@@ -44,17 +84,30 @@ public abstract class ChannelGroup extends Identified {
 
     @Deprecated
     public Set<Long> getChannels() {
-        return channels;
+        return ImmutableSet.copyOf(Iterables.transform(getChannelNumberings(), new Function<ChannelNumbering, Long>() {
+            @Override
+            public Long apply(ChannelNumbering input) {
+                return input.getChannel();
+            }
+        }));
     }
 
     @Deprecated
     public void setChannels(Iterable<Long> channels) {
-        this.channels = ImmutableSet.copyOf(channels);
+        for (Long channelId : channels) {
+            addChannelNumbering(ChannelNumbering.builder()
+                .withChannel(channelId)
+                .withChannelGroup(getId())
+                .build());
+        }
     }
     
     @Deprecated
     public void addChannel(Long channel) {
-        this.channels = ImmutableSet.<Long>builder().addAll(channels).add(channel).build();
+        addChannelNumbering(ChannelNumbering.builder()
+                .withChannel(channel)
+                .withChannelGroup(getId())
+                .build());
     }
     
     public Set<ChannelNumbering> getChannelNumberings() {
@@ -63,10 +116,10 @@ public abstract class ChannelGroup extends Identified {
             public boolean apply(ChannelNumbering input) {
                 if (input.getStartDate() != null) {
                     if (input.getEndDate() != null) {
-                        return input.getStartDate().isBeforeNow()
-                            && input.getEndDate().isAfterNow();
-                    } else {
-                        return input.getStartDate().isBeforeNow();
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                            && input.getEndDate().compareTo(new LocalDate()) > 0;
+                        } else {
+                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
                     }
                 } else {
                     return true;

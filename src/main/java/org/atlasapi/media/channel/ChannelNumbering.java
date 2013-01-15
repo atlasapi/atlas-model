@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import com.google.common.base.Objects;
 
@@ -13,15 +13,15 @@ public class ChannelNumbering {
     private Integer channelNumber;
     private Long channel;
     private Long channelGroup;
-    private DateTime startDate;
-    private DateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public static Builder builder() {
         return new Builder();
     }
 
-    private ChannelNumbering(@Nullable Integer channelNumber, Long channel, Long channelGroup, DateTime startDate,
-            DateTime endDate) {
+    private ChannelNumbering(@Nullable Integer channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
+            @Nullable LocalDate endDate) {
         this.channel = checkNotNull(channel);
         this.channelNumber = channelNumber;
         this.channelGroup = checkNotNull(channelGroup);
@@ -41,11 +41,11 @@ public class ChannelNumbering {
         return channelGroup;
     }
 
-    public DateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public DateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -61,17 +61,17 @@ public class ChannelNumbering {
         this.channelGroup = channelGroup;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(DateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(channel, channelGroup, startDate, endDate);
+        return Objects.hashCode(channel, channelNumber, channelGroup, startDate, endDate);
     }
 
     @Override
@@ -83,8 +83,9 @@ public class ChannelNumbering {
             ChannelNumbering other = (ChannelNumbering) that;
             return other.channel.equals(channel) 
                 && other.channelGroup.equals(channelGroup)
+                && Objects.equal(channelNumber, other.channelNumber)
                 && Objects.equal(startDate,  other.startDate) 
-                && Objects.equal(startDate,  other.startDate);
+                && Objects.equal(endDate,  other.endDate);
         }
         return false;
     }
@@ -104,8 +105,8 @@ public class ChannelNumbering {
         private Integer channelNumber;
         private Long channel;
         private Long channelGroup;
-        private DateTime startDate;
-        private DateTime endDate;
+        private LocalDate startDate;
+        private LocalDate endDate;
 
         private Builder() {
         }
@@ -139,12 +140,12 @@ public class ChannelNumbering {
             return this;
         }
 
-        public Builder withStartDate(DateTime startDate) {
+        public Builder withStartDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder withEndDate(DateTime endDate) {
+        public Builder withEndDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }

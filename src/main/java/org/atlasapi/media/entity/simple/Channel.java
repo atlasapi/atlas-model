@@ -1,19 +1,29 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Ordering;
 
 public class Channel extends Aliased {
+    
+    private static final Ordering<ChannelNumbering> ORDERING = Ordering.natural();
 
     private PublisherDetails publisher;
     private String title;
     private String image;
     private String mediaType;
     private Boolean highDefinition;
-    private Set<ChannelGroup> channelGroups;
+    private List<ChannelNumbering> channels;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
+    private Channel parent;
+    private Set<Channel> variations;
+    private History history;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -54,12 +64,12 @@ public class Channel extends Aliased {
         return highDefinition;
     }
 
-    public void setChannelGroups(Iterable<ChannelGroup> groups) {
-        this.channelGroups = ImmutableSet.copyOf(groups);
+    public void setChannels(Iterable<ChannelNumbering> channelNumbering) {
+        this.channels = ORDERING.immutableSortedCopy(channelNumbering);
     }
 
-    public Set<ChannelGroup> getChannelGroups() {
-        return this.channelGroups;
+    public List<ChannelNumbering> getChannels() {
+        return channels;
     }
 
     public PublisherDetails getBroadcaster() {
@@ -78,4 +88,27 @@ public class Channel extends Aliased {
         return availableFrom;
     }
 
+    public Channel getParent() {
+        return parent;
+    }
+
+    public void setParent(Channel parent) {
+        this.parent = parent;
+    }
+
+    public Set<Channel> getVariations() {
+        return variations;
+    }
+
+    public void setVariations(Iterable<Channel> variations) {
+        this.variations = ImmutableSet.copyOf(variations);
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
 }

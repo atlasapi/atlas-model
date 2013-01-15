@@ -2,6 +2,7 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public class Platform extends ChannelGroup {
@@ -23,10 +24,10 @@ public class Platform extends ChannelGroup {
     }
     
     public void setRegionIds(Iterable<Long> regionIds) {
-        Sets.newHashSet(regionIds);        
+        this.regions = Sets.newHashSet(regionIds);        
     }
     
     public Set<Long> getRegions() {
-        return regions;
+        return ImmutableSet.copyOf(regions);
     }
 }
