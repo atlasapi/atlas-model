@@ -4,17 +4,21 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Publisher;
+import org.joda.time.LocalDate;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
 
-public class ChannelGroup extends Identified {
+public abstract class ChannelGroup extends Identified {
 
     private Publisher publisher;
-    private String title;
+    private Set<TemporalString> titles = Sets.newHashSet();
     private Set<Country> availableCountries;
-    private ChannelGroupType type;
-    private Set<Long> channels = ImmutableSet.of();
+    private Set<ChannelNumbering> channelNumberings = ImmutableSet.of();
 
     public Publisher getPublisher() {
         return publisher;
@@ -23,13 +27,51 @@ public class ChannelGroup extends Identified {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
+    
     public String getTitle() {
-        return title;
+        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
+            @Override
+            public boolean apply(TemporalString input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                            && input.getEndDate().compareTo(new LocalDate()) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }), null);
+        if (currentTitle != null) {
+            return currentTitle.getValue();
+        }
+        return null;
+    }
+    
+    public Iterable<TemporalString> getAllTitles() {
+        return ImmutableSet.copyOf(titles);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void addTitle(String title) {
+        addTitle(title, null, null);
+    }
+
+    public void addTitle(String title, LocalDate startDate) {
+        addTitle(title, startDate, null);
+    }
+
+    public void addTitle(String title, LocalDate startDate, LocalDate endDate) {
+        this.titles.add(new TemporalString(title, startDate, endDate));
+    }
+
+    public void addTitle(TemporalString title) {
+        this.titles.add(title);
+    }
+
+    public void setTitles(Iterable<TemporalString> titles) {
+        this.titles = Sets.newHashSet(titles);
     }
 
     public Set<Country> getAvailableCountries() {
@@ -40,51 +82,61 @@ public class ChannelGroup extends Identified {
         this.availableCountries = availableCountries;
     }
 
+    @Deprecated
     public Set<Long> getChannels() {
-        return channels;
+        return ImmutableSet.copyOf(Iterables.transform(getChannelNumberings(), new Function<ChannelNumbering, Long>() {
+            @Override
+            public Long apply(ChannelNumbering input) {
+                return input.getChannel();
+            }
+        }));
     }
 
+    @Deprecated
     public void setChannels(Iterable<Long> channels) {
-        this.channels = ImmutableSet.copyOf(channels);
-    }
-    
-    public void addChannel(Channel channel) {
-        addChannel(channel.getId());
-    }
-    
-    public void addChannel(Long id) {
-        this.channels = ImmutableSet.<Long>builder().addAll(channels).add(id).build();
-    }
-    
-    public ChannelGroupType getType() {
-        return type;
-    }
-
-    public void setType(ChannelGroupType type) {
-        this.type = type;
-    }
-
-    public enum ChannelGroupType {
-        PLATFORM("platform"),
-        REGION("region");
-        
-        private final String key;
-
-        private ChannelGroupType(String key) {
-            this.key = key;
+        for (Long channelId : channels) {
+            addChannelNumbering(ChannelNumbering.builder()
+                .withChannel(channelId)
+                .withChannelGroup(getId())
+                .build());
         }
-        
-        public String key() {
-            return key;
-        }
-        
-        public static ChannelGroupType fromKey(String key) {
-            for (ChannelGroupType value : ChannelGroupType.values()) {
-                if (value.key.equals(key)) {
-                    return value;
+    }
+    
+    @Deprecated
+    public void addChannel(Long channel) {
+        addChannelNumbering(ChannelNumbering.builder()
+                .withChannel(channel)
+                .withChannelGroup(getId())
+                .build());
+    }
+    
+    public Set<ChannelNumbering> getChannelNumberings() {
+        return ImmutableSet.copyOf(Iterables.filter(channelNumberings, new Predicate<ChannelNumbering>() {
+            @Override
+            public boolean apply(ChannelNumbering input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                            && input.getEndDate().compareTo(new LocalDate()) > 0;
+                        } else {
+                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
                 }
             }
-            throw new IllegalArgumentException("Key " + key + " does not map to a ChannelGroupType");
-        }
+        }));
+    }
+    
+    public Set<ChannelNumbering> getAllChannelNumberings() {
+        return ImmutableSet.copyOf(channelNumberings);
+    }
+
+    public void setChannelNumberings(Iterable<ChannelNumbering> channelNumberings) {
+        this.channelNumberings = ImmutableSet.copyOf(channelNumberings);
+    }
+    
+    public void addChannelNumbering(ChannelNumbering channelNumbering) {
+        this.channelNumberings = ImmutableSet.<ChannelNumbering>builder().addAll(channelNumberings).add(channelNumbering).build();
     }
 }

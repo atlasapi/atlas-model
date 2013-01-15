@@ -1,14 +1,20 @@
 package org.atlasapi.media.channel;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
+import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
     
@@ -22,11 +28,16 @@ public class Channel extends Identified {
         private String uri;
         private String key;
         private Publisher broadcaster;
-        private String title;
-        private String image;
+        private Set<TemporalString> images = Sets.newHashSet();
+        private Set<TemporalString> titles = Sets.newHashSet();
         private MediaType mediaType;
         private Boolean highDefinition;
         private Set<Publisher> availableFrom = ImmutableSet.of();
+        private Set<Long> variations = Sets.newHashSet();
+        private Long parent;
+        private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
+        private LocalDate startDate;
+        private LocalDate endDate;
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -39,12 +50,28 @@ public class Channel extends Identified {
         }
         
         public Builder withTitle(String title) {
-            this.title = title;
+            return withTitle(title, null, null);
+        };
+        
+        public Builder withTitle(String title, LocalDate startDate) {
+            return withTitle(title, startDate, null);
+        };
+        
+        public Builder withTitle(String title, LocalDate startDate, LocalDate endDate) {
+            this.titles.add(new TemporalString(title, startDate, endDate));
             return this;
         };
         
         public Builder withImage(String image) {
-            this.image = image;
+            return withImage(image, null, null);
+        };
+        
+        public Builder withImage(String image, LocalDate startDate) {
+            return withImage(image, startDate, endDate);
+        };
+        
+        public Builder withImage(String image, LocalDate startDate, LocalDate endDate) {
+            this.images.add(new TemporalString(image, startDate, endDate));
             return this;
         };
         
@@ -74,39 +101,102 @@ public class Channel extends Identified {
             return this;
         };
         
+        public Builder withVariationIds(Iterable<Long> variationIds) {
+            this.variations = Sets.newHashSet(variationIds);
+            return this;
+        };
+        
+        public Builder withVariations(Iterable<Channel> variations) {
+            this.variations.clear();
+            for (Channel variation : variations) {
+                withVariation(variation);
+            }
+            return this;
+        };
+        
+        public Builder withVariation(Long variationId) {
+            this.variations.add(variationId);
+            return this;
+        };
+        
+        public Builder withVariation(Channel variation) {
+            this.variations.add(variation.getId());
+            return this;
+        };
+        
+        public Builder withParent(Channel parent) {
+            this.parent = parent.getId();
+            return this;
+        }
+        
+        public Builder withParent(Long parentId) {
+            this.parent = parentId;
+            return this;
+        }
+        
+        public Builder withChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
+            this.channelNumbers = Sets.newHashSet(channelNumbers);
+            return this;
+        }
+        
+        public Builder withChannelNumber(ChannelNumbering channelNumber) {
+            this.channelNumbers.add(channelNumber);
+            return this;
+        }
+        
+        public Builder withStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+        
+        public Builder withEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+        
         public Channel build() {
-            return new Channel(source, title, key, highDefinition, mediaType, uri, broadcaster, availableFrom, image);
+            return new Channel(source, titles, images, key, highDefinition, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
         }
     }
     
     
     private Publisher source;
-    private String title;
-    private String image;
+    private Set<TemporalString> titles = Sets.newHashSet();
+    private Set<TemporalString> images = Sets.newHashSet();
     private MediaType mediaType;
     private String key;
     private Boolean highDefinition;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
+    private Set<Long> variations;
+    private Long parent;
+    private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
+    private LocalDate startDate;
+    private LocalDate endDate;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, title, key, highDefinition, mediaType, uri,null, ImmutableSet.<Publisher>of(), null);
+        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, String image) {
-    	    super(uri);
-    	    this.source = publisher;
-        this.title = title;
-        this.image = image;
+    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+        super(uri);
+        this.source = publisher;
+        this.titles = Sets.newHashSet(titles);
+        this.images = Sets.newCopyOnWriteArraySet(images);
+        this.parent = parent;
         this.key = key;
         this.highDefinition = highDefinition;
         this.mediaType = mediaType;
         this.broadcaster = broadcaster;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
+        this.variations = Sets.newHashSet(variations);
+        this.channelNumbers = Sets.newHashSet(channelNumbers);
     }
     
     public String uri() {
@@ -114,7 +204,29 @@ public class Channel extends Identified {
     }
     
     public String title() {
-        return title;
+        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
+            @Override
+            public boolean apply(TemporalString input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                            && input.getEndDate().compareTo(new LocalDate()) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }), null);
+        if (currentTitle != null) {
+            return currentTitle.getValue();
+        }
+        return null;
+    }
+    
+    public Iterable<TemporalString> allTitles() {
+        return ImmutableSet.copyOf(titles);
     }
     
     public Boolean highDefinition() {
@@ -137,21 +249,97 @@ public class Channel extends Identified {
         return availableFrom;
     }
     
+    public Set<Long> variations() {
+        return variations;
+    }
+    
+    public Long parent() {
+        return parent;
+    }
+    
+    public Set<ChannelNumbering> channelNumbers() {
+        return ImmutableSet.copyOf(Iterables.filter(channelNumbers, new Predicate<ChannelNumbering>() {
+            @Override
+            public boolean apply(ChannelNumbering input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                                && input.getEndDate().compareTo(new LocalDate()) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }));
+    }
+    
+    public Set<ChannelNumbering> allChannelNumbers() {
+        return ImmutableSet.copyOf(channelNumbers);
+    }
+    
     @Deprecated
     public String key() {
         return key;
     }
     
     public String image() {
-        return image;
+        TemporalString currentImage = Iterables.getFirst(Iterables.filter(images, new Predicate<TemporalString>() {
+            @Override
+            public boolean apply(TemporalString input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(new LocalDate()) <= 0
+                                && input.getEndDate().compareTo(new LocalDate()) > 0;
+                        } else {
+                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }), null);
+        if (currentImage != null) {
+            return currentImage.getValue();
+        }
+        return null;
+    }
+    
+    public Iterable<TemporalString> allImages() {
+        return ImmutableSet.copyOf(images);
+    }
+    
+    public LocalDate startDate() {
+        return startDate;
+    }
+    
+    public LocalDate endDate() {
+        return endDate;
     }
     
     public void setSource(Publisher source) {
         this.source = source;
     }
     
-    public void setTitle(String title) {
-        this.title = title;
+    public void addTitle(String title) {
+        addTitle(title, null);
+    }
+    
+    public void addTitle(String title, LocalDate startDate) {
+        addTitle(title, startDate, null);
+    }
+    
+    public void addTitle(String title, LocalDate startDate, LocalDate endDate) {
+        this.titles.add(new TemporalString(title, startDate, endDate));
+    }
+    
+    public void addTitle(TemporalString title) {
+        this.titles.add(title);
+    }
+    
+    public void setTitles(Iterable<TemporalString> titles) {
+        this.titles = Sets.newHashSet(titles);
     }
     
     public void setMediaType(MediaType mediaType) {
@@ -174,8 +362,79 @@ public class Channel extends Identified {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
     }
     
-    public void setImage(String image) {
-        this.image = image;
+    public void setVariations(Iterable<Channel> variations) {
+        this.variations.clear();
+        for (Channel variation : variations) {
+            addVariation(variation);
+        }
+    }
+    
+    public void setVariationIds(Iterable<Long> variationIds) {
+        this.variations = Sets.newHashSet(variationIds);
+    }
+    
+    public void addVariation(Channel variation) {
+        this.variations.add(variation.getId());
+    }
+    
+    public void addVariation(Long variationId) {
+        this.variations.add(variationId);
+    }
+    
+    public void setParent(Channel parent) {
+        this.parent = parent.getId();
+    }
+    
+    public void setParent(Long parentId) {
+        this.parent = parentId;
+    }
+    
+    public void setChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
+        this.channelNumbers = Sets.newHashSet(channelNumbers);
+    }
+    
+    public void addChannelNumber(ChannelNumbering channelNumber) {
+        this.channelNumbers.add(channelNumber);
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    public void addChannelNumber(ChannelGroup channelGroup, int channelNumber, LocalDate startDate, LocalDate endDate) {
+        checkNotNull(getId());
+        ChannelNumbering channelNumbering = ChannelNumbering.builder()
+            .withChannelGroup(channelGroup)
+            .withChannel(getId())
+            .withChannelNumber(channelNumber)
+            .withStartDate(startDate)
+            .withEndDate(endDate)
+            .build();
+        this.channelNumbers.add(channelNumbering);
+    };
+    
+    public void addImage(String image) {
+        addImage(image, null, null);
+    }
+    
+    public void addImage(String image, LocalDate startDate) {
+        addImage(image, startDate, null);
+    }
+    
+    public void addImage(String image, LocalDate startDate, LocalDate endDate) {
+        this.images.add(new TemporalString(image, startDate, endDate));
+    }
+    
+    public void addImage(TemporalString image) {
+        this.images.add(image);
+    }
+    
+    public void setImages(Iterable<TemporalString> images) {
+        this.images = Sets.newHashSet(images);
     }
     
     @Override
