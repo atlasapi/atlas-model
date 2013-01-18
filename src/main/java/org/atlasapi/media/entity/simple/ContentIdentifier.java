@@ -1,7 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
 import java.lang.reflect.Constructor;
-import java.math.BigInteger;
 import java.util.Map;
 
 import org.atlasapi.media.entity.ChildRef;
@@ -14,20 +13,13 @@ import com.metabroadcast.common.ids.NumberToShortStringCodec;
 
 public abstract class ContentIdentifier {
 
-    protected String uri;
     protected String type;
     protected String id;
 
     public ContentIdentifier() {
     }
 
-    public ContentIdentifier(String uri, String type) {
-        this(uri, type, null);
-    }
-    
-    public ContentIdentifier(String uri, String type, String id) {
-        this.uri = uri;
-        this.type = type;
+    public ContentIdentifier(String id, String type) {
         this.id = id;
     }
     
@@ -39,14 +31,6 @@ public abstract class ContentIdentifier {
         return id;
     }
     
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
     public void setType(String type) {
         this.type = type;
     }
@@ -61,18 +45,14 @@ public abstract class ContentIdentifier {
 
         public ItemIdentifier() {
         }
-
-        public ItemIdentifier(String uri) {
-            this(uri, null);
-        }
         
-        public ItemIdentifier(String uri, String id) {
-            super(uri, EntityType.ITEM.toString(), id);
+        public ItemIdentifier(String id) {
+            super(id, EntityType.ITEM.toString());
         }
 
         @Override
         public ItemIdentifier copy() {
-            return new ItemIdentifier(uri, id);
+            return new ItemIdentifier(id);
         }
     }
 
@@ -81,17 +61,13 @@ public abstract class ContentIdentifier {
         public EpisodeIdentifier() {
         }
 
-        public EpisodeIdentifier(String uri) {
-            this(uri, null);
-        }
-        
-        public EpisodeIdentifier(String uri, String id) {
-            super(uri, EntityType.EPISODE.toString(), id);
+        public EpisodeIdentifier(String id) {
+            super(id, EntityType.EPISODE.toString());
         }
 
         @Override
         public EpisodeIdentifier copy() {
-            return new EpisodeIdentifier(uri, id);
+            return new EpisodeIdentifier(id);
         }
     }
 
@@ -100,17 +76,13 @@ public abstract class ContentIdentifier {
         public FilmIdentifier() {
         }
 
-        public FilmIdentifier(String uri) {
-            this(uri, null);
-        }
-        
-        public FilmIdentifier(String uri, String id) {
-            super(uri, EntityType.FILM.toString(), id);
+        public FilmIdentifier(String id) {
+            super(id, EntityType.FILM.toString());
         }
 
         @Override
         public FilmIdentifier copy() {
-            return new FilmIdentifier(uri, id);
+            return new FilmIdentifier(id);
         }
     }
 
@@ -118,18 +90,14 @@ public abstract class ContentIdentifier {
         
         public BrandIdentifier() {
         }
-
-        public BrandIdentifier(String uri) {
-            this(uri, null);
-        }
         
-        public BrandIdentifier(String uri, String id) {
-            super(uri, EntityType.BRAND.toString(), id);
+        public BrandIdentifier(String id) {
+            super(id, EntityType.BRAND.toString());
         }
 
         @Override
         public BrandIdentifier copy() {
-            return new BrandIdentifier(uri, id);
+            return new BrandIdentifier(id);
         }
     }
 
@@ -138,17 +106,13 @@ public abstract class ContentIdentifier {
         public SeriesIdentifier() {
         }
 
-        public SeriesIdentifier(String uri) {
-            this(uri, null);
-        }
-        
-        public SeriesIdentifier(String uri, String id) {
-            super(uri, EntityType.SERIES.toString(), id);
+        public SeriesIdentifier(String id) {
+            super(id, EntityType.SERIES.toString());
         }
 
         @Override
         public SeriesIdentifier copy() {
-            return new SeriesIdentifier(uri, id);
+            return new SeriesIdentifier(id);
         }
     }
 
@@ -157,31 +121,32 @@ public abstract class ContentIdentifier {
         public PersonIdentifier() {
         }
 
-        public PersonIdentifier(String uri) {
-            this(uri, null);
-        }
-        
-        public PersonIdentifier(String uri, String id) {
-            super(uri, EntityType.PERSON.toString(), id);
+        public PersonIdentifier(String id) {
+            super(id, EntityType.PERSON.toString());
         }
 
         @Override
         public PersonIdentifier copy() {
-            return new PersonIdentifier(uri, id);
+            return new PersonIdentifier(id);
         }
     }
     
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("id", id).add("uri", uri).add("type", type).toString();
+        return Objects.toStringHelper(this)
+            .add("id", id)
+            .add("type", type)
+            .toString();
     }
     
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object that) {
+        if (this == that) {
             return true;
-        } else if (obj instanceof ContentIdentifier) {
-            return Objects.equal(this.uri, ((ContentIdentifier)obj).uri) && Objects.equal(this.type, ((ContentIdentifier)obj).uri);
+        } else if (that instanceof ContentIdentifier) {
+            ContentIdentifier other = (ContentIdentifier)that;
+            return Objects.equal(this.id, other.id) 
+                && Objects.equal(this.type, other.type);
         } else {
             return false;
         }
@@ -189,7 +154,7 @@ public abstract class ContentIdentifier {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(uri);
+        return Objects.hashCode(id);
     }
 
     private static Map<EntityType, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<EntityType, Class<? extends ContentIdentifier>> builder()
@@ -201,20 +166,20 @@ public abstract class ContentIdentifier {
             .put(EntityType.FILM, FilmIdentifier.class)
     .build();
 
-	private static ContentIdentifier create(EntityType type, String uri, String id) {
+	private static ContentIdentifier create(EntityType type, String id) {
 		try {
             Class<? extends ContentIdentifier> idType = typeMap.get(type);
-            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class, String.class);
-            return constructor.newInstance(uri, id);
+            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class);
+            return constructor.newInstance(id);
         } catch (Exception e) {
-            throw new RuntimeException("Can't create content identifier for " + uri);
+            throw new RuntimeException("Can't create content identifier for " + id);
         }
 	}
     
     public static ContentIdentifier identifierFor(ChildRef childRef, NumberToShortStringCodec idCodec) {
-        String id = childRef.getId() != null ? idCodec.encode(BigInteger.valueOf(childRef.getId()))
+        String id = childRef.getId() != null ? idCodec.encode(childRef.getId().toBigInteger())
                                              : null;
-        return create(childRef.getType(), childRef.getUri(), id);
+        return create(childRef.getType(), id);
     }
 
     public static ContentIdentifier identifierFrom(String canonicalUri, String type) {
@@ -232,13 +197,6 @@ public abstract class ContentIdentifier {
         @Override
         public String apply(ContentIdentifier input) {
             return input.getId();
-        }
-    };
-    
-    public static final Function<ContentIdentifier, String> TO_URI = new Function<ContentIdentifier, String>() {
-        @Override
-        public String apply(ContentIdentifier input) {
-            return input.getUri();
         }
     };
     

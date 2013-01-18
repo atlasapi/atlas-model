@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Brand;
@@ -42,7 +43,7 @@ public class JsonFactoryTest {
     @Test
     public void testUnfilteredItem() throws Exception {
         Item item = new Item("uri", "curie", Publisher.BBC);
-        item.setId(1L);
+        item.setId(Id.valueOf(1L));
         item.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
         item.setVersions(Sets.newHashSet(new Version()));
 
@@ -57,7 +58,7 @@ public class JsonFactoryTest {
     @Test
     public void testFilteredItem() throws Exception {
         Item item = new Item("uri", "curie", Publisher.BBC);
-        item.setId(1L);
+        item.setId(Id.valueOf(1L));
         item.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
         item.setVersions(Sets.newHashSet(new Version()));
 
@@ -82,9 +83,9 @@ public class JsonFactoryTest {
     @Test
     public void testUnfilteredContainer() throws Exception {
         Container container = new Brand("uri", "curie", Publisher.BBC);
-        container.setId(1L);
+        container.setId(Id.valueOf(1L));
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
-        container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));
+        container.setChildRefs(Arrays.asList(new ChildRef(Id.valueOf(1L), "sort", new DateTime(), EntityType.ITEM)));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -97,9 +98,9 @@ public class JsonFactoryTest {
     @Test
     public void testFilteredContainer() throws Exception {
         Container container = new Brand("uri", "curie", Publisher.BBC);
-        container.setId(1L);
+        container.setId(Id.valueOf(1L));
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
-        container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));
+        container.setChildRefs(Arrays.asList(new ChildRef(Id.valueOf(1L), "sort", new DateTime(), EntityType.ITEM)));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
         FilterProvider filters = new SimpleFilterProvider().
@@ -124,7 +125,7 @@ public class JsonFactoryTest {
     @Test
     public void testItemCanBeReadBackAsGenericContent() throws Exception {
         Item item = new Item("uri", "curie", Publisher.BBC);
-        item.setId(1L);
+        item.setId(Id.valueOf(1L));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -181,7 +182,7 @@ public class JsonFactoryTest {
     public void testLookupEntry() throws Exception {
         Item item = new Item("item", "item", Publisher.BBC);
         item.setAliases(ImmutableList.of("alias1","alias2"));
-        item.setId(1234l);
+        item.setId(Id.valueOf(1234L));
         LookupEntry entry = LookupEntry.lookupEntryFrom(item);
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();

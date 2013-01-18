@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
 import org.atlasapi.media.vocabulary.OWL;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.joda.time.DateTime;
@@ -26,9 +28,9 @@ import com.google.common.primitives.Ints;
  * @author Robert Chatley
  * @author Lee Denison
  */
-public class Identified {
+public class Identified implements Identifiable {
 
-	private Long id;
+	private Id id;
 	
 	private String canonicalUri;
 
@@ -143,11 +145,16 @@ public class Identified {
 		return equivalentTo;
 	}
 	
-	public Long getId() {
+	@Override
+    public Id getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(long id) {
+	    this.id = Id.valueOf(id);
+	}
+	
+	public void setId(Id id) {
 		this.id = id;
 	}
 	
@@ -167,9 +174,9 @@ public class Identified {
 		}
 	};
 	
-	public static final Function<Identified, Long> TO_ID = new Function<Identified, Long>() {
+	public static final Function<Identified, Id> TO_ID = new Function<Identified, Id>() {
         @Override
-        public Long apply(Identified input) {
+        public Id apply(Identified input) {
             return input.getId();
         }
     };
@@ -202,7 +209,7 @@ public class Identified {
      */
 	public boolean isEquivalentTo(Described content) {
 		return equivalentTo.contains(LookupRef.from(content))
-	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_URI), canonicalUri);
+	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_ID), canonicalUri);
 	}
 	
 	public static void copyTo(Identified from, Identified to) {

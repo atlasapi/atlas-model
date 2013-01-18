@@ -71,7 +71,7 @@ public class Series extends Container {
     };
     
     public ChildRef childRef() {
-        return new ChildRef(this.getId(), this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), new DateTime(DateTimeZones.UTC), EntityType.from(this));
+        return new ChildRef(this.getId(), Strings.nullToEmpty(this.getTitle()), new DateTime(DateTimeZones.UTC), EntityType.from(this));
     }
     
     public void setTotalEpisodes(Integer totalEpisodes) {

@@ -2,6 +2,7 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Publisher;
 
@@ -14,7 +15,7 @@ public class ChannelGroup extends Identified {
     private String title;
     private Set<Country> availableCountries;
     private ChannelGroupType type;
-    private Set<Long> channels = ImmutableSet.of();
+    private Set<Id> channels = ImmutableSet.of();
 
     public Publisher getPublisher() {
         return publisher;
@@ -40,11 +41,11 @@ public class ChannelGroup extends Identified {
         this.availableCountries = availableCountries;
     }
 
-    public Set<Long> getChannels() {
+    public Set<Id> getChannels() {
         return channels;
     }
 
-    public void setChannels(Iterable<Long> channels) {
+    public void setChannels(Iterable<Id> channels) {
         this.channels = ImmutableSet.copyOf(channels);
     }
     
@@ -52,8 +53,8 @@ public class ChannelGroup extends Identified {
         addChannel(channel.getId());
     }
     
-    public void addChannel(Long id) {
-        this.channels = ImmutableSet.<Long>builder().addAll(channels).add(id).build();
+    public void addChannel(Id id) {
+        this.channels = ImmutableSet.<Id>builder().addAll(channels).add(id).build();
     }
     
     public ChannelGroupType getType() {

@@ -1,13 +1,15 @@
 package org.atlasapi.media.entity;
 
+import org.atlasapi.media.common.Id;
+
 import com.google.common.base.Objects;
 
 public class ContentGroupRef {
 
-	private Long id;
+	private Id id;
     private String uri;
 	
-	public ContentGroupRef(Long id, String uri) {
+	public ContentGroupRef(Id id, String uri) {
 		this.id = id;
 		this.uri = uri;
 	}
@@ -20,11 +22,11 @@ public class ContentGroupRef {
     private ContentGroupRef() {
     }
 
-    public void setId(Long id) {
+    public void setId(Id id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Id getId() {
         return id;
     }
 

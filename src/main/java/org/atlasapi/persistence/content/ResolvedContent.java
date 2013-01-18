@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 
 import com.google.common.base.Predicate;
@@ -16,19 +17,21 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.metabroadcast.common.base.Maybe;
 
+@Deprecated
 public class ResolvedContent {
     
+    @Deprecated
     public static class ResolvedContentBuilder {
         
-        private ImmutableMap.Builder<String, Maybe<Identified>> builder = ImmutableMap.builder();
+        private ImmutableMap.Builder<Id, Maybe<Identified>> builder = ImmutableMap.builder();
         
-        public ResolvedContentBuilder put(String q, Identified r) {
+        public ResolvedContentBuilder put(Id q, Identified r) {
             builder.put(q, Maybe.fromPossibleNullValue(r));
             return this;
         }
         
-        public ResolvedContentBuilder putAll(Map<String, ? extends Identified> results) {
-            for (Entry<String, ? extends Identified> result : results.entrySet()) {
+        public ResolvedContentBuilder putAll(Map<Id, ? extends Identified> results) {
+            for (Entry<Id, ? extends Identified> result : results.entrySet()) {
                 put(result.getKey(), result.getValue());
             }
             return this;
@@ -44,9 +47,9 @@ public class ResolvedContent {
         return new ResolvedContentBuilder();
     }
 
-    private final Map<String, Maybe<Identified>> map;
+    private final Map<Id, Maybe<Identified>> map;
 
-    public ResolvedContent(Map<String, Maybe<Identified>> map) {
+    public ResolvedContent(Map<Id, Maybe<Identified>> map) {
         this.map = map;
     }
 
@@ -66,7 +69,7 @@ public class ResolvedContent {
         return Maybe.nothing();
     }
 
-    public Set<String> getQueries() {
+    public Set<Id> getQueries() {
         return map.keySet();
     }
 
@@ -87,11 +90,11 @@ public class ResolvedContent {
         return ImmutableList.copyOf(Maybe.filterValues(map.values()));
     }
 
-    public List<String> getUnresolved() {
+    public List<Id> getUnresolved() {
         return ImmutableList.copyOf(Maps.filterValues(map, Predicates.not(Maybe.HAS_VALUE)).keySet());
     }
 
-    public List<String> getResolvedQueries() {
+    public List<Id> getResolvedQueries() {
         return ImmutableList.copyOf(Maps.filterValues(map, Maybe.HAS_VALUE).keySet());
     }
 
@@ -102,18 +105,18 @@ public class ResolvedContent {
         return Iterables.get(map.values(), 0);
     }
 
-    public Map<String, Maybe<Identified>> asMap() {
+    public Map<Id, Maybe<Identified>> asMap() {
         return ImmutableMap.copyOf(map);
     }
 
-    public Map<String, Identified> asResolvedMap() {
+    public Map<Id, Identified> asResolvedMap() {
         return ImmutableMap.copyOf(Maps.transformValues(Maps.filterValues(map, Maybe.HAS_VALUE), Maybe.<Identified> requireValueFunction()));
     }
     
     public ResolvedContent filterContent(Predicate<Maybe<Identified>> filter) {
-        ImmutableMap.Builder<String, Maybe<Identified>> filtered = ImmutableMap.builder();
+        ImmutableMap.Builder<Id, Maybe<Identified>> filtered = ImmutableMap.builder();
         
-        for (Entry<String, Maybe<Identified>> entry: map.entrySet()) {
+        for (Entry<Id, Maybe<Identified>> entry: map.entrySet()) {
             
             Maybe<Identified> value = filter.apply(entry.getValue()) ? entry.getValue() : Maybe.<Identified>nothing();
             filtered.put(entry.getKey(), value);
@@ -145,11 +148,11 @@ public class ResolvedContent {
         return false;
     }
 
-	public ResolvedContent copyWithAllRequestedUris(Iterable<String> uris) {
+	public ResolvedContent copyWithAllRequestedUris(Iterable<Id> ids) {
 		ResolvedContentBuilder builder = ResolvedContent.builder();
-		for (String uri : uris) {
-			Maybe<Identified> result = map.get(uri);
-			builder.put(uri, result == null ? null : result.valueOrNull());
+		for (Id id : ids) {
+			Maybe<Identified> result = map.get(id);
+			builder.put(id, result == null ? null : result.valueOrNull());
 		}
 		return builder.build();
 	}

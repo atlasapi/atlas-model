@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Id;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Objects;
@@ -12,11 +14,11 @@ import com.google.common.collect.Maps;
 
 public class TopicRef {
 
+    private Id topic;
+    private Publisher publisher;
 	private Boolean supervised;
     private Float weighting;
-    private Long topic;
     private Relationship relationship;
-    private Publisher publisher;
     private Integer offset;
 
     public TopicRef(Topic topic, Float weighting, Boolean supervised, Relationship relationship) {
@@ -27,11 +29,15 @@ public class TopicRef {
         this(topic.getId(), weighting, supervised, relationship, offset);
     }
 
-    public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship) {
+    public TopicRef(long topicId, Float weighting, Boolean supervised, Relationship relationship) {
+        this(Id.valueOf(topicId), weighting, supervised, relationship, null);
+    }
+    
+    public TopicRef(Id topicId, Float weighting, Boolean supervised, Relationship relationship) {
         this(topicId, weighting, supervised, relationship, null);
     }
 
-    public TopicRef(Long topicId, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
+    public TopicRef(Id topicId, Float weighting, Boolean supervised, Relationship relationship, Integer offset) {
         this.topic = topicId;
         this.weighting = weighting;
         this.supervised = supervised;
@@ -43,7 +49,7 @@ public class TopicRef {
         this.topic = topic.getId();
     }
 
-    public void setTopicUri(Long topic) {
+    public void setTopicUri(Id topic) {
         this.topic = topic;
     }
 
@@ -67,7 +73,7 @@ public class TopicRef {
         return supervised;
     }
 
-    public Long getTopic() {
+    public Id getTopic() {
         return topic;
     }
 
@@ -104,9 +110,9 @@ public class TopicRef {
         if (that instanceof TopicRef) {
             TopicRef other = (TopicRef) that;
             return Objects.equal(supervised, other.supervised)
-                    && Objects.equal(weighting, other.weighting)
-                    && Objects.equal(topic, other.topic)
-                    && Objects.equal(relationship, other.relationship);
+                && Objects.equal(weighting, other.weighting)
+                && Objects.equal(topic, other.topic)
+                && Objects.equal(relationship, other.relationship);
         }
         return false;
     }
