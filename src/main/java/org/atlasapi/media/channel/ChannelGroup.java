@@ -2,6 +2,7 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Publisher;
 import org.joda.time.LocalDate;
@@ -72,18 +73,18 @@ public abstract class ChannelGroup extends Identified {
     }
 
     @Deprecated
-    public Set<Long> getChannels() {
-        return ImmutableSet.copyOf(Iterables.transform(getChannelNumberings(), new Function<ChannelNumbering, Long>() {
+    public Set<Id> getChannels() {
+        return ImmutableSet.copyOf(Iterables.transform(getChannelNumberings(), new Function<ChannelNumbering, Id>() {
             @Override
-            public Long apply(ChannelNumbering input) {
+            public Id apply(ChannelNumbering input) {
                 return input.getChannel();
             }
         }));
     }
 
     @Deprecated
-    public void setChannels(Iterable<Long> channels) {
-        for (Long channelId : channels) {
+    public void setChannels(Iterable<Id> channels) {
+        for (Id channelId : channels) {
             addChannelNumbering(ChannelNumbering.builder()
                 .withChannel(channelId)
                 .withChannelGroup(getId())
@@ -92,7 +93,7 @@ public abstract class ChannelGroup extends Identified {
     }
     
     @Deprecated
-    public void addChannel(Long channel) {
+    public void addChannel(Id channel) {
         addChannelNumbering(ChannelNumbering.builder()
                 .withChannel(channel)
                 .withChannelGroup(getId())

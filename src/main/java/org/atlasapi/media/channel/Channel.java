@@ -2,6 +2,7 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
@@ -32,8 +33,8 @@ public class Channel extends Identified {
         private Boolean highDefinition;
         private Duration timeshift;
         private Set<Publisher> availableFrom = ImmutableSet.of();
-        private Set<Long> variations = Sets.newHashSet();
-        private Long parent;
+        private Set<Id> variations = Sets.newHashSet();
+        private Id parent;
         private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
         private LocalDate startDate;
         private LocalDate endDate;
@@ -110,7 +111,7 @@ public class Channel extends Identified {
             return this;
         };
         
-        public Builder withVariationIds(Iterable<Long> variationIds) {
+        public Builder withVariationIds(Iterable<Id> variationIds) {
             this.variations = Sets.newHashSet(variationIds);
             return this;
         };
@@ -123,7 +124,7 @@ public class Channel extends Identified {
             return this;
         };
         
-        public Builder withVariation(Long variationId) {
+        public Builder withVariation(Id variationId) {
             this.variations.add(variationId);
             return this;
         };
@@ -138,7 +139,7 @@ public class Channel extends Identified {
             return this;
         }
         
-        public Builder withParent(Long parentId) {
+        public Builder withParent(Id parentId) {
             this.parent = parentId;
             return this;
         }
@@ -179,21 +180,21 @@ public class Channel extends Identified {
     private Duration timeshift;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
-    private Set<Long> variations = Sets.newHashSet();
-    private Long parent;
+    private Set<Id> variations = Sets.newHashSet();
+    private Id parent;
     private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
     private LocalDate startDate;
     private LocalDate endDate;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Id>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Id> variations, Id parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -256,11 +257,11 @@ public class Channel extends Identified {
         return availableFrom;
     }
     
-    public Set<Long> variations() {
+    public Set<Id> variations() {
         return variations;
     }
     
-    public Long parent() {
+    public Id parent() {
         return parent;
     }
     
@@ -352,7 +353,7 @@ public class Channel extends Identified {
         }
     }
     
-    public void setVariationIds(Iterable<Long> variationIds) {
+    public void setVariationIds(Iterable<Id> variationIds) {
         this.variations = Sets.newHashSet(variationIds);
     }
     
@@ -360,7 +361,7 @@ public class Channel extends Identified {
         this.variations.add(variation.getId());
     }
     
-    public void addVariation(Long variationId) {
+    public void addVariation(Id variationId) {
         this.variations.add(variationId);
     }
     
@@ -368,7 +369,7 @@ public class Channel extends Identified {
         this.parent = parent.getId();
     }
     
-    public void setParent(Long parentId) {
+    public void setParent(Id parentId) {
         this.parent = parentId;
     }
     

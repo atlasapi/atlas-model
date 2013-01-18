@@ -1,65 +1,40 @@
 package org.atlasapi.media.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
 
-import java.util.Map;
+import com.google.common.collect.FluentIterable;
+import com.metabroadcast.common.collect.ImmutableOptionalMap;
+import com.metabroadcast.common.collect.OptionalMap;
 
-import javax.annotation.Nullable;
+public final class Resolved<R extends Identifiable> {
 
-import org.atlasapi.media.entity.Identified;
+    public static final <R extends Identifiable> Resolved<R> valueOf(Iterable<R> resources) {
+        return new Resolved<R>(resources);
+    }
+    
+    private final FluentIterable<R> resources;
+    private OptionalMap<Id, R> toMap;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.ForwardingMap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-
-public class Resolved<K, V extends Identified> extends ForwardingMap<K, Optional<V>> {
-
-    public static class Builder<K, V extends Identified> {
-
-        private final ImmutableMap.Builder<K, Optional<V>> delegateBuilder = ImmutableMap.builder();
-
-        public Builder<K, V> put(K key, @Nullable V value) {
-            delegateBuilder.put(key, Optional.fromNullable(value));
-            return this;
-        }
-
-        public Builder<K, V> put(K key, Optional<V> value) {
-            delegateBuilder.put(key, checkNotNull(value, "Null value"));
-            return this;
-        }
-
-        public Builder<K, V> put(Iterable<V> values, Function<? super V, K> keyFunction) {
-            delegateBuilder.putAll(Maps.transformValues(Maps.uniqueIndex(values, keyFunction), new Function<V, Optional<V>>() {
-                @Override
-                public Optional<V> apply(V input) {
-                    return Optional.fromNullable(input);
-                }
-            }));
-            return this;
-        }
-
-        public Resolved<K, V> build() {
-            return new Resolved<K, V>(delegateBuilder.build());
-        }
-
+    public Resolved(Iterable<R> resources) {
+        this.resources = FluentIterable.from(resources);
     }
 
-    private final ImmutableMap<K, Optional<V>> delegate;
-
-    public Resolved(ImmutableMap<K, Optional<V>> delegate) {
-        this.delegate = delegate;
+    public FluentIterable<R> getResources() {
+        return resources;
     }
 
+    public OptionalMap<Id, R> toMap() {
+        if (toMap == null) {
+            toMap = ImmutableOptionalMap.fromMap(
+                resources.uniqueIndex(Identifiables.toId()));
+        }
+        return toMap;
+    }
+    
     @Override
-    protected Map<K, Optional<V>> delegate() {
-        return delegate;
+    public String toString() {
+        return resources.toString();
     }
-
-    @Override
-    public Optional<V> get(@Nullable Object key) {
-        Optional<V> resolved = super.get(key);
-        return resolved == null ? Optional.<V> absent() : resolved;
-    }
+    
 }

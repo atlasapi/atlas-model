@@ -3,6 +3,7 @@ package org.atlasapi.persistence.content;
 import java.util.Map;
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.LookupRef;
 
@@ -16,7 +17,7 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
 
-public class EquivalentContent extends ForwardingSetMultimap<Long, Content> {
+public class EquivalentContent extends ForwardingSetMultimap<Id, Content> {
 
     public static Builder builder() {
         return new Builder();
@@ -24,9 +25,9 @@ public class EquivalentContent extends ForwardingSetMultimap<Long, Content> {
 
     public static class Builder {
 
-        private ImmutableSetMultimap.Builder<Long,Content> entries = ImmutableSetMultimap.builder();
+        private ImmutableSetMultimap.Builder<Id,Content> entries = ImmutableSetMultimap.builder();
 
-        public void putEquivalents(Long key, Iterable<Content> equivalentSet) {
+        public void putEquivalents(Id key, Iterable<Content> equivalentSet) {
             this.entries.putAll(key, setEquivalentToFields(equivalentSet));
         }
 
@@ -35,7 +36,7 @@ public class EquivalentContent extends ForwardingSetMultimap<Long, Content> {
         }
         
         private Iterable<Content> setEquivalentToFields(Iterable<Content> contents) {
-            Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_URI);
+            Map<Id,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_ID);
             Set<LookupRef> allRefs = ImmutableSet.copyOf(refMap.values());
 
             Set<Content> equivContents = Sets.newHashSetWithExpectedSize(refMap.size());
@@ -50,19 +51,19 @@ public class EquivalentContent extends ForwardingSetMultimap<Long, Content> {
 
     }
 
-    private SetMultimap<Long, Content> entries;
+    private SetMultimap<Id, Content> entries;
     
-    private EquivalentContent(SetMultimap<Long, Content> entries) {
+    private EquivalentContent(SetMultimap<Id, Content> entries) {
         this.entries = ImmutableSetMultimap.copyOf(entries);
     }
 
     @Override
-    protected SetMultimap<Long, Content> delegate() {
+    protected SetMultimap<Id, Content> delegate() {
         return entries;
     }
 
     private static final EquivalentContent EMPTY_INSTANCE 
-            = new EquivalentContent(ImmutableSetMultimap.<Long,Content>of());
+            = new EquivalentContent(ImmutableSetMultimap.<Id,Content>of());
     
     public static EquivalentContent empty() {
         return EMPTY_INSTANCE;

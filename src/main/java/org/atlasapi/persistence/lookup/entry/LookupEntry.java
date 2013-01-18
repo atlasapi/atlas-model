@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.media.entity.Alias;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.LookupRef;
 import org.joda.time.DateTime;
@@ -25,9 +26,9 @@ public class LookupEntry {
         return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAliases(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
     }
     
-    public static Function<LookupEntry,Long> TO_ID = new Function<LookupEntry, Long>() {
+    public static Function<LookupEntry,Id> TO_ID = new Function<LookupEntry, Id>() {
         @Override
-        public Long apply(LookupEntry input) {
+        public Id apply(LookupEntry input) {
             return input.id();
         }
     };
@@ -61,7 +62,7 @@ public class LookupEntry {
     };
     
     private final String uri;
-    private final Long id;
+    private final Id id;
     private final Set<Alias> aliases;
     
     private final Set<LookupRef> directEquivalents;
@@ -73,7 +74,11 @@ public class LookupEntry {
 
     private final LookupRef self;
 
-    public LookupEntry(String uri, Long id, LookupRef self, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
+    public LookupEntry(String uri, long id, LookupRef self, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
+        this(uri, Id.valueOf(id), self, aliases, directEquivs, explicit, equivs, created, updated);
+    }
+
+    public LookupEntry(String uri, Id id, LookupRef self, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
         this.uri = uri;
         this.id = id;
         this.self = self;
@@ -89,7 +94,7 @@ public class LookupEntry {
         return uri;
     }
     
-    public Long id() {
+    public Id id() {
         return id;
     }
 

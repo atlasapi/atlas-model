@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Objects;
@@ -23,35 +24,39 @@ import com.google.common.collect.ImmutableMap;
  */
 public class EquivalenceSummary {
 
-    private final String subject;
-    private final String parent;
-    private final ImmutableList<String> candidates;
+    private final Id subject;
+    private final Id parent;
+    private final ImmutableList<Id> candidates;
     private final ImmutableMap<Publisher, ContentRef> equivalents;
 
-    public EquivalenceSummary(String subject, Iterable<String> candidates, Map<Publisher, ContentRef> equivalents) {
+    public EquivalenceSummary(long subject, long parent, Iterable<Id> candidates, Map<Publisher, ContentRef> equivalents) {
+        this(Id.valueOf(subject), Id.valueOf(parent), candidates, equivalents);
+    }
+
+    public EquivalenceSummary(Id subject, Iterable<Id> candidates, Map<Publisher, ContentRef> equivalents) {
         this(checkNotNull(subject), null, candidates, equivalents);
     }
     
-    public EquivalenceSummary(String subject, @Nullable String parent, Iterable<String> candidates, Map<Publisher, ContentRef> equivalents) {
+    public EquivalenceSummary(Id subject, @Nullable Id parent, Iterable<Id> candidates, Map<Publisher, ContentRef> equivalents) {
         this.subject = checkNotNull(subject);
         this.parent = parent;
         //handle jackson deserialization passing null values, ugh.
         this.candidates = candidates != null ? ImmutableList.copyOf(candidates)
-                                             : ImmutableList.<String>of();
+                                             : ImmutableList.<Id>of();
         this.equivalents = equivalents != null ? ImmutableMap.copyOf(equivalents)
                                                : ImmutableMap.<Publisher,ContentRef>of();
     }
 
 
-    public String getSubject() {
+    public Id getSubject() {
         return this.subject;
     }
 
-    public String getParent() {
+    public Id getParent() {
         return this.parent;
     }
 
-    public ImmutableList<String> getCandidates() {
+    public ImmutableList<Id> getCandidates() {
         return this.candidates;
     }
 

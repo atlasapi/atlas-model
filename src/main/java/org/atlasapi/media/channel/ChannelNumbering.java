@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Id;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
@@ -13,16 +14,16 @@ import com.google.common.collect.Iterables;
 
 public class ChannelNumbering {
     
-    public static final Function<ChannelNumbering, Long> TO_CHANNEL_GROUP = new Function<ChannelNumbering, Long>() { 
+    public static final Function<ChannelNumbering, Id> TO_CHANNEL_GROUP = new Function<ChannelNumbering, Id>() { 
         @Override
-        public Long apply(ChannelNumbering input) {
+        public Id apply(ChannelNumbering input) {
             return input.channelGroup;
         }
     };
     
-    public static final Function<ChannelNumbering, Long> TO_CHANNEL = new Function<ChannelNumbering, Long>() { 
+    public static final Function<ChannelNumbering, Id> TO_CHANNEL = new Function<ChannelNumbering, Id>() { 
         @Override
-        public Long apply(ChannelNumbering input) {
+        public Id apply(ChannelNumbering input) {
             return input.channel;
         }
     };
@@ -47,8 +48,8 @@ public class ChannelNumbering {
     }
 
     private String channelNumber;
-    private Long channel;
-    private Long channelGroup;
+    private Id channel;
+    private Id channelGroup;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -56,7 +57,7 @@ public class ChannelNumbering {
         return new Builder();
     }
 
-    private ChannelNumbering(@Nullable String channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
+    private ChannelNumbering(@Nullable String channelNumber, Id channel, Id channelGroup, @Nullable LocalDate startDate,
             @Nullable LocalDate endDate) {
         this.channel = channel;
         this.channelNumber = channelNumber;
@@ -69,11 +70,11 @@ public class ChannelNumbering {
         return channelNumber;
     }
 
-    public Long getChannel() {
+    public Id getChannel() {
         return channel;
     }
 
-    public Long getChannelGroup() {
+    public Id getChannelGroup() {
         return channelGroup;
     }
 
@@ -89,11 +90,11 @@ public class ChannelNumbering {
         this.channelNumber = channelNumber;
     }
 
-    public void setChannel(Long channel) {
+    public void setChannel(Id channel) {
         this.channel = channel;
     }
 
-    public void setChannelGroup(Long channelGroup) {
+    public void setChannelGroup(Id channelGroup) {
         this.channelGroup = channelGroup;
     }
 
@@ -138,9 +139,10 @@ public class ChannelNumbering {
     }
 
     public static class Builder {
+        
         private String channelNumber;
-        private Long channel;
-        private Long channelGroup;
+        private Id channel;
+        private Id channelGroup;
         private LocalDate startDate;
         private LocalDate endDate;
 
@@ -161,7 +163,7 @@ public class ChannelNumbering {
             return this;
         }
 
-        public Builder withChannel(Long channelId) {
+        public Builder withChannel(Id channelId) {
             this.channel = channelId;
             return this;
         }
@@ -171,7 +173,7 @@ public class ChannelNumbering {
             return this;
         }
 
-        public Builder withChannelGroup(Long channelGroupId) {
+        public Builder withChannelGroup(Id channelGroupId) {
             this.channelGroup = channelGroupId;
             return this;
         }

@@ -1,9 +1,12 @@
 package org.atlasapi.media.channel;
 
-public class Region extends ChannelGroup {
-    private Long platform;
+import org.atlasapi.media.common.Id;
 
-    public Long getPlatform() {
+public class Region extends ChannelGroup {
+    
+    private Id platform;
+
+    public Id getPlatform() {
         return platform;
     }
 
@@ -11,7 +14,7 @@ public class Region extends ChannelGroup {
         this.platform = platform.getId();
     }
     
-    public void setPlatform(Long platformId) {
+    public void setPlatform(Id platformId) {
         this.platform = platformId;
     }
 }

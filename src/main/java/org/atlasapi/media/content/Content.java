@@ -56,11 +56,11 @@ public abstract class Content extends Described {
     public Content() { /*
          * some legacy code still requires a default constructor
          */
-
     }
 
     public ChildRef childRef() {
-        return new ChildRef(this.getId(), this.getCanonicalUri(), this.getSortKey(), this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
+        return new ChildRef(this.getId(), this.getSortKey(), 
+            this.getThisOrChildLastUpdated(), EntityType.from(this.getClass()));
     }
 
     public List<Clip> getClips() {

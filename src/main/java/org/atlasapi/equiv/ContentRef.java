@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.ParentRef;
@@ -17,15 +18,15 @@ public class ContentRef {
 
     public static ContentRef valueOf(Content content) {
         Publisher publisher = content.getPublisher();
-        String uri = content.getCanonicalUri();
-        String parentUri = null;
+        Id id = content.getId();
+        Id parentId = null;
         if (content instanceof Item) {
-            parentUri = uriOrNull(((Item)content).getContainer());
+            parentId = uriOrNull(((Item)content).getContainer());
         }
         if (content instanceof Series) {
-            parentUri = uriOrNull(((Series)content).getParent());
+            parentId = uriOrNull(((Series)content).getParent());
         }
-        return new ContentRef(uri, publisher, parentUri);
+        return new ContentRef(id, publisher, parentId);
     }
     
     public static final Function<Content, ContentRef> FROM_CONTENT = new Function<Content,ContentRef>(){
@@ -35,30 +36,34 @@ public class ContentRef {
         };
     };
 
-    protected static String uriOrNull(ParentRef parent) {
-        return parent == null ? null : parent.getUri();
+    protected static Id uriOrNull(ParentRef parent) {
+        return parent == null ? null : parent.getId();
     }
     
-    private final String canonicalUri;
+    private final Id id;
     private final Publisher publisher;
-    private final String parentUri;
+    private final Id parentId;
     
-    public ContentRef(String canonicalUri, Publisher publisher, @Nullable String parentUri) {
-        this.canonicalUri = checkNotNull(canonicalUri);
+    public ContentRef(long id, Publisher publisher, @Nullable Id parentId) {
+        this(Id.valueOf(id), publisher, parentId);
+    }
+
+    public ContentRef(Id id, Publisher publisher, @Nullable Id parentId) {
+        this.id = checkNotNull(id);
         this.publisher = checkNotNull(publisher);
-        this.parentUri = parentUri;
+        this.parentId = parentId;
     }
     
-    public String getCanonicalUri() {
-        return this.canonicalUri;
+    public Id getId() {
+        return this.id;
     }
     
     public Publisher getPublisher() {
         return this.publisher;
     }
     
-    public String getParentUri() {
-        return this.parentUri;
+    public Id getParentId() {
+        return this.parentId;
     }
     
     @Override
@@ -68,22 +73,22 @@ public class ContentRef {
         }
         if (that instanceof ContentRef) {
             ContentRef other = (ContentRef) that; 
-            return canonicalUri.equals(other.canonicalUri);
+            return parentId.equals(other.parentId);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return canonicalUri.hashCode();
+        return id.hashCode();
     }
     
     @Override
     public String toString() {
         return Objects.toStringHelper(getClass())
-                .add("uri", canonicalUri)
+                .add("id", id)
                 .add("publisher", publisher)
-                .add("parent", parentUri)
+                .add("parent", parentId)
                 .toString();
     }
 }

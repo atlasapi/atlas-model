@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Map;
 
+import org.atlasapi.media.common.Id;
+
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -54,21 +56,25 @@ public class Topic extends Described {
         }
     }
     
-    public Topic(Long id) {
+    public Topic(long id) {
+        this(Id.valueOf(id), null, null);
+    }
+    
+    public Topic(Id id) {
         this(id, null, null);
     }
     
-    public Topic(Long id, String namespace, String value) {
+    public Topic(Id id, String namespace, String value) {
         setId(id);
         setMediaType(null);
+        this.namespace = namespace;
+        this.value = value;
     }
     
     @Override
     public Topic copy() {
-        Topic topic = new Topic(getId());
+        Topic topic = new Topic(getId(), namespace, value);
         topic.type = type;
-        topic.namespace = namespace;
-        topic.value = value;
         Described.copyTo(this, topic);
         return topic;
     }
