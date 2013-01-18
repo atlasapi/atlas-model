@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.media.entity.Alias;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
@@ -75,7 +76,7 @@ public class ComplexItemTestDataBuilder {
         if (brand != null) {
             item.setContainer(brand);
         }
-        item.setId(id);
+        item.setId(Id.valueOf(id));
         item.setVersions(versions);
         item.setClips(clips);
         item.setMediaType(mediaType);

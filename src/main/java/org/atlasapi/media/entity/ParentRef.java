@@ -2,7 +2,7 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 
 import com.google.common.base.Function;
@@ -10,7 +10,7 @@ import com.google.common.base.Function;
 public class ParentRef {
     
     public static ParentRef parentRefFrom(Container container) {
-        return new ParentRef(container.getCanonicalUri(), container.getId());
+        return new ParentRef(container.getId());
     }
     
     public static Function<Container, ParentRef> T0_PARENT_REF = new Function<Container, ParentRef>() {
@@ -20,25 +20,18 @@ public class ParentRef {
         }
     };
 
-    private final String uri;
-    private final Long id;
-
-    public ParentRef(String parentCanonicalUri) {
-        this(parentCanonicalUri, null);
-    }
-
-    public ParentRef(String parentCanonicalUri, @Nullable Long id) {
-        this.uri = checkNotNull(parentCanonicalUri);
-        this.id = id;
-    }
-
-    @Nullable
-    public Long getId() {
-        return id;
-    }
+    private final Id id;
     
-    public String getUri() {
-        return uri;
+    public ParentRef(long id) {
+        this(Id.valueOf(id));
+    }
+
+    public ParentRef(Id id) {
+        this.id = checkNotNull(id);
+    }
+
+    public Id getId() {
+        return id;
     }
     
     @Override
@@ -48,18 +41,18 @@ public class ParentRef {
         }
         if (that instanceof ParentRef) {
             ParentRef other = (ParentRef) that;
-            return other.uri.equals(uri);
+            return other.id.equals(id);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return uri.hashCode();
+        return id.hashCode();
     }
     
     @Override
     public String toString() {
-        return uri;
+        return id.toString();
     }
 }

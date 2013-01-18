@@ -1,23 +1,25 @@
 package org.atlasapi.media.entity;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
-public class SeriesRef implements Comparable<SeriesRef> {
+public class SeriesRef implements Identifiable, Comparable<SeriesRef> {
 
     private static final Ordering<SeriesRef> NATURAL = Ordering.natural().reverse();
     
-    private final Long id;
-    private final String uri;
+    private final Id id;
     private final String title;
     private final DateTime updated;
     private final Integer seriesNumber;
@@ -26,23 +28,18 @@ public class SeriesRef implements Comparable<SeriesRef> {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(seriesRefs));
     }
     
-    public SeriesRef(@Nullable Long id, String uri, String title, Integer seriesNumber, DateTime updated) {
-        this.id = id;
-        this.uri = Preconditions.checkNotNull(uri);
-        this.title =  Preconditions.checkNotNull(title);
+    public SeriesRef(Id id, String title, Integer seriesNumber, DateTime updated) {
+        this.id = checkNotNull(id);
+        this.title =  checkNotNull(title);
         this.updated = updated;
         this.seriesNumber = seriesNumber;
     }
     
     @Nullable
-    public Long getId() {
+    public Id getId() {
         return id;
     }
-    
-    public String getUri() {
-        return uri;
-    }
-    
+
     public String getTitle() {
         return title;
     }
@@ -67,9 +64,9 @@ public class SeriesRef implements Comparable<SeriesRef> {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .addValue(getUri())
+                .addValue(id)
                 .addValue(seriesNumber)
-                .addValue(getUpdated()).toString();
+                .addValue(updated).toString();
     }
     
     @Override
@@ -79,20 +76,20 @@ public class SeriesRef implements Comparable<SeriesRef> {
         }
         if(that instanceof SeriesRef) {
             SeriesRef other = (SeriesRef) that;
-            return this.getUri().equals(other.getUri());
+            return id.equals(other.id);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return this.getUri().hashCode();
+        return id.hashCode();
     }
     
-    public static Function<SeriesRef, String> TO_URI = new Function<SeriesRef, String>() {
+    public static Function<SeriesRef, Id> TO_ID = new Function<SeriesRef, Id>() {
         @Override
-        public String apply(SeriesRef input) {
-            return input.getUri();
+        public Id apply(SeriesRef input) {
+            return input.getId();
         }
     };
 }

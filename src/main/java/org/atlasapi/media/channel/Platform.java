@@ -2,13 +2,16 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public class Platform extends ChannelGroup {
-    private Set<Long> regions = Sets.newHashSet(); 
     
-    public void addRegion(Long regionId) {
+    private Set<Id> regions = Sets.newHashSet(); 
+    
+    public void addRegion(Id regionId) {
         this.regions.add(regionId);
     }
     
@@ -23,11 +26,11 @@ public class Platform extends ChannelGroup {
         }
     }
     
-    public void setRegionIds(Iterable<Long> regionIds) {
+    public void setRegionIds(Iterable<Id> regionIds) {
         this.regions = Sets.newHashSet(regionIds);        
     }
     
-    public Set<Long> getRegions() {
+    public Set<Id> getRegions() {
         return ImmutableSet.copyOf(regions);
     }
 }

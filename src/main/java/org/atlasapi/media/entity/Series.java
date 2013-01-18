@@ -70,7 +70,7 @@ public class Series extends Container {
     };
     
     public SeriesRef seriesRef() {
-        return new SeriesRef(this.getId(), this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), 
+        return new SeriesRef(this.getId(), Strings.nullToEmpty(this.getTitle()), 
                 this.seriesNumber, new DateTime(DateTimeZones.UTC));
     }
     

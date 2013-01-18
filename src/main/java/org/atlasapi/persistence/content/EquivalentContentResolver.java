@@ -2,6 +2,7 @@ package org.atlasapi.persistence.content;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.output.Annotation;
 
@@ -40,6 +41,6 @@ public interface EquivalentContentResolver {
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveIds(Iterable<Long> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    EquivalentContent resolveIds(Iterable<Id> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
 
 }

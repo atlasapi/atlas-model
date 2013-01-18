@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.atlasapi.content.criteria.ContentQuery;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 
 import com.google.common.base.Optional;
@@ -34,9 +35,9 @@ public interface KnownTypeQueryExecutor {
      *         that URI. N.B. if an alias (a non-canonical identifier) is
      *         requested that alias will not be a key in the returned map.
      */
-    Map<Long, List<Identified>> executeUriQuery(Iterable<String> uris, ContentQuery query);
+    Map<Id, List<Identified>> executeUriQuery(Iterable<String> uris, ContentQuery query);
 
-    Map<Long, List<Identified>> executeIdQuery(Iterable<Long> ids, ContentQuery query);
+    Map<Id, List<Identified>> executeIdQuery(Iterable<Id> ids, ContentQuery query);
 
     Map<String, List<Identified>> executeAliasQuery(Optional<String> namespace, Iterable<String> values, ContentQuery query);
 }
