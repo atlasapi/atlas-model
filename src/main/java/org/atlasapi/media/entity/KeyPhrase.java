@@ -55,7 +55,9 @@ public final class KeyPhrase {
         }
         if (that instanceof KeyPhrase) {
             KeyPhrase other = (KeyPhrase) that;
-            return phrase.equals(other.phrase) && publisher.equals(other.publisher) && Objects.equal(weighting, other.weighting);
+            return phrase.equals(other.phrase) 
+                && Objects.equal(publisher, other.publisher)
+                && Objects.equal(weighting, other.weighting);
         }
         return false;
     }
@@ -67,6 +69,8 @@ public final class KeyPhrase {
     
     @Override
     public String toString() {
-        return String.format("%s (%s): %s", phrase, publisher.toString(), weighting != null ? weighting : "unweighted");
+        return String.format("%s (%s): %s", phrase, 
+            publisher == null ? "null" : publisher.toString(), 
+            weighting != null ? weighting : "unweighted");
     }
 }
