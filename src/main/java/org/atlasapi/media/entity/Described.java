@@ -48,7 +48,7 @@ public abstract class Described extends Identified {
 	
 	protected Publisher publisher;
 	private String image;
-	private Set<Image> images;
+	private Set<Image> images = ImmutableSet.of();
 	private String thumbnail;
 	
 	private DateTime firstSeen;
