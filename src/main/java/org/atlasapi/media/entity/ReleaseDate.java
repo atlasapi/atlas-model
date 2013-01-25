@@ -54,6 +54,6 @@ public class ReleaseDate {
     
     @Override
     public String toString() {
-        return String.format("%s (%s %s)", date.toString("YYYYmmdd"), country.code(), type.toString().toLowerCase());
+        return String.format("%s (%s %s)", date.toString(), country.code(), type.toString().toLowerCase());
     }
 }

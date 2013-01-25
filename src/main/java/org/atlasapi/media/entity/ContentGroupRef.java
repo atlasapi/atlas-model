@@ -50,8 +50,7 @@ public class ContentGroupRef {
 		}
 		if (that instanceof ContentGroupRef) {
 		    ContentGroupRef other = (ContentGroupRef) that;
-		    return Objects.equal(id, other.id) 
-		            && Objects.equal(uri, other.uri);
+		    return Objects.equal(id, other.id);
 		}
 		return false;
 	}
