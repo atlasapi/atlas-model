@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
@@ -80,7 +81,8 @@ public class BroadcastMergingTest {
         chosenItem.setCanonicalUri("chosenItem");
         Version chosenVersion = new Version();
         Broadcast chosenBroadcast = new Broadcast("www.bbc.co.uk/services/bbctwo", new DateTime(2012,1,1,0,0,0,UTC), new DateTime(2012,1,1,0,0,0,UTC));
-        chosenBroadcast.addAlias("chosenBroadcast");
+        chosenBroadcast.addAliasUrl("chosenBroadcast");
+        chosenBroadcast.addAlias(new Alias("chosenNamspace", "chosenValue"));
         chosenBroadcast.setSubtitled(true);
         chosenVersion.addBroadcast(chosenBroadcast);
         chosenItem.addVersion(chosenVersion);
@@ -90,7 +92,8 @@ public class BroadcastMergingTest {
         notChosenItem.setPublisher(Publisher.FACEBOOK);
         Version version = new Version();
         Broadcast broadcast = new Broadcast("www.bbc.co.uk/services/bbctwo", new DateTime(2012,1,1,0,0,0,UTC), new DateTime(2012,1,1,0,0,0,UTC));
-        broadcast.addAlias("non-chosen alias");
+        broadcast.addAliasUrl("non-chosen alias");
+        broadcast.addAlias(new Alias("notChosenNamespace", "notChosenValue"));
         broadcast.setAudioDescribed(true);
         broadcast.setHighDefinition(false);
         broadcast.setSurround(false);
@@ -111,6 +114,7 @@ public class BroadcastMergingTest {
         assertFalse(mergedBroadcast.getHighDefinition());
         assertFalse(mergedBroadcast.getSurround());
         assertTrue(mergedBroadcast.getSubtitled());
+        assertTrue(mergedBroadcast.getAliases().size() == 2);
     }
     
     @Test
@@ -120,7 +124,8 @@ public class BroadcastMergingTest {
         chosenItem.setPublisher(Publisher.BBC);
         Version chosenVersion = new Version();
         Broadcast chosenBroadcast = new Broadcast("www.bbc.co.uk/services/bbctwo", new DateTime(2012,1,1,0,0,0,UTC), new DateTime(2012,1,1,0,0,0,UTC));
-        chosenBroadcast.addAlias("chosenBroadcast");
+        chosenBroadcast.addAliasUrl("chosenBroadcast");
+        chosenBroadcast.addAlias(new Alias("chosenNamspace", "chosenValue"));
         chosenBroadcast.setSubtitled(true);
         chosenVersion.addBroadcast(chosenBroadcast);
         chosenItem.addVersion(chosenVersion);
@@ -130,7 +135,8 @@ public class BroadcastMergingTest {
         notChosenBbcItem.setPublisher(Publisher.BBC);
         Version version = new Version();
         Broadcast broadcast = new Broadcast("www.bbc.co.uk/services/bbctwo", new DateTime(2012,1,1,0,0,0,UTC), new DateTime(2012,1,1,0,0,0,UTC));
-        broadcast.addAlias("non-chosen alias");
+        broadcast.addAliasUrl("non-chosen alias");
+        broadcast.addAlias(new Alias("notChosenNamespace", "notChosenValue"));
         broadcast.setAudioDescribed(true);
         broadcast.setHighDefinition(true);
         broadcast.setSubtitled(false);
@@ -142,7 +148,8 @@ public class BroadcastMergingTest {
         notChosenFbItem.setPublisher(Publisher.FACEBOOK);
         version = new Version();
         broadcast = new Broadcast("www.bbc.co.uk/services/bbctwo", new DateTime(2012,1,1,0,0,0,UTC), new DateTime(2012,1,1,0,0,0,UTC));
-        broadcast.addAlias("non-chosen alias");
+        broadcast.addAliasUrl("non-chosen alias");
+        broadcast.addAlias(new Alias("notChosenFBNamespace", "notChosenFBValue"));
         broadcast.setAudioDescribed(true);
         broadcast.setHighDefinition(false);
         broadcast.setSurround(false);
@@ -168,5 +175,6 @@ public class BroadcastMergingTest {
         assertTrue(mergedBroadcast.getHighDefinition());
         assertFalse(mergedBroadcast.getSurround());
         assertTrue(mergedBroadcast.getSubtitled());
+        assertTrue(mergedBroadcast.getAliases().size() == 3);
     }
 }

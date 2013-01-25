@@ -20,6 +20,8 @@ import java.util.Map;
 import org.atlasapi.content.criteria.ContentQuery;
 import org.atlasapi.media.entity.Identified;
 
+import com.google.common.base.Optional;
+
 public interface KnownTypeQueryExecutor {
 
     /**
@@ -36,4 +38,5 @@ public interface KnownTypeQueryExecutor {
 
     Map<String, List<Identified>> executeIdQuery(Iterable<Long> ids, ContentQuery query);
 
+    Map<String, List<Identified>> executeAliasQuery(Optional<String> namespace, Iterable<String> values, ContentQuery query);
 }

@@ -21,16 +21,16 @@ public class Person extends ContentGroup {
 	}
 	
 	public Set<String> profileLinks() {
-	    return this.getAliases();
+	    return this.getAliasUrls();
 	}
 	
 	public Person withProfileLink(String profileLink) {
-	    this.addAlias(profileLink);
+	    this.addAliasUrl(profileLink);
 	    return this;
 	}
 	
 	public Person withProfileLinks(Set<String> profileLinks) {
-        this.setAliases(profileLinks);
+        this.setAliasUrls(profileLinks);
         return this;
     }
 	

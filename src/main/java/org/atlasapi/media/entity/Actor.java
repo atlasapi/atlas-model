@@ -34,7 +34,7 @@ public class Actor extends CrewMember {
     
     @Override
     public Actor withProfileLink(String profileLink) {
-        this.addAlias(profileLink);
+        this.addAliasUrl(profileLink);
         return this;
     }
     
