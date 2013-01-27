@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
@@ -293,14 +294,14 @@ public abstract class AbstractContentStore implements ContentStore {
 
     private Content resolveAliases(Content c) {
         Content previous = null;
-        Iterator<String> aliases = c.getAliases().iterator();
+        Iterator<Alias> aliases = c.getAliases().iterator();
         while (previous == null && aliases.hasNext()) {
             previous = resolveAlias(aliases.next(), c.getPublisher());
         }
         return previous;
     }
 
-    protected abstract @Nullable Content resolveAlias(String alias, Publisher source);
+    protected abstract @Nullable Content resolveAlias(Alias alias, Publisher source);
 
     protected abstract @Nullable Content resolveId(Id id);
 
