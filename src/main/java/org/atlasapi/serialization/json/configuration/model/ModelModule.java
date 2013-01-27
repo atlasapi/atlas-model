@@ -2,11 +2,13 @@ package org.atlasapi.serialization.json.configuration.model;
 
 import org.atlasapi.equiv.ContentRef;
 import org.atlasapi.equiv.EquivalenceSummary;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Description;
+import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.ParentRef;
@@ -37,6 +39,7 @@ public class ModelModule extends SimpleModule {
     public void setupModule(Module.SetupContext context) {
         super.setupModule(context);
         this.addKeyDeserializer(Publisher.class, new PublisherConfiguration.PublisherKeyDeserializer());
+        context.setMixInAnnotations(Id.class, IdConfiguration.class);
         context.setMixInAnnotations(Container.class, FilteredContainerConfiguration.class);
         context.setMixInAnnotations(Item.class, FilteredItemConfiguration.class);
         context.setMixInAnnotations(Broadcast.class, BroadcastConfiguration.class);
@@ -59,5 +62,6 @@ public class ModelModule extends SimpleModule {
         context.setMixInAnnotations(Person.class, FilteredContentGroupConfiguration.class);
         context.setMixInAnnotations(SegmentRef.class, SegmentRefConfiguration.class);
         context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
+        context.setMixInAnnotations(Image.class, ImageConfiguration.class);
     }
 }

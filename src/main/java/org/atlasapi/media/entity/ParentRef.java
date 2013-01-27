@@ -10,7 +10,7 @@ import com.google.common.base.Function;
 public class ParentRef {
     
     public static ParentRef parentRefFrom(Container container) {
-        return new ParentRef(container.getId());
+        return new ParentRef(container.getId(), EntityType.from(container));
     }
     
     public static Function<Container, ParentRef> T0_PARENT_REF = new Function<Container, ParentRef>() {
@@ -21,19 +21,25 @@ public class ParentRef {
     };
 
     private final Id id;
+    private final EntityType type;
     
-    public ParentRef(long id) {
-        this(Id.valueOf(id));
+    public ParentRef(long id, EntityType type) {
+        this(Id.valueOf(id), type);
     }
 
-    public ParentRef(Id id) {
+    public ParentRef(Id id, EntityType type) {
         this.id = checkNotNull(id);
+        this.type = checkNotNull(type);
     }
 
     public Id getId() {
         return id;
     }
     
+    public EntityType getType() {
+        return type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
