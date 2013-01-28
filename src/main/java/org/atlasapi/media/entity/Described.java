@@ -244,7 +244,7 @@ public abstract class Described extends Identified {
     }
     
     public Image getPrimaryImage() {
-        return Iterables.getOnlyElement(Iterables.filter(images, Image.IS_PRIMARY));
+        return Iterables.getOnlyElement(Iterables.filter(images, Image.IS_PRIMARY), null);
     }
     
     public static void copyTo(Described from, Described to) {
