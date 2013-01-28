@@ -14,6 +14,9 @@ public class Image extends Identified {
     private Date availabilityStart;
     private Date availabilityEnd;
     
+    public Image() {
+    }
+    
     public Image(String uri) {
         super(uri);
     }
