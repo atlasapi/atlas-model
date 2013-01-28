@@ -1,14 +1,13 @@
 package org.atlasapi.media.entity;
 
-public enum ImageType {
-    PRIMARY("primary"),
-    BOX_ART("box_art"),
-    POSTER("poster"),
-    LOGO("logo");
+public enum ImageBackground {
+    BLACK("black"), 
+    WHITE("white"), 
+    TRANSPARENT("transparent");
     
     private final String name;
     
-    private ImageType(String name) {
+    private ImageBackground(String name) {
         this.name = name;
     }
     

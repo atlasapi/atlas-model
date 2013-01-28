@@ -2,67 +2,101 @@ package org.atlasapi.media.entity;
 
 import org.joda.time.DateTime;
 
+import com.google.common.base.Predicate;
+import com.metabroadcast.common.media.MimeType;
+
 public class Image extends Identified {
+    
+    public static final Predicate<Image> IS_PRIMARY = new Predicate<Image>() {
+        @Override
+        public boolean apply(Image input) {
+            return input.getType() != null && input.getType().equals(ImageType.PRIMARY);
+        }
+    };
 
     public Image(String uri) {
         super(uri);
     }
     
-    private Publisher publisher;
+    private ImageType type;
+    private ImageColor color;
+    private ImageBackground background;
     private Integer height;
     private Integer width;
-    private ImageType type;
-    private String caption;
-    private String copyright;
-    private DateTime availability_start;
-    private DateTime availability_end;
+    private ImageAspectRatio aspectRatio;
+    private MimeType mimeType;
+    private DateTime availabilityStart;
+    private DateTime availabilityEnd;
     
-    public Publisher getPublisher() {
-        return publisher;
-    }
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
     public Integer getHeight() {
         return height;
     }
+    
     public void setHeight(Integer height) {
         this.height = height;
     }
+    
     public Integer getWidth() {
         return width;
     }
+    
     public void setWidth(Integer width) {
         this.width = width;
     }
+    
     public ImageType getType() {
         return type;
     }
+    
     public void setType(ImageType type) {
         this.type = type;
     }
-    public String getCaption() {
-        return caption;
+
+    public ImageColor getColor() {
+        return color;
     }
-    public void setCaption(String caption) {
-        this.caption = caption;
+
+    public void setColor(ImageColor color) {
+        this.color = color;
     }
-    public String getCopyright() {
-        return copyright;
+
+    public ImageBackground getBackground() {
+        return background;
     }
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
+
+    public void setBackground(ImageBackground background) {
+        this.background = background;
     }
-    public DateTime getAvailability_start() {
-        return availability_start;
+
+    public ImageAspectRatio getAspectRatio() {
+        return aspectRatio;
     }
-    public void setAvailability_start(DateTime availability_start) {
-        this.availability_start = availability_start;
+
+    public void setAspectRatio(ImageAspectRatio aspectRatio) {
+        this.aspectRatio = aspectRatio;
     }
-    public DateTime getAvailability_end() {
-        return availability_end;
+
+    public MimeType getMimeType() {
+        return mimeType;
     }
-    public void setAvailability_end(DateTime availability_end) {
-        this.availability_end = availability_end;
+
+    public void setMimeType(MimeType mimeType) {
+        this.mimeType = mimeType;
+    }
+    
+    public DateTime getAvailabilityStart() {
+        return availabilityStart;
+    }
+    
+    public void setAvailabilityStart(DateTime availabilityStart) {
+        this.availabilityStart = availabilityStart;
+    }
+    
+    public DateTime getAvailabilityEnd() {
+        return availabilityEnd;
+    }
+    
+    public void setAvailabilityEnd(DateTime availabilityEnd) {
+        this.availabilityEnd = availabilityEnd;
     }
 }
