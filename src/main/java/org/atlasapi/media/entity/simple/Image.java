@@ -2,38 +2,20 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
 
-import org.atlasapi.media.entity.Publisher;
-
 public class Image extends Identified {
 
-    private PublisherDetails publisher;
-    private Integer height;
-    private Integer width;
     private String type;
-    private String caption;
-    private String copyright;
-    private Date availability_start;
-    private Date availability_end;
-    private String format;
+    private String color;
+    private String background;
+    private Integer width;
+    private Integer height;
+    private String aspectRatio;
+    private String mimeType;
+    private Date availabilityStart;
+    private Date availabilityEnd;
     
     public Image(String uri) {
         super(uri);
-    }
-    
-    public String getFormat() {
-        return format;
-    }
-    
-    public void setFormat(String format) {
-        this.format = format;
-    }
-    
-    public PublisherDetails getPublisher() {
-        return publisher;
-    }
-    
-    public void setPublisher(PublisherDetails publisher) {
-        this.publisher = publisher;
     }
     
     public Integer getHeight() {
@@ -60,36 +42,51 @@ public class Image extends Identified {
         this.type = type;
     }
     
-    public String getCaption() {
-        return caption;
+    public Date getAvailabilityStart() {
+        return availabilityStart;
     }
     
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setAvailabilityStart(Date availabilityStart) {
+        this.availabilityStart = availabilityStart;
     }
     
-    public String getCopyright() {
-        return copyright;
+    public Date getAvailabilityEnd() {
+        return availabilityEnd;
     }
     
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
+    public void setAvailabilityEnd(Date availabilityEnd) {
+        this.availabilityEnd = availabilityEnd;
     }
-    
-    public Date getAvailability_start() {
-        return availability_start;
+
+    public String getColor() {
+        return color;
     }
-    
-    public void setAvailability_start(Date availability_start) {
-        this.availability_start = availability_start;
+
+    public void setColor(String color) {
+        this.color = color;
     }
-    
-    public Date getAvailability_end() {
-        return availability_end;
+
+    public String getBackground() {
+        return background;
     }
-    
-    public void setAvailability_end(Date availability_end) {
-        this.availability_end = availability_end;
+
+    public void setBackground(String background) {
+        this.background = background;
     }
-  
+
+    public String getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public void setAspectRatio(String aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
 }
