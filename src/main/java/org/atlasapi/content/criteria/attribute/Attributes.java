@@ -29,8 +29,8 @@ import org.atlasapi.media.entity.Location;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.entity.Version;
+import org.atlasapi.media.topic.Topic;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;

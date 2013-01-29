@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import javax.annotation.Nullable;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.topic.Topic;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;

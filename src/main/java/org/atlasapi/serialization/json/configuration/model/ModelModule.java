@@ -18,7 +18,6 @@ import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
-import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
 import org.atlasapi.media.segment.SegmentRef;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
@@ -27,6 +26,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
+import org.atlasapi.media.topic.Topic;
 
 /**
  */
