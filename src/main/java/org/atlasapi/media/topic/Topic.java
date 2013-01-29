@@ -1,8 +1,10 @@
-package org.atlasapi.media.entity;
+package org.atlasapi.media.topic;
 
 import java.util.Map;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
