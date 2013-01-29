@@ -16,7 +16,6 @@ import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
-import org.atlasapi.media.entity.Topic;
 import org.atlasapi.media.product.ProductLocation;
 import org.atlasapi.persistence.lookup.entry.LookupEntry;
 import com.fasterxml.jackson.databind.Module;
@@ -26,6 +25,7 @@ import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.segment.SegmentRef;
+import org.atlasapi.media.topic.Topic;
 
 /**
  */
