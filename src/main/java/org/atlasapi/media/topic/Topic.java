@@ -58,6 +58,10 @@ public class Topic extends Described {
         }
     }
     
+    public Topic() {
+        this(null, null, null);
+    }
+    
     public Topic(long id) {
         this(Id.valueOf(id), null, null);
     }
