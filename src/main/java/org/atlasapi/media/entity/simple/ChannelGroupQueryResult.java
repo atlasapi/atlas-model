@@ -7,26 +7,26 @@ import java.util.Iterator;
 
 public class ChannelGroupQueryResult implements Iterable<ChannelGroup> {
     
-    private List<ChannelGroup> channels = ImmutableList.of();
+    private List<ChannelGroup> channelGroups = ImmutableList.of();
 
-    public ChannelGroupQueryResult(Iterable<ChannelGroup> channels) {
-        this.channels = ImmutableList.copyOf(channels);
+    public ChannelGroupQueryResult(Iterable<ChannelGroup> channelGroups) {
+        this.channelGroups = ImmutableList.copyOf(channelGroups);
     }
 
     public ChannelGroupQueryResult() {
     }
     
-    public List<ChannelGroup> getChannels() {
-        return channels;
+    public List<ChannelGroup> getChannelGroups() {
+        return channelGroups;
     }
 
-    public void setChannels(List<ChannelGroup> channels) {
-        this.channels = ImmutableList.copyOf(channels);
+    public void setChannelGroups(List<ChannelGroup> channelGroups) {
+        this.channelGroups = ImmutableList.copyOf(channelGroups);
     }
 
     @Override
     public Iterator<ChannelGroup> iterator() {
-        return channels.iterator();
+        return channelGroups.iterator();
     }
 
 }
