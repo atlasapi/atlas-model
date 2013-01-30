@@ -1,10 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import org.joda.time.LocalDate;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
@@ -18,7 +15,7 @@ public class Channel extends Aliased {
     private String image;
     private String mediaType;
     private Boolean highDefinition;
-    private List<ChannelNumbering> channels;
+    private List<ChannelNumbering> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
@@ -64,12 +61,12 @@ public class Channel extends Aliased {
         return highDefinition;
     }
 
-    public void setChannels(Iterable<ChannelNumbering> channelNumbering) {
-        this.channels = ORDERING.immutableSortedCopy(channelNumbering);
+    public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
+        this.channelGroups = ORDERING.immutableSortedCopy(channelNumbering);
     }
 
-    public List<ChannelNumbering> getChannels() {
-        return channels;
+    public List<ChannelNumbering> getChannelGroups() {
+        return channelGroups;
     }
 
     public PublisherDetails getBroadcaster() {
