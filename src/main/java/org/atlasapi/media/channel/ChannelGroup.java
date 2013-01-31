@@ -17,7 +17,7 @@ public abstract class ChannelGroup extends Identified {
 
     private Publisher publisher;
     private Set<TemporalString> titles = Sets.newHashSet();
-    private Set<Country> availableCountries;
+    private Set<Country> availableCountries = Sets.newHashSet();
     private Set<ChannelNumbering> channelNumberings = ImmutableSet.of();
 
     public Publisher getPublisher() {
@@ -80,6 +80,10 @@ public abstract class ChannelGroup extends Identified {
 
     public void setAvailableCountries(Set<Country> availableCountries) {
         this.availableCountries = availableCountries;
+    }
+    
+    public void addAvailableCountry(Country country) {
+        this.availableCountries.add(country);
     }
 
     @Deprecated

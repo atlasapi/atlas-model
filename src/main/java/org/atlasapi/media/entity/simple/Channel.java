@@ -3,6 +3,8 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.Duration;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
@@ -14,7 +16,9 @@ public class Channel extends Aliased {
     private String title;
     private String image;
     private String mediaType;
-    private Boolean highDefinition;
+    private Boolean highDefinition;        
+    private Boolean regional;
+    private Long timeshift;
     private List<ChannelNumbering> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
@@ -37,8 +41,17 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
+    
     public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
+    }
+    
+    public void setRegional(Boolean regional) {
+        this.regional = regional;
+    }
+    
+    public void setTimeshift(Long timeshift) {
+        this.timeshift = timeshift;
     }
 
     public PublisherDetails getPublisherDetails() {
@@ -59,6 +72,14 @@ public class Channel extends Aliased {
     
     public Boolean getHighDefinition() {
         return highDefinition;
+    }
+    
+    public Boolean getRegional() {
+        return regional;
+    }
+    
+    public Long getTimeshift() {
+        return timeshift;
     }
 
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
