@@ -1,16 +1,18 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.joda.time.Duration;
+import org.joda.time.LocalDate;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
 public class Channel extends Aliased {
-    
-    private static final Ordering<ChannelNumbering> ORDERING = Ordering.natural();
+
+    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = Ordering.natural();
+    private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
 
     private PublisherDetails publisher;
     private String title;
@@ -24,7 +26,9 @@ public class Channel extends Aliased {
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
     private Set<Channel> variations;
-    private History history;
+    private List<HistoricalChannelEntry> history;
+    private Date startDate;
+    private Date endDate;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -83,7 +87,7 @@ public class Channel extends Aliased {
     }
 
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
-        this.channelGroups = ORDERING.immutableSortedCopy(channelNumbering);
+        this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
 
     public List<ChannelNumbering> getChannelGroups() {
@@ -122,11 +126,31 @@ public class Channel extends Aliased {
         this.variations = ImmutableSet.copyOf(variations);
     }
 
-    public History getHistory() {
+    public List<HistoricalChannelEntry> getHistory() {
         return history;
     }
 
-    public void setHistory(History history) {
-        this.history = history;
+    public void setHistory(List<HistoricalChannelEntry> history) {
+        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        if (startDate != null) {
+            this.startDate = startDate.toDate();
+        }
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        if (endDate != null) {
+            this.startDate = endDate.toDate();
+        }
     }
 }

@@ -7,7 +7,6 @@ import org.atlasapi.media.entity.Publisher;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
@@ -29,25 +28,11 @@ public abstract class ChannelGroup extends Identified {
     }
     
     public String getTitle() {
-        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
-            @Override
-            public boolean apply(TemporalString input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                            && input.getEndDate().compareTo(new LocalDate()) > 0;
-                    } else {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }), null);
-        if (currentTitle != null) {
-            return currentTitle.getValue();
-        }
-        return null;
+        return TemporalString.valueForDate(titles, new LocalDate());
+    }
+    
+    public String getTitleForDate(LocalDate date) {
+        return TemporalString.valueForDate(titles, date);
     }
     
     public Iterable<TemporalString> getAllTitles() {
@@ -115,24 +100,6 @@ public abstract class ChannelGroup extends Identified {
     }
     
     public Set<ChannelNumbering> getChannelNumberings() {
-        return ImmutableSet.copyOf(Iterables.filter(channelNumberings, new Predicate<ChannelNumbering>() {
-            @Override
-            public boolean apply(ChannelNumbering input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                            && input.getEndDate().compareTo(new LocalDate()) > 0;
-                        } else {
-                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }));
-    }
-    
-    public Set<ChannelNumbering> getAllChannelNumberings() {
         return ImmutableSet.copyOf(channelNumberings);
     }
 

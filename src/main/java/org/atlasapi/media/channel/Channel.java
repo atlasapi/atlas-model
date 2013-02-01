@@ -12,9 +12,7 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
@@ -221,25 +219,11 @@ public class Channel extends Identified {
     }
     
     public String title() {
-        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
-            @Override
-            public boolean apply(TemporalString input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                            && input.getEndDate().compareTo(new LocalDate()) > 0;
-                    } else {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }), null);
-        if (currentTitle != null) {
-            return currentTitle.getValue();
-        }
-        return null;
+        return TemporalString.valueForDate(titles, new LocalDate());
+    }
+    
+    public String titleForDate(LocalDate date) {
+        return TemporalString.valueForDate(titles, date);
     }
     
     public Iterable<TemporalString> allTitles() {
@@ -283,24 +267,6 @@ public class Channel extends Identified {
     }
     
     public Set<ChannelNumbering> channelNumbers() {
-        return ImmutableSet.copyOf(Iterables.filter(channelNumbers, new Predicate<ChannelNumbering>() {
-            @Override
-            public boolean apply(ChannelNumbering input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                                && input.getEndDate().compareTo(new LocalDate()) > 0;
-                    } else {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }));
-    }
-    
-    public Set<ChannelNumbering> allChannelNumbers() {
         return ImmutableSet.copyOf(channelNumbers);
     }
     
@@ -310,25 +276,11 @@ public class Channel extends Identified {
     }
     
     public String image() {
-        TemporalString currentImage = Iterables.getFirst(Iterables.filter(images, new Predicate<TemporalString>() {
-            @Override
-            public boolean apply(TemporalString input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                                && input.getEndDate().compareTo(new LocalDate()) > 0;
-                        } else {
-                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }), null);
-        if (currentImage != null) {
-            return currentImage.getValue();
-        }
-        return null;
+        return TemporalString.valueForDate(images, new LocalDate());
+    }
+    
+    public String imageForDate(LocalDate date) {
+        return TemporalString.valueForDate(images, date);
     }
     
     public Iterable<TemporalString> allImages() {
