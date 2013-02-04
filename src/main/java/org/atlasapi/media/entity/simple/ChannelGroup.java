@@ -8,7 +8,28 @@ import com.google.common.collect.Ordering;
 
 public class ChannelGroup extends Aliased {
 
-    private static final Ordering<ChannelNumbering> ORDERING = Ordering.natural();
+    private static final Ordering<HistoricalChannelGroupEntry> HISTORY_ORDERING = Ordering.natural();
+    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new Ordering<ChannelNumbering>() {
+      @Override
+      public int compare(ChannelNumbering left, ChannelNumbering right) {
+          String leftNumber = left.getChannelNumber();
+          String rightNumber = right.getChannelNumber();
+          
+          if (leftNumber.startsWith("0")) {
+              if (rightNumber.startsWith("0")) {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              } else {
+                  return -1;
+              }
+          } else {
+              if (rightNumber.startsWith("0")) {
+                  return 1;
+              } else {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              }
+          }
+      }
+    };
     
     private PublisherDetails publisher;
     private String title;
@@ -16,7 +37,7 @@ public class ChannelGroup extends Aliased {
     private List<ChannelNumbering> channels;
     private Set<ChannelGroup> regions;
     private ChannelGroup platform;
-    private History history;
+    private List<HistoricalChannelGroupEntry> history;
     
     public PublisherDetails getPublisherDetails() {
         return this.publisher;
@@ -37,7 +58,7 @@ public class ChannelGroup extends Aliased {
         this.availableCountries = countries;
     }
     public void setChannels(Iterable<ChannelNumbering> channelNumbering) {
-        this.channels = ORDERING.immutableSortedCopy(channelNumbering);
+        this.channels = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
     public List<ChannelNumbering> getChannels() {
         return channels;
@@ -54,10 +75,10 @@ public class ChannelGroup extends Aliased {
     public void setPlatform(ChannelGroup platform) {
         this.platform = platform;
     }
-    public History getHistory() {
+    public List<HistoricalChannelGroupEntry> getHistory() {
         return history;
     }
-    public void setHistory(History history) {
-        this.history = history;
+    public void setHistory(List<HistoricalChannelGroupEntry> history) {
+        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
     }
 }

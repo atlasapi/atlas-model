@@ -1,51 +1,51 @@
 package org.atlasapi.media.entity.simple;
 
-import java.util.Date;
+import java.util.List;
 
-import org.joda.time.LocalDate;
+import com.google.common.collect.Ordering;
+
 
 public class ChannelNumbering implements Comparable<ChannelNumbering> {
-    Channel channel;
-    ChannelGroup channelGroup;
-    Integer channelNumber;
-    Date startDate;
-    Date endDate;
+    
+    private static final Ordering<HistoricalChannelNumberingEntry> HISTORY_ORDERING = Ordering.natural();
+    
+    private Channel channel;
+    private ChannelGroup channelGroup;
+    private String channelNumber;
+    private List<HistoricalChannelNumberingEntry> history; 
     
     public Channel getChannel() {
         return channel;
     }
+    
     public void setChannel(Channel channel) {
         this.channel = channel;
     }
+    
     public ChannelGroup getChannelGroup() {
         return channelGroup;
     }
+    
     public void setChannelGroup(ChannelGroup channelGroup) {
         this.channelGroup = channelGroup;
     }
-    public Integer getChannelNumber() {
+    
+    public String getChannelNumber() {
         return channelNumber;
     }
-    public void setChannelNumber(Integer channelNumber) {
-        this.channelNumber = channelNumber;
-    }
-    public Date getStartDate() {
-        return startDate;
-    }
-    public void setStartDate(LocalDate startDate) {
-        if (startDate != null) {
-            this.startDate = startDate.toDate();
-        }
-    }
-    public Date getEndDate() {
-        return endDate;
-    }
-    public void setEndDate(LocalDate endDate) {
-        if (endDate != null) {
-            this.endDate = endDate.toDate();
-        }
-    }
     
+    public void setChannelNumber(String channelNumber) {
+        this.channelNumber = channelNumber;
+    }   
+    
+    public List<HistoricalChannelNumberingEntry> getHistory() {
+        return history;
+    }
+
+    public void setHistory(Iterable<HistoricalChannelNumberingEntry> history) {
+        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+    }
+
     @Override
     public int compareTo(ChannelNumbering that) {
         if (this == that) {

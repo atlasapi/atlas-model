@@ -1,26 +1,54 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import org.joda.time.LocalDate;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
 public class Channel extends Aliased {
-    
-    private static final Ordering<ChannelNumbering> ORDERING = Ordering.natural();
+
+    private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
+    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new Ordering<ChannelNumbering>() {
+      @Override
+      public int compare(ChannelNumbering left, ChannelNumbering right) {
+          String leftNumber = left.getChannelNumber();
+          String rightNumber = right.getChannelNumber();
+          
+          if (leftNumber.startsWith("0")) {
+              if (rightNumber.startsWith("0")) {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              } else {
+                  return -1;
+              }
+          } else {
+              if (rightNumber.startsWith("0")) {
+                  return 1;
+              } else {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              }
+          }
+      }
+    };
 
     private PublisherDetails publisher;
     private String title;
     private String image;
     private String mediaType;
-    private Boolean highDefinition;
+    private Boolean highDefinition;        
+    private Boolean regional;
+    private Long timeshift;
     private List<ChannelNumbering> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
     private Set<Channel> variations;
-    private History history;
+    private List<HistoricalChannelEntry> history;
+    private Date startDate;
+    private Date endDate;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -37,8 +65,17 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
+    
     public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
+    }
+    
+    public void setRegional(Boolean regional) {
+        this.regional = regional;
+    }
+    
+    public void setTimeshift(Long timeshift) {
+        this.timeshift = timeshift;
     }
 
     public PublisherDetails getPublisherDetails() {
@@ -60,9 +97,17 @@ public class Channel extends Aliased {
     public Boolean getHighDefinition() {
         return highDefinition;
     }
+    
+    public Boolean getRegional() {
+        return regional;
+    }
+    
+    public Long getTimeshift() {
+        return timeshift;
+    }
 
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
-        this.channelGroups = ORDERING.immutableSortedCopy(channelNumbering);
+        this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
 
     public List<ChannelNumbering> getChannelGroups() {
@@ -101,11 +146,31 @@ public class Channel extends Aliased {
         this.variations = ImmutableSet.copyOf(variations);
     }
 
-    public History getHistory() {
+    public List<HistoricalChannelEntry> getHistory() {
         return history;
     }
 
-    public void setHistory(History history) {
-        this.history = history;
+    public void setHistory(List<HistoricalChannelEntry> history) {
+        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        if (startDate != null) {
+            this.startDate = startDate.toDate();
+        }
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        if (endDate != null) {
+            this.startDate = endDate.toDate();
+        }
     }
 }

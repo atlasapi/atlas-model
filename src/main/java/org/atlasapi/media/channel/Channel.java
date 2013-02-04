@@ -7,13 +7,12 @@ import java.util.Set;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
+import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
@@ -31,7 +30,9 @@ public class Channel extends Identified {
         private Set<TemporalString> images = Sets.newHashSet();
         private Set<TemporalString> titles = Sets.newHashSet();
         private MediaType mediaType;
+        private Boolean regional;
         private Boolean highDefinition;
+        private Duration timeshift;
         private Set<Publisher> availableFrom = ImmutableSet.of();
         private Set<Long> variations = Sets.newHashSet();
         private Long parent;
@@ -88,6 +89,16 @@ public class Channel extends Identified {
         
         public Builder withHighDefinition(Boolean highDefinition) {
             this.highDefinition = highDefinition;
+            return this;
+        };
+        
+        public Builder withRegional(Boolean regional) {
+            this.regional = regional;
+            return this;
+        };
+        
+        public Builder withTimeshift(Duration timeshift) {
+            this.timeshift = timeshift;
             return this;
         };
         
@@ -155,7 +166,7 @@ public class Channel extends Identified {
         }
         
         public Channel build() {
-            return new Channel(source, titles, images, key, highDefinition, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
+            return new Channel(source, titles, images, key, highDefinition, regional, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
         }
     }
     
@@ -166,6 +177,8 @@ public class Channel extends Identified {
     private MediaType mediaType;
     private String key;
     private Boolean highDefinition;
+    private Boolean regional;
+    private Duration timeshift;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
     private Set<Long> variations;
@@ -176,15 +189,17 @@ public class Channel extends Identified {
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
         super(uri);
         this.source = publisher;
+        this.regional = regional;
+        this.timeshift = timeshift;
         this.titles = Sets.newHashSet(titles);
         this.images = Sets.newCopyOnWriteArraySet(images);
         this.parent = parent;
@@ -204,25 +219,11 @@ public class Channel extends Identified {
     }
     
     public String title() {
-        TemporalString currentTitle = Iterables.getFirst(Iterables.filter(titles, new Predicate<TemporalString>() {
-            @Override
-            public boolean apply(TemporalString input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                            && input.getEndDate().compareTo(new LocalDate()) > 0;
-                    } else {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }), null);
-        if (currentTitle != null) {
-            return currentTitle.getValue();
-        }
-        return null;
+        return TemporalString.valueForDate(titles, new LocalDate());
+    }
+    
+    public String titleForDate(LocalDate date) {
+        return TemporalString.valueForDate(titles, date);
     }
     
     public Iterable<TemporalString> allTitles() {
@@ -231,6 +232,14 @@ public class Channel extends Identified {
     
     public Boolean highDefinition() {
         return highDefinition;
+    }
+    
+    public Boolean regional() {
+        return regional;
+    }
+    
+    public Duration timeshift() {
+        return timeshift;
     }
     
     public MediaType mediaType() {
@@ -258,24 +267,6 @@ public class Channel extends Identified {
     }
     
     public Set<ChannelNumbering> channelNumbers() {
-        return ImmutableSet.copyOf(Iterables.filter(channelNumbers, new Predicate<ChannelNumbering>() {
-            @Override
-            public boolean apply(ChannelNumbering input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                                && input.getEndDate().compareTo(new LocalDate()) > 0;
-                    } else {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }));
-    }
-    
-    public Set<ChannelNumbering> allChannelNumbers() {
         return ImmutableSet.copyOf(channelNumbers);
     }
     
@@ -285,25 +276,11 @@ public class Channel extends Identified {
     }
     
     public String image() {
-        TemporalString currentImage = Iterables.getFirst(Iterables.filter(images, new Predicate<TemporalString>() {
-            @Override
-            public boolean apply(TemporalString input) {
-                if (input.getStartDate() != null) {
-                    if (input.getEndDate() != null) {
-                        return input.getStartDate().compareTo(new LocalDate()) <= 0
-                                && input.getEndDate().compareTo(new LocalDate()) > 0;
-                        } else {
-                            return input.getStartDate().compareTo(new LocalDate()) <= 0;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        }), null);
-        if (currentImage != null) {
-            return currentImage.getValue();
-        }
-        return null;
+        return TemporalString.valueForDate(images, new LocalDate());
+    }
+    
+    public String imageForDate(LocalDate date) {
+        return TemporalString.valueForDate(images, date);
     }
     
     public Iterable<TemporalString> allImages() {
@@ -352,6 +329,14 @@ public class Channel extends Identified {
     
     public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
+    }
+
+    public void setRegional(Boolean regional) {
+        this.regional = regional;
+    }
+
+    public void setTimeshift(Duration timeshift) {
+        this.timeshift = timeshift;
     }
     
     public void setBroadcaster(Publisher broadcaster) {
@@ -405,7 +390,7 @@ public class Channel extends Identified {
         this.endDate = endDate;
     }
     
-    public void addChannelNumber(ChannelGroup channelGroup, int channelNumber, LocalDate startDate, LocalDate endDate) {
+    public void addChannelNumber(ChannelGroup channelGroup, String channelNumber, LocalDate startDate, LocalDate endDate) {
         checkNotNull(getId());
         ChannelNumbering channelNumbering = ChannelNumbering.builder()
             .withChannelGroup(channelGroup)

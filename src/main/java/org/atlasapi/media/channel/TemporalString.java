@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public class TemporalString extends TemporalField {
     
@@ -48,5 +50,29 @@ public class TemporalString extends TemporalField {
             .add("Start Date", getStartDate())
             .add("End Date", getEndDate())
             .toString();
+    }
+    
+
+    
+    public static String valueForDate(Iterable<TemporalString> values, final LocalDate date) {
+        TemporalString valueForDate = Iterables.getFirst(Iterables.filter(values, new Predicate<TemporalString>() {
+            @Override
+            public boolean apply(TemporalString input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(date) <= 0
+                            && input.getEndDate().compareTo(date) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(date) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        }), null);
+        if (valueForDate != null) {
+            return valueForDate.getValue();
+        }
+        return null;
     }
 }
