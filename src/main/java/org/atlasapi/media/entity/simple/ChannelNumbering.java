@@ -2,6 +2,7 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.List;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
 
 
@@ -65,5 +66,35 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
                 return 0;
             }
         }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(channel, channelNumber, channelGroup, history);
+    }
+    
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof ChannelNumbering) {
+            ChannelNumbering other = (ChannelNumbering) that;
+            return Objects.equal(channel, other.channel)
+                && Objects.equal(channelGroup, other.channelGroup)
+                && Objects.equal(channelNumber, other.channelNumber)
+                && Objects.equal(history, other.history);
+        }
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("Channel", channel)
+                .add("ChannelGroup", channelGroup)
+                .add("ChannelNumber", channelNumber)
+                .add("History", history)
+                .toString();
     }
 }
