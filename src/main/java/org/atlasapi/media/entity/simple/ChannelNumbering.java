@@ -11,7 +11,7 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
     
     private Channel channel;
     private ChannelGroup channelGroup;
-    private Integer channelNumber;
+    private String channelNumber;
     private List<HistoricalChannelNumberingEntry> history; 
     
     public Channel getChannel() {
@@ -30,11 +30,11 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
         this.channelGroup = channelGroup;
     }
     
-    public Integer getChannelNumber() {
+    public String getChannelNumber() {
         return channelNumber;
     }
     
-    public void setChannelNumber(Integer channelNumber) {
+    public void setChannelNumber(String channelNumber) {
         this.channelNumber = channelNumber;
     }   
     

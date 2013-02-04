@@ -10,7 +10,7 @@ import com.google.common.base.Objects;
 
 public class ChannelNumbering {
 
-    private Integer channelNumber;
+    private String channelNumber;
     private Long channel;
     private Long channelGroup;
     private LocalDate startDate;
@@ -20,7 +20,7 @@ public class ChannelNumbering {
         return new Builder();
     }
 
-    private ChannelNumbering(@Nullable Integer channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
+    private ChannelNumbering(@Nullable String channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
             @Nullable LocalDate endDate) {
         this.channel = checkNotNull(channel);
         this.channelNumber = channelNumber;
@@ -29,7 +29,7 @@ public class ChannelNumbering {
         this.endDate = endDate;
     }
 
-    public Integer getChannelNumber() {
+    public String getChannelNumber() {
         return channelNumber;
     }
 
@@ -49,7 +49,7 @@ public class ChannelNumbering {
         return endDate;
     }
 
-    public void setChannelNumber(Integer channelNumber) {
+    public void setChannelNumber(String channelNumber) {
         this.channelNumber = channelNumber;
     }
 
@@ -83,8 +83,8 @@ public class ChannelNumbering {
             ChannelNumbering other = (ChannelNumbering) that;
             return other.channel.equals(channel) 
                 && other.channelGroup.equals(channelGroup)
-                && Objects.equal(channelNumber, other.channelNumber)
-                && Objects.equal(startDate,  other.startDate) 
+                && Objects.equal(channelNumber, channelNumber)
+                && Objects.equal(startDate, startDate) 
                 && Objects.equal(endDate,  other.endDate);
         }
         return false;
@@ -102,7 +102,7 @@ public class ChannelNumbering {
     }
 
     public static class Builder {
-        private Integer channelNumber;
+        private String channelNumber;
         private Long channel;
         private Long channelGroup;
         private LocalDate startDate;
@@ -115,7 +115,7 @@ public class ChannelNumbering {
             return new ChannelNumbering(channelNumber, channel, channelGroup, startDate, endDate);
         }
 
-        public Builder withChannelNumber(Integer channelNumber) {
+        public Builder withChannelNumber(String channelNumber) {
             this.channelNumber = channelNumber;
             return this;
         }

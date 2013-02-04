@@ -1,12 +1,10 @@
 package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
-import java.util.Set;
 
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableSet;
 
 public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry> {
     

@@ -390,7 +390,7 @@ public class Channel extends Identified {
         this.endDate = endDate;
     }
     
-    public void addChannelNumber(ChannelGroup channelGroup, int channelNumber, LocalDate startDate, LocalDate endDate) {
+    public void addChannelNumber(ChannelGroup channelGroup, String channelNumber, LocalDate startDate, LocalDate endDate) {
         checkNotNull(getId());
         ChannelNumbering channelNumbering = ChannelNumbering.builder()
             .withChannelGroup(channelGroup)

@@ -11,8 +11,28 @@ import com.google.common.collect.Ordering;
 
 public class Channel extends Aliased {
 
-    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = Ordering.natural();
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
+    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new Ordering<ChannelNumbering>() {
+      @Override
+      public int compare(ChannelNumbering left, ChannelNumbering right) {
+          String leftNumber = left.getChannelNumber();
+          String rightNumber = right.getChannelNumber();
+          
+          if (leftNumber.startsWith("0")) {
+              if (rightNumber.startsWith("0")) {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              } else {
+                  return -1;
+              }
+          } else {
+              if (rightNumber.startsWith("0")) {
+                  return 1;
+              } else {
+                  return Double.compare(Integer.parseInt(leftNumber), Integer.parseInt(rightNumber));
+              }
+          }
+      }
+    };
 
     private PublisherDetails publisher;
     private String title;

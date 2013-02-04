@@ -9,10 +9,15 @@ import com.google.common.base.Objects;
 public class HistoricalChannelNumberingEntry implements Comparable<HistoricalChannelNumberingEntry> {
 
     private Date startDate;
-    private Integer channelNumber;
+    private Date endDate;
+    private String channelNumber;
 
     public Date getStartDate() {
         return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
     }
     
     public void setStartDate(LocalDate startDate) {
@@ -20,18 +25,24 @@ public class HistoricalChannelNumberingEntry implements Comparable<HistoricalCha
             this.startDate = startDate.toDate();
         }
     }
+    
+    public void setEndDate(LocalDate endDate) {
+        if (endDate != null) {
+            this.endDate = endDate.toDate();
+        }
+    }
 
-    public Integer getChannelNumber() {
+    public String getChannelNumber() {
         return channelNumber;
     }
     
-    public void setChannelNumber(Integer channelNumber) {
+    public void setChannelNumber(String channelNumber) {
         this.channelNumber = channelNumber;
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(startDate, channelNumber);
+        return Objects.hashCode(startDate, endDate, channelNumber);
     }
     
     @Override
@@ -42,6 +53,7 @@ public class HistoricalChannelNumberingEntry implements Comparable<HistoricalCha
         if (that instanceof HistoricalChannelNumberingEntry) {
             HistoricalChannelNumberingEntry entry = (HistoricalChannelNumberingEntry)that;
             return startDate.equals(entry.startDate)
+                && Objects.equal(endDate, entry.endDate)
                 && Objects.equal(channelNumber, entry.channelNumber);
         }
         return false;
@@ -51,6 +63,7 @@ public class HistoricalChannelNumberingEntry implements Comparable<HistoricalCha
     public String toString() {
         return Objects.toStringHelper(this)
             .add("startDate", startDate)
+            .add("endDate", endDate)
             .add("channelNumber", channelNumber)
             .toString();
     }
@@ -63,16 +76,25 @@ public class HistoricalChannelNumberingEntry implements Comparable<HistoricalCha
         
         if (startDate != null) {
             if (that.startDate != null) {
+                if (startDate.equals(that.startDate)) {
+                    if (endDate != null) {
+                        if (that.endDate != null) {
+                            return endDate.compareTo(that.endDate);
+                        }
+                        return 1;
+                    }
+                    if (that.endDate != null) {
+                        return -1;
+                    }
+                    return 0;
+                }
                 return startDate.compareTo(that.startDate);
-            } else {
-                return 1;
             }
-        } else {
-            if (that.startDate != null) {
-                return -1;
-            } else {
-                return 0;
-            }
+            return 1;
         }
+        if (that.startDate != null) {
+            return -1;
+        }
+        return 0;
     }
 }
