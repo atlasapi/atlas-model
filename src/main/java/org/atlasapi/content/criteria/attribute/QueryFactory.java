@@ -5,8 +5,8 @@ import org.atlasapi.content.criteria.operator.Operator;
 
 public interface QueryFactory<T> {
 
-	AttributeQuery<T> createQuery(Operator op, Iterable<?> values);
+	AttributeQuery<T> createQuery(Operator op, Iterable<T> values);
 	
-	Class<?> requiresOperandOfType();
+	Class<T> requiresOperandOfType();
 
 }

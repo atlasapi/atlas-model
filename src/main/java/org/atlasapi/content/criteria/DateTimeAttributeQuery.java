@@ -23,7 +23,7 @@ public class DateTimeAttributeQuery extends AttributeQuery<DateTime> {
 
 	private final DateTimeOperator op;
 
-	public DateTimeAttributeQuery(Attribute<DateTime> attribute, DateTimeOperator op, Iterable<?> values) {
+	public DateTimeAttributeQuery(Attribute<DateTime> attribute, DateTimeOperator op, Iterable<DateTime> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

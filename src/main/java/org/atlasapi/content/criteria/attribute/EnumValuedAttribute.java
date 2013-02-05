@@ -20,7 +20,7 @@ import org.atlasapi.content.criteria.operator.EnumOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.media.entity.Identified;
 
-public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
+public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<T> {
 	
 	private final Class<T> type;
 
@@ -39,7 +39,7 @@ public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
 	}
 
 	@Override
-	public Class<?> requiresOperandOfType() {
+	public Class<T> requiresOperandOfType() {
 		return type;
 	}
 	
@@ -48,7 +48,7 @@ public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<Enum<T>> {
 	}
 
 	@Override
-	public AttributeQuery<Enum<T>> createQuery(Operator op, Iterable<?> values) {
+	public AttributeQuery<T> createQuery(Operator op, Iterable<T> values) {
 		if (!(op instanceof EnumOperator)) {
 			throw new IllegalArgumentException();
 		}

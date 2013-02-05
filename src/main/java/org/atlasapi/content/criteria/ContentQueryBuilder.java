@@ -72,11 +72,11 @@ public class ContentQueryBuilder {
 		return this;
 	}
 	
-	public <T extends Enum<T>> ContentQueryBuilder equalTo(QueryFactory<Enum<T>> attribute, Enum<T> value) {
+	public <T extends Enum<T>> ContentQueryBuilder equalTo(QueryFactory<T> attribute, T value) {
 		return isAnEnumIn(attribute, ImmutableList.of(value));
 	}
 	
-	public <T extends Enum<T>> ContentQueryBuilder isAnEnumIn(QueryFactory<Enum<T>> attribute, List<Enum<T>> value) {
+	public <T extends Enum<T>> ContentQueryBuilder isAnEnumIn(QueryFactory<T> attribute, List<T> value) {
 		queries.add(attribute.createQuery(Operators.EQUALS, ImmutableList.copyOf(value)));
 		return this;
 	}

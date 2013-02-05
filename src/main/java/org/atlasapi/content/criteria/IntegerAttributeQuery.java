@@ -22,7 +22,7 @@ public class IntegerAttributeQuery extends AttributeQuery<Integer> {
 
 	private final IntegerOperator op;
 
-	public IntegerAttributeQuery(Attribute<Integer> attribute, IntegerOperator op, Iterable<?> values) {
+	public IntegerAttributeQuery(Attribute<Integer> attribute, IntegerOperator op, Iterable<Integer> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

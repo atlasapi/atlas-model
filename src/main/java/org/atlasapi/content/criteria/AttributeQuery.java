@@ -24,10 +24,10 @@ import com.google.common.collect.ImmutableList;
 public abstract class AttributeQuery<T> extends AtomicQuery {
 
 	private Attribute<T> attribute;
-	private List<?> values;
+	private List<T> values;
 	private final Operator op;
 	
-	public AttributeQuery(Attribute<T> attribute, Operator op,  Iterable<?> values) {
+	public AttributeQuery(Attribute<T> attribute, Operator op,  Iterable<T> values) {
 		this.op = op;
 		for (Object value : values) {
 			Class<?> lhs = attribute.requiresOperandOfType();
@@ -52,11 +52,11 @@ public abstract class AttributeQuery<T> extends AtomicQuery {
 		return attribute.externalName();
 	}
 	
-	public List<?> getValue() {
+	public List<T> getValue() {
 		return values;
 	}
 	
-	public void setValue(List<Object> value) {
+	public void setValue(List<T> value) {
 		this.values = value;
 	}
 	
