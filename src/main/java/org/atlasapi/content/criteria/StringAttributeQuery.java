@@ -23,7 +23,7 @@ public class StringAttributeQuery extends AttributeQuery<String> {
 
 	private final StringOperator op;
 
-	public StringAttributeQuery(Attribute<String> attribute, StringOperator op,  Iterable<?> values) {
+	public StringAttributeQuery(Attribute<String> attribute, StringOperator op,  Iterable<String> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

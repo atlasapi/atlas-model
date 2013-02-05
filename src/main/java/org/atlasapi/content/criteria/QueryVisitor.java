@@ -28,4 +28,6 @@ public interface QueryVisitor<T> {
 	
 	T visit(MatchesNothing noOp);
 	
+	T visit(IdAttributeQuery query);
+	
 }

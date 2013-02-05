@@ -15,6 +15,7 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 
+
 /**
  * Base class providing a default walk of the query AST. Extend and override
  * to customise visitor behaviour.
@@ -51,6 +52,11 @@ public abstract class QueryVisitorAdapter<V> implements QueryVisitor<V> {
 	@Override
 	public V visit(MatchesNothing nothing) {
 		return defaultValue(nothing);
+	}
+	
+	@Override
+	public V visit(IdAttributeQuery query) {
+	    return defaultValue(query);
 	}
 	
 	protected V defaultValue(AtomicQuery query) {

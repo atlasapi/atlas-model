@@ -22,7 +22,7 @@ public class BooleanValuedAttribute extends Attribute<Boolean> {
 	}
 
 	@Override
-	public AttributeQuery<Boolean> createQuery(Operator op, Iterable<?> values) {
+	public AttributeQuery<Boolean> createQuery(Operator op, Iterable<Boolean> values) {
 		if (!(op instanceof BooleanOperator)) {
 			throw new IllegalArgumentException();
 		}
@@ -30,7 +30,7 @@ public class BooleanValuedAttribute extends Attribute<Boolean> {
 	}
 
 	@Override
-	public Class<?> requiresOperandOfType() {
+	public Class<Boolean> requiresOperandOfType() {
 		return Boolean.class;
 	}
 }

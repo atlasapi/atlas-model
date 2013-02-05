@@ -36,7 +36,7 @@ public class IntegerValuedAttribute extends Attribute<Integer> {
 	}
 
 	@Override
-	public AttributeQuery<Integer> createQuery(Operator op, Iterable<?> values) {
+	public AttributeQuery<Integer> createQuery(Operator op, Iterable<Integer> values) {
 		if (!(op instanceof IntegerOperator)) {
 			throw new IllegalArgumentException();
 		}
@@ -44,7 +44,7 @@ public class IntegerValuedAttribute extends Attribute<Integer> {
 	}
 
 	@Override
-	public Class<?> requiresOperandOfType() {
+	public Class<Integer> requiresOperandOfType() {
 		return Integer.class;
 	}
 }

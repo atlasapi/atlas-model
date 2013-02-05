@@ -33,7 +33,7 @@ public class DateTimeValuedAttribute extends Attribute<DateTime> {
 	}
 
 	@Override
-	public AttributeQuery<DateTime> createQuery(Operator op, Iterable<?> values) {
+	public AttributeQuery<DateTime> createQuery(Operator op, Iterable<DateTime> values) {
 		if (!(op instanceof DateTimeOperator)) {
 			throw new IllegalArgumentException();
 		}
@@ -41,7 +41,7 @@ public class DateTimeValuedAttribute extends Attribute<DateTime> {
 	}
 
 	@Override
-	public Class<?> requiresOperandOfType() {
+	public Class<DateTime> requiresOperandOfType() {
 		return DateTime.class;
 	}
 }
