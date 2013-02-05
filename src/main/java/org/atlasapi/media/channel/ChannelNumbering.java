@@ -83,8 +83,8 @@ public class ChannelNumbering {
             ChannelNumbering other = (ChannelNumbering) that;
             return other.channel.equals(channel) 
                 && other.channelGroup.equals(channelGroup)
-                && Objects.equal(channelNumber, channelNumber)
-                && Objects.equal(startDate, startDate) 
+                && Objects.equal(channelNumber, other.channelNumber)
+                && Objects.equal(startDate, other.startDate) 
                 && Objects.equal(endDate,  other.endDate);
         }
         return false;
