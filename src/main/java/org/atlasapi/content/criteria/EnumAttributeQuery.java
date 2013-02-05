@@ -18,11 +18,11 @@ import org.atlasapi.content.criteria.attribute.Attribute;
 import org.atlasapi.content.criteria.operator.EnumOperator;
 import org.atlasapi.content.criteria.operator.EnumOperatorVisitor;
 
-public class EnumAttributeQuery<T extends Enum<T>> extends AttributeQuery<Enum<T>> {
+public class EnumAttributeQuery<T extends Enum<T>> extends AttributeQuery<T> {
 
 	private final EnumOperator op;
 
-	public EnumAttributeQuery(Attribute<Enum<T>> attribute, EnumOperator op,  Iterable<?> values) {
+	public EnumAttributeQuery(Attribute<T> attribute, EnumOperator op,  Iterable<T> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}

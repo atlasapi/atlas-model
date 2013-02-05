@@ -15,36 +15,38 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
-import org.atlasapi.content.criteria.StringAttributeQuery;
+import org.atlasapi.content.criteria.IdAttributeQuery;
+import org.atlasapi.content.criteria.operator.IntegerOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.content.criteria.operator.StringOperator;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Identified;
 
-public class StringValuedAttribute extends Attribute<String> {
+public class IdAttribute extends Attribute<Id> {
 	
-	StringValuedAttribute(String name, Class<? extends Identified> target) {
+	public IdAttribute(String name, Class<? extends Identified> target) {
 		super(name, target);
 	}
 	
-	StringValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
+	public IdAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 	
 	@Override
 	public String toString() {
-		return "String valued attribute: " + name;
+		return "id attribute: " + name;
 	}
 
 	@Override
-	public Class<String> requiresOperandOfType() {
-		return String.class;
+	public Class<Id> requiresOperandOfType() {
+		return Id.class;
 	}
 
 	@Override
-	public AttributeQuery<String> createQuery(Operator op, Iterable<String> values) {
+	public AttributeQuery<Id> createQuery(Operator op, Iterable<Id> values) {
 		if (!(op instanceof StringOperator)) {
 			throw new IllegalArgumentException();
 		}
-		return new StringAttributeQuery(this, (StringOperator) op, values);
+		return new IdAttributeQuery(this, (IntegerOperator) op, values);
 	}
 }

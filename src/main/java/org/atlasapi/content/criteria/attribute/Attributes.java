@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.atlasapi.media.TransportType;
+import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Broadcast;
@@ -39,11 +41,13 @@ import com.metabroadcast.common.media.MimeType;
 
 public class Attributes {
 
+    public static final Attribute<Id> ID = idListAttribute("id", Identified.class);
+    
 	// Simple string-valued attributes
-    public static final Attribute<Enum<Publisher>> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
+    public static final Attribute<Publisher> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
     public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
     public static final Attribute<String> DESCRIPTION_TAG = stringListAttribute("tag", Content.class);
-    public static final Attribute<Enum<MediaType>> DESCRIPTION_TYPE = new EnumValuedAttribute<MediaType>("mediaType", MediaType.class, Item.class);
+    public static final Attribute<MediaType> DESCRIPTION_TYPE = new EnumValuedAttribute<MediaType>("mediaType", MediaType.class, Item.class);
 	public static final Attribute<String> TOPICS = stringListAttribute("topics", Content.class);
 	
 	//public static final Attribute<Boolean> ITEM_IS_LONG_FORM = new BooleanValuedAttribute("isLongForm", Item.class).allowShortMatches();
@@ -138,5 +142,9 @@ public class Attributes {
 
 	private static StringValuedAttribute stringListAttribute(String name, Class<? extends Identified> target) {
 		return new StringValuedAttribute(name, target, true);
+	}
+
+	private static IdAttribute idListAttribute(String name, Class<? extends Identified> target) {
+	    return new IdAttribute(name, target, true);
 	}
 }
