@@ -22,7 +22,7 @@ public class ChannelNumbering {
 
     private ChannelNumbering(@Nullable String channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
             @Nullable LocalDate endDate) {
-        this.channel = checkNotNull(channel);
+        this.channel = channel;
         this.channelNumber = channelNumber;
         this.channelGroup = checkNotNull(channelGroup);
         this.startDate = startDate;
@@ -81,7 +81,7 @@ public class ChannelNumbering {
         }
         if (that instanceof ChannelNumbering) {
             ChannelNumbering other = (ChannelNumbering) that;
-            return other.channel.equals(channel) 
+            return Objects.equal(other.channel, channel) 
                 && other.channelGroup.equals(channelGroup)
                 && Objects.equal(channelNumber, other.channelNumber)
                 && Objects.equal(startDate, other.startDate) 
