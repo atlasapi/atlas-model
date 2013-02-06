@@ -1,7 +1,5 @@
 package org.atlasapi.media.channel;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
@@ -181,7 +179,7 @@ public class Channel extends Identified {
     private Duration timeshift;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
-    private Set<Long> variations;
+    private Set<Long> variations = Sets.newHashSet();
     private Long parent;
     private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
     private LocalDate startDate;
@@ -391,10 +389,8 @@ public class Channel extends Identified {
     }
     
     public void addChannelNumber(ChannelGroup channelGroup, String channelNumber, LocalDate startDate, LocalDate endDate) {
-        checkNotNull(getId());
         ChannelNumbering channelNumbering = ChannelNumbering.builder()
             .withChannelGroup(channelGroup)
-            .withChannel(getId())
             .withChannelNumber(channelNumber)
             .withStartDate(startDate)
             .withEndDate(endDate)
