@@ -10,7 +10,7 @@ public class AtomicQuerySet extends ForwardingSet<AtomicQuery> {
 
     private ImmutableSet<AtomicQuery> operands;
 
-    public AtomicQuerySet(Iterable<AtomicQuery> operands) {
+    public AtomicQuerySet(Iterable<? extends AtomicQuery> operands) {
         this.operands = ImmutableSet.copyOf(operands);
     }
 

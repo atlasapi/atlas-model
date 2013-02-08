@@ -17,31 +17,24 @@ package org.atlasapi.content.criteria.attribute;
 import java.util.List;
 import java.util.Map;
 
-import org.atlasapi.media.TransportType;
 import org.atlasapi.media.common.Id;
-import org.atlasapi.media.common.Identifiable;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.Encoding;
-import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.Location;
 import org.atlasapi.media.entity.MediaType;
-import org.atlasapi.media.entity.Policy;
 import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Version;
 import org.atlasapi.media.topic.Topic;
 import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import com.metabroadcast.common.media.MimeType;
 
 public class Attributes {
 
     public static final Attribute<Id> ID = idListAttribute("id", Identified.class);
+    public static final Attribute<String> ALIASES_NAMESPACE = stringListAttribute("aliases.namespace", Identified.class);
+    public static final Attribute<String> ALIASES_VALUE = stringListAttribute("aliases.value", Identified.class);
     
 	// Simple string-valued attributes
     public static final Attribute<Publisher> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
@@ -96,6 +89,7 @@ public class Attributes {
 								    ITEM_IS_LONG_FORM*/);
 	
 	public static final Map<String, Attribute<?>> lookup = lookupTable();
+
 	
 	public static Attribute<?> lookup(String name) {
 		return lookup.get(name);
