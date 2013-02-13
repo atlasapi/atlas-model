@@ -28,7 +28,7 @@ public abstract class ChannelGroup extends Identified {
     }
     
     public String getTitle() {
-        return TemporalString.valueForDate(titles, new LocalDate());
+        return TemporalString.currentValue(titles);
     }
     
     public String getTitleForDate(LocalDate date) {

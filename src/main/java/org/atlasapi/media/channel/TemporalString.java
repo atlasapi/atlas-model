@@ -54,6 +54,26 @@ public class TemporalString extends TemporalField implements Comparable<Temporal
     }
     
 
+    public static String currentValue(Iterable<TemporalString> values) {
+        final LocalDate now = new LocalDate();
+        String currentValue = valueForDate(values, now);
+        if (currentValue != null) {
+            return currentValue;
+        }
+        // if no current title, return first future title
+        TemporalString nextValue = Iterables.getFirst(Ordering.natural().immutableSortedCopy(
+                Iterables.filter(values, 
+                        new Predicate<TemporalString>() {
+                    @Override
+                    public boolean apply(TemporalString input) {
+                        return input.getStartDate() != null && input.getStartDate().isAfter(now);
+                    }
+                })), null);
+        if (nextValue != null) {
+            return nextValue.getValue();
+        }
+        return null;
+    }
     
     public static String valueForDate(Iterable<TemporalString> values, final LocalDate date) {
         TemporalString valueForDate = Iterables.getFirst(Iterables.filter(values, new Predicate<TemporalString>() {
@@ -71,17 +91,6 @@ public class TemporalString extends TemporalField implements Comparable<Temporal
                 }
             }
         }), null);
-        if (valueForDate == null) {
-            // if no current title, return first title after date
-            valueForDate = Iterables.getFirst(Ordering.natural().immutableSortedCopy(
-                Iterables.filter(values, 
-                    new Predicate<TemporalString>() {
-                        @Override
-                        public boolean apply(TemporalString input) {
-                            return input.getStartDate() != null && input.getStartDate().isAfter(date);
-                        }
-                    })), null);
-        }
         if (valueForDate != null) {
             return valueForDate.getValue();
         }
