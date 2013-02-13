@@ -1,19 +1,34 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Ordering;
 
 public class Channel extends Aliased {
+
+    private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
+    private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
 
     private PublisherDetails publisher;
     private String title;
     private String image;
     private String mediaType;
-    private Boolean highDefinition;
-    private Set<ChannelGroup> channelGroups;
+    private Boolean highDefinition;        
+    private Boolean regional;
+    private Long timeshift;
+    private List<ChannelNumbering> channelGroups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
+    private Channel parent;
+    private Set<Channel> variations;
+    private List<HistoricalChannelEntry> history;
+    private Date startDate;
+    private Date endDate;
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -30,8 +45,17 @@ public class Channel extends Aliased {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
+    
     public void setHighDefinition(Boolean highDefinition) {
         this.highDefinition = highDefinition;
+    }
+    
+    public void setRegional(Boolean regional) {
+        this.regional = regional;
+    }
+    
+    public void setTimeshift(Long timeshift) {
+        this.timeshift = timeshift;
     }
 
     public PublisherDetails getPublisherDetails() {
@@ -53,13 +77,21 @@ public class Channel extends Aliased {
     public Boolean getHighDefinition() {
         return highDefinition;
     }
-
-    public void setChannelGroups(Iterable<ChannelGroup> groups) {
-        this.channelGroups = ImmutableSet.copyOf(groups);
+    
+    public Boolean getRegional() {
+        return regional;
+    }
+    
+    public Long getTimeshift() {
+        return timeshift;
     }
 
-    public Set<ChannelGroup> getChannelGroups() {
-        return this.channelGroups;
+    public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
+        this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+    }
+
+    public List<ChannelNumbering> getChannelGroups() {
+        return channelGroups;
     }
 
     public PublisherDetails getBroadcaster() {
@@ -78,4 +110,47 @@ public class Channel extends Aliased {
         return availableFrom;
     }
 
+    public Channel getParent() {
+        return parent;
+    }
+
+    public void setParent(Channel parent) {
+        this.parent = parent;
+    }
+
+    public Set<Channel> getVariations() {
+        return variations;
+    }
+
+    public void setVariations(Iterable<Channel> variations) {
+        this.variations = ImmutableSet.copyOf(variations);
+    }
+
+    public List<HistoricalChannelEntry> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<HistoricalChannelEntry> history) {
+        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        if (startDate != null) {
+            this.startDate = startDate.toDate();
+        }
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        if (endDate != null) {
+            this.startDate = endDate.toDate();
+        }
+    }
 }
