@@ -9,8 +9,9 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 
-public class TemporalString extends TemporalField {
+public class TemporalString extends TemporalField implements Comparable<TemporalString>{
     
     private final String value;
 
@@ -70,9 +71,41 @@ public class TemporalString extends TemporalField {
                 }
             }
         }), null);
+        if (valueForDate == null) {
+            // if no current title, return first title after date
+            valueForDate = Iterables.getFirst(Ordering.natural().immutableSortedCopy(
+                Iterables.filter(values, 
+                    new Predicate<TemporalString>() {
+                        @Override
+                        public boolean apply(TemporalString input) {
+                            return input.getStartDate() != null && input.getStartDate().isAfter(date);
+                        }
+                    })), null);
+        }
         if (valueForDate != null) {
             return valueForDate.getValue();
         }
         return null;
+    }
+
+    @Override
+    public int compareTo(TemporalString that) {
+        if (this == that) {
+            return 0;
+        }
+
+        if (this.getStartDate() != null) {
+            if (that.getStartDate() != null) {
+                return this.getStartDate().compareTo(that.getStartDate());
+            } else {
+                return 1;
+            }
+        } else {
+            if (that.getStartDate() != null) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
     }
 }
