@@ -217,7 +217,7 @@ public class Channel extends Identified {
     }
     
     public String title() {
-        return TemporalString.valueForDate(titles, new LocalDate());
+        return TemporalString.currentValue(titles);
     }
     
     public String titleForDate(LocalDate date) {
@@ -274,7 +274,7 @@ public class Channel extends Identified {
     }
     
     public String image() {
-        return TemporalString.valueForDate(images, new LocalDate());
+        return TemporalString.currentValue(images);
     }
     
     public String imageForDate(LocalDate date) {
