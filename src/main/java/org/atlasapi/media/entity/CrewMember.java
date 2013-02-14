@@ -101,7 +101,7 @@ public class CrewMember extends Identified {
     }
     
     public Set<String> profileLinks() {
-        return getAliases();
+        return getAliasUrls();
     }
     
     public CrewMember withPublisher(Publisher publisher) {
@@ -120,12 +120,12 @@ public class CrewMember extends Identified {
     }
     
     public CrewMember withProfileLink(String profileLink) {
-        this.addAlias(profileLink);
+        this.addAliasUrl(profileLink);
         return this;
     }
     
     public CrewMember withProfileLinks(Set<String> profileLinks) {
-        this.setAliases(profileLinks);
+        this.setAliasUrls(profileLinks);
         return this;
     }
     

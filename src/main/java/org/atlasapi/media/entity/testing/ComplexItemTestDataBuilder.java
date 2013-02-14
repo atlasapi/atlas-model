@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.testing;
 import java.util.List;
 import java.util.Set;
 
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Container;
@@ -20,7 +21,8 @@ public class ComplexItemTestDataBuilder {
     private String uri;
     private String curie;
     
-    private Set<String> aliases;
+    private Set<String> aliasUrls;
+    private Set<Alias> aliases;
     private Container brand;
     private List<Clip> clips;
 
@@ -48,6 +50,7 @@ public class ComplexItemTestDataBuilder {
         uri = "http://test.metabroadcast.com/unique/items/" + id;
         curie = "mbtest:i-" + id;
         
+        aliasUrls = ImmutableSet.of();
         aliases = ImmutableSet.of();
         brand = null;
         clips = ImmutableList.of();
@@ -67,6 +70,7 @@ public class ComplexItemTestDataBuilder {
     }
     
     private Item buildItemAttributes(Item item) {
+        item.setAliasUrls(aliasUrls);
         item.setAliases(aliases);
         if (brand != null) {
             item.setContainer(brand);
@@ -112,7 +116,12 @@ public class ComplexItemTestDataBuilder {
         return this;
     }
     
-    public ComplexItemTestDataBuilder withAliases(String... aliases) {
+    public ComplexItemTestDataBuilder withAliasUrls(String... aliases) {
+        this.aliasUrls = ImmutableSet.copyOf(aliases);
+        return this;
+    }
+    
+    public ComplexItemTestDataBuilder withAliases(Alias... aliases) {
         this.aliases = ImmutableSet.copyOf(aliases);
         return this;
     }
