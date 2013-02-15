@@ -22,11 +22,11 @@ import org.atlasapi.media.entity.Identified;
 
 public class StringValuedAttribute extends Attribute<String> {
 	
-	StringValuedAttribute(String name, Class<? extends Identified> target) {
+	public StringValuedAttribute(String name, Class<? extends Identified> target) {
 		super(name, target);
 	}
 	
-	StringValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
+	public StringValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 	
