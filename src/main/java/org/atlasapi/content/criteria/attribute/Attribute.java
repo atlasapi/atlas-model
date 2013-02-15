@@ -14,12 +14,24 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.attribute;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.atlasapi.media.entity.Identified;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 
 public abstract class Attribute<T> implements QueryFactory<T> {
 
-	protected final String name;
-	private String javaAttributeName;
+	private static final Splitter PATH_SPLITTER = Splitter.on('.').omitEmptyStrings().trimResults();
+	private static final Joiner PATH_JOINER = Joiner.on('.');
+	
+    protected final String name;
+    private final String pathPrefix;
+    private final ImmutableList<String> pathParts;
+
+    private String javaAttributeName;
 	private final Class<? extends Identified> target;
 	private final boolean isCollectionOfValues;
 	private String alias;
@@ -29,7 +41,9 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 	}
 	
 	Attribute(String name, Class<? extends Identified> target, boolean isCollectionOfValues) {
-		this.name = name;
+		this.name = checkNotNull(name);
+		this.pathParts = ImmutableList.copyOf(PATH_SPLITTER.split(name));
+		this.pathPrefix = PATH_JOINER.join(pathParts.subList(0, pathParts.size()-1));
 		this.target = target;
 		this.isCollectionOfValues = isCollectionOfValues;
 		this.javaAttributeName = name;
@@ -88,4 +102,12 @@ public abstract class Attribute<T> implements QueryFactory<T> {
 	public boolean hasAlias() {
 		return alias != null;
 	}
+
+    public ImmutableList<String> getPath() {
+        return pathParts;
+    }
+
+    public String getPathPrefix() {
+        return pathPrefix;
+    }
 }
