@@ -1210,6 +1210,9 @@ public class Channel implements SelfModelling {
     
     public static final Channel HEAT_TV = new Channel("Heat TV", CHANNEL_URI_PREFIX+"heattv", "heattv", false);
     public static final Channel FASHION_TV = new Channel("Fashion TV", CHANNEL_URI_PREFIX+"fashiontv", "fashiontv", false);
+    public static final Channel MOVIE_MIX = new Channel("Movie Mix", CHANNEL_URI_PREFIX+"pa-channel-1779", "pa-channel-1779", false);
+    public static final Channel MORE_MOVIES = new Channel("more>movies", CHANNEL_URI_PREFIX+"pa-channel-1682", "pa-channel-1682", false);
+    public static final Channel MORE_MOVIES_PLUS_ONE = new Channel("more>movies+1", CHANNEL_URI_PREFIX+"pa-channel-1740", "pa-channel-1740", false);
     
     
     private final String uri;

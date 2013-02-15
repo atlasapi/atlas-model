@@ -177,6 +177,7 @@ public class OutputContentMerger {
                 T top = topImageMatches.get(0);
                 chosen.setImage(top.getImage());
                 chosen.setThumbnail(top.getThumbnail());
+                chosen.setImages(top.getImages());
             }
         }
     }
