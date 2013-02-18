@@ -6,9 +6,45 @@ import javax.annotation.Nullable;
 
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public class ChannelNumbering {
+    
+    public static final Function<ChannelNumbering, Long> TO_CHANNEL_GROUP = new Function<ChannelNumbering, Long>() { 
+        @Override
+        public Long apply(ChannelNumbering input) {
+            return input.channelGroup;
+        }
+    };
+    
+    public static final Function<ChannelNumbering, Long> TO_CHANNEL = new Function<ChannelNumbering, Long>() { 
+        @Override
+        public Long apply(ChannelNumbering input) {
+            return input.channel;
+        }
+    };
+
+    public static Iterable<ChannelNumbering> CURRENT_NUMBERINGS(Iterable<ChannelNumbering> numberings) {
+        final LocalDate now = new LocalDate();
+        return Iterables.filter(numberings, new Predicate<ChannelNumbering>() {
+            @Override
+            public boolean apply(ChannelNumbering input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(now) <= 0
+                            && input.getEndDate().compareTo(now) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(now) <= 0;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        });
+    }
 
     private String channelNumber;
     private Long channel;

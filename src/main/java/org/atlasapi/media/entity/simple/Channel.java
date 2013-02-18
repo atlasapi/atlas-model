@@ -4,11 +4,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
+@XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
 public class Channel extends Aliased {
 
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
@@ -58,6 +67,7 @@ public class Channel extends Aliased {
         this.timeshift = timeshift;
     }
 
+    @XmlElement(name = "publisher")
     public PublisherDetails getPublisherDetails() {
         return this.publisher;
     }
@@ -90,6 +100,8 @@ public class Channel extends Aliased {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
 
+    @XmlElementWrapper(name = "channelGroups")
+    @XmlElement(name = "channelNumbering")
     public List<ChannelNumbering> getChannelGroups() {
         return channelGroups;
     }
@@ -106,6 +118,8 @@ public class Channel extends Aliased {
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
+    @XmlElementWrapper(name = "availableFrom")
+    @XmlElement(name = "publisher")
     public Set<PublisherDetails> getAvailableFrom() {
         return availableFrom;
     }
@@ -118,6 +132,8 @@ public class Channel extends Aliased {
         this.parent = parent;
     }
 
+    @XmlElementWrapper(name = "variations")
+    @XmlElement(name = "variation")
     public Set<Channel> getVariations() {
         return variations;
     }
@@ -126,6 +142,8 @@ public class Channel extends Aliased {
         this.variations = ImmutableSet.copyOf(variations);
     }
 
+    @XmlElementWrapper(name = "history")
+    @XmlElement(name = "historyEntry")
     public List<HistoricalChannelEntry> getHistory() {
         return history;
     }
@@ -134,13 +152,14 @@ public class Channel extends Aliased {
         this.history = HISTORY_ORDERING.immutableSortedCopy(history);
     }
 
+    @XmlElement(name = "startDate")    
     public Date getStartDate() {
         return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
         if (startDate != null) {
-            this.startDate = startDate.toDate();
+            this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
         }
     }
 

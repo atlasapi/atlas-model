@@ -2,9 +2,11 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
-
 
 public class ChannelNumbering implements Comparable<ChannelNumbering> {
     
@@ -39,6 +41,8 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
         this.channelNumber = channelNumber;
     }   
     
+    @XmlElementWrapper(name = "history")
+    @XmlElement(name = "historyEntry")
     public List<HistoricalChannelNumberingEntry> getHistory() {
         return history;
     }
