@@ -25,7 +25,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-public class NodeSetTest {
+public class AttributeQuerySetTest {
     
     private final Attribute<String> ZERO = 
         new StringValuedAttribute("id", Identified.class, true);
@@ -47,7 +47,7 @@ public class NodeSetTest {
     @Test
     public void testAddingUncommonPrefix() {
         List<Attribute<String>> attrs = ImmutableList.of(ONE_FIRST, ZERO);
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -62,7 +62,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_FIRST, ONE_TWO_SECOND
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -78,7 +78,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_THREE_FIRST, ONE_TWO_THREE_SECOND, ONE_TWO_THREE_THIRD
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
 
         matchesInOrder(nodes, ImmutableList.of(
@@ -95,7 +95,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_THREE_FIRST, ONE_TWO_THREE_SECOND, ONE_FIRST
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -113,7 +113,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_FIRST, ONE_TWO_THREE_FIRST
         ); 
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -129,7 +129,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_THREE_FIRST, ONE_TWO_FIRST
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -145,7 +145,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_FIRST, ONE_FIRST, ONE_TWO_SECOND
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -163,7 +163,7 @@ public class NodeSetTest {
         List<Attribute<String>> attrs = ImmutableList.of(
             ONE_TWO_FIRST, ONE_TWO_SECOND, ONE_FIRST
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         matchesInOrder(nodes, ImmutableList.of(
             intermediateNode(allOf(path(), children(nodes.subList(1, 2)))),
@@ -184,7 +184,7 @@ public class NodeSetTest {
             ONE_TWO_FIRST,
             ONE_TWO_SECOND
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -210,7 +210,7 @@ public class NodeSetTest {
             ONE_SECOND,
             ONE_FIRST
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -237,7 +237,7 @@ public class NodeSetTest {
             ONE_TWO_THREE_SECOND,
             ONE_FIRST
         );
-        NodeSet set = new NodeSet(createQueries(attrs));
+        AttributeQuerySet set = new AttributeQuerySet(createQueries(attrs));
         List<QueryNode> nodes = set.accept(new NodeListingVisitor());
         
         matchesInOrder(nodes, ImmutableList.of(
@@ -265,7 +265,7 @@ public class NodeSetTest {
             ONE_SECOND
         );
         for (List<Attribute<String>> attrPerm : Collections2.permutations(attrs)) {
-            NodeSet set = new NodeSet(createQueries(attrPerm));
+            AttributeQuerySet set = new AttributeQuerySet(createQueries(attrPerm));
             List<QueryNode> nodes = set.accept(new NodeListingVisitor());
             
             matchesInOrder(nodes, ImmutableList.of(

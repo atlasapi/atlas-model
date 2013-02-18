@@ -1,6 +1,6 @@
 package org.atlasapi.media.topic;
 
-import org.atlasapi.content.criteria.NodeSet;
+import org.atlasapi.content.criteria.AttributeQuerySet;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
 
@@ -12,7 +12,7 @@ public interface TopicIndex {
 
     void index(Topic topic);
     
-    ListenableFuture<FluentIterable<Id>> query(NodeSet query, 
+    ListenableFuture<FluentIterable<Id>> query(AttributeQuerySet query, 
         Iterable<Publisher> publishers, Selection selection);
     
 }
