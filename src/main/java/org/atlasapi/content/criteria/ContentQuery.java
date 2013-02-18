@@ -28,6 +28,7 @@ import com.metabroadcast.common.query.Selection;
 import java.util.Set;
 import org.atlasapi.output.Annotation;
 
+@Deprecated
 public class ContentQuery {
 
 	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);

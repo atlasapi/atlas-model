@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.query.Selection;
 
+//TODO: generalize this to used AttributeQuerySet
 public class ContentQueryBuilder {
 
 	private final List<AtomicQuery> queries;
