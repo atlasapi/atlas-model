@@ -42,7 +42,8 @@ public enum Annotation {
     VARIATIONS,
     CHANNEL_SUMMARY,
     PUBLISHER,
-    AUDIT;
+    AUDIT,
+    IMAGES;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,

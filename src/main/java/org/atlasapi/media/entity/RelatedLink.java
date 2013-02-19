@@ -157,7 +157,7 @@ public class RelatedLink {
         }
         if (that instanceof RelatedLink) {
             RelatedLink other = (RelatedLink) that;
-            return type == other.type && url.equals(url);
+            return type == other.type && url.equals(other.url);
         }
         return false;
     }
