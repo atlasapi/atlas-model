@@ -2,6 +2,9 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Objects;
@@ -11,13 +14,14 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
     private Date startDate;
     private String title;
 
+    @XmlElement(name = "startDate")
     public Date getStartDate() {
         return startDate;
     }
     
     public void setStartDate(LocalDate startDate) {
         if (startDate != null) {
-            this.startDate = startDate.toDate();
+            this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
         }
     }
 
