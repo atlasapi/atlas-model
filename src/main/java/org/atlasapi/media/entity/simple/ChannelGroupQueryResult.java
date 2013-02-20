@@ -23,7 +23,13 @@ public class ChannelGroupQueryResult {
 
     public ChannelGroupQueryResult() {
     }
-
+    
+    @XmlElements(@XmlElement(name = "channel_group", type=ChannelGroup.class, namespace=PLAY_SIMPLE_XML.NS))
+    @Deprecated
+    public List<ChannelGroup> getChannels() {
+        return getChannelGroups();
+    }
+    
     @XmlElements(@XmlElement(name = "channel_group", type=ChannelGroup.class, namespace=PLAY_SIMPLE_XML.NS))
     public List<ChannelGroup> getChannelGroups() {
         return channelGroups;
