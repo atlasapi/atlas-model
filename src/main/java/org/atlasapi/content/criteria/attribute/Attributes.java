@@ -36,6 +36,8 @@ public class Attributes {
     public static final Attribute<String> ALIASES_NAMESPACE = stringListAttribute("aliases.namespace", Identified.class);
     public static final Attribute<String> ALIASES_VALUE = stringListAttribute("aliases.value", Identified.class);
     
+    public static final Attribute<Id> TOPIC_ID = idListAttribute("topics.topic.id", Identified.class);
+    
 	// Simple string-valued attributes
     public static final Attribute<Publisher> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);
     public static final Attribute<String> DESCRIPTION_GENRE = stringListAttribute("genre", Content.class);
