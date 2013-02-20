@@ -43,4 +43,10 @@ public final class AttributeQuerySet extends ForwardingSet<AttributeQuery<?>> {
         }
         return result.build();
     }
+
+    public AttributeQuerySet copyWith(AttributeQuery<?> query) {
+        return new AttributeQuerySet(
+            ImmutableList.<AttributeQuery<?>>builder()
+                .addAll(delegate).add(query).build());
+    }
 }
