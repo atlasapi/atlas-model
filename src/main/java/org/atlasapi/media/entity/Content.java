@@ -22,6 +22,9 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+/**
+ * Content can be an Item or a Collection of items.
+ */
 public abstract class Content extends Described {
 
     private transient String readHash;
