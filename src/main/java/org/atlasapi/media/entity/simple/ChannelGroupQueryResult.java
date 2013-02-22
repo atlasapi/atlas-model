@@ -2,10 +2,18 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import java.util.Iterator;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-public class ChannelGroupQueryResult implements Iterable<ChannelGroup> {
+import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
+
+import com.google.common.collect.ImmutableList;
+
+@XmlRootElement(namespace=PLAY_SIMPLE_XML.NS, name="channel_groups")
+@XmlType(name="channel_groups", namespace=PLAY_SIMPLE_XML.NS)
+public class ChannelGroupQueryResult {
     
     private List<ChannelGroup> channelGroups = ImmutableList.of();
 
@@ -16,17 +24,18 @@ public class ChannelGroupQueryResult implements Iterable<ChannelGroup> {
     public ChannelGroupQueryResult() {
     }
     
+    @XmlElements(@XmlElement(name = "channel_group", type=ChannelGroup.class, namespace=PLAY_SIMPLE_XML.NS))
+    @Deprecated
+    public List<ChannelGroup> getChannels() {
+        return getChannelGroups();
+    }
+    
+    @XmlElements(@XmlElement(name = "channel_group", type=ChannelGroup.class, namespace=PLAY_SIMPLE_XML.NS))
     public List<ChannelGroup> getChannelGroups() {
         return channelGroups;
     }
 
-    public void setChannelGroups(List<ChannelGroup> channelGroups) {
+    public void setChannelGroups(Iterable<ChannelGroup> channelGroups) {
         this.channelGroups = ImmutableList.copyOf(channelGroups);
     }
-
-    @Override
-    public Iterator<ChannelGroup> iterator() {
-        return channelGroups.iterator();
-    }
-
 }
