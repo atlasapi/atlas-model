@@ -223,6 +223,7 @@ public class OutputContentMerger {
     
     private void mergeBroadcast(Broadcast chosen, Broadcast toMerge) {
         chosen.addAliases(toMerge.getAliases());
+        chosen.addAliasUrls(toMerge.getAliasUrls());
         
         if (chosen.getRepeat() == null && toMerge.getRepeat() != null) {
             chosen.setRepeat(toMerge.getRepeat());
