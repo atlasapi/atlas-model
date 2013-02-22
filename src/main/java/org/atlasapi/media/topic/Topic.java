@@ -89,10 +89,12 @@ public class Topic extends Described {
         return this.type;
     }
 
+    @Deprecated
     public String getNamespace() {
         return this.namespace;
     }
 
+    @Deprecated
     public String getValue() {
         return this.value;
     }
@@ -101,10 +103,12 @@ public class Topic extends Described {
         this.type = type;
     }
     
+    @Deprecated
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
+    @Deprecated
     public void setValue(String value) {
         this.value = value;
     }
