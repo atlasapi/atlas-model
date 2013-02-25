@@ -225,6 +225,7 @@ public class Identified {
 	
 	public static void copyTo(Identified from, Identified to) {
 	    to.aliases = Sets.newHashSet(from.aliases);
+	    to.aliasUrls = Sets.newHashSet(from.aliasUrls);
 	    to.canonicalUri = from.canonicalUri;
 	    to.curie = from.curie;
 	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);
