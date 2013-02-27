@@ -29,7 +29,7 @@ public class SearchQuery {
         private float broadcast = 0;
         private float catchup = 0;
         private String type;
-        private Boolean topLevel;
+        private Boolean topLevelOnly;
 
         public Builder(String query) {
             this.query = query;
@@ -72,11 +72,11 @@ public class SearchQuery {
         
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup, type, topLevel);
+                publishers, title, broadcast, catchup, type, topLevelOnly);
         }
 
-        public Builder isTopLevel(Boolean topLevel) {
-            this.topLevel = topLevel;
+        public Builder isTopLevelOnly(Boolean topLevel) {
+            this.topLevelOnly = topLevel;
             return this;
         }
     }
