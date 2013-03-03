@@ -30,6 +30,7 @@ public class SearchQuery {
         private float catchup = 0;
         private String type;
         private Boolean topLevelOnly;
+        private Boolean currentBroadcastsOnly;
 
         public Builder(String query) {
             this.query = query;
@@ -70,9 +71,14 @@ public class SearchQuery {
             return this;
         }
         
+        public Builder withCurrentBroadcastsOnly(boolean currentBroadcastsOnly) {
+            this.currentBroadcastsOnly = currentBroadcastsOnly;
+            return this;
+        }
+        
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup, type, topLevelOnly);
+                publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly);
         }
 
         public Builder isTopLevelOnly(Boolean topLevel) {
@@ -92,13 +98,14 @@ public class SearchQuery {
     private final float catchupWeighting;
     private final String type;
     private Boolean topLevelOnly;
+    private Boolean currentBroadcastsOnly;
 
     /**
      * Use a Builder 
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null);
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null);
 	}
     
     /**
@@ -106,13 +113,13 @@ public class SearchQuery {
      */
     @Deprecated
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null);
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null);
 	}
     
     public SearchQuery(String term, Selection selection, 
        Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, 
        float titleWeighting, float broadcastWeighting, float availabilityWeighting, 
-       String type, Boolean topLevelOnly) {
+       String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
@@ -120,6 +127,7 @@ public class SearchQuery {
         this.catchupWeighting = availabilityWeighting;
         this.type = type;
         this.topLevelOnly = topLevelOnly;
+        this.currentBroadcastsOnly = currentBroadcastsOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 	}
@@ -160,6 +168,10 @@ public class SearchQuery {
         return this.topLevelOnly;
     }
     
+    public Boolean currentBroadcastsOnly() {
+        return this.currentBroadcastsOnly;
+    }
+    
     public QueryStringParameters toQueryStringParameters() {
         QueryStringParameters params = new QueryStringParameters()
             .add("title", UrlEncoding.encode(term))
@@ -174,6 +186,9 @@ public class SearchQuery {
         }
         if (type != null) {
             params.add("type", type);
+        }
+        if (currentBroadcastsOnly != null) {
+            params.add("currentBroadcastsOnly", currentBroadcastsOnly.toString());
         }
         return params;
     }
