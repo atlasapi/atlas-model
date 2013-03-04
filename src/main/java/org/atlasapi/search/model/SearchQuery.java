@@ -31,6 +31,7 @@ public class SearchQuery {
         private String type;
         private Boolean topLevelOnly;
         private Boolean currentBroadcastsOnly;
+        private float priorityChannelBoost = 1.0f;
 
         public Builder(String query) {
             this.query = query;
@@ -76,9 +77,14 @@ public class SearchQuery {
             return this;
         }
         
+        public Builder withPriorityChannelBoost(float priorityChannelBoost) {
+            this.priorityChannelBoost = priorityChannelBoost;
+            return this;
+        }
+        
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly);
+                publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly, priorityChannelBoost);
         }
 
         public Builder isTopLevelOnly(Boolean topLevel) {
@@ -97,15 +103,17 @@ public class SearchQuery {
     private final float broadcastWeighting;
     private final float catchupWeighting;
     private final String type;
-    private Boolean topLevelOnly;
-    private Boolean currentBroadcastsOnly;
+    private final float priorityChannelBoost;
+    private final Boolean topLevelOnly;
+    private final Boolean currentBroadcastsOnly;
+
 
     /**
      * Use a Builder 
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null);
+		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
 	}
     
     /**
@@ -113,13 +121,13 @@ public class SearchQuery {
      */
     @Deprecated
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null);
+		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
 	}
     
     public SearchQuery(String term, Selection selection, 
        Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, 
        float titleWeighting, float broadcastWeighting, float availabilityWeighting, 
-       String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly) {
+       String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly, float priorityChannelBoost) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
@@ -130,6 +138,7 @@ public class SearchQuery {
         this.currentBroadcastsOnly = currentBroadcastsOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
+		this.priorityChannelBoost = priorityChannelBoost;
 	}
 	
 	public String getTerm() {
@@ -170,6 +179,10 @@ public class SearchQuery {
     
     public Boolean currentBroadcastsOnly() {
         return this.currentBroadcastsOnly;
+    }
+    
+    public float getPriorityChannelBoost() {
+        return this.priorityChannelBoost;
     }
     
     public QueryStringParameters toQueryStringParameters() {
