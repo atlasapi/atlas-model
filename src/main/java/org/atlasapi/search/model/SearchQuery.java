@@ -31,7 +31,7 @@ public class SearchQuery {
         private String type;
         private Boolean topLevelOnly;
         private Boolean currentBroadcastsOnly;
-        private float priorityChannelBoost = 1.0f;
+        private float priorityChannelWeighting = 1.0f;
 
         public Builder(String query) {
             this.query = query;
@@ -77,14 +77,14 @@ public class SearchQuery {
             return this;
         }
         
-        public Builder withPriorityChannelBoost(float priorityChannelBoost) {
-            this.priorityChannelBoost = priorityChannelBoost;
+        public Builder withPriorityChannelWeighting(float priorityChannelWeighting) {
+            this.priorityChannelWeighting = priorityChannelWeighting;
             return this;
         }
         
         public SearchQuery build() {
             return new SearchQuery(query, selection, specializations, 
-                publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly, priorityChannelBoost);
+                publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly, priorityChannelWeighting);
         }
 
         public Builder isTopLevelOnly(Boolean topLevel) {
@@ -103,7 +103,7 @@ public class SearchQuery {
     private final float broadcastWeighting;
     private final float catchupWeighting;
     private final String type;
-    private final float priorityChannelBoost;
+    private final float priorityChannelWeighting;
     private final Boolean topLevelOnly;
     private final Boolean currentBroadcastsOnly;
 
@@ -127,7 +127,7 @@ public class SearchQuery {
     public SearchQuery(String term, Selection selection, 
        Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, 
        float titleWeighting, float broadcastWeighting, float availabilityWeighting, 
-       String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly, float priorityChannelBoost) {
+       String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly, float priorityChannelWeighting) {
 		this.term = term;
 		this.selection = selection;
         this.titleWeighting = titleWeighting;
@@ -138,7 +138,7 @@ public class SearchQuery {
         this.currentBroadcastsOnly = currentBroadcastsOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
-		this.priorityChannelBoost = priorityChannelBoost;
+		this.priorityChannelWeighting = priorityChannelWeighting;
 	}
 	
 	public String getTerm() {
@@ -182,7 +182,7 @@ public class SearchQuery {
     }
     
     public float getPriorityChannelBoost() {
-        return this.priorityChannelBoost;
+        return this.priorityChannelWeighting;
     }
     
     public QueryStringParameters toQueryStringParameters() {
@@ -193,6 +193,7 @@ public class SearchQuery {
             .add("publishers", CSV.join(includedPublishers))
             .add("titleWeighting", String.valueOf(titleWeighting))
             .add("broadcastWeighting",  String.valueOf(broadcastWeighting))
+            .add("priorityChannelWeighting", String.valueOf(priorityChannelWeighting))
             .add("catchupWeighting",  String.valueOf(catchupWeighting));
         if (topLevelOnly != null) {
             params.add("topLevelOnly", topLevelOnly.toString());
