@@ -29,7 +29,6 @@ public class SearchQuery {
         private float title = 0;
         private float broadcast = 0;
         private float catchup = 0;
-        private Maybe<Float> priorityChannelWeighting = Maybe.nothing();
         private Maybe<Float> firstBroadcastWeighting = Maybe.nothing();
         private String type;
         private Boolean topLevelOnly;
@@ -71,7 +70,7 @@ public class SearchQuery {
         }
         
         public Builder withPriorityChannelWeighting(Float priorityChannelWeighting) {
-            this.priorityChannelWeighting  = Maybe.fromPossibleNullValue(priorityChannelWeighting);
+            this.priorityChannelWeighting  = priorityChannelWeighting;
             return this;
         }
 
