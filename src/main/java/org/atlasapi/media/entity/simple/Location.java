@@ -77,7 +77,7 @@ public class Location extends Version {
     private String platform;
     private String network;
 
-    private boolean available = true;
+    private Boolean available;
 
     public String getUri() {
         return uri;
@@ -279,9 +279,6 @@ public class Location extends Version {
 
     public void setAvailabilityStart(Date availabilityStart) {
         this.availabilityStart = availabilityStart;
-        
-        // See setAvailabilityEnd as to why we need to calculate available here
-        calculateAndSetAvailabile();
     }
 
     public Date getDrmPlayableFrom() {
@@ -342,25 +339,21 @@ public class Location extends Version {
 
     @XmlElement
     public boolean isAvailable() {
-    	this.available = IS_AVAILABLE.apply(this);
-        return available;
+        return IS_AVAILABLE.apply(this);
+    }
+    
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public void setAvailabilityEnd(Date availabilityEnd) {
         this.availabilityEnd = availabilityEnd;
-        // We are forced to compute available when properties that affect it change, since gson cannot use getters for serialization,
-        // it uses only class variables through reflection. The alternative is to write a custom serializer, but we must then maintain 
-        // that separately and add all new fields as they appear
-        calculateAndSetAvailabile();
     }
 
     public Date getAvailabilityEnd() {
         return availabilityEnd;
     }
-    
-    private void calculateAndSetAvailabile() {
-    	this.available = IS_AVAILABLE.apply(this);
-    }
+
 
     public void setPlatform(String platform) {
     	this.platform = platform; 
@@ -480,8 +473,11 @@ public class Location extends Version {
     public static final Predicate<Location> IS_AVAILABLE = new Predicate<Location>() {
         @Override
         public boolean apply(Location input) {
-            return (input.getAvailabilityStart() == null || ! (new DateTime(input.getAvailabilityStart()).isAfterNow()))
-                    && (input.getAvailabilityEnd() == null || new DateTime(input.getAvailabilityEnd()).isAfterNow());
+            Date start = input.getActualAvailabilityStart();
+            start = start == null ? input.getAvailabilityStart() : start;
+            return (input.available == null || input.available)
+                && (start == null || ! (new DateTime(start).isAfterNow()))
+                && (input.getAvailabilityEnd() == null || new DateTime(input.getAvailabilityEnd()).isAfterNow());
         }
     };
     
