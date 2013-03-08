@@ -1,7 +1,5 @@
 package org.atlasapi.equiv;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +10,7 @@ import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Image;
@@ -28,12 +27,12 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.google.common.collect.ImmutableSet.Builder;
 
 
 public class OutputContentMerger {
@@ -42,7 +41,7 @@ public class OutputContentMerger {
 
     @SuppressWarnings("unchecked")
     public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
-        Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
+        Ordering<Described> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
         Set<T> processed = Sets.newHashSet();
@@ -75,7 +74,7 @@ public class OutputContentMerger {
     }
     
     @SuppressWarnings("unchecked")
-    private <T extends Content> List<T> findSame(T brand, Iterable<T> contents) {
+    private <T extends Described> List<T> findSame(T brand, Iterable<T> contents) {
         List<T> same = Lists.newArrayList(brand);
         for (T possiblyEquivalent : contents) {
             if (!brand.equals(possiblyEquivalent) && possiblyEquivalent.isEquivalentTo(brand)) {
@@ -85,12 +84,16 @@ public class OutputContentMerger {
         return same;
     }
 
-    private static Ordering<Content> toContentOrdering(final Ordering<Publisher> byPublisher) {
-        return new Ordering<Content>() {
+    private static Ordering<Described> toContentOrdering(final Ordering<Publisher> byPublisher) {
+        return new Ordering<Described>() {
 
             @Override
-            public int compare(Content o1, Content o2) {
-                return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
+            public int compare(Described o1, Described o2) {
+                int cmp = byPublisher.compare(o1.getPublisher(), o2.getPublisher());
+                if (cmp != 0) {
+                    return cmp;
+                }
+                return o1.getCanonicalUri().compareTo(o2.getCanonicalUri());
             }
         };
     }

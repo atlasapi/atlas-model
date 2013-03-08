@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.annotation.Nullable;
 
-import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.ParentRef;
 import org.atlasapi.media.entity.Publisher;
@@ -15,7 +15,7 @@ import com.google.common.base.Objects;
 
 public class ContentRef {
 
-    public static ContentRef valueOf(Content content) {
+    public static ContentRef valueOf(Described content) {
         Publisher publisher = content.getPublisher();
         String uri = content.getCanonicalUri();
         String parentUri = null;
@@ -28,9 +28,9 @@ public class ContentRef {
         return new ContentRef(uri, publisher, parentUri);
     }
     
-    public static final Function<Content, ContentRef> FROM_CONTENT = new Function<Content,ContentRef>(){
+    public static final Function<Described, ContentRef> FROM_CONTENT = new Function<Described,ContentRef>(){
         @Override
-        public ContentRef apply(@Nullable Content input) {
+        public ContentRef apply(@Nullable Described input) {
             return ContentRef.valueOf(input);
         };
     };
