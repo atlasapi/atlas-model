@@ -16,6 +16,7 @@ package org.atlasapi.media.content;
 import java.util.List;
 import java.util.Set;
 
+import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Actor;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
@@ -36,7 +37,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-public abstract class Content extends Described {
+public abstract class Content extends Described implements Sourced {
 
     private transient String readHash;
     private ImmutableList<Clip> clips = ImmutableList.of();

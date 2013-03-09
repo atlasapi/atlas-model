@@ -5,6 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.annotation.Nullable;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
+import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.ParentRef;
@@ -14,7 +16,7 @@ import org.atlasapi.media.entity.Series;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 
-public class ContentRef {
+public class ContentRef implements Identifiable, Sourced {
 
     public static ContentRef valueOf(Content content) {
         Publisher publisher = content.getPublisher();
