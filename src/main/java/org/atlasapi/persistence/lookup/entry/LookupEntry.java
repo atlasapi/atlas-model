@@ -15,6 +15,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.metabroadcast.common.time.DateTimeZones;
 
+@Deprecated
 public class LookupEntry {
  
     public static LookupEntry lookupEntryFrom(Content c) {
