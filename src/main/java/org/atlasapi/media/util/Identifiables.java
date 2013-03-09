@@ -1,9 +1,14 @@
 package org.atlasapi.media.util;
 
+import java.util.Collection;
+
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.common.Identifiable;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.metabroadcast.common.base.MorePredicates;
 
 
 public final class Identifiables {
@@ -28,6 +33,10 @@ public final class Identifiables {
             return "toId";
         }
         
+    }
+
+    public static Predicate<Identifiable> idFilter(Collection<Id> ids) {
+        return MorePredicates.transformingPredicate(toId(), Predicates.in(ids));
     }
     
 }
