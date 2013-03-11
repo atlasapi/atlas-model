@@ -99,4 +99,12 @@ public class Image extends Identified {
     public void setAvailabilityEnd(DateTime availabilityEnd) {
         this.availabilityEnd = availabilityEnd;
     }
+    
+    public static final Predicate<Image> IS_AVAILABLE = new Predicate<Image>() {
+        @Override
+        public boolean apply(Image input) {
+            return (input.getAvailabilityStart() == null || ! (new DateTime(input.getAvailabilityStart()).isAfterNow()))
+                    && (input.getAvailabilityEnd() == null || new DateTime(input.getAvailabilityEnd()).isAfterNow());
+        }
+    };
 }
