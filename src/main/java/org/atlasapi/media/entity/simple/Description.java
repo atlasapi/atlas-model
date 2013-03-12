@@ -33,7 +33,7 @@ public abstract class Description extends Aliased {
     private String longDescription;
     private PublisherDetails publisher;
     private String image;
-    private Set<Image> images;
+    private Set<Image> images = Sets.newHashSet();
     private String thumbnail;
     private Set<String> genres = Sets.newHashSet();
     private Set<String> tags = Sets.newHashSet();
