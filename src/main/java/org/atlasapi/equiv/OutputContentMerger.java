@@ -14,6 +14,7 @@ import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
+import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
 import org.atlasapi.media.entity.Publisher;
@@ -171,13 +172,15 @@ public class OutputContentMerger {
     private <T extends Content> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_IMAGE_FIELD_SET), 1);
+            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
 
             if (!topImageMatches.isEmpty()) {
                 T top = topImageMatches.get(0);
                 chosen.setImage(top.getImage());
                 chosen.setThumbnail(top.getThumbnail());
                 chosen.setImages(top.getImages());
+            } else {
+                chosen.setImage(null);
             }
         }
     }
@@ -263,13 +266,34 @@ public class OutputContentMerger {
         }
     }
     
-    private static final Predicate<Content> HAS_IMAGE_FIELD_SET = new Predicate<Content>() {
+    private static final Predicate<Content> HAS_AVAILABLE_IMAGE_SET = new Predicate<Content>() {
 
         @Override
         public boolean apply(Content content) {
-            return content.getImage() != null;
+            if (content.getImage() == null) {
+                return false;
+            }
+            return isImageAvailable(content.getImage(), content.getImages());
         }
     };
+    
+    private static boolean isImageAvailable(String imageUri, Iterable<Image> images) {
+        
+        // Fneh. Image URIs differ between the image attribute and the canonical URI on Images.
+        // See PaProgrammeProcessor for why.
+        String rewrittenUri = imageUri.replace("http://images.atlasapi.org/pa/",
+                "http://images.atlas.metabroadcast.com/pressassociation.com/");
+        
+        // If there is a corresponding Image object for this URI, we check its availability
+        for (Image image : images) {
+            if (image.getCanonicalUri().equals(rewrittenUri)) {
+               return Image.IS_AVAILABLE.apply(image); 
+            }
+        }
+        // Otherwise, we can only assume the image is available as we know no better
+        return true;
+    }
+    
     private static final Predicate<Film> HAS_PEOPLE = new Predicate<Film>() {
 
         @Override
