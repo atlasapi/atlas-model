@@ -7,9 +7,11 @@ import java.util.Set;
 import org.atlasapi.application.ApplicationConfiguration;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
+import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
@@ -40,7 +42,7 @@ public class OutputContentMerger {
     private static final Ordering<Episode> SERIES_ORDER = Ordering.from(new SeriesOrder());
 
     @SuppressWarnings("unchecked")
-    public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
+    public <T extends Described> List<T> merge(ApplicationConfiguration config, List<T> contents) {
         Ordering<Described> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
@@ -67,6 +69,9 @@ public class OutputContentMerger {
             }
             if (chosen instanceof Item) {
                 mergeIn(config, (Item) chosen, (List<Item>) notChosen);
+            }
+            if (chosen instanceof ContentGroup) {
+                mergeIn(config, (ContentGroup) chosen, (List<ContentGroup>) notChosen);
             }
             merged.add(chosen);
         }
@@ -96,6 +101,14 @@ public class OutputContentMerger {
                 return o1.getCanonicalUri().compareTo(o2.getCanonicalUri());
             }
         };
+    }
+    
+    private <T extends ContentGroup> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        for (ContentGroup contentGroup : notChosen) {
+            for (ChildRef childRef : contentGroup.getContents()) {
+                chosen.addContent(childRef);
+            }
+        }
     }
 
     private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
