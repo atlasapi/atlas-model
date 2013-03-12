@@ -16,7 +16,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
-
+@Deprecated
 public class EquivalentContent extends ForwardingSetMultimap<Id, Content> {
 
     public static Builder builder() {

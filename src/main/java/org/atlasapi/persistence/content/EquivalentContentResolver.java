@@ -11,6 +11,7 @@ import org.atlasapi.output.Annotation;
  * identifiers inside the given set of sources.
  * 
  */
+@Deprecated
 public interface EquivalentContentResolver {
 
     /**
