@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.equiv.EquivalenceRef;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.common.Identifiable;
+import org.atlasapi.media.content.Content;
+import org.atlasapi.media.util.Identifiables;
 import org.atlasapi.media.vocabulary.OWL;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.joda.time.DateTime;
@@ -40,7 +43,7 @@ public class Identified implements Identifiable {
 	private Set<String> aliasUrls = Sets.newHashSet();
 	private Set<Alias> aliases = Sets.newHashSet();
 	
-	private Set<LookupRef> equivalentTo = Sets.newHashSet();
+	private Set<EquivalenceRef> equivalentTo = Sets.newHashSet();
 	
 	/**
 	 * Records the time that the 3rd party reported that the
@@ -154,12 +157,13 @@ public class Identified implements Identifiable {
 		return lastUpdated;
 	}
 	
-	public void addEquivalentTo(Described content) {
+	//wut?
+	public void addEquivalentTo(Content content) {
 		checkNotNull(content.getCanonicalUri());
-		this.equivalentTo.add(LookupRef.from(content));
+		this.equivalentTo.add(EquivalenceRef.valueOf(content));
 	}
 	
-	public Set<LookupRef> getEquivalentTo() {
+	public Set<EquivalenceRef> getEquivalentTo() {
 		return equivalentTo;
 	}
 	
@@ -199,8 +203,13 @@ public class Identified implements Identifiable {
         }
     };
 
-	public void setEquivalentTo(Set<LookupRef> uris) {
+	public void setEquivalentTo(Set<EquivalenceRef> uris) {
 		this.equivalentTo = uris;
+	}
+	
+	public Identified copyWithEquivalentTo(Iterable<EquivalenceRef> refs) {
+	    this.equivalentTo = ImmutableSet.copyOf(refs);
+	    return this;
 	}
 	
 	public static final Comparator<Identified> DESCENDING_LAST_UPDATED = new Comparator<Identified>() {
@@ -225,9 +234,9 @@ public class Identified implements Identifiable {
      * equivalence (since content is persisted independently
      * there is often a window of inconsistency)
      */
-	public boolean isEquivalentTo(Described content) {
-		return equivalentTo.contains(LookupRef.from(content))
-	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_ID), canonicalUri);
+	public boolean isEquivalentTo(Content content) {
+		return equivalentTo.contains(EquivalenceRef.valueOf(content))
+	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), Identifiables.toId()), id);
 	}
 	
 	public static void copyTo(Identified from, Identified to) {

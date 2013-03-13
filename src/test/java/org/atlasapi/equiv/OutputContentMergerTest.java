@@ -26,9 +26,9 @@ public class OutputContentMergerTest {
         Brand two = new Brand("two", "two",Publisher.BBC);
         Brand three = new Brand("three", "three",Publisher.TED);
         
-        one.setEquivalentTo(ImmutableSet.of(LookupRef.from(two), LookupRef.from(three)));
-        two.setEquivalentTo(ImmutableSet.of(LookupRef.from(one), LookupRef.from(three)));
-        three.setEquivalentTo(ImmutableSet.of(LookupRef.from(two), LookupRef.from(one)));
+        one.copyWithEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(three)));
+        two.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(one), EquivalenceRef.valueOf(three)));
+        three.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(one)));
         
         ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
             .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
