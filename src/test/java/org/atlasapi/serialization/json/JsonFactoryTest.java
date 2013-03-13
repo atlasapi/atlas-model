@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.atlasapi.equiv.EquivalenceRef;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
@@ -335,6 +336,6 @@ public class JsonFactoryTest {
         identified.setAliases(ImmutableSet.of("alias1","alias2"));
         identified.setCanonicalUri("canonicalUri");
         identified.setEquivalenceUpdate(new DateTime(DateTimeZones.UTC));
-        identified.setEquivalentTo(ImmutableSet.of(new LookupRef(Id.valueOf(1),Publisher.BBC, ContentCategory.CHILD_ITEM)));
+        identified.setEquivalentTo(ImmutableSet.of(new EquivalenceRef(Id.valueOf(1),Publisher.BBC)));
     }
 }
