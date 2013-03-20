@@ -53,6 +53,7 @@ public abstract class Described extends Identified {
 	private DateTime lastFetched;
 	private DateTime thisOrChildLastUpdated;
 	private boolean scheduleOnly = false;
+    private boolean activelyPublished = true;
 
     private String presentationChannel;
 	
@@ -187,6 +188,14 @@ public abstract class Described extends Identified {
 	public void setThisOrChildLastUpdated(DateTime thisOrChildLastUpdated) {
         this.thisOrChildLastUpdated = thisOrChildLastUpdated;
     }
+	
+	public boolean isActivelyPublished() {
+	    return activelyPublished;
+	}
+	
+	public void setActivelyPublished(boolean activelyPublished) {
+	    this.activelyPublished = activelyPublished;
+	}
 	
 	public void setMediaType(MediaType mediaType) {
 		this.mediaType = mediaType;
