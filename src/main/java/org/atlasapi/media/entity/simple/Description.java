@@ -28,8 +28,12 @@ public abstract class Description extends Aliased {
 
     private String title;
     private String description;
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
     private PublisherDetails publisher;
     private String image;
+    private Set<Image> images = Sets.newHashSet();
     private String thumbnail;
     private Set<String> genres = Sets.newHashSet();
     private Set<String> tags = Sets.newHashSet();
@@ -76,6 +80,10 @@ public abstract class Description extends Aliased {
     public void setTags(Iterable<String> tags) {
         this.tags = Sets.newHashSet(tags);
     }
+    
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
+    }
 
     public PublisherDetails getPublisher() {
         return publisher;
@@ -87,6 +95,10 @@ public abstract class Description extends Aliased {
 
     public String getImage() {
         return image;
+    }
+    
+    public Set<Image> getImages() {
+        return images;
     }
 
     public void setImage(String image) {
@@ -141,6 +153,30 @@ public abstract class Description extends Aliased {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getMediumDescription() {
+        return mediumDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     public ImmutableSet<String> identifiers() {

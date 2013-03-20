@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -34,7 +35,8 @@ public class Identified {
 
 	private String curie;
 
-	private Set<String> aliases = Sets.newHashSet();
+	private Set<String> aliasUrls = Sets.newHashSet();
+	private Set<Alias> aliases = Sets.newHashSet();
 	
 	private Set<LookupRef> equivalentTo = Sets.newHashSet();
 	
@@ -61,11 +63,15 @@ public class Identified {
 		this(uri, null);
 	}
 	
+	@RdfProperty(relation = true, namespace=OWL.NS, uri="sameAs")
+	public Set<String> getAliasUrls() {
+		return aliasUrls;
+	}
 	
 	@RdfProperty(relation = true, namespace=OWL.NS, uri="sameAs")
-	public Set<String> getAliases() {
-		return aliases;
-	}
+    public Set<Alias> getAliases() {
+        return aliases;
+    }
 	
 	public void setCanonicalUri(String canonicalUri) {
 		this.canonicalUri = canonicalUri;
@@ -75,16 +81,28 @@ public class Identified {
 		this.curie = curie;
 	}
 	
-	public void setAliases(Iterable<String> uris) {
-		this.aliases = ImmutableSortedSet.copyOf(uris);
+	public void setAliasUrls(Iterable<String> urls) {
+		this.aliasUrls = ImmutableSortedSet.copyOf(urls);
 	}
 	
-	public void addAlias(String uri) {
-		addAliases(ImmutableList.of(uri));
-	}
+    public void setAliases(Iterable<Alias> aliases) {
+        this.aliases = ImmutableSet.copyOf(aliases);
+    }
+    
+    public void addAliasUrl(String alias) {
+        addAliasUrls(ImmutableList.of(alias));
+    }
+    
+    public void addAlias(Alias alias) {
+        addAliases(ImmutableList.of(alias));
+    }
+    
+    public void addAliasUrls(Iterable<String> urls) {
+        setAliasUrls(Iterables.concat(this.aliasUrls, ImmutableList.copyOf(urls)));
+    }
 	
-	public void addAliases(Iterable<String> uris) {
-		setAliases(Iterables.concat(this.aliases, ImmutableList.copyOf(uris)));
+	public void addAliases(Iterable<Alias> aliases) {
+	    setAliases(Iterables.concat(this.aliases, ImmutableList.copyOf(aliases)));
 	}
 	
 	public String getCanonicalUri() {
@@ -97,7 +115,7 @@ public class Identified {
 	}
 
 	public Set<String> getAllUris() {
-		Set<String> allUris = Sets.newHashSet(getAliases());
+		Set<String> allUris = Sets.newHashSet(getAliasUrls());
 		allUris.add(getCanonicalUri());
 		return Collections.unmodifiableSet(allUris);
 	}
@@ -207,6 +225,7 @@ public class Identified {
 	
 	public static void copyTo(Identified from, Identified to) {
 	    to.aliases = Sets.newHashSet(from.aliases);
+	    to.aliasUrls = Sets.newHashSet(from.aliasUrls);
 	    to.canonicalUri = from.canonicalUri;
 	    to.curie = from.curie;
 	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);

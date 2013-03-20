@@ -51,6 +51,7 @@ public class Channel implements SelfModelling {
     public static final Channel BBC_ONE_EAST_YORKSHIRE = new Channel("BBC One Yorks & Lincs", "http://www.bbc.co.uk/services/bbcone/east_yorkshire", "bbcone-east_yorkshire", false);
     public static final Channel BBC_ONE_YORKSHIRE = new Channel("BBC One Yorkshire", "http://www.bbc.co.uk/services/bbcone/yorkshire", "bbcone-yorkshire", false);
     public static final Channel BBC_TWO = new Channel("BBC Two", "http://www.bbc.co.uk/services/bbctwo/england", "bbctwo", false);
+    public static final Channel BBC_TWO_HD = new Channel("BBC Two HD", CHANNEL_URI_PREFIX+"pressassociation.com/1782", "pa-channel-1782", false);
 
     public static final Channel BBC_TWO_NORTHERN_IRELAND = new Channel("BBC Two Northern Ireland", "http://www.bbc.co.uk/services/bbctwo/ni", "bbctwo-ni", false);
     public static final Channel BBC_TWO_NORTHERN_IRELAND_ALALOGUE = new Channel("BBC Two Northern Ireland (Analogue)", "http://www.bbc.co.uk/services/bbctwo/ni_analogue", "bbctwo-ni_analogue", false);
@@ -1210,6 +1211,9 @@ public class Channel implements SelfModelling {
     
     public static final Channel HEAT_TV = new Channel("Heat TV", CHANNEL_URI_PREFIX+"heattv", "heattv", false);
     public static final Channel FASHION_TV = new Channel("Fashion TV", CHANNEL_URI_PREFIX+"fashiontv", "fashiontv", false);
+    public static final Channel MOVIE_MIX = new Channel("Movie Mix", CHANNEL_URI_PREFIX+"pressassociation.com/1779", "pa-channel-1779", false);
+    public static final Channel MORE_MOVIES = new Channel("more>movies", CHANNEL_URI_PREFIX+"pressassociation.com/1682", "pa-channel-1682", false);
+    public static final Channel MORE_MOVIES_PLUS_ONE = new Channel("more>movies+1", CHANNEL_URI_PREFIX+"pressassociation.com/1740", "pa-channel-1740", false);
     
     
     private final String uri;

@@ -219,7 +219,8 @@ public class Policy extends Identified {
 	public enum Platform {
 		XBOX,
 		PC,
-		IOS;
+		IOS,
+		YOUVIEW;
 		
 		
 		public String key() {
