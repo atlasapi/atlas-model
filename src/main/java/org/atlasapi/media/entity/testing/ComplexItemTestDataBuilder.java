@@ -12,9 +12,11 @@ import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
+import org.joda.time.DateTime;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.metabroadcast.common.time.DateTimeZones;
 
 public class ComplexItemTestDataBuilder {
     private static Long uniqueId = 1000L;
@@ -90,6 +92,7 @@ public class ComplexItemTestDataBuilder {
         item.setTitle(title);
         item.setCanonicalUri(uri);
         item.setCurie(curie);
+        item.setThisOrChildLastUpdated(new DateTime(DateTimeZones.UTC));
         return item;
     }
     
