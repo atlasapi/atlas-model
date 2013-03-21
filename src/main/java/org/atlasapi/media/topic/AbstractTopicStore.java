@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.util.WriteResult;
 import org.joda.time.DateTime;
@@ -69,9 +70,9 @@ public abstract class AbstractTopicStore implements TopicStore {
             previous = doResolveId(topic.getId());
         }
         if (previous == null) {
-            Iterator<String> aliases = topic.getAliases().iterator();
+            Iterator<Alias> aliases = topic.getAliases().iterator();
             while (previous == null && aliases.hasNext()) {
-                previous = doResolveAlias((String) aliases.next(), topic.getPublisher());
+                previous = doResolveAlias(aliases.next(), topic.getPublisher());
             }
         }
         return previous;
@@ -81,6 +82,6 @@ public abstract class AbstractTopicStore implements TopicStore {
     protected abstract Topic doResolveId(Id id);
 
     @Nullable
-    protected abstract Topic doResolveAlias(String alias, Publisher publisher);
+    protected abstract Topic doResolveAlias(Alias alias, Publisher publisher);
     
 }
