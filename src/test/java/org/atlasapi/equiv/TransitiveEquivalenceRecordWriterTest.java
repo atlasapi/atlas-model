@@ -61,7 +61,6 @@ public class TransitiveEquivalenceRecordWriterTest {
     private Item createItem(String itemName, Publisher publisher) {
         Item item = new Item(itemName + "Uri", itemName + "Curie", Publisher.BBC);
         item.setId(Id.valueOf(itemName.hashCode()));
-        item.addAlias(itemName + "Alias");
         item.setPublisher(publisher);
         return item;
     }
