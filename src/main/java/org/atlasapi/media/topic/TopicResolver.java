@@ -1,15 +1,12 @@
 package org.atlasapi.media.topic;
 
-import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.IdResolver;
 import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.util.Resolved;
 
 import com.metabroadcast.common.collect.OptionalMap;
 
-public interface TopicResolver {
+public interface TopicResolver extends IdResolver<Topic> {
 
-    Resolved<Topic> resolveIds(Iterable<Id> ids);
-    
     OptionalMap<String, Topic> resolveAliases(Iterable<String> aliases, Publisher source);
     
 }
