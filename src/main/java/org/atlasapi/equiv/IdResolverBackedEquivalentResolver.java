@@ -24,11 +24,18 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.metabroadcast.common.collect.OptionalMap;
 
 public class IdResolverBackedEquivalentResolver<E extends Equivalent<E>>
         implements EquivalentResolver<E> {
 
+    public static final <E extends Equivalent<E>> EquivalentResolver<E> 
+            valueOf(EquivalenceRecordStore store, IdResolver<E> resolver) {
+        return new IdResolverBackedEquivalentResolver<E>(store, resolver);
+    }
+    
     private final EquivalenceRecordStore store;
     private final IdResolver<E> resolver;
 
@@ -39,18 +46,22 @@ public class IdResolverBackedEquivalentResolver<E extends Equivalent<E>>
     }
 
     @Override
-    public ResolvedEquivalents<E> resolveIds(Iterable<Id> ids, Set<Publisher> selectedSources,
+    public ListenableFuture<ResolvedEquivalents<E>> resolveIds(Iterable<Id> ids, Set<Publisher> selectedSources,
             Set<Annotation> activeAnnotations) {
-        ImmutableSet<Id> uniqueIds = ImmutableSet.copyOf(ids);
-        Predicate<Sourced> sourceFilter = Sourceds.sourceFilter(selectedSources);
+        final ImmutableSet<Id> uniqueIds = ImmutableSet.copyOf(ids);
+        final Predicate<Sourced> sourceFilter = Sourceds.sourceFilter(selectedSources);
 
-        OptionalMap<Id, EquivalenceRecord> records = store.resolveRecords(uniqueIds);
+        final OptionalMap<Id, EquivalenceRecord> records = store.resolveRecords(uniqueIds);
         
         Set<Id> idsToResolve = idsToResolve(uniqueIds, records, sourceFilter);
 
-        Resolved<E> resolved = resolver.resolveIds(idsToResolve);
-        OptionalMap<Id, E> resolvedResources = resolved.toMap();
-        return buildEquivalents(uniqueIds, sourceFilter, records, resolvedResources).build();
+        return Futures.transform(resolver.resolveIds(idsToResolve),
+            new Function<Resolved<E>, ResolvedEquivalents<E>>() {
+                @Override
+                public ResolvedEquivalents<E> apply(Resolved<E> input) {
+                    return buildEquivalents(uniqueIds, sourceFilter, records, input.toMap()).build();
+                }
+        });
     }
 
     private ResolvedEquivalents.Builder<E> buildEquivalents(ImmutableSet<Id> uniqueIds,

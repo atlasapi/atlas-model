@@ -6,6 +6,8 @@ import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.output.Annotation;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 /**
  * A content resolver which returns the equivalent set for each requested
  * identifiers inside the given set of sources.
@@ -25,6 +27,6 @@ public interface EquivalentResolver<E extends Equivalent<E>> {
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested IDs.
      */
-    ResolvedEquivalents<E> resolveIds(Iterable<Id> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    ListenableFuture<ResolvedEquivalents<E>> resolveIds(Iterable<Id> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
 
 }
