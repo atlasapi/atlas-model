@@ -4,10 +4,18 @@ import org.atlasapi.media.common.Id;
 import org.atlasapi.media.common.Identifiable;
 
 import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 import com.metabroadcast.common.collect.ImmutableOptionalMap;
 import com.metabroadcast.common.collect.OptionalMap;
 
 public final class Resolved<R extends Identifiable> {
+    
+    private static final Resolved<Identifiable> EMPTY = valueOf(ImmutableList.<Identifiable>of());
+    
+    @SuppressWarnings("unchecked")
+    public static final <R extends Identifiable> Resolved<R> empty() {
+        return (Resolved<R>) EMPTY;
+    }
 
     public static final <R extends Identifiable> Resolved<R> valueOf(Iterable<R> resources) {
         return new Resolved<R>(resources);

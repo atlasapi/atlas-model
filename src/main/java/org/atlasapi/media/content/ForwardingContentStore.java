@@ -5,6 +5,7 @@ import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.util.Resolved;
 import org.atlasapi.media.util.WriteResult;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.metabroadcast.common.collect.OptionalMap;
 
 
@@ -15,7 +16,7 @@ public abstract class ForwardingContentStore implements ContentStore {
     protected abstract ContentStore delegate();
     
     @Override
-    public Resolved<Content> resolveIds(Iterable<Id> ids) {
+    public ListenableFuture<Resolved<Content>> resolveIds(Iterable<Id> ids) {
         return delegate().resolveIds(ids);
     }
 

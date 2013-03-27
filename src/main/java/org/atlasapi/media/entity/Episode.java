@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
@@ -43,6 +44,11 @@ public class Episode extends Item {
 
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
+	}
+	
+	public Episode(Id id, Publisher source) {
+	    setId(id);
+	    setPublisher(source);
 	}
 	
 	public Episode() { }
