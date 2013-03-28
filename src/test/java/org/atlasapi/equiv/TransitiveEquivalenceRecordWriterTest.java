@@ -16,7 +16,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.atlasapi.equiv.ContentRef;
 import org.atlasapi.equiv.EquivalenceRecord;
 import org.atlasapi.equiv.EquivalenceRecordStore;
 import org.atlasapi.equiv.EquivalenceRecordWriter;
@@ -191,12 +190,12 @@ public class TransitiveEquivalenceRecordWriterTest {
 
     protected void writeLookup(Content subject, ImmutableSet<? extends Content> equivs,
             Set<Publisher> publishers) {
-        writer.writeLookup(ContentRef.valueOf(subject), Iterables.transform(equivs,
-                new Function<Content, ContentRef>() {
+        writer.writeRecord(EquivalenceRef.valueOf(subject), Iterables.transform(equivs,
+                new Function<Content, EquivalenceRef>() {
 
                     @Override
-                    public ContentRef apply(@Nullable Content input) {
-                        return ContentRef.valueOf(input);
+                    public EquivalenceRef apply(@Nullable Content input) {
+                        return EquivalenceRef.valueOf(input);
                     }
                 }), publishers);
     }
@@ -354,8 +353,8 @@ public class TransitiveEquivalenceRecordWriterTest {
         when(store.resolveRecords(ImmutableList.of(paItem.getId())))
             .thenReturn(ImmutableOptionalMap.fromMap(ImmutableMap.of(paLookupEntry.getId(), paLookupEntry)));
 
-        writer.writeLookup(ContentRef.valueOf(paItem),
-                ImmutableSet.of(ContentRef.valueOf(pnItem)),
+        writer.writeRecord(EquivalenceRef.valueOf(paItem),
+                ImmutableSet.of(EquivalenceRef.valueOf(pnItem)),
                 ImmutableSet.of(Publisher.PA, Publisher.PREVIEW_NETWORKS));
 
         verify(store, never()).writeRecords(Mockito.<Iterable<EquivalenceRecord>>any());

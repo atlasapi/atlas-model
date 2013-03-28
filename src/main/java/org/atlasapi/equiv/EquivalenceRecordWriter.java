@@ -6,7 +6,7 @@ import org.atlasapi.media.entity.Publisher;
 
 public interface EquivalenceRecordWriter {
 
-    void writeLookup(ContentRef subject, Iterable<ContentRef> equivalents, 
+    void writeRecord(EquivalenceRef subject, Iterable<EquivalenceRef> equivalents, 
             Set<Publisher> publishers);
     
 }
