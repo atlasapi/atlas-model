@@ -1,5 +1,6 @@
 package org.atlasapi.equiv;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Predicates.in;
 import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Iterables.transform;
@@ -49,18 +50,18 @@ public class TransitiveEquivalenceRecordWriter implements EquivalenceRecordWrite
     private final boolean explicit;
     
     private TransitiveEquivalenceRecordWriter(EquivalenceRecordStore store, boolean explicit) {
-        this.store = store;
+        this.store = checkNotNull(store);
         this.explicit = explicit;
     }
 
     @Override
-    public void writeLookup(ContentRef subj, Iterable<ContentRef> equivRefs,
+    public void writeRecord(EquivalenceRef subj, Iterable<EquivalenceRef> equivRefs,
             Set<Publisher> publishers) {
         
         Preconditions.checkNotNull(subj, "null subject");
         final ImmutableSet<Publisher> sources = ImmutableSet.copyOf(publishers);
         Predicate<Sourced> sourceFilter = Sourceds.sourceFilter(sources);
-        ImmutableSet<ContentRef> newAdjacents = ImmutableSet.copyOf(
+        ImmutableSet<EquivalenceRef> newAdjacents = ImmutableSet.copyOf(
             Iterables.filter(equivRefs, sourceFilter));
         Id subjId = subj.getId();
         
@@ -114,7 +115,7 @@ public class TransitiveEquivalenceRecordWriter implements EquivalenceRecordWrite
                                          : Sets.difference(relevantEquivs, subjectRef);
     }
 
-    private boolean noChangeInAdjacents(ContentRef subj, ImmutableSet<ContentRef> equivalents,
+    private boolean noChangeInAdjacents(EquivalenceRef subj, ImmutableSet<EquivalenceRef> equivalents,
             Set<EquivalenceRef> relevantEquivalents) {
         Iterable<Id> equivalentIds = Iterables.transform(equivalents, Identifiables.toId());
         ImmutableSet<Id> currentEquivalents = ImmutableSet.copyOf(transform(relevantEquivalents,Identifiables.toId()));
@@ -181,26 +182,27 @@ public class TransitiveEquivalenceRecordWriter implements EquivalenceRecordWrite
         ), Identifiables.toId()));
     }
     
-    private Set<EquivalenceRecord> recordsFor(Iterable<ContentRef> refs) {
+    private Set<EquivalenceRecord> recordsFor(Iterable<EquivalenceRef> refs) {
         Iterable<Id> ids = Iterables.transform(refs,Identifiables.toId());
         OptionalMap<Id, EquivalenceRecord> resolved = store.resolveRecords(ids);
         ImmutableSet.Builder<EquivalenceRecord> records = ImmutableSet.builder();
-        for (ContentRef ref : refs) {
+        for (EquivalenceRef ref : refs) {
             records.add(resolved.get(ref.getId()).or(EquivalenceRecord.valueOf(ref)));
         }
         return records.build();
     }
         
-    private Map<Id, EquivalenceRecord> transitiveClosure(EquivalenceRecord subject, Set<EquivalenceRecord> records) {
+    private Map<Id, EquivalenceRecord> transitiveClosure(EquivalenceRecord subject, Set<EquivalenceRecord> adjacents) {
         
         Map<Id, EquivalenceRecord> closure = Maps.newHashMap();
         
         Set<Id> ids = Sets.newHashSet();
         
-        closure.put(subject.getId(), subject);
-        ids.addAll(Collections2.transform(subject.getEquivalents(), Identifiables.toId()));
-        for (EquivalenceRecord record : records) {
+        for (EquivalenceRecord record : Iterables.concat(ImmutableList.of(subject), adjacents)) {
             closure.put(record.getId(), record);
+            if (ids.size() + record.getEquivalents().size() > maxSetSize) {
+                throw new IllegalArgumentException(size(subject, adjacents));
+            }
             ids.addAll(Collections2.transform(record.getEquivalents(), Identifiables.toId()));
         }
         
@@ -215,4 +217,13 @@ public class TransitiveEquivalenceRecordWriter implements EquivalenceRecordWrite
         log.trace("READ transitive set: {}", refList);
         return closure;
     }
+    
+    private String size(EquivalenceRecord subject, Set<EquivalenceRecord> adjacents) {
+        int size = subject.getEquivalents().size();
+        for (EquivalenceRecord adjacent : adjacents) {
+            size += adjacent.getEquivalents().size();
+        }
+        return String.valueOf(size);
+    }
+    
 }
