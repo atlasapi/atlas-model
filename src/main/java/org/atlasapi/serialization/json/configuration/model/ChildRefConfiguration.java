@@ -10,6 +10,6 @@ import org.joda.time.DateTime;
 public abstract class  ChildRefConfiguration {
     
     @JsonCreator
-    ChildRefConfiguration (@JsonProperty("uri") String uri, @JsonProperty("sortKey") String sortKey, @JsonProperty("updated") DateTime updated, @JsonProperty("type") EntityType type) {
+    ChildRefConfiguration (@JsonProperty("id") Long id, @JsonProperty("uri") String uri, @JsonProperty("sortKey") String sortKey, @JsonProperty("updated") DateTime updated, @JsonProperty("type") EntityType type) {
     }
 }

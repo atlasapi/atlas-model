@@ -79,7 +79,7 @@ public class JsonFactoryTest {
         Container container = new Container("uri", "curie", Publisher.BBC);
         container.setId(1L);
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
-        container.setChildRefs(Arrays.asList(new ChildRef("child", "sort", new DateTime(), EntityType.ITEM)));
+        container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
 
@@ -94,7 +94,7 @@ public class JsonFactoryTest {
         Container container = new Container("uri", "curie", Publisher.BBC);
         container.setId(1L);
         container.setClips(Arrays.asList(new Clip("uri", "curie", Publisher.BBC)));
-        container.setChildRefs(Arrays.asList(new ChildRef("child", "sort", new DateTime(), EntityType.ITEM)));
+        container.setChildRefs(Arrays.asList(new ChildRef(1L, "child", "sort", new DateTime(), EntityType.ITEM)));
 
         ObjectMapper mapper = JsonFactory.makeJsonMapper();
         FilterProvider filters = new SimpleFilterProvider().addFilter(FilteredItemConfiguration.FILTER, SimpleBeanPropertyFilter.serializeAllExcept(Collections.EMPTY_SET)).
