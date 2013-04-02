@@ -3,6 +3,8 @@ package org.atlasapi.media.entity;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
@@ -15,6 +17,7 @@ public class ChildRef implements Comparable<ChildRef> {
     private static final Ordering<ChildRef> NATURAL = Ordering.natural().reverse();
     private static final Ordering<ChildRef> UPDATED_ORDERING = Ordering.from(new UpdatedComparator());
     
+    private final Long id;
     private final String uri;
     private final String sortKey;
     private final DateTime updated;
@@ -24,11 +27,17 @@ public class ChildRef implements Comparable<ChildRef> {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(childRefs));
     }
     
-    public ChildRef(String uri, String sortKey, DateTime updated, EntityType type) {
+    public ChildRef(@Nullable Long id, String uri, String sortKey, DateTime updated, EntityType type) {
+        this.id = id;
         this.uri = Preconditions.checkNotNull(uri);
         this.sortKey =  Preconditions.checkNotNull(sortKey);
         this.type = Preconditions.checkNotNull(type);
         this.updated = updated;
+    }
+    
+    @Nullable
+    public Long getId() {
+        return id;
     }
     
     public String getUri() {
