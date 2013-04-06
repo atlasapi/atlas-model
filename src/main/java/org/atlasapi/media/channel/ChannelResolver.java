@@ -16,6 +16,8 @@ public interface ChannelResolver extends ChannelLister {
 	Maybe<Channel> fromUri(String uri);
 	
 	Iterable<Channel> forIds(Iterable<Id> ids);
+	
+    Maybe<Channel> forAlias(String alias);
 		
 	/**
 	 * Return a map whose keys are aliases prefixed with aliasPrefix
