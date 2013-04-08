@@ -75,7 +75,8 @@ public class ContentRef implements Identifiable, Sourced {
         }
         if (that instanceof ContentRef) {
             ContentRef other = (ContentRef) that; 
-            return parentId.equals(other.parentId);
+            return id.equals(other.id) 
+                && Objects.equal(parentId, other.parentId);
         }
         return false;
     }
