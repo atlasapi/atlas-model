@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Comparator;
 
 import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.common.Id;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
@@ -113,34 +114,34 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     
     public static final class ItemRefAndBroadcast {
         
-        private final String uri;
+        private final Id id;
         private final Broadcast broadcast;
 
-        public ItemRefAndBroadcast(String uri, Broadcast broadcast) {
-            this.uri = checkNotNull(uri);
+        public ItemRefAndBroadcast(Id id, Broadcast broadcast) {
+            this.id = checkNotNull(id);
             this.broadcast = checkNotNull(broadcast);
         }
         
         public ItemRefAndBroadcast(Item item, Broadcast broadcast) {
-            this(item.getCanonicalUri(), broadcast);
+            this(item.getId(), broadcast);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(uri, broadcast);
+            return Objects.hashCode(id, broadcast);
         }
         
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof ItemRefAndBroadcast) {
                 ItemRefAndBroadcast other = (ItemRefAndBroadcast) obj;
-                return uri.equals(other.uri) && broadcast.equals(other.broadcast);
+                return id.equals(other.id) && broadcast.equals(other.broadcast);
             }
             return false;
         }
 
-        public String getItemUri() {
-            return uri;
+        public Id getItemId() {
+            return id;
         }
         
         public Broadcast getBroadcast() {
@@ -149,7 +150,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         
         @Override
         public String toString() {
-            return String.format("%s: %s", uri, broadcast);
+            return String.format("%s: %s", id, broadcast);
         }
     }
 }
