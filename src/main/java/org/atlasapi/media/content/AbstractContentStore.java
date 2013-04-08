@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -282,29 +283,10 @@ public abstract class AbstractContentStore implements ContentStore {
     }
 
     private Content getPreviousContent(Content c) {
-        Content previous = null ;
-        if (c.getId() != null) {
-            previous = resolveId(c.getId());
-        }
-        
-        if (previous == null) {
-            previous = resolveAliases(c);
-        }
-        return previous;
+        return resolvePrevious(c.getId(), c.getPublisher(),  c.getAliases());
     }
 
-    private Content resolveAliases(Content c) {
-        Content previous = null;
-        Iterator<Alias> aliases = c.getAliases().iterator();
-        while (previous == null && aliases.hasNext()) {
-            previous = resolveAlias(aliases.next(), c.getPublisher());
-        }
-        return previous;
-    }
-
-    protected abstract @Nullable Content resolveAlias(Alias alias, Publisher source);
-
-    protected abstract @Nullable Content resolveId(Id id);
+    protected abstract @Nullable Content resolvePrevious(@Nullable Id id, Publisher source, Set<Alias> aliases);
 
     private void write(Content content) {
         ensureId(content);
