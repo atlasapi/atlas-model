@@ -24,7 +24,7 @@ public class LookupEntry {
         LookupRef lookupRef = LookupRef.from(c);
         Set<String> aliases = ImmutableSet.copyOf(c.getAllUris());
         ImmutableSet<LookupRef> reflexiveSet = ImmutableSet.of(lookupRef);
-        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAliases(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
+        return new LookupEntry(c.getCanonicalUri(), c.getId(), lookupRef, c.getAliasUrls(), c.getAliases(), reflexiveSet, reflexiveSet, reflexiveSet, now, now);
     }
     
     public static Function<LookupEntry,Id> TO_ID = new Function<LookupEntry, Id>() {
@@ -64,6 +64,7 @@ public class LookupEntry {
     
     private final String uri;
     private final Id id;
+    private final Set<String> aliasUris;
     private final Set<Alias> aliases;
     
     private final Set<LookupRef> directEquivalents;
@@ -75,14 +76,15 @@ public class LookupEntry {
 
     private final LookupRef self;
 
-    public LookupEntry(String uri, long id, LookupRef self, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
-        this(uri, Id.valueOf(id), self, aliases, directEquivs, explicit, equivs, created, updated);
+    public LookupEntry(String uri, long id, LookupRef self, Set<String> aliasUris, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
+        this(uri, Id.valueOf(id), self, aliasUris, aliases, directEquivs, explicit, equivs, created, updated);
     }
 
-    public LookupEntry(String uri, Id id, LookupRef self, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
+    public LookupEntry(String uri, Id id, LookupRef self, Set<String> aliasUris, Set<Alias> aliases, Set<LookupRef> directEquivs, Set<LookupRef> explicit, Set<LookupRef> equivs, DateTime created, DateTime updated) {
         this.uri = uri;
         this.id = id;
         this.self = self;
+        this.aliasUris = aliasUris;
         this.aliases = aliases;
         this.directEquivalents = directEquivs != null ? ImmutableSet.copyOf(directEquivs) : ImmutableSet.<LookupRef>of();
         this.explicit = explicit != null ? ImmutableSet.copyOf(explicit) : ImmutableSet.<LookupRef>of();
@@ -97,6 +99,10 @@ public class LookupEntry {
     
     public Id id() {
         return id;
+    }
+    
+    public Set<String> aliasUrls() {
+        return aliasUris;
     }
 
     public Set<Alias> aliases() {
@@ -113,7 +119,7 @@ public class LookupEntry {
 
     public LookupEntry copyWithExplicitEquivalents(Iterable<LookupRef> newExplicits) {
         List<LookupRef> explicit = ImmutableList.<LookupRef>builder().addAll(newExplicits).add(self).build();
-        return new LookupEntry(uri, id, self, aliases, directEquivalents, ImmutableSet.copyOf(explicit), this.equivs, created, new DateTime(DateTimeZones.UTC));
+        return new LookupEntry(uri, id, self, aliasUris, aliases, directEquivalents, ImmutableSet.copyOf(explicit), this.equivs, created, new DateTime(DateTimeZones.UTC));
     }
     
     public Set<LookupRef> equivalents() {
@@ -122,7 +128,7 @@ public class LookupEntry {
 
     public LookupEntry copyWithEquivalents(Iterable<LookupRef> newEquivs) {
         Set<LookupRef> equivs = ImmutableSet.<LookupRef>builder().addAll(newEquivs).add(self).build();
-        return new LookupEntry(uri, id, self, aliases, directEquivalents, explicit, equivs, created, new DateTime(DateTimeZones.UTC));
+        return new LookupEntry(uri, id, self, aliasUris, aliases, directEquivalents, explicit, equivs, created, new DateTime(DateTimeZones.UTC));
     }
     
     public Set<LookupRef> directEquivalents() {
@@ -131,7 +137,7 @@ public class LookupEntry {
     
     public LookupEntry copyWithDirectEquivalents(Iterable<LookupRef> directEquivalents) {
         List<LookupRef> dequivs = ImmutableList.<LookupRef>builder().addAll(directEquivalents).add(self).build();
-        return new LookupEntry(uri, id, self, aliases, ImmutableSet.copyOf(dequivs), explicit, equivs, created, new DateTime(DateTimeZones.UTC));
+        return new LookupEntry(uri, id, self, aliasUris, aliases, ImmutableSet.copyOf(dequivs), explicit, equivs, created, new DateTime(DateTimeZones.UTC));
     }
 
     public DateTime created() {
@@ -145,7 +151,7 @@ public class LookupEntry {
     public List<LookupEntry> entriesForIdentifiers() {
         List<LookupEntry> entries = Lists.newArrayList(this);
         for (Alias alias : aliases) {
-            entries.add(new LookupEntry(alias.getValue(), id, self, ImmutableSet.<Alias>of(), ImmutableSet.<LookupRef>of(), ImmutableSet.<LookupRef>of(), this.equivs, created, updated));
+            entries.add(new LookupEntry(alias.getValue(), id, self, ImmutableSet.<String>of(), ImmutableSet.<Alias>of(), ImmutableSet.<LookupRef>of(), ImmutableSet.<LookupRef>of(), this.equivs, created, updated));
         }
         return ImmutableList.copyOf(entries);
     }
