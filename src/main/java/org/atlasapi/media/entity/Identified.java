@@ -40,6 +40,7 @@ public class Identified implements Identifiable {
 
 	private String curie;
 
+	@Deprecated
 	private Set<String> aliasUrls = Sets.newHashSet();
 	private Set<Alias> aliases = Sets.newHashSet();
 	
@@ -68,6 +69,7 @@ public class Identified implements Identifiable {
 		this(uri, null);
 	}
 	
+	@Deprecated
 	@RdfProperty(relation = true, namespace=OWL.NS, uri="sameAs")
 	public Set<String> getAliasUrls() {
 		return aliasUrls;
@@ -86,6 +88,7 @@ public class Identified implements Identifiable {
 		this.curie = curie;
 	}
 	
+	@Deprecated
 	public void setAliasUrls(Iterable<String> urls) {
 		this.aliasUrls = ImmutableSortedSet.copyOf(urls);
 	}
@@ -94,6 +97,7 @@ public class Identified implements Identifiable {
         this.aliases = ImmutableSet.copyOf(aliases);
     }
     
+    @Deprecated
     public void addAliasUrl(String alias) {
         addAliasUrls(ImmutableList.of(alias));
     }
@@ -102,6 +106,7 @@ public class Identified implements Identifiable {
         addAliases(ImmutableList.of(alias));
     }
     
+    @Deprecated
     public void addAliasUrls(Iterable<String> urls) {
         setAliasUrls(Iterables.concat(this.aliasUrls, ImmutableList.copyOf(urls)));
     }
@@ -119,6 +124,7 @@ public class Identified implements Identifiable {
 		return curie;
 	}
 
+	@Deprecated
 	public Set<String> getAllUris() {
 		Set<String> allUris = Sets.newHashSet(getAliasUrls());
 		allUris.add(getCanonicalUri());
