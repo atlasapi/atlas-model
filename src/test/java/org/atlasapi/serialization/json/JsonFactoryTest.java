@@ -202,18 +202,4 @@ public class JsonFactoryTest {
         assertEquals(message, read);
     }
     
-    @Test
-    public void testLookupEntry() throws Exception {
-        Item item = new Item("item", "item", Publisher.BBC);
-        item.setAliasUrls(ImmutableList.of("alias1","alias2"));
-        item.setId(Id.valueOf(1234L));
-        LookupEntry entry = LookupEntry.lookupEntryFrom(item);
-
-        ObjectMapper mapper = JsonFactory.makeJsonMapper();
-        
-        String json = mapper.writeValueAsString(entry);
-        LookupEntry read = mapper.readValue(json, LookupEntry.class);
-        assertEquals(entry, read);
-    }
-    
 }
