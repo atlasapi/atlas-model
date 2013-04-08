@@ -10,10 +10,8 @@ public class Alias {
     private final String value;
     
     public Alias(String namespace, String value) {
-        checkNotNull(namespace);
-        checkNotNull(value);
-        this.namespace = namespace;
-        this.value = value;
+        this.namespace = checkNotNull(namespace);
+        this.value = checkNotNull(value);
     }
 
     public String getNamespace() {
@@ -26,7 +24,7 @@ public class Alias {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(namespace, value);
+        return namespace.hashCode() ^ value.hashCode();
     }
     
     @Override
@@ -35,14 +33,18 @@ public class Alias {
             return true;
         }
         if (that instanceof Alias) {
-            Alias other = (Alias)that;
-            return namespace.equals(other.namespace) && value.equals(other.value);
+            Alias other = (Alias) that;
+            return namespace.equals(other.namespace)
+                && value.equals(other.value);
         }
         return false;
     }
     
     @Override
     public String toString() {
-        return String.format("Alias: Namespace: %s Value: %s", namespace, value);
+        return Objects.toStringHelper(getClass())
+                .add("namespace", namespace)
+                .add("value", value)
+                .toString();
     }
 }
