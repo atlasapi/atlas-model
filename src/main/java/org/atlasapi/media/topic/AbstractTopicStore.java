@@ -3,6 +3,7 @@ package org.atlasapi.media.topic;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -65,23 +66,10 @@ public abstract class AbstractTopicStore implements TopicStore {
     protected abstract void doWrite(Topic topic);
 
     private Topic getPreviousTopic(Topic topic) {
-        Topic previous = null;
-        if (topic.getId() != null) {
-            previous = doResolveId(topic.getId());
-        }
-        if (previous == null) {
-            Iterator<Alias> aliases = topic.getAliases().iterator();
-            while (previous == null && aliases.hasNext()) {
-                previous = doResolveAlias(aliases.next(), topic.getPublisher());
-            }
-        }
-        return previous;
+        return resolvePrevious(topic.getId(), topic.getPublisher(), topic.getAliases());
     }
-
+    
     @Nullable
-    protected abstract Topic doResolveId(Id id);
-
-    @Nullable
-    protected abstract Topic doResolveAlias(Alias alias, Publisher publisher);
+    protected abstract Topic resolvePrevious(@Nullable Id id, Publisher source, Set<Alias> aliases);
     
 }

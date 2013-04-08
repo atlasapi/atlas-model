@@ -1,6 +1,7 @@
 package org.atlasapi.media.topic;
 
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.util.Resolved;
 import org.atlasapi.media.util.WriteResult;
@@ -20,7 +21,7 @@ public abstract class ForwardingTopicStore implements TopicStore {
     }
 
     @Override
-    public OptionalMap<String, Topic> resolveAliases(Iterable<String> aliases, Publisher source) {
+    public OptionalMap<Alias, Topic> resolveAliases(Iterable<Alias> aliases, Publisher source) {
         return delegate().resolveAliases(aliases, source);
     }
 
