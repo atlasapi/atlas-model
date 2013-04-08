@@ -6,6 +6,7 @@ import org.atlasapi.media.vocabulary.DCTERMS;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 @RdfClass(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "List")
 public class ContentGroup extends Described implements MutableContentList {
@@ -13,7 +14,7 @@ public class ContentGroup extends Described implements MutableContentList {
     private transient String readHash;
     //
     private Type type;
-    private ImmutableList<ChildRef> contents = ImmutableList.of();
+    private ImmutableSet<ChildRef> contents = ImmutableSet.of();
 
     public ContentGroup(String uri) {
         super(uri);
@@ -36,7 +37,7 @@ public class ContentGroup extends Described implements MutableContentList {
 
     @RdfProperty(relation = true, namespace = DCTERMS.NS, uri = "hasPart")
     public ImmutableList<ChildRef> getContents() {
-        return contents;
+        return contents.asList();
     }
 
     public void setType(Type type) {
@@ -48,15 +49,15 @@ public class ContentGroup extends Described implements MutableContentList {
     }
 
     public void setContents(Iterable<ChildRef> children) {
-        this.contents = ImmutableList.copyOf(children);
+        this.contents = ImmutableSet.copyOf(children);
     }
 
     public void addContent(ChildRef childRef) {
-        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).add(childRef).build();
+        this.contents = ImmutableSet.<ChildRef>builder().addAll(this.getContents()).add(childRef).build();
     }
 
     public void addContents(Iterable<ChildRef> childRef) {
-        this.contents = ImmutableList.<ChildRef>builder().addAll(this.getContents()).addAll(childRef).build();
+        this.contents = ImmutableSet.<ChildRef>builder().addAll(this.getContents()).addAll(childRef).build();
     }
     
     public void setReadHash(String readHash) {
