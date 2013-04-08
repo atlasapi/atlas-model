@@ -27,12 +27,14 @@ public class BroadcastMergingTest {
     @Test
     public void testBroadcastMergingNoBroadcasts() {
         Item chosenItem = new Item();
+        chosenItem.setId(1);
         chosenItem.setPublisher(Publisher.BBC);
         chosenItem.setCanonicalUri("chosenItem");
         Version emptyVersion = new Version();
         chosenItem.addVersion(emptyVersion);
 
         Item notChosenItem = new Item();
+        notChosenItem.setId(2);
         notChosenItem.setPublisher(Publisher.FACEBOOK);
         notChosenItem.setCanonicalUri("notChosenItem");
         Version version = new Version();
@@ -50,6 +52,7 @@ public class BroadcastMergingTest {
     @Test
     public void testBroadcastMergingNonMatchingBroadcasts() {
         Item chosenItem = new Item();
+        chosenItem.setId(1);
         chosenItem.setPublisher(Publisher.BBC);
         chosenItem.setCanonicalUri("chosenItem");
         Version chosenVersion = new Version();
@@ -57,6 +60,7 @@ public class BroadcastMergingTest {
         chosenItem.addVersion(chosenVersion);
 
         Item notChosenItem = new Item();
+        notChosenItem.setId(2);
         notChosenItem.setPublisher(Publisher.FACEBOOK);
         notChosenItem.setCanonicalUri("notChosenItem");
         Version version = new Version();
@@ -77,6 +81,7 @@ public class BroadcastMergingTest {
     @Test
     public void testBroadcastMergingMatchingBroadcasts() {
         Item chosenItem = new Item();
+        chosenItem.setId(1);
         chosenItem.setPublisher(Publisher.BBC);
         chosenItem.setCanonicalUri("chosenItem");
         Version chosenVersion = new Version();
@@ -88,6 +93,7 @@ public class BroadcastMergingTest {
         chosenItem.addVersion(chosenVersion);
 
         Item notChosenItem = new Item();
+        notChosenItem.setId(2);
         notChosenItem.setCanonicalUri("notChosenItem");
         notChosenItem.setPublisher(Publisher.FACEBOOK);
         Version version = new Version();
@@ -120,6 +126,7 @@ public class BroadcastMergingTest {
     @Test
     public void testBroadcastMergingMatchingBroadcastsWithPrecedence() {
         Item chosenItem = new Item();
+        chosenItem.setId(1);
         chosenItem.setCanonicalUri("chosenItem");
         chosenItem.setPublisher(Publisher.BBC);
         Version chosenVersion = new Version();
@@ -131,6 +138,7 @@ public class BroadcastMergingTest {
         chosenItem.addVersion(chosenVersion);
 
         Item notChosenBbcItem = new Item();
+        notChosenBbcItem.setId(2);
         notChosenBbcItem.setCanonicalUri("notChosenItem");
         notChosenBbcItem.setPublisher(Publisher.BBC);
         Version version = new Version();
@@ -144,6 +152,7 @@ public class BroadcastMergingTest {
         notChosenBbcItem.addVersion(version);
         
         Item notChosenFbItem = new Item();
+        notChosenFbItem.setId(2);
         notChosenFbItem.setCanonicalUri("notChosenItem");
         notChosenFbItem.setPublisher(Publisher.FACEBOOK);
         version = new Version();
