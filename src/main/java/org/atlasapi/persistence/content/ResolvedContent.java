@@ -62,7 +62,7 @@ public class ResolvedContent {
         return result != null && result.hasValue();
     }
 
-    public Maybe<Identified> get(String query) {
+    public Maybe<Identified> get(Id query) {
         if (map.containsKey(query)) {
             return map.get(query);
         }
