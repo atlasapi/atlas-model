@@ -59,6 +59,11 @@ public abstract class QueryVisitorAdapter<V> implements QueryVisitor<V> {
 	    return defaultValue(query);
 	}
 	
+	@Override
+	public V visit(FloatAttributeQuery query) {
+	    return defaultValue(query);
+	}
+	
 	protected V defaultValue(AtomicQuery query) {
 		return null;
 	}

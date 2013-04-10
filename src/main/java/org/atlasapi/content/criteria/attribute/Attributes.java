@@ -38,6 +38,7 @@ public class Attributes {
     
     public static final Attribute<Id> TOPIC_ID = idListAttribute("topics.topic.id", Identified.class);
     public static final Attribute<String> TOPIC_RELATIONSHIP = stringListAttribute("topics.relationship", Identified.class);
+    public static final Attribute<Float> TOPIC_WEIGHTING = new FloatValuedAttribute("topics.weighting", Identified.class);
     
     
 	// Simple string-valued attributes
