@@ -171,7 +171,7 @@ public class Operators {
 		}
 
 		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return Integer.class.equals(lhs) && Integer.class.equals(rhs);
+            return Number.class.isAssignableFrom(lhs) && Number.class.isAssignableFrom(rhs);
 		}
 	}
 	
@@ -186,7 +186,7 @@ public class Operators {
 		}
 
 		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return Integer.class.equals(lhs) && Integer.class.equals(rhs);
+			 return Number.class.isAssignableFrom(lhs) && Number.class.isAssignableFrom(rhs);
 		}
 	}
 }

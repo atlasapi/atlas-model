@@ -30,4 +30,6 @@ public interface QueryVisitor<T> {
 	
 	T visit(IdAttributeQuery query);
 	
+	T visit(FloatAttributeQuery query);
+	
 }
