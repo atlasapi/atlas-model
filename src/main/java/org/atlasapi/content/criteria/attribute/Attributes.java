@@ -33,6 +33,7 @@ import com.google.common.collect.Maps;
 public class Attributes {
 
     public static final Attribute<Id> ID = idListAttribute("id", Identified.class);
+    public static final Attribute<Publisher> SOURCE = new EnumValuedAttribute<Publisher>("source", Publisher.class, Identified.class);
     public static final Attribute<String> ALIASES_NAMESPACE = stringListAttribute("aliases.namespace", Identified.class);
     public static final Attribute<String> ALIASES_VALUE = stringListAttribute("aliases.value", Identified.class);
     
