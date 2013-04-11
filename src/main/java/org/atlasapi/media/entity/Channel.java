@@ -1215,6 +1215,10 @@ public class Channel implements SelfModelling {
     public static final Channel MORE_MOVIES = new Channel("more>movies", CHANNEL_URI_PREFIX+"pressassociation.com/1682", "pa-channel-1682", false);
     public static final Channel MORE_MOVIES_PLUS_ONE = new Channel("more>movies+1", CHANNEL_URI_PREFIX+"pressassociation.com/1740", "pa-channel-1740", false);
     
+    public static final Channel TLC = new Channel("TLC", CHANNEL_URI_PREFIX+"pressassociation.com/1789", "pa-channel-1789", false);
+    public static final Channel TLC_PLUS_ONE = new Channel("TLC+1", CHANNEL_URI_PREFIX+"pressassociation.com/1790", "pa-channel-1790", false);
+    public static final Channel TLC_HD = new Channel("TLC HD", CHANNEL_URI_PREFIX+"pressassociation.com/1794", "pa-channel-1794", false);
+    
     
     private final String uri;
     private final String title;
