@@ -5,11 +5,15 @@ import static com.google.common.base.Preconditions.checkArgument;
 import org.atlasapi.application.SourceStatus;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
 import com.metabroadcast.common.base.Maybe;
+import com.metabroadcast.common.collect.ImmutableOptionalMap;
+import com.metabroadcast.common.collect.OptionalMap;
 import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.intl.Country;
 
@@ -92,6 +96,7 @@ public enum Publisher {
         return country;
     }
 
+    @Deprecated
     public static Maybe<Publisher> fromKey(String key) {
         for (Publisher publisher : Publisher.values()) {
             if (key.equals(publisher.key())) {
@@ -103,17 +108,27 @@ public enum Publisher {
 
     @Override
     public String toString() {
-    	return key();
+        return key();
     }
 
-    public static Function<Publisher, String> TO_KEY = new Function<Publisher, String>() {
+    @Deprecated
+    public static Function<Publisher, String> TO_KEY = ToKeyFunction.INSTANCE;
+    
+    public static final Function<Publisher, String> toKey() {
+        return ToKeyFunction.INSTANCE;
+    }
+    
+    private enum ToKeyFunction implements Function<Publisher, String> {
+        INSTANCE;
+        
         @Override
         public String apply(Publisher from) {
             return from.key();
         }
-    };
+    }
 
-    public static Function<String, Publisher> FROM_KEY = new Function<String, Publisher>() {
+    @Deprecated
+    public static final Function<String, Publisher> FROM_KEY = new Function<String, Publisher>() {
         @Override
         public Publisher apply(String key) {
             Maybe<Publisher> found = fromKey(key);
@@ -121,11 +136,26 @@ public enum Publisher {
             return found.requireValue();
         }
     };
+    
+    public static final Function<String, Optional<Publisher>> fromKey() {
+        return FromKeyFunction.INSTANCE;
+    }
+    
+    private enum FromKeyFunction implements Function<String, Optional<Publisher>> {
+        INSTANCE;
+        
+        @Override
+        public Optional<Publisher> apply(String input) {
+            return KEY_LOOKUP.get(input);
+        }
+        
+    }
 
+    @Deprecated
     public static ImmutableList<Publisher> fromCsv(String csv) {
         return ImmutableList.copyOf(Iterables.transform(CSV_SPLITTER.split(csv), FROM_KEY));
     }
-
+    
     public SourceStatus getDefaultSourceStatus() {
         return defaultStatus;
     }
@@ -135,4 +165,7 @@ public enum Publisher {
     public static final ImmutableSet<Publisher> all() {
         return ALL;
     }
+    
+    private static final OptionalMap<String, Publisher> KEY_LOOKUP = 
+            ImmutableOptionalMap.fromMap(Maps.uniqueIndex(all(), toKey()));
 }
