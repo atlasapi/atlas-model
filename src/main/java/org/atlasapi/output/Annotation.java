@@ -1,7 +1,6 @@
 package org.atlasapi.output;
 
 import java.util.Map;
-import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -83,7 +82,7 @@ public enum Annotation {
         return lookup.get(key);
     }
     
-    public static final Set<Annotation> defaultAnnotations() {
+    public static final ImmutableSet<Annotation> standard() {
         return defaultAnnotations;
     }
     

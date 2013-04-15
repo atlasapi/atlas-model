@@ -60,7 +60,7 @@ public class ContentQuery {
 	}
     
     public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
-		this(operands, Annotation.defaultAnnotations(), selection, configuration);
+		this(operands, Annotation.standard(), selection, configuration);
 	}
 
 	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, ApplicationConfiguration configuration) {

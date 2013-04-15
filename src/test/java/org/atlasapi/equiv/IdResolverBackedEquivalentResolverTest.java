@@ -58,7 +58,7 @@ public class IdResolverBackedEquivalentResolverTest {
             .thenReturn(Futures.immediateFuture(Resolved.valueOf(ImmutableList.of(one, two))));
         
         ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one.getId()),
-            ImmutableSet.of(Publisher.BBC, Publisher.PA), Annotation.defaultAnnotations()).get();
+            ImmutableSet.of(Publisher.BBC, Publisher.PA), Annotation.standard()).get();
         
         assertThat(Iterables.getOnlyElement(resolved.keySet()), is(one.getId()));
         List<Content> equivs = ImmutableList.copyOf(resolved.get(one.getId()));
@@ -78,7 +78,7 @@ public class IdResolverBackedEquivalentResolverTest {
             .thenReturn(Futures.immediateFuture(Resolved.<Content>empty()));
         
         ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one),
-                ImmutableSet.of(Publisher.BBC), Annotation.defaultAnnotations()).get();
+                ImmutableSet.of(Publisher.BBC), Annotation.standard()).get();
         
         assertTrue(resolved.isEmpty());
         
@@ -97,7 +97,7 @@ public class IdResolverBackedEquivalentResolverTest {
             .thenReturn(Futures.immediateFuture(Resolved.valueOf(ImmutableList.of(one))));
         
         ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one.getId()),
-                ImmutableSet.of(Publisher.BBC), Annotation.defaultAnnotations()).get();
+                ImmutableSet.of(Publisher.BBC), Annotation.standard()).get();
         
         assertThat(ImmutableSet.copyOf(resolved.get(one.getId())), is(ImmutableSet.of(one)));
         
@@ -124,7 +124,7 @@ public class IdResolverBackedEquivalentResolverTest {
             .thenReturn(Futures.immediateFuture(Resolved.valueOf(ImmutableList.of(one))));
         
         ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one.getId()),
-                ImmutableSet.of(Publisher.BBC), Annotation.defaultAnnotations()).get();
+                ImmutableSet.of(Publisher.BBC), Annotation.standard()).get();
         
         assertThat(ImmutableSet.copyOf(resolved.get(one.getId())), is(ImmutableSet.of(one)));
         
@@ -144,7 +144,7 @@ public class IdResolverBackedEquivalentResolverTest {
             .thenReturn(Futures.immediateFuture(Resolved.valueOf(ImmutableList.of(one))));
         
         ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one.getId()),
-                ImmutableSet.of(Publisher.PA), Annotation.defaultAnnotations()).get();
+                ImmutableSet.of(Publisher.PA), Annotation.standard()).get();
 
         assertTrue(resolved.isEmpty());
         
