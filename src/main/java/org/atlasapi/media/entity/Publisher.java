@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import org.atlasapi.application.SourceStatus;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
@@ -138,6 +139,10 @@ public enum Publisher {
         }
     };
     
+    public static final Optional<Publisher> fromPossibleKey(String key) {
+        return fromKey().apply(key);
+    }
+    
     public static final Function<String, Optional<Publisher>> fromKey() {
         return FromKeyFunction.INSTANCE;
     }
@@ -151,10 +156,17 @@ public enum Publisher {
         }
         
     }
-
-    @Deprecated
+    
+    private static final Function<Optional<Publisher>, Publisher> getValue
+        = new Function<Optional<Publisher>, Publisher>() {
+            @Override
+            public Publisher apply(Optional<Publisher> input) {
+                return input.get();
+            }
+        };
+        
     public static ImmutableList<Publisher> fromCsv(String csv) {
-        return ImmutableList.copyOf(Iterables.transform(CSV_SPLITTER.split(csv), FROM_KEY));
+        return ImmutableList.copyOf(Iterables.transform(CSV_SPLITTER.split(csv), Functions.compose(getValue, fromKey())));
     }
     
     public SourceStatus getDefaultSourceStatus() {
