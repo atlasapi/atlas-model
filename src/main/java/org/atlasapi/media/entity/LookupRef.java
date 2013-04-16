@@ -1,26 +1,23 @@
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.atlasapi.persistence.content.ContentCategory.categoryFor;
 
 import java.util.List;
 
-import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.persistence.content.ContentCategory;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
-@Deprecated
 public class LookupRef {
 
     public static LookupRef from(Described subject) {
-        return new LookupRef(subject.getId(), subject.getPublisher(), categoryFor(subject));
-    }
-    
-    public static LookupRef from(ChildRef childRef, Publisher publisher) {
-        return new LookupRef(childRef.getId(), publisher, ContentCategory.CHILD_ITEM);
+        return new LookupRef(subject.getCanonicalUri(), subject.getPublisher(), categoryFor(subject));
     }
     
     public static Function<Described,LookupRef> FROM_DESCRIBED = new Function<Described, LookupRef>() {
@@ -30,19 +27,9 @@ public class LookupRef {
         }
     };
     
-    public static List<LookupRef> fromChildRefs(Iterable<ChildRef> childRefs, Publisher publisher) {
-        Builder<LookupRef> lookupRefs = ImmutableList.builder();
-        
-        for (ChildRef childRef : childRefs) {
-            lookupRefs.add(from(childRef, publisher));
-        }
-        
-        return lookupRefs.build();
-    }
-    
-    public static Function<LookupRef,Id> TO_ID = new Function<LookupRef, Id>() {
+    public static Function<LookupRef,String> TO_ID = new Function<LookupRef, String>() {
         @Override
-        public Id apply(LookupRef input) {
+        public String apply(LookupRef input) {
             return input.id();
         }
     };
@@ -54,17 +41,17 @@ public class LookupRef {
         }
     };
     
-    private final Id id;
+    private final String id;
     private final Publisher publisher;
     private final ContentCategory category;
 
-    public LookupRef(Id id, Publisher publisher, ContentCategory category) {
-        this.id = checkNotNull(id);
+    public LookupRef(String id, Publisher publisher, ContentCategory category) {
+        this.id = id;
         this.publisher = publisher;
         this.category = category;
     }
 
-    public Id id() {
+    public String id() {
         return id;
     }
 
@@ -90,11 +77,11 @@ public class LookupRef {
     
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Objects.hashCode(id, publisher);
     }
     
     @Override
     public String toString() {
-        return String.format("%s/%s (%s)", publisher.key(), id, category);
+        return String.format("Equiv:%s(%s,%s)", id, publisher.title(), category);
     }
 }
