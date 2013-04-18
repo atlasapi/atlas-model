@@ -444,6 +444,7 @@ public class Channel implements SelfModelling {
     public static final Channel PROPELLER_TV = new Channel("Propeller TV", CHANNEL_URI_PREFIX + "propellertv", "propellertv", false);
     public static final Channel MTVN_HD = new Channel("MTVn HD", CHANNEL_URI_PREFIX + "mtvnhd", "mtvnhd", true);
     public static final Channel INVESTIGATION_DISCOVERY = new Channel("Investigation Discovery", CHANNEL_URI_PREFIX + "investigationdiscovery", "investigationdiscovery", false);
+    public static final Channel INVESTIGATION_DISCOVERY_PLUS_1 = new Channel("Investigation Discovery +1", CHANNEL_URI_PREFIX+"pressassociation.com/1795", "pa-channel-1795", false);
     public static final Channel AIT_INTERNATIONAL = new Channel("Ait International", CHANNEL_URI_PREFIX + "aitinternational", "aitinternational", false);
     public static final Channel CINEMOI = new Channel("CINEMOI", CHANNEL_URI_PREFIX + "cinemoi", "cinemoi", false);
     public static final Channel SKY_ARTS_2_HD = new Channel("Sky Arts 2 HD", CHANNEL_URI_PREFIX + "skyarts2hd", "skyarts2hd", true);
