@@ -42,7 +42,7 @@ public class OutputContentMerger {
 
     @SuppressWarnings("unchecked")
     public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
-        Comparator<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
+        Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
         Set<T> processed = Sets.newHashSet();
@@ -51,10 +51,8 @@ public class OutputContentMerger {
             if (processed.contains(content)) {
                 continue;
             }
-            List<T> same = findSame(content, contents);
+            List<T> same = contentComparator.sortedCopy(findSame(content, contents));
             processed.addAll(same);
-
-            Collections.sort(same, contentComparator);
 
             T chosen = same.get(0);
 
@@ -92,11 +90,7 @@ public class OutputContentMerger {
 
             @Override
             public int compare(Content o1, Content o2) {
-                int cmp = byPublisher.compare(o1.getPublisher(), o2.getPublisher());
-                if (cmp != 0) {
-                    return cmp;
-                }
-                return o1.getCanonicalUri().compareTo(o2.getCanonicalUri());
+                return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
             }
         };
     }
