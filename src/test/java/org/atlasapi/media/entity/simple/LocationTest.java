@@ -17,7 +17,6 @@ public class LocationTest {
         
         DateTime now = new DateTime(DateTimeZones.UTC);
         
-        location.setAvailable(null);
         location.setAvailabilityStart(now.minusHours(1).toDate());
         location.setActualAvailabilityStart(null);
         location.setAvailabilityEnd(now.plusHours(1).toDate());
@@ -31,7 +30,6 @@ public class LocationTest {
         
         DateTime now = new DateTime(DateTimeZones.UTC);
         
-        location.setAvailable(null);
         location.setAvailabilityStart(now.plusHours(1).toDate());
         location.setActualAvailabilityStart(null);
         location.setAvailabilityEnd(now.plusHours(2).toDate());
@@ -45,7 +43,6 @@ public class LocationTest {
         
         DateTime now = new DateTime(DateTimeZones.UTC);
         
-        location.setAvailable(null);
         location.setAvailabilityStart(now.minusHours(1).toDate());
         location.setActualAvailabilityStart(now.plusHours(1).toDate());
         location.setAvailabilityEnd(now.plusHours(2).toDate());
@@ -59,7 +56,6 @@ public class LocationTest {
         
         DateTime now = new DateTime(DateTimeZones.UTC);
         
-        location.setAvailable(null);
         location.setAvailabilityStart(now.minusHours(2).toDate());
         location.setActualAvailabilityStart(now.minusHours(1).toDate());
         location.setAvailabilityEnd(now.plusHours(2).toDate());

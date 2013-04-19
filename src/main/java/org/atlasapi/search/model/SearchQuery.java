@@ -181,7 +181,7 @@ public class SearchQuery {
         return this.currentBroadcastsOnly;
     }
     
-    public float getPriorityChannelBoost() {
+    public float getPriorityChannelWeighting() {
         return this.priorityChannelWeighting;
     }
     

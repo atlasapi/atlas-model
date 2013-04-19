@@ -342,7 +342,7 @@ public class Location extends Version {
         return IS_AVAILABLE.apply(this);
     }
     
-    public void setAvailable(Boolean available) {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 
@@ -466,7 +466,7 @@ public class Location extends Version {
         copy.setEmbedId(getEmbedId());
         copy.setPlatform(getPlatform());
         copy.setNetwork(getNetwork());
-        
+        copy.setAvailable(available);
         return copy;
     }
 

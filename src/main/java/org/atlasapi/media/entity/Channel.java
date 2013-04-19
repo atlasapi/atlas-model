@@ -444,6 +444,7 @@ public class Channel implements SelfModelling {
     public static final Channel PROPELLER_TV = new Channel("Propeller TV", CHANNEL_URI_PREFIX + "propellertv", "propellertv", false);
     public static final Channel MTVN_HD = new Channel("MTVn HD", CHANNEL_URI_PREFIX + "mtvnhd", "mtvnhd", true);
     public static final Channel INVESTIGATION_DISCOVERY = new Channel("Investigation Discovery", CHANNEL_URI_PREFIX + "investigationdiscovery", "investigationdiscovery", false);
+    public static final Channel INVESTIGATION_DISCOVERY_PLUS_1 = new Channel("Investigation Discovery +1", CHANNEL_URI_PREFIX+"pressassociation.com/1795", "pa-channel-1795", false);
     public static final Channel AIT_INTERNATIONAL = new Channel("Ait International", CHANNEL_URI_PREFIX + "aitinternational", "aitinternational", false);
     public static final Channel CINEMOI = new Channel("CINEMOI", CHANNEL_URI_PREFIX + "cinemoi", "cinemoi", false);
     public static final Channel SKY_ARTS_2_HD = new Channel("Sky Arts 2 HD", CHANNEL_URI_PREFIX + "skyarts2hd", "skyarts2hd", true);
@@ -1214,6 +1215,10 @@ public class Channel implements SelfModelling {
     public static final Channel MOVIE_MIX = new Channel("Movie Mix", CHANNEL_URI_PREFIX+"pressassociation.com/1779", "pa-channel-1779", false);
     public static final Channel MORE_MOVIES = new Channel("more>movies", CHANNEL_URI_PREFIX+"pressassociation.com/1682", "pa-channel-1682", false);
     public static final Channel MORE_MOVIES_PLUS_ONE = new Channel("more>movies+1", CHANNEL_URI_PREFIX+"pressassociation.com/1740", "pa-channel-1740", false);
+    
+    public static final Channel TLC = new Channel("TLC", CHANNEL_URI_PREFIX+"pressassociation.com/1789", "pa-channel-1789", false);
+    public static final Channel TLC_PLUS_ONE = new Channel("TLC+1", CHANNEL_URI_PREFIX+"pressassociation.com/1790", "pa-channel-1790", false);
+    public static final Channel TLC_HD = new Channel("TLC HD", CHANNEL_URI_PREFIX+"pressassociation.com/1794", "pa-channel-1794", false);
     
     
     private final String uri;
