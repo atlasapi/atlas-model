@@ -9,6 +9,7 @@ public interface Equivalent<E extends Equivalent<E>> extends Identifiable, Sourc
 
     Set<EquivalenceRef> getEquivalentTo();
     
+    //I don't like this method.
     E copyWithEquivalentTo(Iterable<EquivalenceRef> equivalents);
     
 }

@@ -13,7 +13,7 @@ import com.google.common.util.concurrent.ListenableFuture;
  * identifiers inside the given set of sources.
  * 
  */
-public interface EquivalentResolver<E extends Equivalent<E>> {
+public interface EquivalentsResolver<E extends Equivalent<E>> {
 
     /**
      * Resolves the equivalent sets of content for a given set of source URIs.

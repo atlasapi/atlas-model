@@ -3,6 +3,8 @@ package org.atlasapi.equiv;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.util.Identifiables;
 
@@ -65,6 +67,11 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
     @Override
     protected SetMultimap<Id, E> delegate() {
         return entries;
+    }
+    
+    @Override
+    public ImmutableSet<E> get(@Nullable Id key) {
+        return (ImmutableSet<E>) super.get(key);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
