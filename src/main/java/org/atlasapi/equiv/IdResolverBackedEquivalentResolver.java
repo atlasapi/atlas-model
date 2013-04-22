@@ -29,9 +29,9 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.metabroadcast.common.collect.OptionalMap;
 
 public class IdResolverBackedEquivalentResolver<E extends Equivalent<E>>
-        implements EquivalentResolver<E> {
+        implements EquivalentsResolver<E> {
 
-    public static final <E extends Equivalent<E>> EquivalentResolver<E> 
+    public static final <E extends Equivalent<E>> EquivalentsResolver<E> 
             valueOf(EquivalenceRecordStore store, IdResolver<E> resolver) {
         return new IdResolverBackedEquivalentResolver<E>(store, resolver);
     }

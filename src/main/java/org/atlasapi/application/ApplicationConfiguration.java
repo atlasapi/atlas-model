@@ -30,7 +30,7 @@ public class ApplicationConfiguration {
     }
 	
 	private final Map<Publisher, SourceStatus> sourceStatuses;
-	private final Set<Publisher> enabledSources;
+	private final ImmutableSet<Publisher> enabledSources;
 	private final List<Publisher> precedence;
 	private final ImmutableSet<Publisher> writableSources;
 	
@@ -69,7 +69,7 @@ public class ApplicationConfiguration {
 	    return enabledSources.contains(source);
 	}
 	
-    public Set<Publisher> getEnabledSources() {
+    public ImmutableSet<Publisher> getEnabledSources() {
         return enabledSources;
     }
     

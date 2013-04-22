@@ -12,6 +12,7 @@ import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.ContentVisitorAdapter;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Image;
@@ -36,11 +37,12 @@ import com.google.common.collect.Sets;
 import com.google.common.collect.ImmutableSet.Builder;
 
 
-public class OutputContentMerger {
+public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
     
     private static final Ordering<Episode> SERIES_ORDER = Ordering.from(new SeriesOrder());
 
     @SuppressWarnings("unchecked")
+    @Deprecated
     public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
         Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
@@ -72,6 +74,26 @@ public class OutputContentMerger {
             merged.add(chosen);
         }
         return merged;
+    }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Content> T merge(T chosen, final Iterable<T> equivalents, final ApplicationConfiguration config) {
+        return chosen.accept(new ContentVisitorAdapter<T>() {
+            
+            @Override
+            protected T visitContainer(Container container) {
+                mergeIn(config, container, (List<Container>) equivalents);
+                return (T) container;
+            }
+            
+            @Override
+            protected T visitItem(Item item) {
+                mergeIn(config, item, (List<Item>) equivalents);
+                return (T) item;
+            }
+            
+        });
     }
     
     @SuppressWarnings("unchecked")

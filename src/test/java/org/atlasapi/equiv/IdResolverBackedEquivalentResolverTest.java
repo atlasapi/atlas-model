@@ -36,7 +36,7 @@ public class IdResolverBackedEquivalentResolverTest {
     @SuppressWarnings("unchecked")
     private IdResolver<Content> resolver = mock(IdResolver.class);
     private EquivalenceRecordStore store = mock(EquivalenceRecordStore.class);
-    private final EquivalentResolver<Content> equivResolver = 
+    private final EquivalentsResolver<Content> equivResolver = 
         IdResolverBackedEquivalentResolver.valueOf(store, resolver);
     
     @Test
