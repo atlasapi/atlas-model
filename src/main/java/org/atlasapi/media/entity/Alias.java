@@ -6,6 +6,8 @@ import com.google.common.base.Objects;
 
 public class Alias {
 
+    public static final String URI_NAMESPACE = "uri";
+    
     private final String namespace;
     private final String value;
     

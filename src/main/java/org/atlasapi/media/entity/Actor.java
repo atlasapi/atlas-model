@@ -52,9 +52,13 @@ public class Actor extends CrewMember {
         Preconditions.checkNotNull(publisher);
         String uri = String.format(Person.BASE_URI, publisher.key(), id);
         String curie = publisher.key()+':'+id;
-        return new Actor(uri, curie, publisher)
+        Actor actor = new Actor(uri, curie, publisher)
             .withCharacter(character)
             .withName(name);
+        actor.addAlias(new Alias(Alias.URI_NAMESPACE, uri));
+        actor.addAlias(new Alias("gb:pa:person", id));
+        
+        return actor;
     }
     
     @Override

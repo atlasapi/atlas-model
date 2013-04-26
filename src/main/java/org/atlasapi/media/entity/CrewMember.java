@@ -145,9 +145,14 @@ public class CrewMember extends Identified {
         Role role = Role.fromKey(roleKey);
         String uri = String.format(Person.BASE_URI, publisher.key(), id);
         String curie = publisher.key()+':'+id;
-        return new CrewMember(uri, curie, publisher)
+        CrewMember crewMember = new CrewMember(uri, curie, publisher)
             .withRole(role)
             .withName(name);
+        
+        crewMember.addAlias(new Alias(Alias.URI_NAMESPACE, uri));
+        crewMember.addAlias(new Alias("gb:pa:person", id));
+        
+        return crewMember;
     }
     
     public Person toPerson() {
