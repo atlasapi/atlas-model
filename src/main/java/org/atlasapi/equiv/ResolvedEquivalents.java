@@ -47,13 +47,13 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
                     }), Identifiables.toId());
             Set<EquivalenceRef> allRefs = ImmutableSet.copyOf(refMap.values());
 
-            Set<E> equivContents = Sets.newHashSetWithExpectedSize(refMap.size());
+            ImmutableSet.Builder<E> equivContents = ImmutableSet.builder();
             for (E equivalent : equivalents) {
                 EquivalenceRef ref = refMap.get(equivalent.getId());
                 Set<EquivalenceRef> equivs = Sets.filter(allRefs, Predicates.not(Predicates.equalTo(ref)));
                 equivContents.add(equivalent.copyWithEquivalentTo(ImmutableSet.copyOf(equivs)));
             }
-            return equivContents;
+            return equivContents.build();
         }
 
     }

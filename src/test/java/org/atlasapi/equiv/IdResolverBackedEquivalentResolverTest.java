@@ -151,4 +151,33 @@ public class IdResolverBackedEquivalentResolverTest {
         verify(resolver).resolveIds(argThat(hasItems(one.getId())));
     }
     
+    @Test
+    public void testReturnsRequestedIdAsFirstElementInSetIterationOrder() throws Exception {
+        
+        Content one = new Episode(Id.valueOf(1), Publisher.BBC);
+        Content two = new Episode(Id.valueOf(2), Publisher.BBC);
+        
+        EquivalenceRef refOne = EquivalenceRef.valueOf(one);
+        EquivalenceRef refTwo = EquivalenceRef.valueOf(two);
+        
+        EquivalenceRecord recOne = EquivalenceRecord.valueOf(one)
+            .copyWithEquivalents(ImmutableList.of(refTwo, refOne));
+        
+        when(store.resolveRecords(argThat(hasItems(one.getId()))))
+            .thenReturn(ImmutableOptionalMap.of(one.getId(), recOne));
+        
+        when(resolver.resolveIds(argThat(hasItems(two.getId(), one.getId()))))
+            .thenReturn(Futures.immediateFuture(Resolved.valueOf(ImmutableList.of(two, one))));
+        
+        ResolvedEquivalents<Content> resolved = equivResolver.resolveIds(ImmutableList.of(one.getId()),
+            ImmutableSet.of(Publisher.BBC), Annotation.standard()).get();
+        
+        assertThat(Iterables.getOnlyElement(resolved.keySet()), is(one.getId()));
+        List<Content> equivs = ImmutableList.copyOf(resolved.get(one.getId()));
+        assertThat(equivs.size(), is(2));
+        assertThat(equivs.get(0), is(one));
+        assertThat(equivs.get(1), is(two));
+   
+    }
+    
 }

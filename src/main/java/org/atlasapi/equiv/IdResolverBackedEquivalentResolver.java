@@ -3,6 +3,8 @@ package org.atlasapi.equiv;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.media.common.Id;
@@ -23,6 +25,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -76,7 +79,7 @@ public class IdResolverBackedEquivalentResolver<E extends Equivalent<E>>
             Iterable<E> equivalent = null;
             Optional<EquivalenceRecord> resolvedRecord = records.get(id);
             if (resolvedRecord.isPresent()) {
-                Set<EquivalenceRef> equivs = resolvedRecord.get().getEquivalents();
+                List<EquivalenceRef> equivs = sortRequestedFirst(id, resolvedRecord.get().getEquivalents());
                 equivalent = Optional.presentInstances(Iterables.transform(equivs, resolveRef));
             } else {
                 Optional<E> resolvedResource = resolvedResources.get(id);
@@ -90,6 +93,16 @@ public class IdResolverBackedEquivalentResolver<E extends Equivalent<E>>
             }
         }
         return equivalents;
+    }
+
+    private List<EquivalenceRef> sortRequestedFirst(final Id id, ImmutableSet<EquivalenceRef> equivalents) {
+        return Ordering.from(new Comparator<Id>() {
+            @Override
+            public int compare(Id o1, Id o2) {
+                //id before other, order of others undefined.
+                return o1.equals(id) ? -1 : 0;
+            }
+        }).onResultOf(Identifiables.toId()).immutableSortedCopy(equivalents);
     }
 
     private Set<Id> idsToResolve(Set<Id> uniqueIds, OptionalMap<Id, EquivalenceRecord> records,
