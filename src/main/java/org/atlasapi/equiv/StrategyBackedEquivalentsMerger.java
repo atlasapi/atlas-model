@@ -10,7 +10,6 @@ import org.atlasapi.media.util.Sourceds;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
-import com.metabroadcast.common.base.MoreOrderings;
 
 public class StrategyBackedEquivalentsMerger<E extends Equivalent<E>>
         implements ApplicationEquivalentsMerger<E> {
@@ -41,8 +40,7 @@ public class StrategyBackedEquivalentsMerger<E extends Equivalent<E>>
     }
 
     private Ordering<Sourced> applicationEquivalentsOrdering(ApplicationConfiguration config) {
-        return MoreOrderings.transformingOrdering(
-                Sourceds.toPublisher(), config.publisherPrecedenceOrdering());
+        return config.peoplePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
     }
 
 }
