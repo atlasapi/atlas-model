@@ -133,7 +133,7 @@ public class Identified implements Identifiable {
 	
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "(uri:"  + canonicalUri + ")";
+		return getClass().getSimpleName() + "(id:"  + id + ")";
 	}
 	
 	@Override
