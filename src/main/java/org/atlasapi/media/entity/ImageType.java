@@ -2,7 +2,7 @@ package org.atlasapi.media.entity;
 
 public enum ImageType {
     PRIMARY("primary"),
-    ALTERNATE("alternate"),
+    ADDITIONAL("additional"),
     BOX_ART("box_art"),
     POSTER("poster"),
     LOGO("logo");
