@@ -466,7 +466,9 @@ public class Location extends Version {
         copy.setEmbedId(getEmbedId());
         copy.setPlatform(getPlatform());
         copy.setNetwork(getNetwork());
-        copy.setAvailable(available);
+        if (available != null) {
+            copy.setAvailable(available);
+        }
         return copy;
     }
 

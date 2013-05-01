@@ -401,6 +401,7 @@ public class Channel implements SelfModelling {
     public static final Channel SKY_MOVIES_MODERN_GREATS_HD = new Channel("Sky Movies Modern Greats HD", CHANNEL_URI_PREFIX + "skymoviesmoderngreatshd", "skymoviesmoderngreatshd", true);
     public static final Channel SKY_MOVIES_INDIE = new Channel("Sky Movies Indie", CHANNEL_URI_PREFIX + "skymoviesindie", "skymoviesindie", false);
     public static final Channel SKY_MOVIES_INDIE_HD = new Channel("Sky Movies Indie HD", CHANNEL_URI_PREFIX + "skymoviesindiehd", "skymoviesindiehd", true);
+    public static final Channel SKY_MOVIES_DISNEY = new Channel("Sky Movies Disney", CHANNEL_URI_PREFIX+"pressassociation.com/1783", "pa-channel-1783", false);
     public static final Channel AL_JAZEERA_ENGLISH = new Channel("Al Jazeera English", CHANNEL_URI_PREFIX + "aljazeeraenglish", "aljazeeraenglish", false);
     public static final Channel HISTORY_HD = new Channel("History HD", CHANNEL_URI_PREFIX + "historyhd", "historyhd", true);
     public static final Channel SKY1_HD = new Channel("SKY1 HD", CHANNEL_URI_PREFIX + "sky1hd", "sky1hd", true);
@@ -1220,6 +1221,7 @@ public class Channel implements SelfModelling {
     public static final Channel TLC_PLUS_ONE = new Channel("TLC+1", CHANNEL_URI_PREFIX+"pressassociation.com/1790", "pa-channel-1790", false);
     public static final Channel TLC_HD = new Channel("TLC HD", CHANNEL_URI_PREFIX+"pressassociation.com/1794", "pa-channel-1794", false);
     
+    public static final Channel DISNEY_JUNIOR_HD = new Channel("Disney Junior HD", CHANNEL_URI_PREFIX+"pressassociation.com/1793", "pa-channel-1793", false);
     
     private final String uri;
     private final String title;
