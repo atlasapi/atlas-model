@@ -15,14 +15,14 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 import org.atlasapi.content.criteria.attribute.Attribute;
-import org.atlasapi.content.criteria.operator.BooleanOperator;
-import org.atlasapi.content.criteria.operator.BooleanOperatorVisitor;
+import org.atlasapi.content.criteria.operator.EqualsOperator;
+import org.atlasapi.content.criteria.operator.EqualsOperatorVisitor;
 
 public class BooleanAttributeQuery extends AttributeQuery<Boolean> {
 
-	private final BooleanOperator op;
+	private final EqualsOperator op;
 
-	public BooleanAttributeQuery(Attribute<Boolean> attribute, BooleanOperator op, Iterable<Boolean> values) {
+	public BooleanAttributeQuery(Attribute<Boolean> attribute, EqualsOperator op, Iterable<Boolean> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}
@@ -31,7 +31,7 @@ public class BooleanAttributeQuery extends AttributeQuery<Boolean> {
 		return v.visit(this);
 	}
 	
-	public <V> V accept(BooleanOperatorVisitor<V> v) {
+	public <V> V accept(EqualsOperatorVisitor<V> v) {
 		return op.accept(v);
 	}
 	

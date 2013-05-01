@@ -23,7 +23,7 @@ import org.joda.time.DateTime;
 
 public class DateTimeValuedAttribute extends Attribute<DateTime> {
 
-	DateTimeValuedAttribute(String name, Class<? extends Identified> target) {
+	public DateTimeValuedAttribute(String name, Class<? extends Identified> target) {
 		super(name, target);
 	}
 

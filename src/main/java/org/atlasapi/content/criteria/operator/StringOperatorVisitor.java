@@ -15,12 +15,9 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria.operator;
 
 import org.atlasapi.content.criteria.operator.Operators.Beginning;
-import org.atlasapi.content.criteria.operator.Operators.Equals;
 
-public interface StringOperatorVisitor<V>  {
+public interface StringOperatorVisitor<V> extends EqualsOperatorVisitor<V> {
 
-	V visit(Equals equals);
-
-	V visit(Beginning beginning);
+    V visit(Beginning beginning);
 
 }

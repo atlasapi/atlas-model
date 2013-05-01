@@ -16,8 +16,7 @@ package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.FloatAttributeQuery;
-import org.atlasapi.content.criteria.IntegerAttributeQuery;
-import org.atlasapi.content.criteria.operator.IntegerOperator;
+import org.atlasapi.content.criteria.operator.ComparableOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.media.entity.Identified;
 
@@ -27,21 +26,21 @@ public class FloatValuedAttribute extends Attribute<Float> {
 		super(name, target);
 	}
 	
-	FloatValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
+	public FloatValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 
 	@Override
 	public String toString() {
-		return "Integer valued attribute: " + name;
+		return "Float valued attribute: " + name;
 	}
 
 	@Override
 	public AttributeQuery<Float> createQuery(Operator op, Iterable<Float> values) {
-		if (!(op instanceof IntegerOperator)) {
+		if (!(op instanceof ComparableOperator)) {
 			throw new IllegalArgumentException();
 		}
-		return new FloatAttributeQuery(this, (IntegerOperator) op, values);
+		return new FloatAttributeQuery(this, (ComparableOperator) op, values);
 	}
 
 	@Override

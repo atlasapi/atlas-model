@@ -22,171 +22,168 @@ import com.google.common.collect.Maps;
 
 public class Operators {
 
-	public static final Equals EQUALS = new Equals();
-	public static final Beginning BEGINNING = new Beginning();
+    public static final Equals EQUALS = new Equals();
+    public static final Beginning BEGINNING = new Beginning();
 
-	public static final IntegerOperator GREATER_THAN = new GreaterThan();
-	public static final IntegerOperator LESS_THAN = new LessThan();
-	
-	public static final Before BEFORE = new Before();
-	public static final After AFTER = new After();
+    public static final ComparableOperator GREATER_THAN = new GreaterThan();
+    public static final ComparableOperator LESS_THAN = new LessThan();
 
-	private static final Map<String, Operator> lookupTable = createLookup();
-	
-	public static Operator lookup(String name) {
-		return lookupTable.get(name);
-	}
-	
-	private static Map<String, Operator> createLookup() {
-		Map<String, Operator> table = Maps.newHashMap();
-		table.put(EQUALS.name(), EQUALS);
-		table.put(BEGINNING.name(), BEGINNING);
-		table.put(LESS_THAN.name(), LESS_THAN);
-		table.put(GREATER_THAN.name(), GREATER_THAN);
-		table.put(BEFORE.name(), BEFORE);
-		table.put(AFTER.name(), AFTER);
-		return table;
-	}
-	
-	private static class BaseOperator {
+    public static final Before BEFORE = new Before();
+    public static final After AFTER = new After();
 
-		private final String name;
+    private static final Map<String, Operator> lookupTable = createLookup();
 
-		public BaseOperator(String name) {
-			this.name = name;
-		}
-		
-		public final String name() {
-			return name;
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj instanceof BaseOperator) {
-				return name.equals(((BaseOperator) obj).name);
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return name.hashCode();
-		}
-		
-		@Override
-		public String toString() {
-			return name;
-		}
-	}
-	
-	public static class Equals extends BaseOperator implements StringOperator, IntegerOperator, EnumOperator, BooleanOperator, DateTimeOperator {
-		
-		private Equals() { 
-			super("equals");
-		}
-		
-		public <V> V accept(StringOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+    public static Operator lookup(String name) {
+        return lookupTable.get(name);
+    }
 
-		public <V> V accept(IntegerOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+    private static Map<String, Operator> createLookup() {
+        Map<String, Operator> table = Maps.newHashMap();
+        table.put(EQUALS.name(), EQUALS);
+        table.put(BEGINNING.name(), BEGINNING);
+        table.put(LESS_THAN.name(), LESS_THAN);
+        table.put(GREATER_THAN.name(), GREATER_THAN);
+        table.put(BEFORE.name(), BEFORE);
+        table.put(AFTER.name(), AFTER);
+        return table;
+    }
 
-		public <V> V accept(EnumOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+    private static class BaseOperator {
 
-		public <V> V accept(BooleanOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
-		
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			return lhs.equals(rhs);
-		}
+        private final String name;
 
-		@Override
-		public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
-		
-	}
-	
-	public static class Beginning extends BaseOperator implements StringOperator {
-		
-		private Beginning() { 
-			super("beginning");
-		}
-		
-		public <V> V accept(StringOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+        public BaseOperator(String name) {
+            this.name = name;
+        }
 
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return String.class.equals(lhs) && String.class.equals(rhs);
-		}
-	}
-	
-	public static class Before extends BaseOperator implements DateTimeOperator {
-		
-		private Before() {
-			super("before");
-		}
-		
-		public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+        public final String name() {
+            return name;
+        }
 
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return DateTime.class.equals(lhs) && DateTime.class.equals(rhs);
-		}
-	}
-	
-	public static class After extends BaseOperator implements DateTimeOperator {
-		
-		private After() {
-			super("after");
-		}
-		
-		public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj instanceof BaseOperator) {
+                return name.equals(((BaseOperator) obj).name);
+            }
+            return false;
+        }
 
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return DateTime.class.equals(lhs) && DateTime.class.equals(rhs);
-		}
-	}
-	
-	public static class GreaterThan extends BaseOperator implements IntegerOperator {
-		
-		private GreaterThan() {
-			super("greaterThan");
-		}
-		
-		public <V> V accept(IntegerOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+        @Override
+        public int hashCode() {
+            return name.hashCode();
+        }
 
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    public static class Equals extends BaseOperator implements
+            StringOperator, ComparableOperator, EqualsOperator, DateTimeOperator {
+
+        private Equals() {
+            super("equals");
+        }
+
+        public <V> V accept(StringOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public <V> V accept(ComparableOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public <V> V accept(EqualsOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+            return lhs.equals(rhs);
+        }
+
+        @Override
+        public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+    }
+
+    public static class Beginning extends BaseOperator implements StringOperator {
+
+        private Beginning() {
+            super("beginning");
+        }
+
+        public <V> V accept(StringOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+            return String.class.equals(lhs) && String.class.equals(rhs);
+        }
+    }
+
+    public static class Before extends BaseOperator implements DateTimeOperator {
+
+        private Before() {
+            super("before");
+        }
+
+        public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+            return DateTime.class.equals(lhs) && DateTime.class.equals(rhs);
+        }
+    }
+
+    public static class After extends BaseOperator implements DateTimeOperator {
+
+        private After() {
+            super("after");
+        }
+
+        public <V> V accept(DateTimeOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+            return DateTime.class.equals(lhs) && DateTime.class.equals(rhs);
+        }
+    }
+
+    public static class GreaterThan extends BaseOperator implements ComparableOperator {
+
+        private GreaterThan() {
+            super("greaterThan");
+        }
+
+        public <V> V accept(ComparableOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
             return Number.class.isAssignableFrom(lhs) && Number.class.isAssignableFrom(rhs);
-		}
-	}
-	
-	public static class LessThan extends BaseOperator implements IntegerOperator {
-		
-		private LessThan() {
-			super("lessThan");
-		}
-		
-		public <V> V accept(IntegerOperatorVisitor<V> visitor) {
-			return visitor.visit(this);
-		}
+        }
+    }
 
-		public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
-			 return Number.class.isAssignableFrom(lhs) && Number.class.isAssignableFrom(rhs);
-		}
-	}
+    public static class LessThan extends BaseOperator implements ComparableOperator {
+
+        private LessThan() {
+            super("lessThan");
+        }
+
+        public <V> V accept(ComparableOperatorVisitor<V> visitor) {
+            return visitor.visit(this);
+        }
+
+        public boolean canBeAppliedTo(Class<?> lhs, Class<?> rhs) {
+            return Number.class.isAssignableFrom(lhs) && Number.class.isAssignableFrom(rhs);
+        }
+    }
 }

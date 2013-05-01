@@ -15,14 +15,14 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 import org.atlasapi.content.criteria.attribute.Attribute;
-import org.atlasapi.content.criteria.operator.EnumOperator;
-import org.atlasapi.content.criteria.operator.EnumOperatorVisitor;
+import org.atlasapi.content.criteria.operator.EqualsOperator;
+import org.atlasapi.content.criteria.operator.EqualsOperatorVisitor;
 
 public class EnumAttributeQuery<T extends Enum<T>> extends AttributeQuery<T> {
 
-	private final EnumOperator op;
+	private final EqualsOperator op;
 
-	public EnumAttributeQuery(Attribute<T> attribute, EnumOperator op,  Iterable<T> values) {
+	public EnumAttributeQuery(Attribute<T> attribute, EqualsOperator op,  Iterable<T> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}
@@ -31,7 +31,7 @@ public class EnumAttributeQuery<T extends Enum<T>> extends AttributeQuery<T> {
 		return v.visit(this);
 	}
 	
-	public <V> V accept(EnumOperatorVisitor<V> v) {
+	public <V> V accept(EqualsOperatorVisitor<V> v) {
 		return op.accept(v);
 	}
 }

@@ -2,13 +2,11 @@ package org.atlasapi.content.criteria.operator;
 
 import org.atlasapi.content.criteria.operator.Operators.After;
 import org.atlasapi.content.criteria.operator.Operators.Before;
-import org.atlasapi.content.criteria.operator.Operators.Equals;
 
-public interface DateTimeOperatorVisitor<T> {
+public interface DateTimeOperatorVisitor<V> extends EqualsOperatorVisitor<V> {
 
-	T visit(Before before);
-	
-	T visit(After after);
+    V visit(Before before);
 
-	T visit(Equals equals);
+    V visit(After after);
+
 }

@@ -14,16 +14,13 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.operator;
 
-import org.atlasapi.content.criteria.operator.Operators.Equals;
 import org.atlasapi.content.criteria.operator.Operators.GreaterThan;
 import org.atlasapi.content.criteria.operator.Operators.LessThan;
 
-public interface IntegerOperatorVisitor<V> {
-	
-	V visit(Equals equals);
+public interface ComparableOperatorVisitor<V> extends EqualsOperatorVisitor<V> {
 
-	V visit(LessThan lessThan);
+    V visit(LessThan lessThan);
 
-	V visit(GreaterThan greaterThan);
+    V visit(GreaterThan greaterThan);
 
 }

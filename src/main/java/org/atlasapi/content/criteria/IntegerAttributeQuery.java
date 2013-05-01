@@ -15,14 +15,14 @@ permissions and limitations under the License. */
 package org.atlasapi.content.criteria;
 
 import org.atlasapi.content.criteria.attribute.Attribute;
-import org.atlasapi.content.criteria.operator.IntegerOperator;
-import org.atlasapi.content.criteria.operator.IntegerOperatorVisitor;
+import org.atlasapi.content.criteria.operator.ComparableOperator;
+import org.atlasapi.content.criteria.operator.ComparableOperatorVisitor;
 
 public class IntegerAttributeQuery extends AttributeQuery<Integer> {
 
-	private final IntegerOperator op;
+	private final ComparableOperator op;
 
-	public IntegerAttributeQuery(Attribute<Integer> attribute, IntegerOperator op, Iterable<Integer> values) {
+	public IntegerAttributeQuery(Attribute<Integer> attribute, ComparableOperator op, Iterable<Integer> values) {
 		super(attribute, op, values);
 		this.op = op;
 	}
@@ -31,7 +31,7 @@ public class IntegerAttributeQuery extends AttributeQuery<Integer> {
 		return visitor.visit(this);
 	}
 	
-	public <V> V accept(IntegerOperatorVisitor<V> visitor) {
+	public <V> V accept(ComparableOperatorVisitor<V> visitor) {
 		return op.accept(visitor);
 	}
 }

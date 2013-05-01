@@ -14,8 +14,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria.operator;
 
-public interface EnumOperator extends Operator {
+public interface ComparableOperator extends Operator {
 
-	<T> T accept(EnumOperatorVisitor<T> v);
+    <V> V accept(ComparableOperatorVisitor<V> v);
 
 }

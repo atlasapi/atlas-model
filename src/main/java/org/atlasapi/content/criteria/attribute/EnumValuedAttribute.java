@@ -16,42 +16,43 @@ package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.EnumAttributeQuery;
-import org.atlasapi.content.criteria.operator.EnumOperator;
+import org.atlasapi.content.criteria.operator.EqualsOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.media.entity.Identified;
 
 public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<T> {
-	
-	private final Class<T> type;
 
-	EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target) {
-		this(name, type, target, false);
-	}
-	
-	EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target, boolean isCollection) {
-		super(name, target, isCollection);
-		this.type = type;
-	}
-	
-	@Override
-	public String toString() {
-		return "Enum valued attribute: " + name;
-	}
+    private final Class<T> type;
 
-	@Override
-	public Class<T> requiresOperandOfType() {
-		return type;
-	}
-	
-	public T toEnumValue(String value) {
-		return Enum.valueOf(type, value);
-	}
+    EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target) {
+        this(name, type, target, false);
+    }
 
-	@Override
-	public AttributeQuery<T> createQuery(Operator op, Iterable<T> values) {
-		if (!(op instanceof EnumOperator)) {
-			throw new IllegalArgumentException();
-		}
-		return new EnumAttributeQuery<T>(this, (EnumOperator) op, values);
-	}
+    public EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target,
+            boolean isCollection) {
+        super(name, target, isCollection);
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Enum valued attribute: " + name;
+    }
+
+    @Override
+    public Class<T> requiresOperandOfType() {
+        return type;
+    }
+
+    public T toEnumValue(String value) {
+        return Enum.valueOf(type, value);
+    }
+
+    @Override
+    public AttributeQuery<T> createQuery(Operator op, Iterable<T> values) {
+        if (!(op instanceof EqualsOperator)) {
+            throw new IllegalArgumentException();
+        }
+        return new EnumAttributeQuery<T>(this, (EqualsOperator) op, values);
+    }
 }

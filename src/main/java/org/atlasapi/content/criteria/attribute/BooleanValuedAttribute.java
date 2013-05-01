@@ -2,7 +2,7 @@ package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.BooleanAttributeQuery;
-import org.atlasapi.content.criteria.operator.BooleanOperator;
+import org.atlasapi.content.criteria.operator.EqualsOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.media.entity.Identified;
 
@@ -12,7 +12,7 @@ public class BooleanValuedAttribute extends Attribute<Boolean> {
 		super(name, target);
 	}
 	
-	BooleanValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
+	public BooleanValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 
@@ -23,10 +23,10 @@ public class BooleanValuedAttribute extends Attribute<Boolean> {
 
 	@Override
 	public AttributeQuery<Boolean> createQuery(Operator op, Iterable<Boolean> values) {
-		if (!(op instanceof BooleanOperator)) {
+		if (!(op instanceof EqualsOperator)) {
 			throw new IllegalArgumentException();
 		}
-		return new BooleanAttributeQuery(this, (BooleanOperator) op, values);
+		return new BooleanAttributeQuery(this, (EqualsOperator) op, values);
 	}
 
 	@Override

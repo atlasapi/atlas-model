@@ -16,7 +16,7 @@ package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.IdAttributeQuery;
-import org.atlasapi.content.criteria.operator.IntegerOperator;
+import org.atlasapi.content.criteria.operator.ComparableOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.content.criteria.operator.StringOperator;
 import org.atlasapi.media.common.Id;
@@ -47,6 +47,6 @@ public class IdAttribute extends Attribute<Id> {
 		if (!(op instanceof StringOperator)) {
 			throw new IllegalArgumentException();
 		}
-		return new IdAttributeQuery(this, (IntegerOperator) op, values);
+		return new IdAttributeQuery(this, (ComparableOperator) op, values);
 	}
 }

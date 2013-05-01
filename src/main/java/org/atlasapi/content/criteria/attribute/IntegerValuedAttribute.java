@@ -16,7 +16,7 @@ package org.atlasapi.content.criteria.attribute;
 
 import org.atlasapi.content.criteria.AttributeQuery;
 import org.atlasapi.content.criteria.IntegerAttributeQuery;
-import org.atlasapi.content.criteria.operator.IntegerOperator;
+import org.atlasapi.content.criteria.operator.ComparableOperator;
 import org.atlasapi.content.criteria.operator.Operator;
 import org.atlasapi.media.entity.Identified;
 
@@ -26,7 +26,7 @@ public class IntegerValuedAttribute extends Attribute<Integer> {
 		super(name, target);
 	}
 	
-	IntegerValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
+	public IntegerValuedAttribute(String name, Class<? extends Identified> target, boolean isCollection) {
 		super(name, target, isCollection);
 	}
 
@@ -37,10 +37,10 @@ public class IntegerValuedAttribute extends Attribute<Integer> {
 
 	@Override
 	public AttributeQuery<Integer> createQuery(Operator op, Iterable<Integer> values) {
-		if (!(op instanceof IntegerOperator)) {
+		if (!(op instanceof ComparableOperator)) {
 			throw new IllegalArgumentException();
 		}
-		return new IntegerAttributeQuery(this, (IntegerOperator) op, values);
+		return new IntegerAttributeQuery(this, (ComparableOperator) op, values);
 	}
 
 	@Override
