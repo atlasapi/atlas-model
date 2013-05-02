@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.atlasapi.equiv.EquivalenceRef;
 import org.atlasapi.equiv.Equivalent;
+import org.atlasapi.media.common.Aliased;
 import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Actor;
 import org.atlasapi.media.entity.Certificate;
@@ -39,7 +40,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-public abstract class Content extends Described implements Sourced, Equivalent<Content> {
+public abstract class Content extends Described implements Aliased, Sourced, Equivalent<Content> {
 
     private transient String readHash;
     private ImmutableList<Clip> clips = ImmutableList.of();

@@ -2,7 +2,9 @@ package org.atlasapi.media.topic;
 
 import java.util.Map;
 
+import org.atlasapi.media.common.Aliased;
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Publisher;
 
@@ -10,7 +12,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
-public class Topic extends Described {
+public class Topic extends Described implements Sourced, Aliased {
     
     private Type type;
     private String namespace;
