@@ -31,6 +31,7 @@ public class Playlist extends Description {
     private Set<ContentIdentifier> upcomingContent = Sets.newHashSet();
     private Set<ContentIdentifier> availableContent = Sets.newHashSet();
     private Set<ContentIdentifier> recentContent = Sets.newHashSet();
+    private List<SeriesIdentifier> series = Lists.newArrayList();
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
@@ -54,6 +55,18 @@ public class Playlist extends Description {
 	public void setContent(Iterable<? extends ContentIdentifier> items) {
 		this.content = Lists.newArrayList(items);
 	}
+	
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="seriesList")
+    @XmlElements({ 
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+	})
+    public List<SeriesIdentifier> getSeriesList() {
+        return series;
+    }
+    
+    public void setSeriesList(Iterable<? extends SeriesIdentifier> series) {
+        this.series = Lists.newArrayList(series);
+    }
 	
 	public Playlist copy() {
 	    Playlist copy = new Playlist();
