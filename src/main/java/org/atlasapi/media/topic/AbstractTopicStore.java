@@ -2,7 +2,6 @@ package org.atlasapi.media.topic;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -51,7 +50,7 @@ public abstract class AbstractTopicStore implements TopicStore {
             topic.setFirstSeen(now);
         }
         topic.setLastUpdated(now);
-        doWrite(ensureId(topic));
+        doWrite(ensureId(topic), previous);
         return WriteResult.written(topic)
                 .withPrevious(previous)
                 .build();
@@ -63,7 +62,7 @@ public abstract class AbstractTopicStore implements TopicStore {
         return topic;
     }
 
-    protected abstract void doWrite(Topic topic);
+    protected abstract void doWrite(Topic topic, Topic previous);
 
     private Topic getPreviousTopic(Topic topic) {
         return resolvePrevious(topic.getId(), topic.getPublisher(), topic.getAliases());

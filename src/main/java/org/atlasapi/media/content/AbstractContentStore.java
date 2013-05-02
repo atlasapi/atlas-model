@@ -3,7 +3,6 @@ package org.atlasapi.media.content;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -30,6 +29,8 @@ import com.metabroadcast.common.ids.IdGenerator;
 import com.metabroadcast.common.time.Clock;
 
 public abstract class AbstractContentStore implements ContentStore {
+
+    public static final Content NO_PREVIOUS = null;
 
     private final class ContentWritingVisitor implements ContentVisitor<WriteResult<? extends Content>> {
 
@@ -64,7 +65,7 @@ public abstract class AbstractContentStore implements ContentStore {
             }
 
             updateTimes(brand);
-            write(brand);
+            write(brand, NO_PREVIOUS);
             
             return WriteResult.written(brand).build();
             
@@ -74,7 +75,7 @@ public abstract class AbstractContentStore implements ContentStore {
             boolean written = false;
             if (hashChanged(brand, previous)) {
                 updateWithPevious(brand, previous);
-                write(brand);
+                write(brand, previous);
                 written = true;
             } 
             brand.setChildRefs(previous.getChildRefs());
@@ -94,7 +95,7 @@ public abstract class AbstractContentStore implements ContentStore {
             }
             updateTimes(series);
             writeRefAndSummarizePrimary(series);
-            write(series);
+            write(series, NO_PREVIOUS);
             return WriteResult.written(series).build();
         }
 
@@ -103,7 +104,7 @@ public abstract class AbstractContentStore implements ContentStore {
             if (hashChanged(series, previous)) {
                 updateWithPevious(series, previous);
                 writeRefAndSummarizePrimary(series);
-                write(series);
+                write(series, previous);
                 written = true;
             }
             series.setChildRefs(previous.getChildRefs());
@@ -131,7 +132,7 @@ public abstract class AbstractContentStore implements ContentStore {
             }
             updateTimes(item);
             writeRefAndSummarizeContainer(item);
-            write(item);
+            write(item, NO_PREVIOUS);
             return WriteResult.written(item)
                 .build();
         }
@@ -141,7 +142,7 @@ public abstract class AbstractContentStore implements ContentStore {
             if (hashChanged(item, previous)) {
                 updateWithPevious(item, previous);
                 writeRefAndSummarizeContainer(item);
-                write(item);
+                write(item, previous);
                 written = true;
             } 
             return WriteResult.result(item, written)
@@ -170,7 +171,7 @@ public abstract class AbstractContentStore implements ContentStore {
             }
             updateTimes(episode);
             writeRefsAndSummarizeContainers(episode);
-            write(episode);
+            write(episode, NO_PREVIOUS);
             return WriteResult.written(episode).build();
         }
 
@@ -179,7 +180,7 @@ public abstract class AbstractContentStore implements ContentStore {
             if (hashChanged(episode, previous)) {
                 updateWithPevious(episode, previous);
                 writeRefsAndSummarizeContainers(episode);
-                write(episode);
+                write(episode, previous);
                 written = true;
             } 
             return WriteResult.result(episode, written)
@@ -212,7 +213,7 @@ public abstract class AbstractContentStore implements ContentStore {
                 return writeFilmWithPrevious(film, previous);
             }
             updateTimes(film);
-            write(film);
+            write(film, NO_PREVIOUS);
             return WriteResult.written(film).build();
         }
 
@@ -220,7 +221,7 @@ public abstract class AbstractContentStore implements ContentStore {
             boolean written = false;
             if (hashChanged(film, previous)) {
                 updateWithPevious(film, previous);
-                write(film);
+                write(film, previous);
                 written = true;
             }
             return WriteResult.result(film, written)
@@ -237,7 +238,7 @@ public abstract class AbstractContentStore implements ContentStore {
             }
             
             updateTimes(song);
-            write(song);
+            write(song, NO_PREVIOUS);
             return WriteResult.written(song)
                 .build();
         }
@@ -246,7 +247,7 @@ public abstract class AbstractContentStore implements ContentStore {
             boolean written = false;
             if (hashChanged(song, previous)) {
                 updateWithPevious(song, previous);
-                write(song);
+                write(song, previous);
                 written = true;
             }
             return WriteResult.result(song, written)
@@ -288,9 +289,9 @@ public abstract class AbstractContentStore implements ContentStore {
 
     protected abstract @Nullable Content resolvePrevious(@Nullable Id id, Publisher source, Set<Alias> aliases);
 
-    private void write(Content content) {
+    private void write(Content content, Content previous) {
         ensureId(content);
-        doWriteContent(content);
+        doWriteContent(content, previous);
     }
 
     private void ensureId(Content content) {
@@ -299,7 +300,7 @@ public abstract class AbstractContentStore implements ContentStore {
         }
     }
     
-    protected abstract void doWriteContent(Content content);
+    protected abstract void doWriteContent(Content content, Content previous);
 
     private final ContainerSummary getSummary(ParentRef primary) {
         ContainerSummary summary = summarize(primary);
