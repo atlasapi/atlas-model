@@ -9,8 +9,12 @@ import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
+import com.metabroadcast.common.collect.ImmutableOptionalMap;
+import com.metabroadcast.common.collect.OptionalMap;
 
 public class Topic extends Described implements Sourced, Aliased {
     
@@ -44,20 +48,51 @@ public class Topic extends Described implements Sourced, Aliased {
             return key;
         }
         
+        @Deprecated
         public static Map<String, Type> TYPE_KEY_LOOKUP = Maps.uniqueIndex(ImmutableSet.copyOf(Type.values()), new Function<Type, String>() {
             @Override
             public String apply(Type input) {
                 return input.key;
             }
         });
+
+        private static final Function<Type, String> TO_KEY =
+                new Function<Type, String>() {
+                    @Override
+                    public String apply(Type input) {
+                        return input.key();
+                    }
+                };
+                
+        public static final Function<Type, String> toKey() {
+            return TO_KEY;
+        }
+
+        private static final ImmutableSet<Type> ALL = 
+                ImmutableSet.copyOf(Type.values());
+        
+        public static final ImmutableSet<Type> all() {
+            return ALL;
+        }
+        
+        private static final OptionalMap<String, Type> INDEX = 
+                ImmutableOptionalMap.fromMap(Maps.uniqueIndex(all(), toKey())); 
+        
+        private static final Function<String, Optional<Type>> FROM_KEY =
+                Functions.forMap(INDEX);
+        
+        public static final Function<String, Optional<Type>> fromKey() {
+            return FROM_KEY;
+        }
         
         public static Type fromKey(String key) {
-            return TYPE_KEY_LOOKUP.get(key);
+            return INDEX.get(key).orNull();
         }
         
         public static Type fromKey(String key, Type deflt) {
-            return TYPE_KEY_LOOKUP.containsKey(key) ? TYPE_KEY_LOOKUP.get(key) : deflt;
+            return INDEX.get(key).or(deflt);
         }
+
     }
     
     public Topic() {

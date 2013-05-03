@@ -20,6 +20,7 @@ import java.util.Map;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
+import org.atlasapi.media.content.ContentType;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.MediaType;
@@ -33,7 +34,7 @@ import com.google.common.collect.Maps;
 public class Attributes {
 
     public static final Attribute<Id> ID = idListAttribute("id", Identified.class);
-    public static final Attribute<Publisher> SOURCE = new EnumValuedAttribute<Publisher>("source", Publisher.class, Identified.class);
+    public static final Attribute<Publisher> SOURCE = EnumValuedAttribute.valueOf("source", Publisher.class, Identified.class, true);
     public static final Attribute<String> ALIASES_NAMESPACE = stringListAttribute("aliases.namespace", Identified.class);
     public static final Attribute<String> ALIASES_VALUE = stringListAttribute("aliases.value", Identified.class);
     
@@ -42,6 +43,8 @@ public class Attributes {
     public static final Attribute<Float> TOPIC_WEIGHTING = new FloatValuedAttribute("topics.weighting", Identified.class);
     public static final Attribute<Boolean> TOPIC_SUPERVISED = new BooleanValuedAttribute("topics.supervised", Identified.class);
     
+    public static final Attribute<Topic.Type> TOPIC_TYPE = EnumValuedAttribute.valueOf("type", Topic.Type.class, Topic.class, true);
+    public static final Attribute<ContentType> CONTENT_TYPE = EnumValuedAttribute.valueOf("type", ContentType.class, Content.class, true);
     
 	// Simple string-valued attributes
     public static final Attribute<Publisher> DESCRIPTION_PUBLISHER = new EnumValuedAttribute<Publisher>("publisher", Publisher.class, Content.class);

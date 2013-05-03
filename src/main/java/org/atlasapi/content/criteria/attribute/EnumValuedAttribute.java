@@ -22,6 +22,11 @@ import org.atlasapi.media.entity.Identified;
 
 public class EnumValuedAttribute<T extends Enum<T>> extends Attribute<T> {
 
+    public static final <T extends Enum<T>> EnumValuedAttribute<T> valueOf(String name, Class<T> type, Class<? extends Identified> target,
+            boolean isCollection) {
+        return new EnumValuedAttribute<T>(name, type, target, isCollection);
+    }
+    
     private final Class<T> type;
 
     EnumValuedAttribute(String name, Class<T> type, Class<? extends Identified> target) {
