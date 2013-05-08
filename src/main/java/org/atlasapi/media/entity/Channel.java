@@ -1221,6 +1221,8 @@ public class Channel implements SelfModelling {
     public static final Channel TLC_PLUS_ONE = new Channel("TLC+1", CHANNEL_URI_PREFIX+"pressassociation.com/1790", "pa-channel-1790", false);
     public static final Channel TLC_HD = new Channel("TLC HD", CHANNEL_URI_PREFIX+"pressassociation.com/1794", "pa-channel-1794", false);
     
+    public static final Channel RT = new Channel("RT", CHANNEL_URI_PREFIX+"pressassociation.com/1631", "pa-channel-1631", false);
+    
     public static final Channel DISNEY_JUNIOR_HD = new Channel("Disney Junior HD", CHANNEL_URI_PREFIX+"pressassociation.com/1793", "pa-channel-1793", false);
     
     private final String uri;
