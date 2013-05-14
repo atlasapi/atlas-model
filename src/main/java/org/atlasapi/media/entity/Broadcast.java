@@ -266,6 +266,7 @@ public class Broadcast extends Identified {
         copy.widescreen = widescreen;
         copy.newSeries = newSeries;
         copy.premiere = premiere;
+        copy.live = live;
         return copy;
     }
     
