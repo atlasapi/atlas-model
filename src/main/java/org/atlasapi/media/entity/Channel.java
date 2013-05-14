@@ -21,6 +21,7 @@ import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.model.SelfModelling;
 import com.metabroadcast.common.model.SimpleModel;
 
+@Deprecated
 public class Channel implements SelfModelling {
     // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
     public static final int MAX_KEY_LENGTH = 31;
