@@ -1,22 +1,63 @@
 package org.atlasapi.media.entity;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import org.joda.time.DateTime;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Ordering;
 
-public class SeriesRef extends ChildRef {
+public class SeriesRef implements Comparable<SeriesRef> {
 
+    private static final Ordering<SeriesRef> NATURAL = Ordering.natural().reverse();
+    
+    private final Long id;
+    private final String uri;
+    private final String sortKey;
+    private final DateTime updated;
     private final Integer seriesNumber;
     
+    public static List<SeriesRef> dedupeAndSort(Iterable<SeriesRef> seriesRefs) {
+        return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(seriesRefs));
+    }
+    
     public SeriesRef(@Nullable Long id, String uri, String sortKey, Integer seriesNumber, DateTime updated) {
-        super(id, uri, sortKey, updated, EntityType.SERIES);
+        this.id = id;
+        this.uri = Preconditions.checkNotNull(uri);
+        this.sortKey =  Preconditions.checkNotNull(sortKey);
+        this.updated = updated;
         this.seriesNumber = seriesNumber;
+    }
+    
+    @Nullable
+    public Long getId() {
+        return id;
+    }
+    
+    public String getUri() {
+        return uri;
+    }
+    
+    public String getSortKey() {
+        return sortKey;
+    }
+    
+    public DateTime getUpdated() {
+        return updated;
     }
     
     public Integer getSeriesNumber() {
         return seriesNumber;
+    }
+    
+    @Override
+    public int compareTo(SeriesRef comparableTo) {
+        return sortKey.compareTo(comparableTo.sortKey);
     }
     
     @Override
@@ -43,4 +84,11 @@ public class SeriesRef extends ChildRef {
     public int hashCode() {
         return this.getUri().hashCode();
     }
+    
+    public static Function<SeriesRef, String> TO_URI = new Function<SeriesRef, String>() {
+        @Override
+        public String apply(SeriesRef input) {
+            return input.getUri();
+        }
+    };
 }

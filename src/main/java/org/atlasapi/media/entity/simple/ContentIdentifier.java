@@ -225,7 +225,7 @@ public abstract class ContentIdentifier {
     }
     
     public static SeriesIdentifier seriesIdentifierFor(SeriesRef seriesRef, NumberToShortStringCodec idCodec) {
-        return (SeriesIdentifier) create(seriesRef.getType(), seriesRef.getUri(), idFrom(idCodec, seriesRef), 
+        return (SeriesIdentifier) create(EntityType.SERIES, seriesRef.getUri(), idFrom(idCodec, seriesRef), 
                 seriesRef.getSeriesNumber());
     }
 
@@ -234,13 +234,18 @@ public abstract class ContentIdentifier {
                                              : null;
     }
     
-    public static ContentIdentifier identifierFrom(String canonicalUri, String type, NumberToShortStringCodec idCodec) {
+    private static String idFrom(NumberToShortStringCodec idCodec, SeriesRef seriesRef) {
+        return seriesRef.getId() != null ? idCodec.encode(BigInteger.valueOf(seriesRef.getId()))
+                                             : null;
+    }
+    
+    public static ContentIdentifier identifierFrom(String id, String canonicalUri, String type) {
         EntityType from = EntityType.from(type);
         if (EntityType.SERIES.equals(from)) {
             throw new IllegalArgumentException("Series not supported, use seriesIdentiferFrom instead");
         }
         
-        return create(from, canonicalUri, null, null);
+        return create(from, canonicalUri, id, null);
     }
     
     public static ContentIdentifier seriesIdentifierFrom(String canonicalUri, String id, Integer seriesNumber) {
