@@ -1,8 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
-import java.lang.reflect.Constructor;
 import java.math.BigInteger;
-import java.util.Map;
 
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.EntityType;
@@ -10,7 +8,6 @@ import org.atlasapi.media.entity.SeriesRef;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableMap;
 import com.metabroadcast.common.ids.NumberToShortStringCodec;
 
 public abstract class ContentIdentifier {
@@ -207,17 +204,17 @@ public abstract class ContentIdentifier {
 	private static ContentIdentifier create(EntityType type, String uri, String id, Integer seriesNumber) {
 	    switch (type) {
         case BRAND:
-            return new BrandIdentifier(uri);
+            return new BrandIdentifier(uri, id);
         case EPISODE:
-            return new EpisodeIdentifier(uri);
+            return new EpisodeIdentifier(uri, id);
         case FILM:
-            return new FilmIdentifier(uri);
+            return new FilmIdentifier(uri, id);
         case ITEM:
-            return new ItemIdentifier(uri);
+            return new ItemIdentifier(uri, id);
         case PERSON:
-            return new PersonIdentifier(uri);
+            return new PersonIdentifier(uri, id);
         case SERIES:
-            return new SeriesIdentifier(uri, seriesNumber);
+            return new SeriesIdentifier(uri, seriesNumber, id);
         default:
             throw new RuntimeException("Can't create content identifier for " + uri);	    
 	    }
