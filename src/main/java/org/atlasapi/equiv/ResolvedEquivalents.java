@@ -1,5 +1,6 @@
 package org.atlasapi.equiv;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,7 +19,11 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
-
+/**
+ * Represents a group of resolved sets of equivalents. 
+ *
+ * @param <E>
+ */
 public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetMultimap<Id, E> {
 
     public static <E extends Equivalent<E>> Builder<E> builder() {
@@ -29,8 +34,9 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
 
         private ImmutableSetMultimap.Builder<Id,E> entries = ImmutableSetMultimap.builder();
 
-        public void putEquivalents(Id key, Iterable<E> equivalentSet) {
+        public Builder<E> putEquivalents(Id key, Iterable<E> equivalentSet) {
             this.entries.putAll(key, setEquivalentToFields(equivalentSet));
+            return this;
         }
 
         public ResolvedEquivalents<E> build() {
@@ -72,6 +78,17 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
     @Override
     public ImmutableSet<E> get(@Nullable Id key) {
         return (ImmutableSet<E>) super.get(key);
+    }
+    
+    public final Iterable<E> getFirstElems() {
+        return Iterables.transform(asMap().values(),
+                new Function<Collection<E>, E>() {
+            @Override
+            public E apply(Collection<E> input) {
+                return input.iterator().next();
+            }
+        }
+    );
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
