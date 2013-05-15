@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.EntityType;
+import org.atlasapi.media.entity.SeriesRef;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -135,6 +136,8 @@ public abstract class ContentIdentifier {
 
     public static class SeriesIdentifier extends ContentIdentifier {
         
+        private Integer seriesNumber;
+
         public SeriesIdentifier() {
         }
 
@@ -142,13 +145,21 @@ public abstract class ContentIdentifier {
             this(uri, null);
         }
         
-        public SeriesIdentifier(String uri, String id) {
+        public SeriesIdentifier(String uri, Integer seriesNumber) {
+            this(uri, seriesNumber, null);
+        }
+        public SeriesIdentifier(String uri, Integer seriesNumber, String id) {
             super(uri, EntityType.SERIES.toString(), id);
+            this.seriesNumber = seriesNumber;
         }
 
         @Override
         public SeriesIdentifier copy() {
-            return new SeriesIdentifier(uri, id);
+            return new SeriesIdentifier(uri, seriesNumber, id);
+        }
+        
+        public Integer getSeriesNumber() {
+            return seriesNumber;
         }
     }
 
@@ -192,40 +203,51 @@ public abstract class ContentIdentifier {
         return Objects.hashCode(uri);
     }
 
-    private static Map<EntityType, Class<? extends ContentIdentifier>> typeMap = ImmutableMap.<EntityType, Class<? extends ContentIdentifier>> builder()
-            .put(EntityType.PERSON, PersonIdentifier.class)
-            .put(EntityType.SERIES, SeriesIdentifier.class)
-            .put(EntityType.BRAND, BrandIdentifier.class)
-            .put(EntityType.ITEM, ItemIdentifier.class)
-            .put(EntityType.EPISODE, EpisodeIdentifier.class)
-            .put(EntityType.FILM, FilmIdentifier.class)
-    .build();
 
-	private static ContentIdentifier create(EntityType type, String uri, String id) {
-		try {
-            Class<? extends ContentIdentifier> idType = typeMap.get(type);
-            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class, String.class);
-            return constructor.newInstance(uri, id);
-        } catch (Exception e) {
-            throw new RuntimeException("Can't create content identifier for " + uri);
-        }
+	private static ContentIdentifier create(EntityType type, String uri, String id, Integer seriesNumber) {
+	    switch (type) {
+        case BRAND:
+            return new BrandIdentifier(uri);
+        case EPISODE:
+            return new EpisodeIdentifier(uri);
+        case FILM:
+            return new FilmIdentifier(uri);
+        case ITEM:
+            return new ItemIdentifier(uri);
+        case PERSON:
+            return new PersonIdentifier(uri);
+        case SERIES:
+            return new SeriesIdentifier(uri, seriesNumber);
+        default:
+            throw new RuntimeException("Can't create content identifier for " + uri);	    
+	    }
 	}
     
     public static ContentIdentifier identifierFor(ChildRef childRef, NumberToShortStringCodec idCodec) {
-        String id = childRef.getId() != null ? idCodec.encode(BigInteger.valueOf(childRef.getId()))
-                                             : null;
-        return create(childRef.getType(), childRef.getUri(), id);
+        return create(childRef.getType(), childRef.getUri(), idFrom(idCodec, childRef), null);
+    }
+    
+    public static SeriesIdentifier seriesIdentifierFor(SeriesRef seriesRef, NumberToShortStringCodec idCodec) {
+        return (SeriesIdentifier) create(seriesRef.getType(), seriesRef.getUri(), idFrom(idCodec, seriesRef), 
+                seriesRef.getSeriesNumber());
     }
 
-    public static ContentIdentifier identifierFrom(String canonicalUri, String type) {
-        try {
-            Class<? extends ContentIdentifier> idType = typeMap.get(EntityType.from(type));
-            Constructor<? extends ContentIdentifier> constructor = idType.getConstructor(String.class);
-            ContentIdentifier newInstance = constructor.newInstance(canonicalUri);
-            return newInstance;
-        } catch (Exception e) {
-            throw new RuntimeException("Can't create content identifier for " + canonicalUri);
+    private static String idFrom(NumberToShortStringCodec idCodec, ChildRef childRef) {
+        return childRef.getId() != null ? idCodec.encode(BigInteger.valueOf(childRef.getId()))
+                                             : null;
+    }
+    
+    public static ContentIdentifier identifierFrom(String canonicalUri, String type, NumberToShortStringCodec idCodec) {
+        EntityType from = EntityType.from(type);
+        if (EntityType.SERIES.equals(from)) {
+            throw new IllegalArgumentException("Series not supported, use seriesIdentiferFrom instead");
         }
+        
+        return create(from, canonicalUri, null, null);
+    }
+    
+    public static ContentIdentifier seriesIdentifierFrom(String canonicalUri, String id, Integer seriesNumber) {
+        return create(EntityType.SERIES, canonicalUri, id, seriesNumber);
     }
     
     public static final Function<ContentIdentifier, String> TO_ID = new Function<ContentIdentifier, String>() {

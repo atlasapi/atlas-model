@@ -23,7 +23,7 @@ public class ChildRef implements Comparable<ChildRef> {
     private final DateTime updated;
 	private final EntityType type;
     
-    public static List<ChildRef> dedupeAndSort(Iterable<ChildRef> childRefs) {
+    public static <T extends ChildRef> List<T> dedupeAndSort(Iterable<T> childRefs) {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(childRefs));
     }
     

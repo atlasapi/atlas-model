@@ -29,7 +29,7 @@ import com.google.common.collect.ImmutableList;
 @RdfClass(namespace = PO.NS, uri = "List")
 public class Brand extends Container {
     
-    private ImmutableList<ChildRef> seriesRefs = ImmutableList.of();;
+    private ImmutableList<SeriesRef> seriesRefs = ImmutableList.of();;
 
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
@@ -37,11 +37,11 @@ public class Brand extends Container {
     
     public Brand() { /* some legacy code still requires a default constructor */ }
 
-    public ImmutableList<ChildRef> getSeriesRefs() {
+    public ImmutableList<SeriesRef> getSeriesRefs() {
         return seriesRefs ;
     }
     
-    public void setSeriesRefs(Iterable<ChildRef> seriesRefs) {
+    public void setSeriesRefs(Iterable<SeriesRef> seriesRefs) {
         this.seriesRefs = ImmutableList.copyOf(seriesRefs);
     }
     
