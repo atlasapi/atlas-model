@@ -6,7 +6,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.metabroadcast.common.time.DateTimeZones;
 
-
 public class Series extends Container {
 	
 	private Integer seriesNumber;
@@ -67,8 +66,9 @@ public class Series extends Container {
         }
     };
     
-    public ChildRef childRef() {
-        return new ChildRef(this.getId(), this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), new DateTime(DateTimeZones.UTC), EntityType.from(this));
+    public SeriesRef seriesRef() {
+        return new SeriesRef(this.getId(), this.getCanonicalUri(), Strings.nullToEmpty(this.getTitle()), 
+                this.seriesNumber, new DateTime(DateTimeZones.UTC));
     }
     
     public void setTotalEpisodes(Integer totalEpisodes) {
