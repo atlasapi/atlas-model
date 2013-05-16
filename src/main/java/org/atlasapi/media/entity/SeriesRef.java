@@ -18,7 +18,7 @@ public class SeriesRef implements Comparable<SeriesRef> {
     
     private final Long id;
     private final String uri;
-    private final String sortKey;
+    private final String title;
     private final DateTime updated;
     private final Integer seriesNumber;
     
@@ -26,10 +26,10 @@ public class SeriesRef implements Comparable<SeriesRef> {
         return NATURAL.immutableSortedCopy(ImmutableSet.copyOf(seriesRefs));
     }
     
-    public SeriesRef(@Nullable Long id, String uri, String sortKey, Integer seriesNumber, DateTime updated) {
+    public SeriesRef(@Nullable Long id, String uri, String title, Integer seriesNumber, DateTime updated) {
         this.id = id;
         this.uri = Preconditions.checkNotNull(uri);
-        this.sortKey =  Preconditions.checkNotNull(sortKey);
+        this.title =  Preconditions.checkNotNull(title);
         this.updated = updated;
         this.seriesNumber = seriesNumber;
     }
@@ -43,8 +43,8 @@ public class SeriesRef implements Comparable<SeriesRef> {
         return uri;
     }
     
-    public String getSortKey() {
-        return sortKey;
+    public String getTitle() {
+        return title;
     }
     
     public DateTime getUpdated() {
@@ -57,7 +57,11 @@ public class SeriesRef implements Comparable<SeriesRef> {
     
     @Override
     public int compareTo(SeriesRef comparableTo) {
-        return sortKey.compareTo(comparableTo.sortKey);
+        if (seriesNumber != null && comparableTo.seriesNumber != null) {
+            return seriesNumber.compareTo(comparableTo.getSeriesNumber());
+        } else {
+            return title.compareTo(comparableTo.title);
+        }
     }
     
     @Override
