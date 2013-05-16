@@ -56,7 +56,8 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
             ImmutableSet.Builder<E> equivContents = ImmutableSet.builder();
             for (E equivalent : equivalents) {
                 EquivalenceRef ref = refMap.get(equivalent.getId());
-                Set<EquivalenceRef> equivs = Sets.filter(allRefs, Predicates.not(Predicates.equalTo(ref)));
+                Set<EquivalenceRef> equivs = Sets.filter(Sets.union(equivalent.getEquivalentTo(),allRefs), 
+                        Predicates.not(Predicates.equalTo(ref)));
                 equivContents.add(equivalent.copyWithEquivalentTo(ImmutableSet.copyOf(equivs)));
             }
             return equivContents.build();
