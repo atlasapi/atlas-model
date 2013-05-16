@@ -2,12 +2,14 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Function;
 
 public class ParentRef {
     
     public static ParentRef parentRefFrom(Container container) {
-        return new ParentRef(container.getCanonicalUri());
+        return new ParentRef(container.getCanonicalUri(), container.getId());
     }
     
     public static Function<Container, ParentRef> T0_PARENT_REF = new Function<Container, ParentRef>() {
@@ -18,11 +20,22 @@ public class ParentRef {
     };
 
     private final String uri;
+    private final Long id;
 
     public ParentRef(String parentCanonicalUri) {
-        this.uri = checkNotNull(parentCanonicalUri);
+        this(parentCanonicalUri, null);
     }
 
+    public ParentRef(String parentCanonicalUri, @Nullable Long id) {
+        this.uri = checkNotNull(parentCanonicalUri);
+        this.id = id;
+    }
+
+    @Nullable
+    public Long getId() {
+        return id;
+    }
+    
     public String getUri() {
         return uri;
     }
