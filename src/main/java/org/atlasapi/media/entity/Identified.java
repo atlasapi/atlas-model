@@ -18,6 +18,7 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
@@ -133,25 +134,25 @@ public class Identified implements Identifiable {
 	
 	@Override
 	public String toString() {
-		return String.format("%s/%s", this.getClass().getSimpleName().toLowerCase(), id);
+	    return Objects.toStringHelper(getClass().getSimpleName().toLowerCase())
+	            .addValue(id != null ? id : "no-id")
+	            .toString();
 	}
 	
 	@Override
 	public int hashCode() {
-		if (canonicalUri == null) {
-			return super.hashCode();
-		}
-		return canonicalUri.hashCode();
+		return id != null ? id.hashCode(): super.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object that) {
+		if (this == that) {
 			return true;
 		}
-		if (canonicalUri != null && obj instanceof Identified) {
-			return canonicalUri.equals(((Identified) obj).canonicalUri);
-		}
+		if (that instanceof Identified && id != null) {
+            Identified other = (Identified) that;
+            return id.equals(other.id);
+        }
 		return false;
 	}
 	

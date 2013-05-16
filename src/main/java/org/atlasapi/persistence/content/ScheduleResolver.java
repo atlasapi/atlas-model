@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Optional;
 
+@Deprecated
 public interface ScheduleResolver {
 
     Schedule schedule(DateTime from, DateTime to, Iterable<Channel> channels, Iterable<Publisher> publisher, Optional<ApplicationConfiguration> mergeConfig);

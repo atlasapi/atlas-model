@@ -1,5 +1,6 @@
 package org.atlasapi.media.content.schedule;
 
+import org.joda.time.Duration;
 import org.joda.time.Interval;
 
 import com.google.common.base.Predicate;
@@ -34,7 +35,7 @@ import com.google.common.base.Predicate;
 public abstract class ScheduleBroadcastFilter implements Predicate<Interval> {
 
     public static final ScheduleBroadcastFilter valueOf(Interval scheduleInterval) {
-        if (scheduleInterval.toDuration().getMillis() == 0) {
+        if (Duration.ZERO.equals(scheduleInterval.toDuration())) {
             return new EmptyScheduleBroadcastFilter(scheduleInterval);
         }
         return new RegularScheduleBroadcastFilter(scheduleInterval);

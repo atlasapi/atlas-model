@@ -119,7 +119,7 @@ public abstract class AbstractContentStore implements ContentStore {
                 //TODO set summary on series
                 ContainerSummary summarize = getSummary(primary);
                 ensureId(series);
-                writeSecondaryContainerRef(primary, series.childRef());
+                writeSecondaryContainerRef(primary, series.seriesRef());
             }
         }
         
@@ -319,7 +319,7 @@ public abstract class AbstractContentStore implements ContentStore {
      * @param primary
      * @param series
      */
-    protected abstract void writeSecondaryContainerRef(ParentRef primary, ChildRef seriesRef);
+    protected abstract void writeSecondaryContainerRef(ParentRef primary, SeriesRef seriesRef);
 
     /**
      * Add a ref to the child in the container and update its

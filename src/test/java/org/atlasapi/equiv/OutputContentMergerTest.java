@@ -23,8 +23,11 @@ public class OutputContentMergerTest {
     @Test
     public void testSortOfCommonSourceContentIsStable() {
         Brand one = new Brand("one","one",Publisher.BBC);
+        one.setId(1);
         Brand two = new Brand("two", "two",Publisher.BBC);
+        two.setId(2);
         Brand three = new Brand("three", "three",Publisher.TED);
+        three.setId(3);
         
         one.copyWithEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(three)));
         two.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(one), EquivalenceRef.valueOf(three)));

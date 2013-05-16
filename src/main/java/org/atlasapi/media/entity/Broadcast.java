@@ -14,8 +14,14 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Comparator;
+
+import javax.annotation.Nullable;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.content.schedule.ScheduleBroadcastFilter;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
@@ -24,6 +30,7 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Ordering;
 import com.metabroadcast.common.base.Maybe;
@@ -234,20 +241,22 @@ public class Broadcast extends Identified {
         }
         Broadcast broadcast = (Broadcast) object;
         if (sourceId != null && broadcast.sourceId != null) {
-        	return sourceId.equals(broadcast.sourceId);
+            return sourceId.equals(broadcast.sourceId);
         }
-        return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
+        return broadcastOn.equals(broadcast.broadcastOn)
+            && transmissionTime.equals(broadcast.getTransmissionTime())
+            && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
     }
     
     @Override
     public int hashCode() {
         // Currently publishers either have ids for all broadcasts or all broadcasts don't have ids 
         // (there are no mixes of broadcasts with and without ids) so this hashCode is safe
-    	if (sourceId != null) {
-    	    return sourceId.hashCode();
-    	}
-    	if (transmissionTime != null) {
-    	    return transmissionTime.hashCode();
+        if (sourceId != null) {
+            return sourceId.hashCode();
+        }
+        if (transmissionTime != null) {
+            return transmissionTime.hashCode();
         }
         return 43;
     }
@@ -268,6 +277,16 @@ public class Broadcast extends Identified {
         copy.premiere = premiere;
         copy.live = live;
         return copy;
+    }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(getClass())
+                .omitNullValues()
+                .addValue(sourceId)
+                .add("channel", broadcastOn)
+                .add("interval", new Interval(transmissionTime, transmissionEndTime))
+                .toString();
     }
     
     public final static Function<Broadcast, Broadcast> COPY = new Function<Broadcast, Broadcast>() {
@@ -297,4 +316,42 @@ public class Broadcast extends Identified {
             return input.isActivelyPublished();
         }
     };
+    
+    public static final Predicate<Broadcast> channelFilter(final Channel channel) {
+        return new Predicate<Broadcast>() {
+            @Override
+            public boolean apply(Broadcast input) {
+                return input.getBroadcastOn() != null 
+                    && input.getBroadcastOn().equals(channel.getCanonicalUri());
+            }
+        };
+    }
+    
+    public static final Predicate<Broadcast> intervalFilter(final Interval interval) {
+        return new Predicate<Broadcast>() {
+            
+            private final Predicate<Interval> scheduleFilter
+                    = ScheduleBroadcastFilter.valueOf(interval);
+            
+            @Override
+            public boolean apply(@Nullable Broadcast input) {
+                return scheduleFilter.apply(transmissionInterval(input));
+            }
+
+            private Interval transmissionInterval(Broadcast input) {
+                return new Interval(input.getTransmissionTime(), input.getTransmissionEndTime());
+            }
+        };
+    }
+    
+    private static final Ordering<Broadcast> START_TIME_ORDERING = Ordering.from(new Comparator<Broadcast>() {
+        @Override
+        public int compare(Broadcast o1, Broadcast o2) {
+            return o1.getTransmissionTime().compareTo(o2.getTransmissionTime());
+        }
+    });
+
+    public static final Ordering<Broadcast> startTimeOrdering() {
+        return START_TIME_ORDERING;
+    }
 }

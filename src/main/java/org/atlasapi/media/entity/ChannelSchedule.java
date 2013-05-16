@@ -5,33 +5,38 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.List;
 
 import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.util.ItemAndBroadcast;
 import org.joda.time.Interval;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Ordering;
 
 public class ChannelSchedule {
     
     private final Channel channel;
     private final Interval interval;
-    private final List<Item> entries;
+    private final List<ItemAndBroadcast> entries;
 
-    public ChannelSchedule(Channel channel, Interval interval, Iterable<Item> entries) {
+    public ChannelSchedule(Channel channel, Interval interval, Iterable<ItemAndBroadcast> entries) {
         this.channel = checkNotNull(channel);
         this.interval = checkNotNull(interval);
-        this.entries = ImmutableList.copyOf(entries);
+        this.entries = Ordering.natural().immutableSortedCopy(entries);
     }
 
-    public Channel channel() {
+    public Channel getChannel() {
         return channel;
     }
     
-    public Interval interval() {
+    public Interval getInterval() {
         return interval;
     }
 
-    public List<Item> items() {
+    public List<ItemAndBroadcast> getEntries() {
         return entries;
+    }
+    
+    public ChannelSchedule copyWithEntries(Iterable<ItemAndBroadcast> entries) {
+        return new ChannelSchedule(channel, interval, entries);
     }
     
     @Override

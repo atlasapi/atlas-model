@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
 import com.metabroadcast.common.time.DateTimeZones;
 
@@ -21,6 +22,19 @@ import com.metabroadcast.common.time.DateTimeZones;
  *            - type of the written resource
  */
 public final class WriteResult<W> implements Comparable<WriteResult<?>> {
+    
+    public static final Predicate<WriteResult<?>> WRITTEN
+        = new Predicate<WriteResult<?>>() {
+            @Override
+            public boolean apply(@Nullable WriteResult<?> input) {
+                return input.written();
+            }
+        };
+        
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static final <W> Predicate<WriteResult<? extends W>> writtenFilter() {
+        return (Predicate) WRITTEN;
+    }
 
     public static final <W> Builder<W> result(W resource, boolean wasWritten) {
         return new Builder<W>(resource, wasWritten, new DateTime(DateTimeZones.UTC));
