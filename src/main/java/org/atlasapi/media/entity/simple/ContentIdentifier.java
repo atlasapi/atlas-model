@@ -136,6 +136,7 @@ public abstract class ContentIdentifier {
         private Integer seriesNumber;
 
         public SeriesIdentifier() {
+            
         }
 
         public SeriesIdentifier(String uri) {
@@ -145,6 +146,7 @@ public abstract class ContentIdentifier {
         public SeriesIdentifier(String uri, Integer seriesNumber) {
             this(uri, seriesNumber, null);
         }
+        
         public SeriesIdentifier(String uri, Integer seriesNumber, String id) {
             super(uri, EntityType.SERIES.toString(), id);
             this.seriesNumber = seriesNumber;
@@ -157,6 +159,10 @@ public abstract class ContentIdentifier {
         
         public Integer getSeriesNumber() {
             return seriesNumber;
+        }
+        
+        public void setSeriesNumber(Integer seriesNumber) {
+            this.seriesNumber = seriesNumber;
         }
     }
 
