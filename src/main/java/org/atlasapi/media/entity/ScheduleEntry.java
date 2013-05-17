@@ -12,8 +12,10 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 import com.metabroadcast.common.text.NumberPadder;
 import com.metabroadcast.common.time.DateTimeZones;
 
@@ -34,7 +36,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         this.interval = interval;
         this.channel = channel;
         this.publisher = publisher;
-        this.withItems(items);
+        this.withItems(Ordering.natural().immutableSortedCopy(items));
     }
     
     public Channel channel() {
@@ -111,7 +113,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         }
     };
     
-    public static final class ItemRefAndBroadcast {
+    public static final class ItemRefAndBroadcast implements Comparable<ItemRefAndBroadcast>{
         
         private final String uri;
         private final Broadcast broadcast;
@@ -150,6 +152,14 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         @Override
         public String toString() {
             return String.format("%s: %s", uri, broadcast);
+        }
+        
+        @Override
+        public int compareTo(ItemRefAndBroadcast o) {
+            return ComparisonChain.start()
+                .compare(broadcast.getTransmissionTime(), o.broadcast.getTransmissionEndTime())
+                .compare(uri, o.uri)
+                .result();
         }
     }
 }
