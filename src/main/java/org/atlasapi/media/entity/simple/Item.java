@@ -34,6 +34,7 @@ public class Item extends Description {
 	private BrandSummary container;
 	private SeriesSummary seriesSummary;
 	
+	private Boolean special;
 	private Boolean blackAndWhite;
 	private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private Set<Subtitles> subtitles = Sets.newHashSet();
@@ -127,6 +128,14 @@ public class Item extends Description {
 	
 	public void setSeriesSummary(SeriesSummary seriesSummary) {
 		this.seriesSummary = seriesSummary;
+	}
+	
+	public void setSpecial(Boolean special) {
+	    this.special = special;
+	}
+	
+	public Boolean isSpecial() {
+	    return special;
 	}
 	
 	public void setBlackAndWhite(Boolean blackAndWhite) {

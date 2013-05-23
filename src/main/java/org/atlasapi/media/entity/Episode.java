@@ -37,6 +37,7 @@ public class Episode extends Item {
     private Integer seriesNumber;
 	private Integer episodeNumber;
 	private Integer partNumber;
+	private Boolean special = null;
 	
     private ParentRef seriesRef;
 
@@ -58,6 +59,14 @@ public class Episode extends Item {
 	@RdfProperty(namespace=PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri="seasonPosition")
 	public Integer getSeriesNumber() {
 		return seriesNumber;
+	}
+	
+	public Boolean getSpecial() {
+	    return special;
+	}
+	
+	public void setSpecial(Boolean special) {
+	    this.special = special;
 	}
 
     public void setPartNumber(Integer partNumber) {
@@ -95,6 +104,7 @@ public class Episode extends Item {
 	    episode.episodeNumber = episodeNumber;
 	    episode.seriesNumber = seriesNumber;
 	    episode.seriesRef = seriesRef;
+	    episode.special = special;
 	    return episode;
 	}
 
