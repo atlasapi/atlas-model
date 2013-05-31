@@ -100,6 +100,10 @@ public class Channel extends Aliased {
     public void setChannelGroups(List<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
+    
+    public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
+        this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+    }
 
     @XmlElementWrapper(name = "channelGroups")
     @XmlElement(name = "channelNumbering")
@@ -116,6 +120,10 @@ public class Channel extends Aliased {
     }
     
     public void setAvailableFrom(Set<PublisherDetails> availableFrom) {
+        this.availableFrom = ImmutableSet.copyOf(availableFrom);
+    }
+    
+    public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
