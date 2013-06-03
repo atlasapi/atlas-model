@@ -151,6 +151,10 @@ public class Channel extends Aliased {
         this.variations = ImmutableSet.copyOf(variations);
     }
 
+    public void setVariations(Iterable<Channel> variations) {
+        this.variations = ImmutableSet.copyOf(variations);
+    }
+
     @XmlElementWrapper(name = "history")
     @XmlElement(name = "historyEntry")
     public List<HistoricalChannelEntry> getHistory() {
