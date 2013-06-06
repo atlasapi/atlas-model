@@ -230,6 +230,7 @@ public class Identified {
 	    to.curie = from.curie;
 	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);
 	    to.lastUpdated = from.lastUpdated;
+	    to.id = from.id;
 	}
 	
 	public static <T extends Identified> List<T> sort(List<T> content, final Iterable<String> orderIterable) {
