@@ -135,7 +135,7 @@ public class PlaylistTestDataBuilder {
         this.contents = ImmutableList.copyOf(Iterables.transform(ImmutableList.copyOf(content), new Function<Item, ContentIdentifier>(){
             @Override
             public ItemIdentifier apply(Item input) {
-                return new ItemIdentifier(input.getUri());
+                return new ItemIdentifier(input.getUri(), input.getId());
             }}));
         return this;
     }
