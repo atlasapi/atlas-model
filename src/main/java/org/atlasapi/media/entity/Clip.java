@@ -25,6 +25,23 @@ public class Clip extends Item {
 	
 	public Clip() {}
 	
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (getCanonicalUri() != null && obj instanceof Clip) {
+            return getCanonicalUri().equals(((Clip) obj).getCanonicalUri());
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return getCanonicalUri() == null ? super.hashCode() 
+                                         : getCanonicalUri().hashCode();
+    }
+	
 	@Override
 	public Clip copy() {
 	    Clip clip = new Clip();
