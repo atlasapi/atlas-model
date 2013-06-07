@@ -35,7 +35,7 @@ public class EquivalentContent extends ForwardingSetMultimap<String, Content> {
         }
         
         private Iterable<Content> setEquivalentToFields(Iterable<Content> contents) {
-            Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_ID);
+            Map<String,LookupRef> refMap = Maps.uniqueIndex(Iterables.transform(contents, LookupRef.FROM_DESCRIBED), LookupRef.TO_URI);
             Set<LookupRef> allRefs = ImmutableSet.copyOf(refMap.values());
 
             Set<Content> equivContents = Sets.newHashSetWithExpectedSize(refMap.size());
