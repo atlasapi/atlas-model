@@ -44,6 +44,7 @@ public abstract class Description extends Aliased {
     private List<Product> products = Lists.newArrayList();
     private List<ContentGroup> contentGroups = Lists.newArrayList();
     private Set<String> sameAs = Sets.newHashSet();
+    private Set<String> sameAsIds = Sets.newHashSet();
     private List<Person> people = Lists.newArrayList();
     private String mediaType;
     private String specialization;
@@ -196,11 +197,21 @@ public abstract class Description extends Aliased {
     public void setSameAs(Iterable<String> sameAs) {
         this.sameAs = Sets.newHashSet(sameAs);
     }
+    
+    public void setSameAsIds(Iterable<String> sameAsIds) {
+        this.sameAsIds = Sets.newHashSet(sameAsIds);
+    }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "sameAs")
     @XmlElement(name = "uri")
     public Set<String> getSameAs() {
         return sameAs;
+    }
+    
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "sameAsIds")
+    @XmlElement(name = "id")
+    public Set<String> getSameAsIds() {
+        return sameAsIds;
     }
 
     public void setMediaType(String mediaType) {
