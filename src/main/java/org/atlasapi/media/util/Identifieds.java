@@ -66,6 +66,7 @@ public class Identifieds {
         Iterable<Playlist> playlists = Iterables.filter(identifieds, Playlist.class);
         for (Playlist playlist : playlists) {
             builder.addAll(playlist.getContent());
+            builder.addAll(playlist.getSeriesList());
             if (playlist.getAvailableContent() != null) {
                 builder.addAll(playlist.getAvailableContent());
             }
