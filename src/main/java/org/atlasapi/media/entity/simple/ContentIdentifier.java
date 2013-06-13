@@ -195,7 +195,7 @@ public abstract class ContentIdentifier {
         if (this == obj) {
             return true;
         } else if (obj instanceof ContentIdentifier) {
-            return Objects.equal(this.uri, ((ContentIdentifier)obj).uri) && Objects.equal(this.type, ((ContentIdentifier)obj).uri);
+            return Objects.equal(this.uri, ((ContentIdentifier)obj).uri) && Objects.equal(this.type, ((ContentIdentifier)obj).type);
         } else {
             return false;
         }
