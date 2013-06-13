@@ -17,11 +17,11 @@ import com.google.common.collect.ImmutableList.Builder;
 public class LookupRef {
 
     public static LookupRef from(Described subject) {
-        return new LookupRef(subject.getCanonicalUri(), subject.getPublisher(), categoryFor(subject));
+        return new LookupRef(subject.getCanonicalUri(), subject.getId(), subject.getPublisher(), categoryFor(subject));
     }
     
     public static LookupRef from(ChildRef childRef, Publisher publisher) {
-        return new LookupRef(childRef.getUri(), publisher, ContentCategory.CHILD_ITEM);
+        return new LookupRef(childRef.getUri(), childRef.getId(), publisher, ContentCategory.CHILD_ITEM);
     }
     
     public static Function<Described,LookupRef> FROM_DESCRIBED = new Function<Described, LookupRef>() {
@@ -41,9 +41,16 @@ public class LookupRef {
         return lookupRefs.build();
     }
     
-    public static Function<LookupRef,String> TO_ID = new Function<LookupRef, String>() {
+    public static Function<LookupRef,String> TO_URI = new Function<LookupRef, String>() {
         @Override
         public String apply(LookupRef input) {
+            return input.uri();
+        }
+    };
+    
+    public static Function<LookupRef,Long> TO_ID = new Function<LookupRef, Long>() {
+        @Override
+        public Long apply(LookupRef input) {
             return input.id();
         }
     };
@@ -55,17 +62,23 @@ public class LookupRef {
         }
     };
     
-    private final String id;
+    private final String uri;
+    private final Long id;
     private final Publisher publisher;
     private final ContentCategory category;
 
-    public LookupRef(String id, Publisher publisher, ContentCategory category) {
+    public LookupRef(String uri, Long id, Publisher publisher, ContentCategory category) {
+        this.uri = uri;
         this.id = id;
         this.publisher = publisher;
         this.category = category;
     }
 
-    public String id() {
+    public String uri() {
+        return uri;
+    }
+    
+    public Long id() {
         return id;
     }
 
@@ -84,18 +97,18 @@ public class LookupRef {
         }
         if(that instanceof LookupRef) {
             LookupRef other = (LookupRef) that;
-            return id.equals(other.id) && publisher.equals(other.publisher);
+            return uri.equals(other.uri) && publisher.equals(other.publisher);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, publisher);
+        return Objects.hashCode(uri, publisher);
     }
     
     @Override
     public String toString() {
-        return String.format("Equiv:%s(%s,%s)", id, publisher.title(), category);
+        return String.format("Equiv:%s(%s,%s)", uri, publisher.title(), category);
     }
 }

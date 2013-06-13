@@ -220,7 +220,7 @@ public class Identified {
      */
 	public boolean isEquivalentTo(Described content) {
 		return equivalentTo.contains(LookupRef.from(content))
-	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_ID), canonicalUri);
+	        || Iterables.contains(Iterables.transform(content.getEquivalentTo(), LookupRef.TO_URI), canonicalUri);
 	}
 	
 	public static void copyTo(Identified from, Identified to) {
