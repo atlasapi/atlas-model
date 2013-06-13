@@ -20,7 +20,7 @@ public class Image extends Identified {
     
     private ImageType type;
     private ImageColor color;
-    private ImageBackground background;
+    private ImageTheme theme;
     private Integer height;
     private Integer width;
     private ImageAspectRatio aspectRatio;
@@ -60,12 +60,12 @@ public class Image extends Identified {
         this.color = color;
     }
 
-    public ImageBackground getBackground() {
-        return background;
+    public ImageTheme getTheme() {
+        return theme;
     }
 
-    public void setBackground(ImageBackground background) {
-        this.background = background;
+    public void setTheme(ImageTheme theme) {
+        this.theme = theme;
     }
 
     public ImageAspectRatio getAspectRatio() {

@@ -3,6 +3,8 @@ package org.atlasapi.media.channel;
 import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.Image;
+import org.atlasapi.media.entity.ImageTheme;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
@@ -11,10 +13,19 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 public class Channel extends Identified {
+    
+    public static final Predicate<Image> IS_PRIMARY_IMAGE = new Predicate<Image>() {
+        @Override
+        public boolean apply(Image input) {
+            return input.getTheme().equals(ImageTheme.LIGHT_OPAQUE);
+        }
+    };
     
     public static final Builder builder() {
         return new Builder();
@@ -26,8 +37,8 @@ public class Channel extends Identified {
         private String uri;
         private String key;
         private Publisher broadcaster;
-        private Set<TemporalString> images = Sets.newHashSet();
-        private Set<TemporalString> titles = Sets.newHashSet();
+        private Set<TemporalField<Image>> images = Sets.newHashSet();
+        private Set<TemporalField<String>> titles = Sets.newHashSet();
         private Set<RelatedLink> relatedLinks = Sets.newHashSet();
         private MediaType mediaType;
         private Boolean regional;
@@ -59,20 +70,20 @@ public class Channel extends Identified {
         };
         
         public Builder withTitle(String title, LocalDate startDate, LocalDate endDate) {
-            this.titles.add(new TemporalString(title, startDate, endDate));
+            this.titles.add(new TemporalField<String>(title, startDate, endDate));
             return this;
         };
         
-        public Builder withImage(String image) {
+        public Builder withImage(Image image) {
             return withImage(image, null, null);
         };
         
-        public Builder withImage(String image, LocalDate startDate) {
+        public Builder withImage(Image image, LocalDate startDate) {
             return withImage(image, startDate, endDate);
         };
         
-        public Builder withImage(String image, LocalDate startDate, LocalDate endDate) {
-            this.images.add(new TemporalString(image, startDate, endDate));
+        public Builder withImage(Image image, LocalDate startDate, LocalDate endDate) {
+            this.images.add(new TemporalField<Image>(image, startDate, endDate));
             return this;
         };
         
@@ -177,8 +188,8 @@ public class Channel extends Identified {
     
     
     private Publisher source;
-    private Set<TemporalString> titles = Sets.newHashSet();
-    private Set<TemporalString> images = Sets.newHashSet();
+    private Set<TemporalField<String>> titles = Sets.newHashSet();
+    private Set<TemporalField<Image>> images = Sets.newHashSet();
     private Set<RelatedLink> relatedLinks = Sets.newHashSet();
     private MediaType mediaType;
     private String key;
@@ -195,13 +206,13 @@ public class Channel extends Identified {
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -221,88 +232,111 @@ public class Channel extends Identified {
         this.channelNumbers = Sets.newHashSet(channelNumbers);
     }
     
-    public String uri() {
+    public String getUri() {
         return getCanonicalUri();
     }
     
-    public String title() {
-        return TemporalString.currentValue(titles);
+    /**
+     * Gets the current or next title
+     * @return the current title, if one exists, otherwise the 
+     * first future title
+     */
+    public String getTitle() {
+        return TemporalField.currentOrFutureValue(titles);
     }
     
-    public String titleForDate(LocalDate date) {
-        return TemporalString.valueForDate(titles, date);
+    public String getTitleForDate(LocalDate date) {
+        return Iterables.getOnlyElement(TemporalField.valuesForDate(titles, date));
     }
     
-    public Iterable<TemporalString> allTitles() {
+    public Iterable<TemporalField<String>> getAllTitles() {
         return ImmutableSet.copyOf(titles);
     }
     
-    public Boolean highDefinition() {
+    public Boolean getHighDefinition() {
         return highDefinition;
     }
     
-    public Boolean regional() {
+    public Boolean getRegional() {
         return regional;
     }
     
-    public Duration timeshift() {
+    public Duration getTimeshift() {
         return timeshift;
     }
     
-    public MediaType mediaType() {
+    public MediaType getMediaType() {
         return mediaType;
     }
     
-    public Publisher source() {
+    public Publisher getSource() {
         return source;
     }
     
-    public Publisher broadcaster() {
+    public Publisher getBroadcaster() {
         return broadcaster;
     }
     
-    public Set<Publisher> availableFrom() {
+    public Set<Publisher> getAvailableFrom() {
         return availableFrom;
     }
     
-    public Set<Long> variations() {
+    public Set<Long> getVariations() {
         return variations;
     }
     
-    public Long parent() {
+    public Long getParent() {
         return parent;
     }
     
-    public Set<ChannelNumbering> channelNumbers() {
+    public Set<ChannelNumbering> getChannelNumbers() {
         return ImmutableSet.copyOf(channelNumbers);
     }
     
     @Deprecated
-    public String key() {
+    public String getKey() {
         return key;
     }
     
-    public String image() {
-        return TemporalString.currentValue(images);
+    /**
+     * @return primary channel image, or first future primary image if 
+     * no current image
+     */
+    public Image getImage() {
+        Iterable<TemporalField<Image>> primaryImages = Iterables.filter(
+            images, 
+            new Predicate<TemporalField<Image>>() {
+                @Override
+                public boolean apply(TemporalField<Image> input) {
+                    Image image = input.getValue();
+                    return IS_PRIMARY_IMAGE.apply(image);
+                }
+            }
+        );
+        return TemporalField.currentOrFutureValue(primaryImages);
     }
     
-    public String imageForDate(LocalDate date) {
-        return TemporalString.valueForDate(images, date);
+    public Set<Image> getImages() {
+        return TemporalField.currentValues(images);
     }
     
-    public Iterable<TemporalString> allImages() {
+    public Set<Image> getImagesForDate(LocalDate date) {
+        return TemporalField.valuesForDate(images, date);
+    }
+    
+    public Iterable<TemporalField<Image>> getAllImages() {
         return ImmutableSet.copyOf(images);
+    }
+    
+    public LocalDate getStartDate() {
+        return startDate;
     }
     
     public Set<RelatedLink> getRelatedLinks() {
         return relatedLinks;
     }
     
-    public LocalDate startDate() {
-        return startDate;
-    }
-    
-    public LocalDate endDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
     
@@ -319,14 +353,14 @@ public class Channel extends Identified {
     }
     
     public void addTitle(String title, LocalDate startDate, LocalDate endDate) {
-        this.titles.add(new TemporalString(title, startDate, endDate));
+        this.titles.add(new TemporalField<String>(title, startDate, endDate));
     }
     
-    public void addTitle(TemporalString title) {
+    public void addTitle(TemporalField<String> title) {
         this.titles.add(title);
     }
     
-    public void setTitles(Iterable<TemporalString> titles) {
+    public void setTitles(Iterable<TemporalField<String>> titles) {
         this.titles = Sets.newHashSet(titles);
     }
     
@@ -411,23 +445,23 @@ public class Channel extends Identified {
         this.channelNumbers.add(channelNumbering);
     };
     
-    public void addImage(String image) {
+    public void addImage(Image image) {
         addImage(image, null, null);
     }
     
-    public void addImage(String image, LocalDate startDate) {
+    public void addImage(Image image, LocalDate startDate) {
         addImage(image, startDate, null);
     }
     
-    public void addImage(String image, LocalDate startDate, LocalDate endDate) {
-        this.images.add(new TemporalString(image, startDate, endDate));
+    public void addImage(Image image, LocalDate startDate, LocalDate endDate) {
+        this.images.add(new TemporalField<Image>(image, startDate, endDate));
     }
     
-    public void addImage(TemporalString image) {
+    public void addImage(TemporalField<Image> image) {
         this.images.add(image);
     }
     
-    public void setImages(Iterable<TemporalString> images) {
+    public void setImages(Iterable<TemporalField<Image>> images) {
         this.images = Sets.newHashSet(images);
     }
     
@@ -447,14 +481,14 @@ public class Channel extends Identified {
         if (obj instanceof Channel) {
             Channel target = (Channel) obj;
             return getId() != null ? Objects.equal(getId(), target.getId()) 
-                                   : Objects.equal(uri(), target.uri());
+                                   : Objects.equal(getUri(), target.getUri());
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return getId() != null ? getId().hashCode() : uri().hashCode();
+        return getId() != null ? getId().hashCode() : getUri().hashCode();
     }
     
     @Override
@@ -468,7 +502,7 @@ public class Channel extends Identified {
     public static final Function<Channel, String> TO_KEY = new Function<Channel, String>() {
         @Override
         public String apply(Channel input) {
-            return input.key();
+            return input.getKey();
         }
     };
 

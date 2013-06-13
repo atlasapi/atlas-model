@@ -89,7 +89,7 @@ public class ChannelGroup extends Aliased {
         return history;
     }
     
-    public void setHistory(List<HistoricalChannelGroupEntry> history) {
+    public void setHistory(Iterable<HistoricalChannelGroupEntry> history) {
         this.history = HISTORY_ORDERING.immutableSortedCopy(history);
     }
 }

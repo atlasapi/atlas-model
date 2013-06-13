@@ -29,6 +29,7 @@ public class Channel extends Aliased {
     private PublisherDetails publisher;
     private String title;
     private String image;
+    private Set<Image> images;
     private String mediaType;
     private Boolean highDefinition;        
     private Boolean regional;
@@ -53,6 +54,10 @@ public class Channel extends Aliased {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
     }
     
     public void setMediaType(String mediaType) {
@@ -82,6 +87,10 @@ public class Channel extends Aliased {
 
     public String getImage() {
         return this.image;
+    }
+
+    public Set<Image> getImages() {
+        return this.images;
     }
     
     public String getMediaType() {
@@ -172,7 +181,7 @@ public class Channel extends Aliased {
         return history;
     }
 
-    public void setHistory(List<HistoricalChannelEntry> history) {
+    public void setHistory(Iterable<HistoricalChannelEntry> history) {
         this.history = HISTORY_ORDERING.immutableSortedCopy(history);
     }
 

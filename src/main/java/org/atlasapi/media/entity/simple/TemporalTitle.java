@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.joda.time.LocalDate;
 
-public class TemporalString {
+public class TemporalTitle {
     private String value;
     private Date startDate;
     private Date endDate;
