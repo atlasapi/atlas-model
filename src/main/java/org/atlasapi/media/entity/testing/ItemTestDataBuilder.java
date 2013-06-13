@@ -9,6 +9,7 @@ import org.atlasapi.media.entity.simple.Broadcast;
 import org.atlasapi.media.entity.simple.Item;
 import org.atlasapi.media.entity.simple.KeyPhrase;
 import org.atlasapi.media.entity.simple.Location;
+import org.atlasapi.media.entity.simple.Person;
 import org.atlasapi.media.entity.simple.PublisherDetails;
 import org.atlasapi.media.entity.simple.RelatedLink;
 import org.atlasapi.media.entity.simple.SeriesSummary;
@@ -47,6 +48,7 @@ public class ItemTestDataBuilder {
     private String specialization;
     private Set<KeyPhrase> keyPhrases;
     private Set<RelatedLink> relatedLinks;
+    private Set<Person> people;
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -85,6 +87,7 @@ public class ItemTestDataBuilder {
         specialization = "tv";
         keyPhrases = ImmutableSet.of();
         relatedLinks = ImmutableSet.of();
+        people = ImmutableSet.of();
     }
     
     private SeriesSummary defaultSeriesSummary() {
@@ -140,6 +143,7 @@ public class ItemTestDataBuilder {
         item.setType("item");
         item.setKeyPhrases(keyPhrases);
         item.setRelatedLinks(relatedLinks);
+        item.setPeople(people);
         return item;
     }
     
@@ -222,4 +226,9 @@ public class ItemTestDataBuilder {
         this.relatedLinks = ImmutableSet.copyOf(links);
         return this;
     }
+    
+    public ItemTestDataBuilder withPeople(Person... people) {
+        this.people = ImmutableSet.copyOf(people);
+        return this;
+    };
 }
