@@ -2,11 +2,11 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
 
-public class Image extends Identified {
+public class Image extends Aliased {
 
     private String type;
     private String color;
-    private String background;
+    private String theme;
     private Integer width;
     private Integer height;
     private String aspectRatio;
@@ -69,12 +69,12 @@ public class Image extends Identified {
         this.color = color;
     }
 
-    public String getBackground() {
-        return background;
+    public String getTheme() {
+        return theme;
     }
 
-    public void setBackground(String background) {
-        this.background = background;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public String getAspectRatio() {
