@@ -74,7 +74,7 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
     }
     
     public static String toKey(Interval interval, Channel channel, Publisher publisher) {
-        return joiner.join(NumberPadder.pad(SECS_FROM_1900 + interval.getStartMillis() / 1000), channel.key(), publisher.key());
+        return joiner.join(NumberPadder.pad(SECS_FROM_1900 + interval.getStartMillis() / 1000), channel.getKey(), publisher.key());
     }
     
     @Override

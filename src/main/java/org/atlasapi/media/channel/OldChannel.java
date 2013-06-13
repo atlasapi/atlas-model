@@ -1046,8 +1046,8 @@ public class OldChannel extends Channel implements SelfModelling {
                     if (object instanceof OldChannel) {
                         OldChannel channel = (OldChannel) object;
                         
-                        uriMapBuilder.put(channel.uri(), channel);
-                        keyMapBuilder.put(channel.key(), channel);
+                        uriMapBuilder.put(channel.getUri(), channel);
+                        keyMapBuilder.put(channel.getKey(), channel);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1065,15 +1065,15 @@ public class OldChannel extends Channel implements SelfModelling {
         this.key = key;
     }
 
-    public String uri() {
+    public String getUri() {
         return uri;
     }
 
-    public String title() {
+    public String getTitle() {
         return title;
     }
 
-    public String key() {
+    public String getKey() {
         return key;
     }
 
@@ -1113,7 +1113,7 @@ public class OldChannel extends Channel implements SelfModelling {
         ImmutableList.Builder<String> keys = ImmutableList.builder();
 
         for (OldChannel channel : channels) {
-            keys.add(channel.key());
+            keys.add(channel.getKey());
         }
 
         return keys.build();

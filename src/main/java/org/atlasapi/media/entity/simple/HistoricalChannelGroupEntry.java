@@ -35,7 +35,7 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(startDate, title);
+        return Objects.hashCode(startDate);
     }
     
     @Override
@@ -45,8 +45,7 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
         }
         if (that instanceof HistoricalChannelGroupEntry) {
             HistoricalChannelGroupEntry entry = (HistoricalChannelGroupEntry)that;
-            return startDate.equals(entry.startDate)
-                && Objects.equal(title, entry.title);
+            return startDate.equals(entry.startDate);
         }
         return false;
     }
