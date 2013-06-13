@@ -222,7 +222,7 @@ public abstract class Described extends Identified {
     }
     
     public void setPresentationChannel(Channel channel) {
-        setPresentationChannel(channel.key());
+        setPresentationChannel(channel.getKey());
     }
     
     public void setPresentationChannel(String channel) {

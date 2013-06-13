@@ -1,7 +1,5 @@
 package org.atlasapi.media.entity.simple;
 
-import org.joda.time.DateTime;
-
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
