@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -17,18 +19,21 @@ public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry
     private String title;
     private String image;
     private Set<Image> images;
+    
+    /**
+     * JAXB requires a no-args constructor
+     */
+    public HistoricalChannelEntry() {}
+    
+    public HistoricalChannelEntry(LocalDate startDate) {
+        this.startDate = checkNotNull(startDate).toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
+    }
 
     @XmlElement(name = "startDate")
     public Date getStartDate() {
         return startDate;
     }
     
-    public void setStartDate(LocalDate startDate) {
-        if (startDate != null) {
-            this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
-        }
-    }
-
     public String getTitle() {
         return title;
     }
