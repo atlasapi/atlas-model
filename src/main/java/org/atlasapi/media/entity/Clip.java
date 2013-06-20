@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.PO;
 
@@ -14,6 +15,10 @@ public class Clip extends Item {
 	public Clip(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
+	   
+    public Clip(Id id, Publisher source) {
+        super(id, source);
+    }
 	
 	public void setClipOf(String clipOf) {
 		this.clipOf = clipOf;
@@ -24,7 +29,7 @@ public class Clip extends Item {
 	}
 	
 	public Clip() {}
-	
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

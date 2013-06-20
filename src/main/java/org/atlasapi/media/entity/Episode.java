@@ -45,11 +45,10 @@ public class Episode extends Item {
 	public Episode(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
-	
-	public Episode(Id id, Publisher source) {
-	    setId(id);
-	    setPublisher(source);
-	}
+	   
+    public Episode(Id id, Publisher source) {
+        super(id, source);
+    }
 	
 	public Episode() { }
 	

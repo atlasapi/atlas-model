@@ -101,6 +101,10 @@ public class Broadcast extends Identified {
 		this.activelyPublished = activelyPublished;
 	}
     
+    public Broadcast(String broadcastOn, Interval interval) {
+        this(broadcastOn, interval.getStart(), interval.getEnd());
+    }
+
     @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
     public DateTime getTransmissionTime() {
         return this.transmissionTime;

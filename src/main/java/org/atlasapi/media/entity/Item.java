@@ -22,6 +22,7 @@ import java.util.Set;
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.content.ContentVisitor;
@@ -54,6 +55,10 @@ public class Item extends Content {
 
     public Item(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
+    }
+    
+    public Item(Id id, Publisher source) {
+        super(id, source);
     }
 
     public Item() {

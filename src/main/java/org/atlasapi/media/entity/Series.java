@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.ContainerVisitor;
 import org.atlasapi.media.content.ContentVisitor;
@@ -20,6 +21,10 @@ public class Series extends Container {
 	public Series(String uri, String curie, Publisher publisher) {
 		 super(uri, curie, publisher);
 	}
+	
+    public Series(Id id, Publisher source) {
+        super(id, source);
+    }
 
 	public Series toSummary() {
 	   Series summary = new Series(this.getCanonicalUri(), this.getCurie(), this.publisher);

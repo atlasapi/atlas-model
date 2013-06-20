@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
@@ -74,7 +75,12 @@ public abstract class Described extends Identified {
 	
 	public Described() { /* some legacy code still requires a default constructor */ }
 	
-	public DateTime getLastFetched() {
+	public Described(Id id, Publisher source) {
+	    super(id);
+	    this.publisher = source;
+	}
+
+    public DateTime getLastFetched() {
         return lastFetched;
     }
 

@@ -2,6 +2,7 @@ package org.atlasapi.media.entity;
 
 import java.util.Set;
 
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.ItemVisitor;
 
 import com.google.common.collect.ImmutableSet;
@@ -17,6 +18,10 @@ public class Film extends Item {
     public Film(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
         setSpecialization(Specialization.FILM);
+    }
+        
+    public Film(Id id, Publisher source) {
+        super(id, source);
     }
     
     public Film() {

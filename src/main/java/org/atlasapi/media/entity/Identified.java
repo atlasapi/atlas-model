@@ -70,7 +70,11 @@ public class Identified implements Identifiable {
 		this(uri, null);
 	}
 	
-	@Deprecated
+	public Identified(Id id) {
+	    this.id = id;
+    }
+
+    @Deprecated
 	@RdfProperty(relation = true, namespace=OWL.NS, uri="sameAs")
 	public Set<String> getAliasUrls() {
 		return aliasUrls;

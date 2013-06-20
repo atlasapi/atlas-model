@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.ItemVisitor;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.Duration;
@@ -21,6 +22,12 @@ public class Song extends Item {
         setMediaType(MediaType.AUDIO);
         setSpecialization(Specialization.MUSIC);
 	}
+    
+    public Song(Id id, Publisher source) {
+        super(id, source);
+        setMediaType(MediaType.AUDIO);
+        setSpecialization(Specialization.MUSIC);
+    }
 	
 	public void setIsrc(String isrc) {
 		this.isrc = isrc;

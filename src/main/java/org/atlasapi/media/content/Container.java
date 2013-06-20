@@ -1,6 +1,7 @@
 package org.atlasapi.media.content;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
@@ -14,6 +15,10 @@ public abstract class Container extends Content {
 	public Container(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
+	
+    public Container(Id id, Publisher source) {
+        super(id, source);
+    }
     
     public Container() {}
     

@@ -19,6 +19,7 @@ import java.util.Set;
 import org.atlasapi.equiv.EquivalenceRef;
 import org.atlasapi.equiv.Equivalent;
 import org.atlasapi.media.common.Aliased;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Actor;
 import org.atlasapi.media.entity.Certificate;
@@ -60,6 +61,10 @@ public abstract class Content extends Described implements Aliased, Sourced, Equ
     public Content() { /*
          * some legacy code still requires a default constructor
          */
+    }
+
+    public Content(Id id, Publisher source) {
+        super(id, source);
     }
 
     public ChildRef childRef() {

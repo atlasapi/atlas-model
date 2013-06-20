@@ -16,6 +16,7 @@ permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.content.Container;
 import org.atlasapi.media.content.ContainerVisitor;
 import org.atlasapi.media.vocabulary.PO;
@@ -36,6 +37,10 @@ public class Brand extends Container {
     public Brand(String uri, String curie, Publisher publisher) {
 		super(uri, curie, publisher);
 	}
+    
+    public Brand(Id id, Publisher source) {
+        super(id, source);
+    }
     
     public Brand() { /* some legacy code still requires a default constructor */ }
 
