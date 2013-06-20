@@ -17,11 +17,9 @@ public class ChannelGroupHistoryOrderingTest {
         
         LocalDate now = new LocalDate();
         
-        HistoricalChannelGroupEntry current = new HistoricalChannelGroupEntry();
-        current.setStartDate(now);
+        HistoricalChannelGroupEntry current = new HistoricalChannelGroupEntry(now);
         
-        HistoricalChannelGroupEntry previous = new HistoricalChannelGroupEntry();
-        previous.setStartDate(now.minusYears(1));
+        HistoricalChannelGroupEntry previous = new HistoricalChannelGroupEntry(now.minusYears(1));
         
         channelGroup.setHistory(ImmutableSet.of(current, previous));
         

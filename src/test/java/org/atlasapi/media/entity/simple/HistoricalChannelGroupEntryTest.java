@@ -13,19 +13,17 @@ public class HistoricalChannelGroupEntryTest {
     public void testEqualityOnDate() {
         LocalDate date = new LocalDate();
         
-        HistoricalChannelEntry entry1 = new HistoricalChannelEntry();
+        HistoricalChannelEntry entry1 = new HistoricalChannelEntry(date);
         entry1.setTitle("title1");
-        entry1.setStartDate(date);
         
-        HistoricalChannelEntry entry2 = new HistoricalChannelEntry();
+        HistoricalChannelEntry entry2 = new HistoricalChannelEntry(date);
         entry2.setTitle("title1");
-        entry2.setStartDate(date);
         
         assertTrue(entry1.equals(entry2));
         
-        entry2.setTitle("title1");
-        entry2.setStartDate(date.plusDays(1));
+        HistoricalChannelEntry entry3 = new HistoricalChannelEntry(date.plusDays(1));
+        entry3.setTitle("title1");
         
-        assertFalse(entry1.equals(entry2));
+        assertFalse(entry1.equals(entry3));
     }
 }
