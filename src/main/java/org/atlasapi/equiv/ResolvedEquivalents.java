@@ -34,7 +34,7 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
 
         private ImmutableSetMultimap.Builder<Id,E> entries = ImmutableSetMultimap.builder();
 
-        public Builder<E> putEquivalents(Id key, Iterable<E> equivalentSet) {
+        public Builder<E> putEquivalents(Id key, Iterable<? extends E> equivalentSet) {
             this.entries.putAll(key, setEquivalentToFields(equivalentSet));
             return this;
         }
@@ -43,7 +43,7 @@ public class ResolvedEquivalents<E extends Equivalent<E>> extends ForwardingSetM
             return new ResolvedEquivalents<E>(entries.build());
         }
         
-        private Iterable<E> setEquivalentToFields(Iterable<E> equivalents) {
+        private Iterable<E> setEquivalentToFields(Iterable<? extends E> equivalents) {
             Map<Id, EquivalenceRef> refMap = Maps.uniqueIndex(Iterables.transform(equivalents,
                     new Function<Equivalent<?>, EquivalenceRef>() {
                         @Override
