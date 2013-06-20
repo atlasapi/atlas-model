@@ -246,7 +246,7 @@ public class Channel extends Identified {
     }
     
     public String getTitleForDate(LocalDate date) {
-        return Iterables.getOnlyElement(TemporalField.valuesForDate(titles, date));
+        return Iterables.getOnlyElement(TemporalField.valuesForDate(titles, date), null);
     }
     
     public Iterable<TemporalField<String>> getAllTitles() {
