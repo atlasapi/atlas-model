@@ -66,7 +66,7 @@ public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry
         }
         if (that instanceof HistoricalChannelEntry) {
             HistoricalChannelEntry entry = (HistoricalChannelEntry)that;
-            return startDate.equals(entry.startDate);
+            return Objects.equal(startDate, entry.startDate);
         }
         return false;
     }

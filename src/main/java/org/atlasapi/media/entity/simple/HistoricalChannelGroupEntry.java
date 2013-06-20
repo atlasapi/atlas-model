@@ -45,7 +45,7 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
         }
         if (that instanceof HistoricalChannelGroupEntry) {
             HistoricalChannelGroupEntry entry = (HistoricalChannelGroupEntry)that;
-            return startDate.equals(entry.startDate);
+            return Objects.equal(startDate, entry.startDate);
         }
         return false;
     }
