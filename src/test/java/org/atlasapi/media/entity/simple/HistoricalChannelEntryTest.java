@@ -15,23 +15,21 @@ public class HistoricalChannelEntryTest {
     public void testEqualityOnDate() {
         LocalDate date = new LocalDate();
         
-        HistoricalChannelEntry entry1 = new HistoricalChannelEntry();
+        HistoricalChannelEntry entry1 = new HistoricalChannelEntry(date);
         entry1.setImage("image1");
         entry1.setImages(ImmutableList.of(createImage("image1")));
-        entry1.setStartDate(date);
         
-        HistoricalChannelEntry entry2 = new HistoricalChannelEntry();
+        HistoricalChannelEntry entry2 = new HistoricalChannelEntry(date);
         entry2.setImage("image2");
         entry2.setImages(ImmutableList.of(createImage("image2"), createImage("image3")));
-        entry2.setStartDate(date);
         
         assertTrue(entry1.equals(entry2));
         
-        entry2.setImage("image1");
-        entry2.setImages(entry1.getImages());
-        entry2.setStartDate(date.plusDays(1));
+        HistoricalChannelEntry entry3 = new HistoricalChannelEntry(date.plusDays(1));
+        entry3.setImage("image1");
+        entry3.setImages(entry1.getImages());
         
-        assertFalse(entry1.equals(entry2));
+        assertFalse(entry1.equals(entry3));
     }
 
     private Image createImage(String uri) {
