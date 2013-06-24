@@ -15,6 +15,7 @@ import org.joda.time.LocalDate;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
@@ -96,6 +97,10 @@ public class Channel extends Aliased {
         return timeshift;
     }
 
+    public void setChannelGroups(List<ChannelNumbering> channelNumbering) {
+        this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+    }
+    
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
@@ -112,6 +117,10 @@ public class Channel extends Aliased {
 
     public void setBroadcaster(PublisherDetails broadcaster) {
         this.broadcaster = broadcaster;
+    }
+    
+    public void setAvailableFrom(Set<PublisherDetails> availableFrom) {
+        this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
     
     public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
@@ -136,6 +145,10 @@ public class Channel extends Aliased {
     @XmlElement(name = "variation")
     public Set<Channel> getVariations() {
         return variations;
+    }
+
+    public void setVariations(Set<Channel> variations) {
+        this.variations = ImmutableSet.copyOf(variations);
     }
 
     public void setVariations(Iterable<Channel> variations) {
