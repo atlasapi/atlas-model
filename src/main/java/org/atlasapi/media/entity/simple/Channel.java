@@ -13,7 +13,9 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
@@ -36,6 +38,7 @@ public class Channel extends Aliased {
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
     private Set<Channel> variations;
+    private List<RelatedLink> relatedLinks = Lists.newArrayList();
     private List<HistoricalChannelEntry> history;
     private Date startDate;
     private Date endDate;
@@ -103,6 +106,14 @@ public class Channel extends Aliased {
     
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+    }
+    
+    public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
+        this.relatedLinks = ImmutableList.copyOf(relatedLinks);
+    }
+    
+    public List<RelatedLink> getRelatedLinks() {
+        return relatedLinks;
     }
 
     @XmlElementWrapper(name = "channelGroups")

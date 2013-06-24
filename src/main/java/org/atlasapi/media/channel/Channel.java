@@ -5,6 +5,7 @@ import java.util.Set;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.RelatedLink;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
@@ -27,6 +28,7 @@ public class Channel extends Identified {
         private Publisher broadcaster;
         private Set<TemporalString> images = Sets.newHashSet();
         private Set<TemporalString> titles = Sets.newHashSet();
+        private Set<RelatedLink> relatedLinks = Sets.newHashSet();
         private MediaType mediaType;
         private Boolean regional;
         private Boolean highDefinition;
@@ -73,6 +75,11 @@ public class Channel extends Identified {
             this.images.add(new TemporalString(image, startDate, endDate));
             return this;
         };
+        
+        public Builder withRelatedLink(RelatedLink relatedLink) {
+            this.relatedLinks.add(relatedLink);
+            return this;
+        }
         
         public Builder withMediaType(MediaType mediaType) {
             this.mediaType = mediaType;
@@ -164,7 +171,7 @@ public class Channel extends Identified {
         }
         
         public Channel build() {
-            return new Channel(source, titles, images, key, highDefinition, regional, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
+            return new Channel(source, titles, images, relatedLinks, key, highDefinition, regional, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
         }
     }
     
@@ -172,6 +179,7 @@ public class Channel extends Identified {
     private Publisher source;
     private Set<TemporalString> titles = Sets.newHashSet();
     private Set<TemporalString> images = Sets.newHashSet();
+    private Set<RelatedLink> relatedLinks = Sets.newHashSet();
     private MediaType mediaType;
     private String key;
     private Boolean highDefinition;
@@ -187,19 +195,20 @@ public class Channel extends Identified {
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, Sets.newHashSet(new TemporalString(title, null, null)), ImmutableSet.<TemporalString>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalString> titles, Set<TemporalString> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
         this.timeshift = timeshift;
         this.titles = Sets.newHashSet(titles);
         this.images = Sets.newCopyOnWriteArraySet(images);
+        this.relatedLinks = Sets.newHashSet(relatedLinks);
         this.parent = parent;
         this.key = key;
         this.highDefinition = highDefinition;
@@ -283,6 +292,10 @@ public class Channel extends Identified {
     
     public Iterable<TemporalString> allImages() {
         return ImmutableSet.copyOf(images);
+    }
+    
+    public Set<RelatedLink> getRelatedLinks() {
+        return relatedLinks;
     }
     
     public LocalDate startDate() {
@@ -416,6 +429,14 @@ public class Channel extends Identified {
     
     public void setImages(Iterable<TemporalString> images) {
         this.images = Sets.newHashSet(images);
+    }
+    
+    public void addRelatedLink(RelatedLink relatedLink) {
+        this.relatedLinks.add(relatedLink);
+    }
+    
+    public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
+        this.relatedLinks = Sets.newHashSet(relatedLinks);
     }
     
     @Override

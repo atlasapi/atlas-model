@@ -18,6 +18,10 @@ public class RelatedLink {
         return relatedLink(LinkType.FLICKR, url);
     }
     
+    public static Builder simulcastLink(String url) {
+        return relatedLink(LinkType.SIMULCAST, url);
+    }
+    
     public static Builder unknownTypeLink(String url) {
         return relatedLink(LinkType.UNKNOWN, url);
     }
@@ -100,6 +104,7 @@ public class RelatedLink {
         FACEBOOK,
         TWITTER,
         FLICKR,
+        SIMULCAST,
         UNKNOWN
     }
     
