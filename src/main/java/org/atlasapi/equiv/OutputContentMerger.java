@@ -91,14 +91,9 @@ public class OutputContentMerger {
 
     private static Ordering<Described> toContentOrdering(final Ordering<Publisher> byPublisher) {
         return new Ordering<Described>() {
-
             @Override
             public int compare(Described o1, Described o2) {
-                int cmp = byPublisher.compare(o1.getPublisher(), o2.getPublisher());
-                if (cmp != 0) {
-                    return cmp;
-                }
-                return o1.getCanonicalUri().compareTo(o2.getCanonicalUri());
+                return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
             }
         };
     }
