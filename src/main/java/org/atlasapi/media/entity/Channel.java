@@ -1223,6 +1223,12 @@ public class Channel implements SelfModelling {
     
     public static final Channel DISNEY_JUNIOR_HD = new Channel("Disney Junior HD", CHANNEL_URI_PREFIX+"pressassociation.com/1793", "pa-channel-1793", false);
     
+    public static final Channel TRUE_DRAMA = new Channel("True Drama", CHANNEL_URI_PREFIX+"pressassociation.com/1797", "pa-channel-1797", false);
+    public static final Channel STV_PLUS_ONE = new Channel("STV+1", CHANNEL_URI_PREFIX+"pressassociation.com/1620", "pa-channel-1620", false);
+    public static final Channel DRAMA = new Channel("Drama", CHANNEL_URI_PREFIX+"pressassociation.com/1798", "pa-channel-1798", false);
+    public static final Channel BBC_RED_BUTTON_2 = new Channel("BBC Red Button 2", CHANNEL_URI_PREFIX+"pressassociation.com/1799", "pa-channel-1799", false);
+    public static final Channel BBC_RED_BUTTON_3 = new Channel("BBC Red Button 3", CHANNEL_URI_PREFIX+"pressassociation.com/1800", "pa-channel-1800", false);
+    public static final Channel BBC_RED_BUTTON_HD = new Channel("BBC Red Button HD", CHANNEL_URI_PREFIX+"pressassociation.com/1801", "pa-channel-1801", false);
     private final String uri;
     private final String title;
     
