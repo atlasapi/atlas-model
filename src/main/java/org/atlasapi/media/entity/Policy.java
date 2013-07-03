@@ -220,7 +220,8 @@ public class Policy extends Identified {
 		XBOX,
 		PC,
 		IOS,
-		YOUVIEW;
+		YOUVIEW, 
+		BTVISION_CARDINAL;
 		
 		
 		public String key() {
