@@ -1,22 +1,26 @@
 package org.atlasapi.equiv;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.atlasapi.application.ApplicationConfiguration;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
+import org.atlasapi.media.entity.ChildRef;
 import org.atlasapi.media.entity.Clip;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.ContentGroup;
+import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
+import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
@@ -26,14 +30,15 @@ import org.atlasapi.media.entity.Version;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.google.common.collect.ImmutableSet.Builder;
 
 
 public class OutputContentMerger {
@@ -41,8 +46,8 @@ public class OutputContentMerger {
     private static final Ordering<Episode> SERIES_ORDER = Ordering.from(new SeriesOrder());
 
     @SuppressWarnings("unchecked")
-    public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
-        Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
+    public <T extends Described> List<T> merge(ApplicationConfiguration config, List<T> contents) {
+        Ordering<Described> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
         Set<T> processed = Sets.newHashSet();
@@ -69,13 +74,16 @@ public class OutputContentMerger {
             if (chosen instanceof Item) {
                 mergeIn(config, (Item) chosen, (List<Item>) notChosen);
             }
+            if (chosen instanceof ContentGroup) {
+                mergeIn(config, (ContentGroup) chosen, (List<ContentGroup>) notChosen);
+            }
             merged.add(chosen);
         }
         return merged;
     }
     
     @SuppressWarnings("unchecked")
-    private <T extends Content> List<T> findSame(T brand, Iterable<T> contents) {
+    private <T extends Described> List<T> findSame(T brand, Iterable<T> contents) {
         List<T> same = Lists.newArrayList(brand);
         for (T possiblyEquivalent : contents) {
             if (!brand.equals(possiblyEquivalent) && possiblyEquivalent.isEquivalentTo(brand)) {
@@ -85,18 +93,55 @@ public class OutputContentMerger {
         return same;
     }
 
-    private static Ordering<Content> toContentOrdering(final Ordering<Publisher> byPublisher) {
-        return new Ordering<Content>() {
-
+    private static Ordering<Described> toContentOrdering(final Ordering<Publisher> byPublisher) {
+        return new Ordering<Described>() {
             @Override
-            public int compare(Content o1, Content o2) {
+            public int compare(Described o1, Described o2) {
                 return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
             }
         };
     }
-
-    private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
-        for (Item notChosenItem : notChosen) {
+    
+    private <T extends ContentGroup> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        mergeDescribed(config, chosen, notChosen);
+        for (ContentGroup contentGroup : notChosen) {
+            for (ChildRef childRef : contentGroup.getContents()) {
+                chosen.addContent(childRef);
+            }
+        }
+        if (chosen instanceof Person) {
+            Person person = (Person) chosen;
+            ImmutableSet.Builder<String> quotes = ImmutableSet.builder();
+            quotes.addAll(person.getQuotes());
+            for (Person unchosen : Iterables.filter(notChosen, Person.class)) {
+                quotes.addAll(unchosen.getQuotes());
+                person.withName(person.name() != null ? person.name() : unchosen.name());
+                person.setGivenName(person.getGivenName() != null ? person.getGivenName() : unchosen.getGivenName());
+                person.setFamilyName(person.getFamilyName() != null ? person.getFamilyName() : unchosen.getFamilyName());
+                person.setGender(person.getGender() != null ? person.getGender() : unchosen.getGender());
+                person.setBirthDate(person.getBirthDate() != null ? person.getBirthDate() : unchosen.getBirthDate());
+                person.setBirthPlace(person.getBirthPlace() != null ? person.getBirthPlace() : unchosen.getBirthPlace());
+            }
+            person.setQuotes(quotes.build());
+        }
+    }
+    
+    private <T extends Described> void mergeDescribed(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        if (chosen.getTitle() == null) {
+            chosen.setTitle(first(notChosen, TO_TITLE));
+        }
+        if (chosen.getDescription() == null) {
+            chosen.setDescription(first(notChosen, TO_DESCRIPTION));
+        }
+    }
+    
+    private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform) {
+        return Iterables.getFirst(Iterables.filter(Iterables.transform(is, transform), Predicates.notNull()), null);
+    }
+    
+    private <T extends Content> void mergeContent(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        mergeDescribed(config, chosen, notChosen);
+        for (T notChosenItem : notChosen) {
             for (Clip clip : notChosenItem.getClips()) {
                 chosen.addClip(clip);
             }
@@ -104,6 +149,10 @@ public class OutputContentMerger {
         applyImagePrefs(config, chosen, notChosen);
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
+    }
+
+    private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        mergeContent(config, chosen, notChosen);
         mergeVersions(config, chosen, notChosen);
         if (chosen instanceof Film) {
             mergeFilmProperties(config, (Film) chosen, Iterables.filter(notChosen, Film.class));
@@ -295,11 +344,21 @@ public class OutputContentMerger {
             return film.getPeople() != null && !film.getPeople().isEmpty();
         }
     };
+    private static final Function<Described,String> TO_TITLE = new Function<Described,String>(){
+        @Override
+        @Nullable
+        public String apply(@Nullable Described input) {
+            return input == null ? null : input.getTitle();
+        }};
+    private static final Function<Described, String> TO_DESCRIPTION = new Function<Described, String>() {
+        @Override
+        public String apply(@Nullable Described input) {
+            return input == null ? null : input.getDescription();
+        }
+    };
 
     public <T extends Item> void mergeIn(ApplicationConfiguration config, Container chosen, List<Container> notChosen) {
-        mergeTopics(chosen, notChosen);
-        mergeKeyPhrases(chosen, notChosen);
-        applyImagePrefs(config, chosen, notChosen);
+        mergeContent(config, chosen, notChosen);
     }
 
     enum ItemIdStrategy {

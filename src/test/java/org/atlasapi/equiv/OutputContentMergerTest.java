@@ -39,9 +39,9 @@ public class OutputContentMergerTest {
             List<Brand> merged = merger.merge(config, contentList);
             assertThat(merged.size(), is(1));
             if (contentList.get(0).equals(three)) {
-                assertThat(merged.get(0), is(contentList.get(1)));
+                assertThat(contentList.toString(), merged.get(0), is(contentList.get(1)));
             } else {
-                assertThat(merged.get(0), is(contentList.get(0)));
+                assertThat(contentList.toString(), merged.get(0), is(contentList.get(0)));
             }
         }
 
