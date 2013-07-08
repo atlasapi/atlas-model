@@ -211,6 +211,14 @@ public class Item extends Description {
         }
     };
     
+    public static final Predicate<Item> HAS_UPCOMING_LOCATION = new Predicate<Item>() {
+        @Override
+        public boolean apply(Item input) {
+            return !input.getLocations().isEmpty() 
+                && !Sets.filter(input.getLocations(), Location.IS_UPCOMING).isEmpty();
+        }
+    };
+    
     public static final Predicate<Item> HAS_CURRENT_OR_UPCOMING_BROADCAST = new Predicate<Item>() {
         @Override
         public boolean apply(Item input) {
