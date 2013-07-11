@@ -1,8 +1,8 @@
 package org.atlasapi.media.entity.simple;
 
 import java.util.List;
-import java.util.NavigableSet;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -28,7 +28,7 @@ public class Item extends Description {
 		
 	private Set<Location> locations = Sets.newHashSet();
 
-	private NavigableSet<Broadcast> broadcasts = Sets.newTreeSet();
+	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
     private List<SegmentEvent> segmentEvents;
 	
 	private BrandSummary container;
@@ -113,7 +113,7 @@ public class Item extends Description {
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="broadcasts")
 	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="broadcast")
-	public NavigableSet<Broadcast> getBroadcasts() {
+	public SortedSet<Broadcast> getBroadcasts() {
 		return broadcasts;
 	}
 
