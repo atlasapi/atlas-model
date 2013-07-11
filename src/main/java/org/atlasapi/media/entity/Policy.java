@@ -221,6 +221,7 @@ public class Policy extends Identified {
 		PC,
 		IOS,
 		YOUVIEW, 
+		TALK_TALK,
 		BTVISION_CARDINAL;
 		
 		
