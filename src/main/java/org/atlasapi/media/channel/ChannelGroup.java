@@ -15,7 +15,7 @@ import com.metabroadcast.common.intl.Country;
 public abstract class ChannelGroup extends Identified {
 
     private Publisher publisher;
-    private Set<TemporalString> titles = Sets.newHashSet();
+    private Set<TemporalField<String>> titles = Sets.newHashSet();
     private Set<Country> availableCountries = Sets.newHashSet();
     private Set<ChannelNumbering> channelNumberings = ImmutableSet.of();
 
@@ -28,14 +28,14 @@ public abstract class ChannelGroup extends Identified {
     }
     
     public String getTitle() {
-        return TemporalString.currentValue(titles);
+        return TemporalField.currentOrFutureValue(titles);
     }
     
     public String getTitleForDate(LocalDate date) {
-        return TemporalString.valueForDate(titles, date);
+        return Iterables.getOnlyElement(TemporalField.valuesForDate(titles, date), null);
     }
     
-    public Iterable<TemporalString> getAllTitles() {
+    public Iterable<TemporalField<String>> getAllTitles() {
         return ImmutableSet.copyOf(titles);
     }
 
@@ -48,14 +48,14 @@ public abstract class ChannelGroup extends Identified {
     }
 
     public void addTitle(String title, LocalDate startDate, LocalDate endDate) {
-        this.titles.add(new TemporalString(title, startDate, endDate));
+        this.titles.add(new TemporalField<String>(title, startDate, endDate));
     }
 
-    public void addTitle(TemporalString title) {
+    public void addTitle(TemporalField<String> title) {
         this.titles.add(title);
     }
 
-    public void setTitles(Iterable<TemporalString> titles) {
+    public void setTitles(Iterable<TemporalField<String>> titles) {
         this.titles = Sets.newHashSet(titles);
     }
 

@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,18 +15,21 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
     
     private Date startDate;
     private String title;
+    
+    /**
+     * JAXB requires no-args constructor
+     */
+    public HistoricalChannelGroupEntry() { }
+    
+    public HistoricalChannelGroupEntry(LocalDate startDate) {
+        this.startDate = checkNotNull(startDate).toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
+    }
 
     @XmlElement(name = "startDate")
     public Date getStartDate() {
         return startDate;
     }
     
-    public void setStartDate(LocalDate startDate) {
-        if (startDate != null) {
-            this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
-        }
-    }
-
     public String getTitle() {
         return title;
     }
@@ -35,7 +40,7 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(startDate, title);
+        return Objects.hashCode(startDate);
     }
     
     @Override
@@ -45,8 +50,7 @@ public class HistoricalChannelGroupEntry implements Comparable<HistoricalChannel
         }
         if (that instanceof HistoricalChannelGroupEntry) {
             HistoricalChannelGroupEntry entry = (HistoricalChannelGroupEntry)that;
-            return startDate.equals(entry.startDate)
-                && Objects.equal(title, entry.title);
+            return Objects.equal(startDate, entry.startDate);
         }
         return false;
     }

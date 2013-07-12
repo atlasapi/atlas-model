@@ -1,6 +1,9 @@
 package org.atlasapi.media.entity.simple;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Date;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -8,24 +11,29 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableSet;
 
 public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry> {
     
     private Date startDate;
     private String title;
     private String image;
+    private Set<Image> images;
+    
+    /**
+     * JAXB requires a no-args constructor
+     */
+    public HistoricalChannelEntry() {}
+    
+    public HistoricalChannelEntry(LocalDate startDate) {
+        this.startDate = checkNotNull(startDate).toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
+    }
 
     @XmlElement(name = "startDate")
     public Date getStartDate() {
         return startDate;
     }
     
-    public void setStartDate(LocalDate startDate) {
-        if (startDate != null) {
-            this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
-        }
-    }
-
     public String getTitle() {
         return title;
     }
@@ -42,9 +50,18 @@ public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry
         this.image = image;
     }
     
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    
+    public void setImages(Iterable<Image> images) {
+        this.images = ImmutableSet.copyOf(images);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hashCode(startDate, title, image);
+        return Objects.hashCode(startDate);
     }
     
     @Override
@@ -54,9 +71,7 @@ public class HistoricalChannelEntry implements Comparable<HistoricalChannelEntry
         }
         if (that instanceof HistoricalChannelEntry) {
             HistoricalChannelEntry entry = (HistoricalChannelEntry)that;
-            return startDate.equals(entry.startDate)
-                && Objects.equal(title, entry.title)
-                && Objects.equal(image, entry.image);
+            return Objects.equal(startDate, entry.startDate);
         }
         return false;
     }
