@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Image extends Aliased {
 
-    private String type;
+    private String imageType;
     private String color;
     private String theme;
     private Integer width;
@@ -37,12 +37,12 @@ public class Image extends Aliased {
         this.width = width;
     }
     
-    public String getType() {
-        return type;
+    public String getImageType() {
+        return imageType;
     }
     
-    public void setType(String type) {
-        this.type = type;
+    public void setImageType(String type) {
+        this.imageType = type;
     }
     
     public Date getAvailabilityStart() {
