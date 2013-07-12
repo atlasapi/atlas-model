@@ -6,9 +6,8 @@ public class Segment extends Identified {
 
     private String description;
 
-    private String type;
+    private String segmentType;
     private Integer duration;
-    private String id;
 
     public String getTitle() {
         return this.title;
@@ -18,16 +17,12 @@ public class Segment extends Identified {
         return this.description;
     }
 
-    public String getType() {
-        return this.type;
+    public String getSegmentType() {
+        return this.segmentType;
     }
 
     public Integer getDuration() {
         return this.duration;
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     public void setTitle(String title) {
@@ -38,16 +33,12 @@ public class Segment extends Identified {
         this.description = description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setSegmentType(String type) {
+        this.segmentType = type;
     }
 
     public void setDuration(Integer duration) {
         this.duration = duration;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 }
