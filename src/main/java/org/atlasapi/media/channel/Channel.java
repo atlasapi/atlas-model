@@ -17,6 +17,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.base.MorePredicates;
 
 public class Channel extends Identified {
     
@@ -304,14 +305,8 @@ public class Channel extends Identified {
      */
     public Image getImage() {
         Iterable<TemporalField<Image>> primaryImages = Iterables.filter(
-            images, 
-            new Predicate<TemporalField<Image>>() {
-                @Override
-                public boolean apply(TemporalField<Image> input) {
-                    Image image = input.getValue();
-                    return IS_PRIMARY_IMAGE.apply(image);
-                }
-            }
+            images,
+            MorePredicates.transformingPredicate(TemporalField.<Image>toValueFunction(), IS_PRIMARY_IMAGE)
         );
         return TemporalField.currentOrFutureValue(primaryImages);
     }

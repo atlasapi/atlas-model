@@ -129,7 +129,7 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    private static <T> Function<TemporalField<T>, T> toValueFunction() {
+    public static <T> Function<TemporalField<T>, T> toValueFunction() {
         return (Function) TO_VALUE;
     }
 
