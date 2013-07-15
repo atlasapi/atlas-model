@@ -24,18 +24,18 @@ public class Topic extends Aliased {
     
     private Set<String> sameAs = Sets.newHashSet();
     
-    private String type;
+    private String topicType;
     private String namespace;
     private String value;
     
     public Topic() {}
 
-    public String getType() {
-        return this.type;
+    public String getTopicType() {
+        return this.topicType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTopicType(String type) {
+        this.topicType = type;
     }
 
     public String getNamespace() {
