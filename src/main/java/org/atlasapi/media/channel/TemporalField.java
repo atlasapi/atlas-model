@@ -11,6 +11,7 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
@@ -128,7 +129,7 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    private static <T> Function<TemporalField<T>, T> toValueFunction() {
+    public static <T> Function<TemporalField<T>, T> toValueFunction() {
         return (Function) TO_VALUE;
     }
 
@@ -137,19 +138,9 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
         if (this == that) {
             return 0;
         }
-
-        if (this.getStartDate() != null) {
-            if (that.getStartDate() != null) {
-                return this.getStartDate().compareTo(that.getStartDate());
-            } else {
-                return 1;
-            }
-        } else {
-            if (that.getStartDate() != null) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
+        
+        return ComparisonChain.start()
+            .compare(this.startDate, that.startDate, Ordering.natural().nullsLast())
+            .result();
     }
 }

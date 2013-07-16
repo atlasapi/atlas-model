@@ -66,9 +66,10 @@ public enum Publisher {
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     SCRAPERWIKI("ScraperWiki", "scraperwiki.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     SVERIGES_RADIO("Sveriges Radio", "sverigesradio.se", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
+    TALK_TALK("Talk Talk", "talktalk.net", Countries.ALL, SourceStatus.UNAVAILABLE),
     KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     THE_SUN("The Sun", "thesun.co.uk", Countries.GB, SourceStatus.UNAVAILABLE);
-    
+
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
 
     private final String key;
