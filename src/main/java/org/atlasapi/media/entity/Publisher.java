@@ -33,6 +33,7 @@ public enum Publisher {
     ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
     PA("PA", "pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    PA_SERIES_SUMMARIES("PA Series Summaries", "summaries.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE),
     PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB, SourceStatus.UNAVAILABLE),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
