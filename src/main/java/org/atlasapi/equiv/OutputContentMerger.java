@@ -127,6 +127,7 @@ public class OutputContentMerger {
     }
     
     private <T extends Described> void mergeDescribed(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        applyImagePrefs(config, chosen, notChosen);
         if (chosen.getTitle() == null) {
             chosen.setTitle(first(notChosen, TO_TITLE));
         }
@@ -155,7 +156,6 @@ public class OutputContentMerger {
                 chosen.addClip(clip);
             }
         }
-        applyImagePrefs(config, chosen, notChosen);
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
     }
@@ -221,7 +221,7 @@ public class OutputContentMerger {
         }
     }
 
-    private <T extends Content> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Described> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
             List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
@@ -318,10 +318,10 @@ public class OutputContentMerger {
         }
     }
     
-    private static final Predicate<Content> HAS_AVAILABLE_IMAGE_SET = new Predicate<Content>() {
+    private static final Predicate<Described> HAS_AVAILABLE_IMAGE_SET = new Predicate<Described>() {
 
         @Override
-        public boolean apply(Content content) {
+        public boolean apply(Described content) {
             if (content.getImage() == null) {
                 return false;
             }
