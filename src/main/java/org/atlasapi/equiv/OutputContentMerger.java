@@ -133,6 +133,15 @@ public class OutputContentMerger {
         if (chosen.getDescription() == null) {
             chosen.setDescription(first(notChosen, TO_DESCRIPTION));
         }
+        if (chosen.getLongDescription() == null) {
+            chosen.setLongDescription(first(notChosen, TO_LONG_DESCRIPTION));
+        }
+        if (chosen.getMediumDescription() == null) {
+            chosen.setMediumDescription(first(notChosen, TO_MEDIUM_DESCRIPTION));
+        }
+        if (chosen.getShortDescription() == null) {
+            chosen.setShortDescription(first(notChosen, TO_SHORT_DESCRIPTION));
+        }
     }
     
     private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform) {
@@ -354,6 +363,24 @@ public class OutputContentMerger {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getDescription();
+        }
+    };
+    private static final Function<Described, String> TO_LONG_DESCRIPTION = new Function<Described, String>() {
+        @Override
+        public String apply(@Nullable Described input) {
+            return input == null ? null : input.getLongDescription();
+        }
+    };
+    private static final Function<Described, String> TO_MEDIUM_DESCRIPTION = new Function<Described, String>() {
+        @Override
+        public String apply(@Nullable Described input) {
+            return input == null ? null : input.getMediumDescription();
+        }
+    };
+    private static final Function<Described, String> TO_SHORT_DESCRIPTION = new Function<Described, String>() {
+        @Override
+        public String apply(@Nullable Described input) {
+            return input == null ? null : input.getShortDescription();
         }
     };
 
