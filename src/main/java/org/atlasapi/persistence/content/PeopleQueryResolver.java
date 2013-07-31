@@ -11,4 +11,6 @@ public interface PeopleQueryResolver {
     
     Optional<Person> person(Long id, ApplicationConfiguration config);
     
+    Iterable<Person> people(Iterable<String> uris, ApplicationConfiguration config);
+    
 }

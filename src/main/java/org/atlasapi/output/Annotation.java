@@ -20,6 +20,7 @@ public enum Annotation {
     SUB_ITEMS,
     CLIPS,
     PEOPLE,
+    PEOPLE_DETAIL,
     TOPICS,
     CONTENT_GROUPS,
     SEGMENT_EVENTS,
