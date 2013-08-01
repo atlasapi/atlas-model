@@ -13,6 +13,92 @@ public class Image extends Identified {
             return input.getType() != null && input.getType().equals(ImageType.PRIMARY);
         }
     };
+    
+    public static final Builder builder(String uri) {
+        return new Builder(uri);
+    }
+    
+    public static final class Builder {
+
+        private String uri;
+        private Integer height;
+        private Integer width;
+        private ImageType type;
+        private ImageColor color;
+        private ImageTheme theme;
+        private ImageAspectRatio aspectRatio;
+        private MimeType mimeType;
+        private DateTime availabilityStart;
+        private DateTime availabilityEnd;
+
+        public Builder(String uri) {
+            this.uri = uri;
+        }
+        
+        public Builder withUri(String uri) {
+            this.uri = uri;
+            return this;
+        }
+        
+        public Builder withHeight(Integer height) {
+            this.height = height;
+            return this;
+        }
+        
+        public Builder withWidth(Integer width) {
+            this.width = width;
+            return this;
+        }
+        
+        public Builder withType(ImageType type) {
+            this.type = type;
+            return this;
+        }
+        
+        public Builder withColor(ImageColor color) {
+            this.color = color;
+            return this;
+        }
+        
+        public Builder withTheme(ImageTheme theme) {
+            this.theme = theme;
+            return this;
+        }
+        
+        public Builder withAspectRatio(ImageAspectRatio aspectRatio) {
+            this.aspectRatio = aspectRatio;
+            return this;
+        }
+        
+        public Builder withMimeType(MimeType mimeType) {
+            this.mimeType = mimeType;
+            return this;
+        }
+        
+        public Builder withAvailabilityStart(DateTime availabilityStart) {
+            this.availabilityStart = availabilityStart;
+            return this;
+        }
+        
+        public Builder withAvailabilityEnd(DateTime availabilityEnd) {
+            this.availabilityEnd = availabilityEnd;
+            return this;
+        }
+
+        public Image build() {
+            Image image = new Image(uri);
+            image.setHeight(height);
+            image.setWidth(width);
+            image.setType(type);
+            image.setColor(color);
+            image.setTheme(theme);
+            image.setAspectRatio(aspectRatio);
+            image.setMimeType(mimeType);
+            image.setAvailabilityStart(availabilityStart);
+            image.setAvailabilityEnd(availabilityEnd);
+            return image;
+        }
+    }
 
     public Image(String uri) {
         super(uri);
