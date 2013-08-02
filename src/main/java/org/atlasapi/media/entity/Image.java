@@ -14,6 +14,20 @@ public class Image extends Identified {
         }
     };
     
+    public static final Builder builder(Image base) {
+        Builder builder = new Builder(base.getCanonicalUri());
+        builder.withHeight(base.height);
+        builder.withWidth(base.width);
+        builder.withType(base.type);
+        builder.withColor(base.color);
+        builder.withTheme(base.theme);
+        builder.withAspectRatio(base.aspectRatio);
+        builder.withMimeType(base.mimeType);
+        builder.withAvailabilityStart(base.availabilityStart);
+        builder.withAvailabilityEnd(base.availabilityEnd);
+        return builder;
+    }
+    
     public static final Builder builder(String uri) {
         return new Builder(uri);
     }
