@@ -60,6 +60,8 @@ public class OutputContentMerger {
             processed.addAll(same);
 
             T chosen = same.get(0);
+            
+            chosen.setId(lowestId(same));
 
             // defend against broken transitive equivalence
             if (merged.contains(chosen)) {
@@ -80,6 +82,15 @@ public class OutputContentMerger {
             merged.add(chosen);
         }
         return merged;
+    }
+    
+    private <T extends Described> Long lowestId(List<T> same) {
+        Long lowest = same.get(0).getId();
+        for (int i = 1; i < same.size(); i++) {
+            Long candidate = same.get(i).getId();
+            lowest = Ordering.natural().nullsLast().min(lowest, candidate);
+        }
+        return lowest;
     }
     
     @SuppressWarnings("unchecked")
