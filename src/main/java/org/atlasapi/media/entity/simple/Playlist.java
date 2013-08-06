@@ -138,7 +138,7 @@ public class Playlist extends Description {
         this.recentContent = ImmutableSet.copyOf(filteredRefs);
     }
     
-    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="available_content")
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="recent_content")
     @XmlElements({ 
         @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
         @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
