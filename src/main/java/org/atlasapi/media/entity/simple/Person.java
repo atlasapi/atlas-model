@@ -3,11 +3,23 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.ItemIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.PersonIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="person", namespace=PLAY_SIMPLE_XML.NS)
@@ -18,7 +30,9 @@ public class Person extends Description {
 	private String role;
 	private String displayRole;
 	private String character;
-	private List<ContentIdentifier> content;
+	private List<ContentIdentifier> content = ImmutableList.of();
+    private Set<ContentIdentifier> upcomingContent = ImmutableSet.of();
+    private Set<ContentIdentifier> availableContent = ImmutableSet.of();
 	private String givenName;
     private String familyName;
     private String gender;
@@ -65,8 +79,51 @@ public class Person extends Description {
         return content;
     }
 	
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
 	public void setContent(List<ContentIdentifier> content) {
         this.content = content;
+    }
+	
+    public void setUpcomingContent(Iterable<ContentIdentifier> filteredRefs) {
+        this.upcomingContent = ImmutableSet.copyOf(filteredRefs);
+    }
+
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="upcoming_content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
+    public Set<ContentIdentifier> getUpcomingContent() {
+        return upcomingContent;
+    }
+    
+    public void setAvailableContent(Iterable<ContentIdentifier> filteredRefs) {
+        this.availableContent = ImmutableSet.copyOf(filteredRefs);
+    }
+
+    @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="available_content")
+    @XmlElements({ 
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace=PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace=PLAY_SIMPLE_XML.NS) 
+    })
+    public Set<ContentIdentifier> getAvailableContent() {
+        return availableContent;
     }
 	
 	public String getProfileLink() {
