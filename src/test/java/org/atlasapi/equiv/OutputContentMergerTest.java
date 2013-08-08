@@ -60,15 +60,13 @@ public class OutputContentMergerTest {
         setEquivalent(two, one, three);
         setEquivalent(three, two, one);
         
-        ImmutableList<Brand> contents = ImmutableList.of(one, two, three);
+        //two is intentionally missing here
+        ImmutableList<Brand> contents = ImmutableList.of(one, three);
 
-        ApplicationConfiguration config = configWithPrecedence(Publisher.BBC, Publisher.TED,Publisher.PA);
+        ApplicationConfiguration config = configWithPrecedence(Publisher.BBC, Publisher.TED);
         mergePermutations(contents, config, one, two.getId());
 
-        config = configWithPrecedence(Publisher.PA,Publisher.TED,Publisher.BBC);
-        mergePermutations(contents, config, two, two.getId());
-        
-        config = configWithPrecedence(Publisher.TED,Publisher.BBC,Publisher.PA);
+        config = configWithPrecedence(Publisher.TED,Publisher.BBC);
         mergePermutations(contents, config, three, two.getId());
         
     }
