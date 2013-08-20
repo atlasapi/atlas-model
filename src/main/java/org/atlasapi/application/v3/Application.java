@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.metabroadcast.common.time.DateTimeZones;
 
 public class Application {
 
@@ -19,6 +20,7 @@ public class Application {
         private String title;
         private String desc;
         private DateTime created;
+        private DateTime lastUpdated;
         private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
         private ApplicationCredentials creds;
         private Long deerId;
@@ -40,6 +42,17 @@ public class Application {
         
         public Builder createdAt(DateTime time) {
             this.created = time;
+            return this;
+        }
+        
+        /**
+         * Fix a last updated time. The build() method automatically sets the lastUpdated
+         * only call this if loading in application from a datastore.
+         * @param lastUpdated
+         * @return
+         */
+        public Builder withLastUpdated(DateTime lastUpdated) {
+            this.lastUpdated = lastUpdated;
             return this;
         }
         
@@ -67,7 +80,11 @@ public class Application {
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
-            return new Application(slug, title, desc, created, config, creds, deerId, revoked);
+            // If lastUpdated is null (which it should be unless loading object from db) set to now
+            if (lastUpdated == null) {
+                lastUpdated = DateTime.now(DateTimeZones.UTC);
+            }
+            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked);
         }
     }
     
@@ -75,6 +92,7 @@ public class Application {
 	private final String title;
 	private final String description;
 	private final DateTime created;
+	private final DateTime lastUpdated;
 
 	private final ApplicationConfiguration configuration;
 	private final ApplicationCredentials credentials;
@@ -83,11 +101,12 @@ public class Application {
 	
 	private final boolean revoked;
 
-	private Application(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId, boolean revoked) {
+	private Application(String slug, String title, String desc, DateTime created, DateTime lastUpdated, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId, boolean revoked) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
         this.created = created;
+        this.lastUpdated = lastUpdated;
         this.configuration = config;
         this.credentials = creds;
         this.deerId = deerId;
@@ -117,7 +136,11 @@ public class Application {
     public DateTime getCreated() {
         return created;
     }
-    
+
+    public DateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
     public Long getDeerId() {
         return deerId;
     }
@@ -131,6 +154,7 @@ public class Application {
             .withTitle(title)
             .withDescription(description)
             .createdAt(created)
+            .withLastUpdated(lastUpdated)
             .withConfiguration(configuration)
             .withCredentials(credentials)
             .withDeerId(deerId)
