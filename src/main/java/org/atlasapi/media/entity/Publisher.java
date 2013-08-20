@@ -65,7 +65,8 @@ public enum Publisher {
     SCRAPERWIKI("ScraperWiki", "scraperwiki.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     SVERIGES_RADIO("Sveriges Radio", "sverigesradio.se", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     TALK_TALK("Talk Talk", "talktalk.net", Countries.ALL, SourceStatus.UNAVAILABLE),
-    KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE);
+    KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    YURI("yuri", "yuri.mbst.tv", Countries.ALL, SourceStatus.UNAVAILABLE);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
 
