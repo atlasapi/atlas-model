@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.metabroadcast.common.time.DateTimeZones;
 
 public class Application {
 
@@ -44,6 +45,12 @@ public class Application {
             return this;
         }
         
+        /**
+         * Fix a last updated time. The build() method automatically sets the lastUpdated
+         * only call this if loading in application from a datastore.
+         * @param lastUpdated
+         * @return
+         */
         public Builder withLastUpdated(DateTime lastUpdated) {
             this.lastUpdated = lastUpdated;
             return this;
@@ -73,6 +80,10 @@ public class Application {
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
+            // If lastUpdated is null (which it should be unless loading object from db) set to now
+            if (lastUpdated == null) {
+                lastUpdated = DateTime.now(DateTimeZones.UTC);
+            }
             return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked);
         }
     }
@@ -125,7 +136,7 @@ public class Application {
     public DateTime getCreated() {
         return created;
     }
-    
+
     public DateTime getLastUpdated() {
         return lastUpdated;
     }
