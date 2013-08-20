@@ -19,6 +19,7 @@ public class Application {
         private String title;
         private String desc;
         private DateTime created;
+        private DateTime lastUpdated;
         private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
         private ApplicationCredentials creds;
 
@@ -41,6 +42,11 @@ public class Application {
             return this;
         }
         
+        public Builder withLastUpdated(DateTime lastUpdated) {
+            this.lastUpdated = lastUpdated;
+            return this;
+        }
+        
         public Builder withConfiguration(ApplicationConfiguration config) {
             this.config = config;
             return this;
@@ -54,7 +60,7 @@ public class Application {
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
-            return new Application(slug, title, desc, created, config, creds);
+            return new Application(slug, title, desc, created, lastUpdated, config, creds);
         }
     }
     
@@ -62,15 +68,17 @@ public class Application {
 	private final String title;
 	private final String description;
 	private final DateTime created;
+	private final DateTime lastUpdated;
 
 	private final ApplicationConfiguration configuration;
 	private final ApplicationCredentials credentials;
 
-	private Application(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, ApplicationCredentials creds) {
+	private Application(String slug, String title, String desc, DateTime created, DateTime lastUpdated, ApplicationConfiguration config, ApplicationCredentials creds) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
         this.created = created;
+        this.lastUpdated = lastUpdated;
         this.configuration = config;
         this.credentials = creds;
 	}
@@ -99,11 +107,16 @@ public class Application {
         return created;
     }
     
+    public DateTime getLastUpdated() {
+        return lastUpdated;
+    }
+    
     public Builder copy() {
         return new Builder(slug)
             .withTitle(title)
             .withDescription(description)
             .createdAt(created)
+            .withLastUpdated(lastUpdated)
             .withConfiguration(configuration)
             .withCredentials(credentials);
     }
