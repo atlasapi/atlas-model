@@ -71,6 +71,7 @@ public enum Publisher {
     KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     THE_SUN("The Sun", "thesun.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     ADAPT_BBC_PODCASTS("Adapt BBC Podcasts", "bbc-podcasts.adapt.fm", Countries.GB, SourceStatus.AVAILABLE_DISABLED),
+    YURI("yuri", "yuri.mbst.tv", Countries.ALL, SourceStatus.UNAVAILABLE),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
