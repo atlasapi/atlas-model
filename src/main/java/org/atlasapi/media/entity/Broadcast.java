@@ -25,7 +25,6 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Ordering;
 import com.metabroadcast.common.base.Maybe;
 
 /**
@@ -67,6 +66,8 @@ public class Broadcast extends Identified {
     private Boolean live;
     
     private Boolean newSeries;
+    
+    private Boolean newEpisode;
     
     private Boolean premiere;
     
@@ -227,6 +228,14 @@ public class Broadcast extends Identified {
         return newSeries;
     }
     
+    public void setNewEpisode(Boolean newEpisode) {
+        this.newEpisode = newEpisode;
+    }
+    
+    public Boolean getNewEpisode() {
+        return newEpisode;
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Broadcast)) {
@@ -265,6 +274,7 @@ public class Broadcast extends Identified {
         copy.highDefinition = highDefinition;
         copy.widescreen = widescreen;
         copy.newSeries = newSeries;
+        copy.newEpisode = newEpisode;
         copy.premiere = premiere;
         copy.live = live;
         return copy;
