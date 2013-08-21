@@ -55,6 +55,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     
     private Boolean newSeries;
     
+    private Boolean newEpisode;
+    
     private Channel channel;
     
     private Set<String> aliases = Sets.newHashSet();
@@ -211,6 +213,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         this.newSeries = newSeries;
     }
     
+    public Boolean getNewEpisode() {
+        return newEpisode;
+    }
+    
+    public void setNewEpisode(Boolean newEpisode) {
+        this.newEpisode = newEpisode;
+    }
+    
     public void setAliases(Set<String> aliases) {
         this.aliases = aliases;
     }
@@ -266,6 +276,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setSurround(getSurround());
         copy.setLive(getLive());
         copy.setAliases(getAliases());
+        copy.setNewSeries(getNewSeries());
+        copy.setNewEpisode(getNewEpisode());
         
         return copy;
     }
