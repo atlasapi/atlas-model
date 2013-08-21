@@ -105,6 +105,7 @@ public class RelatedLink {
         TWITTER,
         FLICKR,
         SIMULCAST,
+        ARTICLE,
         UNKNOWN
     }
     
