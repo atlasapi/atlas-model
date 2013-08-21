@@ -22,6 +22,7 @@ import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.TopicRef;
@@ -128,6 +129,12 @@ public class OutputContentMerger {
     
     private <T extends Described> void mergeDescribed(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         applyImagePrefs(config, chosen, notChosen);
+        chosen.setRelatedLinks(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<RelatedLink>>() {
+            @Override
+            public Iterable<RelatedLink> apply(T input) {
+                return input.getRelatedLinks();
+            }
+        }));
         if (chosen.getTitle() == null) {
             chosen.setTitle(first(notChosen, TO_TITLE));
         }
@@ -143,6 +150,14 @@ public class OutputContentMerger {
         if (chosen.getShortDescription() == null) {
             chosen.setShortDescription(first(notChosen, TO_SHORT_DESCRIPTION));
         }
+    }
+
+    private <T extends Described, P> Iterable<P> projectFieldFromEquivalents(T chosen,
+            Iterable<T> notChosen, Function<T, Iterable<P>> projector) {
+        return Iterables.concat(
+                projector.apply(chosen), 
+                Iterables.concat(Iterables.transform(notChosen, projector))
+            );
     }
     
     private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform) {
@@ -169,27 +184,22 @@ public class OutputContentMerger {
     }
 
     private <T extends Content> void mergeKeyPhrases(T chosen, Iterable<T> notChosen) {
-        chosen.setKeyPhrases(Iterables.concat(chosen.getKeyPhrases(),
-                Iterables.concat(Iterables.transform(notChosen, new Function<T, Iterable<KeyPhrase>>() {
-
+        chosen.setKeyPhrases(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<KeyPhrase>>() {
             @Override
             public Set<KeyPhrase> apply(T input) {
                 return input.getKeyPhrases();
             }
-        }))));
+        }));
     }
 
     private <T extends Content> void mergeTopics(T chosen, Iterable<T> notChosen) {
-        chosen.setTopicRefs(Iterables.concat(
-                Iterables.transform(chosen.getTopicRefs(), new TopicPublisherSetter(chosen)),
-                Iterables.concat(Iterables.transform(notChosen,
-                new Function<T, Iterable<TopicRef>>() {
-
-                    @Override
-                    public Iterable<TopicRef> apply(T input) {
-                        return Iterables.transform(input.getTopicRefs(), new TopicPublisherSetter(input));
-                    }
-                }))));
+        Function<T, Iterable<TopicRef>> topicRefsProjector = new Function<T, Iterable<TopicRef>>() {
+            @Override
+            public Iterable<TopicRef> apply(T input) {
+                return Iterables.transform(input.getTopicRefs(), new TopicPublisherSetter(input));
+            }
+        };
+        chosen.setTopicRefs(projectFieldFromEquivalents(chosen, notChosen, topicRefsProjector));
     }
 
     private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
