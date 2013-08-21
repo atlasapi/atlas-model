@@ -56,6 +56,8 @@ public abstract class Described extends Identified {
     private boolean activelyPublished = true;
 
     private String presentationChannel;
+
+    protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	
 	public Described(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -245,6 +247,18 @@ public abstract class Described extends Identified {
         return Iterables.getOnlyElement(Iterables.filter(images, Image.IS_PRIMARY), null);
     }
     
+    public Set<RelatedLink> getRelatedLinks() {
+        return relatedLinks;
+    }
+
+    public void setRelatedLinks(Iterable<RelatedLink> links) {
+        relatedLinks = ImmutableSet.copyOf(links);
+    }
+
+    public void addRelatedLink(RelatedLink link) {
+        relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
+    }
+    
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -265,4 +279,5 @@ public abstract class Described extends Identified {
     }
     
     public abstract Described copy();
+
 }
