@@ -38,6 +38,7 @@ public enum Publisher {
     ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.AVAILABLE_ENABLED),
     PA("PA", "pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    PA_SERIES_SUMMARIES("PA Series Summaries", "summaries.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE),
     PREVIEW_NETWORKS("Preview Networks", "previewnetworks.com", Countries.GB, SourceStatus.UNAVAILABLE),
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
@@ -47,14 +48,14 @@ public enum Publisher {
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE),
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
-    THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     MUSIC_BRAINZ("MusicBrainz", "musicbrainz.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     EMI_PUB("EMI Music Publishing", "emimusicpub.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
-    MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     EMI_MUSIC("EMI Music", "emimusic.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     BBC_KIWI("BBC Kiwi", "kiwi.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE),
     CANARY("Canary", "canary.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
+    VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     BBC_MUSIC("BBC Music","music.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     SPOTIFY("Spotify", "spotify.com", Countries.ALL, SourceStatus.UNAVAILABLE),
@@ -64,14 +65,20 @@ public enum Publisher {
     BBC_RD_TOPIC("BBC R&D Live Topics", "live-topics.prototype0.net", Countries.GB, SourceStatus.UNAVAILABLE),
     PA_FEATURES("PA Features", "features.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
     PA_PEOPLE("PA People Profiles", "people.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE),
-    NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE),
     BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    BT_FEATURED_CONTENT("BT Featured Content", "featured.bt.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE),
     YOUVIEW("YouView", "youview.com", Countries.GB, SourceStatus.UNAVAILABLE),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.AVAILABLE_ENABLED),
     SCRAPERWIKI("ScraperWiki", "scraperwiki.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     SVERIGES_RADIO("Sveriges Radio", "sverigesradio.se", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
-    KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE);
-
+    TALK_TALK("Talk Talk", "talktalk.net", Countries.ALL, SourceStatus.UNAVAILABLE),
+    KANDL_TOPICS("kandl topics", "kandl.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    THE_SUN("The Sun", "thesun.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
+    ADAPT_BBC_PODCASTS("Adapt BBC Podcasts", "bbc-podcasts.adapt.fm", Countries.GB, SourceStatus.AVAILABLE_DISABLED),
+    YURI("yuri", "yuri.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    ;
+    
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
 
     private final String key;
