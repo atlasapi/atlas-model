@@ -35,7 +35,7 @@ public class ApplicationConfiguration {
 	private final ImmutableSet<Publisher> writableSources;
 	
 	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledSources, List<Publisher> precedence, Iterable<Publisher> writable) {
-        this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
+	    this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
         this.enabledSources = ImmutableSet.copyOf(enabledSources);
         if(precedence == null) {
             this.precedence = null;
@@ -60,7 +60,7 @@ public class ApplicationConfiguration {
 	private static Map<Publisher, SourceStatus> allSourcesStatuses(Map<Publisher, SourceStatus> configSpecificStatuses) {
 	    Builder<Publisher, SourceStatus> statuses = ImmutableMap.builder();
 	    for (Publisher source : ImmutableSet.copyOf(Publisher.values())) {
-            statuses.put(source, Optional.fromNullable(configSpecificStatuses.get(source)).or(source.getDefaultSourceStatus()));
+	         statuses.put(source, Optional.fromNullable(configSpecificStatuses.get(source)).or(source.getDefaultSourceStatus()));
         }
 	    return statuses.build();
 	}
@@ -132,6 +132,10 @@ public class ApplicationConfiguration {
     
     public ApplicationConfiguration copyWithWritableSources(Iterable<Publisher> writable) {
         return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writable);
+    }
+    
+    public ApplicationConfiguration copyWithSourceStatuses(Map<Publisher, SourceStatus> statuses) {
+        return new ApplicationConfiguration(statuses, precedence, writableSources);
     }
     
     public boolean canWrite(Publisher source) {
