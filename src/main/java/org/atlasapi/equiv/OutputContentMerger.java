@@ -20,6 +20,7 @@ import org.atlasapi.media.entity.Film;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
+import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.ReleaseDate;
@@ -60,6 +61,8 @@ public class OutputContentMerger {
             processed.addAll(same);
 
             T chosen = same.get(0);
+            
+            chosen.setId(lowestId(chosen));
 
             // defend against broken transitive equivalence
             if (merged.contains(chosen)) {
@@ -80,6 +83,15 @@ public class OutputContentMerger {
             merged.add(chosen);
         }
         return merged;
+    }
+    
+    private <T extends Described> Long lowestId(T chosen) {
+        Long lowest = chosen.getId();
+        for (LookupRef ref : chosen.getEquivalentTo()) {
+            Long candidate = ref.id();
+            lowest = Ordering.natural().nullsLast().min(lowest, candidate);
+        }
+        return lowest;
     }
     
     @SuppressWarnings("unchecked")
