@@ -27,7 +27,6 @@ public abstract class Content extends Described {
     private transient String readHash;
     private ImmutableList<Clip> clips = ImmutableList.of();
     private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
-    private Set<RelatedLink> relatedLinks = ImmutableSet.of();
     private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
     private ImmutableList<ContentGroupRef> contentGroupRefs = ImmutableList.of();
     private List<CrewMember> people = Lists.newArrayList();
@@ -102,18 +101,6 @@ public abstract class Content extends Described {
         keyPhrases = ImmutableSet.<KeyPhrase>builder().add(phrase).addAll(keyPhrases).build();
     }
 
-    public Set<RelatedLink> getRelatedLinks() {
-        return relatedLinks;
-    }
-
-    public void setRelatedLinks(Iterable<RelatedLink> links) {
-        relatedLinks = ImmutableSet.copyOf(links);
-    }
-
-    public void addRelatedLink(RelatedLink link) {
-        relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
-    }
-    
     public List<CrewMember> people() {
         return people;
     }
