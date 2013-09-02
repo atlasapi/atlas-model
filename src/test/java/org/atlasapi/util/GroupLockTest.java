@@ -20,7 +20,7 @@ public class GroupLockTest {
     @Test
     public void testCanLockDifferentThings() throws InterruptedException {
         
-        final GroupLock<String> lock = GroupLock.natural();
+        final GroupLock<String> lock = GroupLock.<String>natural();
         
         lock.lock("A");
 
@@ -45,7 +45,7 @@ public class GroupLockTest {
     @Test
     public void testCantAcquireLockForKeyTwice() throws InterruptedException {
 
-        final GroupLock<String> lock = GroupLock.natural();
+        final GroupLock<String> lock = GroupLock.<String>natural();
         final CountDownLatch start = new CountDownLatch(1);
         final CountDownLatch latch = new CountDownLatch(1);
         
@@ -72,7 +72,7 @@ public class GroupLockTest {
     @Test
     public void testTryLock() throws InterruptedException {
 
-        final GroupLock<String> lock = GroupLock.natural();
+        final GroupLock<String> lock = GroupLock.<String>natural();
 
         String id = "A";
         assertTrue(lock.tryLock(id));
@@ -84,7 +84,7 @@ public class GroupLockTest {
     @Test
     public void testCantLockGroupWhereOneElementIsLocked() throws InterruptedException {
 
-        final GroupLock<String> lock = GroupLock.natural();
+        final GroupLock<String> lock = GroupLock.<String>natural();
         final CountDownLatch start = new CountDownLatch(1);
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -112,7 +112,7 @@ public class GroupLockTest {
     @Test
     public void testLocksGroupElementsInOrder() throws InterruptedException {
         
-        final GroupLock<String> lock = GroupLock.natural();
+        final GroupLock<String> lock = GroupLock.<String>natural();
         final CountDownLatch start = new CountDownLatch(1);
         final CountDownLatch one = new CountDownLatch(1);
         final CountDownLatch two = new CountDownLatch(1);
@@ -152,8 +152,8 @@ public class GroupLockTest {
 
     @Test
     public void testUnlocksAllGroupElementsIfTryLockFailsAGroup() throws InterruptedException {
-        
-        final GroupLock<String> lock = GroupLock.natural();
+
+        final GroupLock<String> lock = GroupLock.<String>natural();
         lock.lock("B");
         assertFalse(lock.tryLock(ImmutableSet.of("A","B","C")));
         assertTrue(lock.tryLock("A"));

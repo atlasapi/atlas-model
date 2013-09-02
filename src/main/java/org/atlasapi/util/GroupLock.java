@@ -70,7 +70,7 @@ public final class GroupLock<T> {
     public void lock(T id) throws InterruptedException {
         synchronized (locked) {
             while (locked.contains(id)) {
-                wait();
+                locked.wait();
             }
             locked.add(id);
         }
@@ -93,7 +93,7 @@ public final class GroupLock<T> {
     public void unlock(T id) {
         synchronized (locked) {
             if (locked.remove(id)) {
-                notifyAll();
+                locked.notifyAll();
             }
         }
     }
