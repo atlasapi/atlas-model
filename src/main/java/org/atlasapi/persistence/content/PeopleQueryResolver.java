@@ -2,8 +2,10 @@ package org.atlasapi.persistence.content;
 
 import org.atlasapi.application.ApplicationConfiguration;
 import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Optional;
+import com.metabroadcast.common.query.Selection;
 
 public interface PeopleQueryResolver {
 
@@ -12,5 +14,8 @@ public interface PeopleQueryResolver {
     Optional<Person> person(Long id, ApplicationConfiguration config);
     
     Iterable<Person> people(Iterable<String> uris, ApplicationConfiguration config);
+
+    Iterable<Person> people(Iterable<Publisher> publishers, ApplicationConfiguration config,
+            Selection selection);
     
 }
