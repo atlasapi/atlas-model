@@ -77,6 +77,7 @@ public enum Publisher {
     THE_SUN("The Sun", "thesun.co.uk", Countries.GB, SourceStatus.UNAVAILABLE),
     ADAPT_BBC_PODCASTS("Adapt BBC Podcasts", "bbc-podcasts.adapt.fm", Countries.GB, SourceStatus.AVAILABLE_DISABLED),
     YURI("yuri", "yuri.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
+    COYOTE("coyote", "coyote.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     ;
     
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
