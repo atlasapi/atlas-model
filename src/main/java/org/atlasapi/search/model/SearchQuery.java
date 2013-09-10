@@ -187,7 +187,7 @@ public class SearchQuery {
     
     public QueryStringParameters toQueryStringParameters() {
         QueryStringParameters params = new QueryStringParameters()
-            .add("title", UrlEncoding.encode(term))
+            .add("title", term)
             .addAll(selection.asQueryStringParameters())
             .add("specializations", CSV.join(includedSpecializations))
             .add("publishers", CSV.join(includedPublishers))
