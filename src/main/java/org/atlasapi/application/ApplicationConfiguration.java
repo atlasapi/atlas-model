@@ -49,7 +49,7 @@ public class ApplicationConfiguration {
 	    this(sourceStatuses, precedence, ImmutableSet.<Publisher>of());
 	}
 
-	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources) {
+	public ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources) {
 	    this(sourceStatuses, enabledPublishers(sourceStatuses), precedence, writableSources);
 	}
 

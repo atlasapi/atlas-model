@@ -30,7 +30,7 @@ public class SourceStatus {
     private final SourceState state;
     private final boolean enabled;
 
-    private SourceStatus(SourceState state, boolean enabled) {
+    public SourceStatus(SourceState state, boolean enabled) {
         Preconditions.checkArgument(!enabled || (state == SourceState.AVAILABLE && enabled));
         this.state = state;
         this.enabled = enabled;
