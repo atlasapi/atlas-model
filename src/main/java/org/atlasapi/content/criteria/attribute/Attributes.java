@@ -79,7 +79,12 @@ public class Attributes {
 	public static final Attribute<String> TOPIC_NAMESPACE = stringAttribute("namespace", Topic.class);
 	public static final Attribute<String> TOPIC_VALUE = stringAttribute("value", Topic.class);
 	
-	private static List<Attribute<?>> ALL_ATTRIBUTES = 
+	// For applications
+    public static final Attribute<Publisher> SOURCE_READS = EnumValuedAttribute.valueOf("source.reads", Publisher.class, Identified.class, true);
+    public static final Attribute<Publisher> SOURCE_WRITES = EnumValuedAttribute.valueOf("source.writes", Publisher.class, Identified.class, true);
+    public static final Attribute<Publisher> SOURCE_REQUEST_SOURCE = EnumValuedAttribute.valueOf("source", Publisher.class, Identified.class, true);
+	
+    private static List<Attribute<?>> ALL_ATTRIBUTES = 
 		ImmutableList.<Attribute<?>>of(DESCRIPTION_TAG,
 								    DESCRIPTION_GENRE,
 								    DESCRIPTION_PUBLISHER,

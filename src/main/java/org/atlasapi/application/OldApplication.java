@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
-public class Application {
+public class OldApplication {
 
     public static final Builder application(String slug) {
         return new Builder(checkNotNull(slug));
@@ -20,7 +20,7 @@ public class Application {
         private String desc;
         private DateTime created;
         private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
-        private ApplicationCredentials creds;
+        private OldApplicationCredentials creds;
 
         public Builder(String slug) {
             this.slug = slug;
@@ -46,15 +46,15 @@ public class Application {
             return this;
         }
         
-        public Builder withCredentials(ApplicationCredentials creds) {
+        public Builder withCredentials(OldApplicationCredentials creds) {
             this.creds = creds;
             return this;
         }
         
-        public Application build() {
+        public OldApplication build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
-            return new Application(slug, title, desc, created, config, creds);
+            return new OldApplication(slug, title, desc, created, config, creds);
         }
     }
     
@@ -64,9 +64,9 @@ public class Application {
 	private final DateTime created;
 
 	private final ApplicationConfiguration configuration;
-	private final ApplicationCredentials credentials;
+	private final OldApplicationCredentials credentials;
 
-	private Application(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, ApplicationCredentials creds) {
+	private OldApplication(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, OldApplicationCredentials creds) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
@@ -87,7 +87,7 @@ public class Application {
 		return configuration;
 	}
 
-	public ApplicationCredentials getCredentials() {
+	public OldApplicationCredentials getCredentials() {
 		return credentials;
 	}
 	
@@ -118,8 +118,8 @@ public class Application {
 	    if (this == that) {
 	        return true;
 	    }
-		if (that instanceof Application) {
-			Application other = (Application) that;
+		if (that instanceof OldApplication) {
+			OldApplication other = (OldApplication) that;
 			return slug.equals(other.slug);
 		}
 		return false;
