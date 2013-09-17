@@ -38,7 +38,7 @@ public class Person extends Description {
     private String gender;
     private DateTime birthDate;
     private String birthPlace;
-    private Set<String> quotes;
+    private Set<String> quotes = ImmutableSet.of();
 	
 	public Person() {
     }

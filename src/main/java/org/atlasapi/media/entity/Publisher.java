@@ -74,6 +74,7 @@ public enum Publisher {
     ADAPT_BBC_PODCASTS("Adapt BBC Podcasts", "bbc-podcasts.adapt.fm", Countries.GB, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.ADMIN_ONLY),
     YURI("yuri", "yuri.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     COYOTE("coyote", "coyote.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
+    BBC_NITRO("BBC Nitro", "nitro.bbc.co.uk", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.ADMIN_ONLY),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
