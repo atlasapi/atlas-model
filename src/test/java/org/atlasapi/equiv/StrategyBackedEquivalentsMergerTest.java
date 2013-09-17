@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Publisher;
@@ -34,10 +34,10 @@ public class StrategyBackedEquivalentsMergerTest {
     private final StrategyBackedEquivalentsMerger<Content> merger
         = new StrategyBackedEquivalentsMerger<Content>(strategy);
     
-    private final ApplicationConfiguration nonmergingConfig 
-        = ApplicationConfiguration.defaultConfiguration();
-    private final ApplicationConfiguration mergingConfig 
-        = ApplicationConfiguration.defaultConfiguration()
+    private final OldApplicationConfiguration nonmergingConfig 
+        = OldApplicationConfiguration.defaultConfiguration();
+    private final OldApplicationConfiguration mergingConfig 
+        = OldApplicationConfiguration.defaultConfiguration()
             .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
     
     @Test
@@ -68,7 +68,7 @@ public class StrategyBackedEquivalentsMergerTest {
         veryifyNoMerge(mergingConfig);
     }
 
-    private void veryifyNoMerge(ApplicationConfiguration config) {
+    private void veryifyNoMerge(OldApplicationConfiguration config) {
         verify(strategy, never()).merge(
             argThat(any(Content.class)), 
             anyCollectionOf(Content.class), 

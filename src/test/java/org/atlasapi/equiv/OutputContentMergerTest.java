@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
@@ -33,7 +33,7 @@ public class OutputContentMergerTest {
         two.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(one), EquivalenceRef.valueOf(three)));
         three.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(one)));
         
-        ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
+        OldApplicationConfiguration config = OldApplicationConfiguration.defaultConfiguration()
             .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
         
         ImmutableList<Brand> contents = ImmutableList.of(one, two, three);

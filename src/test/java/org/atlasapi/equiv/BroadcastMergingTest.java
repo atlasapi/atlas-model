@@ -4,7 +4,7 @@ import static com.metabroadcast.common.time.DateTimeZones.UTC;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Item;
@@ -21,7 +21,7 @@ import com.metabroadcast.common.time.DateTimeZones;
 public class BroadcastMergingTest {
 
     private final OutputContentMerger executor = new OutputContentMerger();
-    private final ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
+    private final OldApplicationConfiguration config = OldApplicationConfiguration.defaultConfiguration()
         .copyWithPrecedence(ImmutableList.of(Publisher.BBC,Publisher.FACEBOOK));
     
     @Test

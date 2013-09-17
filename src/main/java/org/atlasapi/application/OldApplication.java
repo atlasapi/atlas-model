@@ -19,7 +19,7 @@ public class OldApplication {
         private String title;
         private String desc;
         private DateTime created;
-        private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
+        private OldApplicationConfiguration config = OldApplicationConfiguration.DEFAULT_CONFIGURATION;
         private OldApplicationCredentials creds;
 
         public Builder(String slug) {
@@ -41,7 +41,7 @@ public class OldApplication {
             return this;
         }
         
-        public Builder withConfiguration(ApplicationConfiguration config) {
+        public Builder withConfiguration(OldApplicationConfiguration config) {
             this.config = config;
             return this;
         }
@@ -63,10 +63,10 @@ public class OldApplication {
 	private final String description;
 	private final DateTime created;
 
-	private final ApplicationConfiguration configuration;
+	private final OldApplicationConfiguration configuration;
 	private final OldApplicationCredentials credentials;
 
-	private OldApplication(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, OldApplicationCredentials creds) {
+	private OldApplication(String slug, String title, String desc, DateTime created, OldApplicationConfiguration config, OldApplicationCredentials creds) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
@@ -83,7 +83,7 @@ public class OldApplication {
 		return title;
 	}
 	
-	public ApplicationConfiguration getConfiguration() {
+	public OldApplicationConfiguration getConfiguration() {
 		return configuration;
 	}
 
