@@ -1,7 +1,16 @@
 package org.atlasapi.application;
 
+import java.util.List;
+import java.util.Map;
+
+import org.atlasapi.application.SourceStatus.SourceState;
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.entity.Publisher;
 import org.joda.time.DateTime;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 public class Application {
 
@@ -50,7 +59,117 @@ public class Application {
     public ApplicationSources getSources() {
         return sources;
     }
+    
+    public Application disablePrecendence() {
+        ApplicationSources modifiedSources = this
+               .getSources().copy().withPrecedence(false).build();
+        return this.copy().withSources(modifiedSources).build();
+    }
+    
+    public Application addWrites(Publisher source) {
+        List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
+        if (!writes.contains(source)) {
+            writes.add(source);
+        }
+        ApplicationSources modifiedSources = this
+                    .getSources().copy().withWrites(writes).build();
+        return this.copy().withSources(modifiedSources).build();
+    }
+    
+    public Application removeWrites(Publisher source) {
+        List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
+        writes.remove(source);
+        ApplicationSources modifiedSources = this
+                    .getSources().copy().withWrites(writes).build();
+        return this.copy().withSources(modifiedSources).build();
+    }
+    
+    public Application replaceSources(ApplicationSources sources) {
+        return this.copy().withSources(sources).build();
+    }
+    
+    public Application changeReadSourceState(Publisher source, SourceState sourceState) {
+        SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
+        SourceStatus newStatus = status.copyWithState(sourceState);
+        return modifyReadSourceStatus(source, newStatus);
+    }
 
+    public Application enableSource(Publisher source) {
+        SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
+        status = status.enable();
+        return modifyReadSourceStatus(source, status);
+    }
+    
+    public Application disableSource(Publisher source) {
+        SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
+        status = status.disable();
+        return modifyReadSourceStatus(source, status);
+    }
+    
+    private Application modifyReadSourceStatus(Publisher source,
+            SourceStatus status) {
+        List<SourceReadEntry> modifiedReads = changeReadsPreservingOrder(
+                this.getSources().getReads(), source, status);
+        ApplicationSources modifiedSources = this.getSources().copy()
+                .withReads(modifiedReads).build();
+        return this.copy().withSources(modifiedSources).build();
+    }
+    
+    private SourceStatus findSourceStatusFor(Publisher source, List<SourceReadEntry> reads) {
+        for (SourceReadEntry status : reads) {
+            if (status.getPublisher().equals(source)) {
+                return status.getSourceStatus();
+            }
+        }
+        return null;
+    }
+    
+    private List<SourceReadEntry> changeReadsPreservingOrder(
+            List<SourceReadEntry> original,
+            Publisher sourceToChange,
+            SourceStatus newSourceStatus) {
+        ImmutableList.Builder<SourceReadEntry> builder = ImmutableList.builder();
+        for (SourceReadEntry source : original) {
+            if (source.getPublisher().equals(sourceToChange)) {
+                builder.add(new SourceReadEntry(source.getPublisher(), newSourceStatus));
+            } else {
+                builder.add(source);
+            }
+        }
+        return builder.build();
+    }
+    
+    public Application setPrecendenceOrder(List<Publisher> ordering) {
+        Map<Publisher, SourceReadEntry> sourceMap = getSourceReadsAsKeyedMap();
+        List<Publisher> seen = Lists.newArrayList();
+        List<SourceReadEntry> readsWithNewOrder = Lists.newArrayList();
+        for (Publisher source : ordering) {
+            readsWithNewOrder.add(sourceMap.get(source));
+            seen.add(source);
+        }
+        // add sources omitted from ordering
+        for (Publisher source: sourceMap.keySet()) {
+            if (!seen.contains(source)) {
+               readsWithNewOrder.add(sourceMap.get(source));
+            }
+        }
+        ApplicationSources modifiedSources = this
+                    .getSources().copy()
+                    .withPrecedence(true)
+                    .withReads(readsWithNewOrder)
+                    .build();
+            
+        return this.copy().withSources(modifiedSources).build();
+    }
+    
+    private Map<Publisher, SourceReadEntry> getSourceReadsAsKeyedMap() {
+        ImmutableMap.Builder<Publisher, SourceReadEntry> sourceMap = ImmutableMap.builder();
+        for (SourceReadEntry read : this.getSources().getReads()) {
+            sourceMap.put(read.getPublisher(), read);
+        }
+        return sourceMap.build();
+    }
+    
     public Builder copy() {
         return builder()
                 .withId(this.getId())
@@ -60,7 +179,7 @@ public class Application {
                 .withCredentials(this.getCredentials())
                 .withSources(this.getSources());
     }
-
+    
     public static Builder builder() {
         return new Builder();
     }

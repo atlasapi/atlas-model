@@ -1,15 +1,28 @@
 package org.atlasapi.application;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.atlasapi.media.entity.Publisher;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 public class ApplicationSources {
 
     private final boolean precedence;
     private final List<SourceReadEntry> reads;
     private final List<Publisher> writes;
+    
+    private static final Function<SourceReadEntry, Publisher> READ_TO_PUBLISHER =  new Function<SourceReadEntry, Publisher>() {
+
+        @Override
+        public Publisher apply(@Nullable SourceReadEntry input) {
+            return input.getPublisher();
+        }};
 
     private ApplicationSources(Builder builder) {
         this.precedence = builder.precedence;
@@ -27,6 +40,10 @@ public class ApplicationSources {
 
     public List<Publisher> getWrites() {
         return writes;
+    }
+    
+    public Ordering<Publisher> publisherPrecedenceOrdering() {
+        return Ordering.explicit(Lists.transform(reads, READ_TO_PUBLISHER));
     }
 
     public Builder copy() {
