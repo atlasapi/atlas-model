@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.atlasapi.application.SourceStatus.SourceState;
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
+import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Publisher;
 import org.joda.time.DateTime;
 
@@ -12,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
-public class Application {
+public class Application implements Identifiable, Sourced {
 
     private final Id id;
     private final String slug; // Kept to enable creation of compatible entries
@@ -58,6 +60,11 @@ public class Application {
 
     public ApplicationSources getSources() {
         return sources;
+    }
+    
+    @Override
+    public Publisher getPublisher() {
+        return Publisher.METABROADCAST;
     }
     
     public Application disablePrecendence() {
