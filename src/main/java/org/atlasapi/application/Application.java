@@ -21,6 +21,7 @@ public class Application {
         private DateTime created;
         private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
         private ApplicationCredentials creds;
+        private Long deerId;
 
         public Builder(String slug) {
             this.slug = slug;
@@ -51,10 +52,16 @@ public class Application {
             return this;
         }
         
+        public Builder withDeerId(Long deerId) {
+            this.deerId = deerId;
+            return this;
+        }
+        
+        
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
-            return new Application(slug, title, desc, created, config, creds);
+            return new Application(slug, title, desc, created, config, creds, deerId);
         }
     }
     
@@ -65,14 +72,17 @@ public class Application {
 
 	private final ApplicationConfiguration configuration;
 	private final ApplicationCredentials credentials;
+	
+	private final Long deerId;
 
-	private Application(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, ApplicationCredentials creds) {
+	private Application(String slug, String title, String desc, DateTime created, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
         this.created = created;
         this.configuration = config;
         this.credentials = creds;
+        this.deerId = deerId;
 	}
 
 	public String getSlug() {
@@ -99,13 +109,18 @@ public class Application {
         return created;
     }
     
+    public Long getDeerId() {
+        return deerId;
+    }
+    
     public Builder copy() {
         return new Builder(slug)
             .withTitle(title)
             .withDescription(description)
             .createdAt(created)
             .withConfiguration(configuration)
-            .withCredentials(credentials);
+            .withCredentials(credentials)
+            .withDeerId(deerId);
     }
 
 	@Override
