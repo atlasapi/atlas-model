@@ -31,7 +31,6 @@ public class Item extends Description {
 	private SortedSet<Broadcast> broadcasts = Sets.newTreeSet();
     private List<SegmentEvent> segmentEvents;
 	
-	private BrandSummary container;
 	private SeriesSummary seriesSummary;
 	
 	private Boolean special;
@@ -96,15 +95,6 @@ public class Item extends Description {
 			}
 		}
 		return false;
-	}
-
-	@XmlElement(namespace=PLAY_SIMPLE_XML.NS, name="container")
-	public BrandSummary getBrandSummary() {
-		return container;
-	}
-	
-	public void setBrandSummary(BrandSummary brand) {
-		this.container = brand;
 	}
 
 	public void addBroadcast(Broadcast broadcast) {
