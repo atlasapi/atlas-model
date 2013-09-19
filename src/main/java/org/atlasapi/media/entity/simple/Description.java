@@ -53,6 +53,7 @@ public abstract class Description extends Aliased {
     private Integer year;
     private Set<Language> languages = Sets.newHashSet();
     private Set<Certificate> certificates = Sets.newHashSet();
+    private BrandSummary container;
 
     public Description(String uri) {
         super(uri);
@@ -381,5 +382,14 @@ public abstract class Description extends Aliased {
     @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "certificate")
     public Set<Certificate> getCertificates() {
         return this.certificates;
+    }
+
+    @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "container")
+    public BrandSummary getBrandSummary() {
+    	return container;
+    }
+
+    public void setBrandSummary(BrandSummary brand) {
+    	this.container = brand;
     }
 }
