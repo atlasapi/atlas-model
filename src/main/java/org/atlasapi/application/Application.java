@@ -20,6 +20,7 @@ public class Application implements Identifiable, Sourced {
     private final String slug; // Kept to enable creation of compatible entries
                                // for 3.0
     private final String title;
+    private final String description;
     private final DateTime created;
     private final ApplicationCredentials credentials;
     private final ApplicationSources sources;
@@ -27,12 +28,14 @@ public class Application implements Identifiable, Sourced {
     private Application(Id id, 
             String slug, 
             String title, 
+            String description,
             DateTime created, 
             ApplicationCredentials credentials, 
             ApplicationSources sources) {
         this.id = id;
         this.slug = slug;
         this.title = title;
+        this.description = description;
         this.created = created;
         this.credentials = credentials;
         this.sources = sources;
@@ -48,6 +51,10 @@ public class Application implements Identifiable, Sourced {
 
     public String getTitle() {
         return title;
+    }
+    
+    public String getDescription() {
+        return description;
     }
 
     public DateTime getCreated() {
@@ -182,6 +189,7 @@ public class Application implements Identifiable, Sourced {
                 .withId(this.getId())
                 .withSlug(this.getSlug())
                 .withTitle(this.getTitle())
+                .withDescription(this.getDescription())
                 .withCreated(this.getCreated())
                 .withCredentials(this.getCredentials())
                 .withSources(this.getSources());
@@ -196,6 +204,7 @@ public class Application implements Identifiable, Sourced {
         private Id id;
         private String slug;
         private String title;
+        private String description;
         private DateTime created;
         private ApplicationCredentials credentials;
         private ApplicationSources sources;
@@ -218,6 +227,11 @@ public class Application implements Identifiable, Sourced {
             this.title = title;
             return this;
         }
+        
+        public Builder withDescription(String description) {
+            this.description =  description;
+            return this;
+        }
 
         public Builder withCreated(DateTime created) {
             this.created = created;
@@ -235,7 +249,7 @@ public class Application implements Identifiable, Sourced {
         }
 
         public Application build() {
-            return new Application(id, slug, title, created, credentials, sources);
+            return new Application(id, slug, title, description, created, credentials, sources);
         }
     }
 
