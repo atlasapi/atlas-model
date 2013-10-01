@@ -74,13 +74,13 @@ public class Application implements Identifiable, Sourced {
         return Publisher.METABROADCAST;
     }
     
-    public Application disablePrecendence() {
+    public Application copyWithPrecedenceDisabled() {
         ApplicationSources modifiedSources = this
                .getSources().copy().withPrecedence(false).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
-    public Application addWrites(Publisher source) {
+    public Application copyWithAddedWritingSource(Publisher source) {
         List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
         if (!writes.contains(source)) {
             writes.add(source);
@@ -90,7 +90,7 @@ public class Application implements Identifiable, Sourced {
         return this.copy().withSources(modifiedSources).build();
     }
     
-    public Application removeWrites(Publisher source) {
+    public Application copyWithRemovedWritingSource(Publisher source) {
         List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
         writes.remove(source);
         ApplicationSources modifiedSources = this
@@ -98,29 +98,29 @@ public class Application implements Identifiable, Sourced {
         return this.copy().withSources(modifiedSources).build();
     }
     
-    public Application replaceSources(ApplicationSources sources) {
+    public Application copyWithSources(ApplicationSources sources) {
         return this.copy().withSources(sources).build();
     }
     
-    public Application changeReadSourceState(Publisher source, SourceState sourceState) {
+    public Application copyWithReadSourceState(Publisher source, SourceState sourceState) {
         SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
         SourceStatus newStatus = status.copyWithState(sourceState);
-        return modifyReadSourceStatus(source, newStatus);
+        return copyWithStatusForSource(source, newStatus);
     }
 
-    public Application enableSource(Publisher source) {
+    public Application copyWithSourceEnabled(Publisher source) {
         SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
         status = status.enable();
-        return modifyReadSourceStatus(source, status);
+        return copyWithStatusForSource(source, status);
     }
     
-    public Application disableSource(Publisher source) {
+    public Application copyWithSourceDisabled(Publisher source) {
         SourceStatus status = findSourceStatusFor(source, this.getSources().getReads());
         status = status.disable();
-        return modifyReadSourceStatus(source, status);
+        return copyWithStatusForSource(source, status);
     }
     
-    private Application modifyReadSourceStatus(Publisher source,
+    private Application copyWithStatusForSource(Publisher source,
             SourceStatus status) {
         List<SourceReadEntry> modifiedReads = changeReadsPreservingOrder(
                 this.getSources().getReads(), source, status);
@@ -153,7 +153,7 @@ public class Application implements Identifiable, Sourced {
         return builder.build();
     }
     
-    public Application setPrecendenceOrder(List<Publisher> ordering) {
+    public Application copyWithReadSourceOrder(List<Publisher> ordering) {
         Map<Publisher, SourceReadEntry> sourceMap = getSourceReadsAsKeyedMap();
         List<Publisher> seen = Lists.newArrayList();
         List<SourceReadEntry> readsWithNewOrder = Lists.newArrayList();

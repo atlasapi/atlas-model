@@ -55,7 +55,7 @@ public class ApplicationModificationTest {
               .withReads(modifiedReads)
               .withWrites(modfiedWrites)
               .build();
-      Application modified = application.replaceSources(modifiedSources);
+      Application modified = application.copyWithSources(modifiedSources);
       assertEquals(2, modified.getSources().getReads().size());
       assertEquals(Publisher.NETFLIX, modified.getSources().getReads().get(1).getPublisher());
       assertEquals(Publisher.ARCHIVE_ORG, modified.getSources().getWrites().get(1));
@@ -80,7 +80,7 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.changeReadSourceState(Publisher.NETFLIX, SourceState.REQUESTED);
+      Application modified = application.copyWithReadSourceState(Publisher.NETFLIX, SourceState.REQUESTED);
       
       assertEquals(2, modified.getSources().getReads().size());
       assertEquals(SourceState.REQUESTED, modified.getSources().getReads().get(1).getSourceStatus().getState());
@@ -107,9 +107,9 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.enableSource(Publisher.BBC);
+      Application modified = application.copyWithSourceEnabled(Publisher.BBC);
       assertTrue(modified.getSources().getReads().get(0).getSourceStatus().isEnabled());
-      modified = application.disableSource(Publisher.BBC);
+      modified = application.copyWithSourceDisabled(Publisher.BBC);
       assertFalse(modified.getSources().getReads().get(0).getSourceStatus().isEnabled());
   }
   
@@ -132,7 +132,7 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.addWrites(Publisher.YOUTUBE);
+      Application modified = application.copyWithAddedWritingSource(Publisher.YOUTUBE);
       assertTrue(modified.getSources().getWrites().contains(Publisher.YOUTUBE));
   }
   
@@ -155,7 +155,7 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.removeWrites(Publisher.KANDL_TOPICS);
+      Application modified = application.copyWithRemovedWritingSource(Publisher.KANDL_TOPICS);
       assertFalse(modified.getSources().getWrites().contains(Publisher.KANDL_TOPICS));
   }
   
@@ -200,7 +200,7 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.setPrecendenceOrder(ImmutableList.of(Publisher.NETFLIX, Publisher.BBC));
+      Application modified = application.copyWithReadSourceOrder(ImmutableList.of(Publisher.NETFLIX, Publisher.BBC));
       assertTrue(modified.getSources().isPrecedenceEnabled());
       assertEquals(Publisher.NETFLIX, modified.getSources().getReads().get(0).getPublisher());
   }
@@ -224,7 +224,7 @@ public class ApplicationModificationTest {
               .withCredentials(credentials)
               .withSources(sources)
               .build();
-      Application modified = application.disablePrecendence();
+      Application modified = application.copyWithPrecedenceDisabled();
       assertFalse(modified.getSources().isPrecedenceEnabled());
   }
 }
