@@ -141,7 +141,7 @@ public class Application implements Identifiable, Sourced {
                 return status.getSourceStatus();
             }
         }
-        return null;
+        return source.getDefaultSourceStatus();
     }
     
     private List<SourceReadEntry> changeReadsPreservingOrder(
