@@ -45,6 +45,12 @@ public class Application implements Identifiable, Sourced {
         return id;
     }
 
+    
+    /**
+     * Returns an Atlas 3.0 compatible identifier for applications
+     * @return
+     */
+    @Deprecated
     public String getSlug() {
         return slug;
     }
@@ -218,6 +224,12 @@ public class Application implements Identifiable, Sourced {
             return this;
         }
 
+        /**
+         * Sets the Atlas 3.0 compatible identifier for the application
+         * @param slug
+         * @return
+         */
+        @Deprecated
         public Builder withSlug(String slug) {
             this.slug = slug;
             return this;
