@@ -24,5 +24,5 @@ package org.atlasapi.persistence.content;
 public interface ContentResolver {
 
 	ResolvedContent findByCanonicalUris(Iterable<String> canonicalUris);
-
+	ResolvedContent findByUris(Iterable<String> uris);
 }
