@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.Clip;
@@ -43,7 +43,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
 
     @SuppressWarnings("unchecked")
     @Deprecated
-    public <T extends Content> List<T> merge(ApplicationConfiguration config, List<T> contents) {
+    public <T extends Content> List<T> merge(OldApplicationConfiguration config, List<T> contents) {
         Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
@@ -78,7 +78,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
     
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Content> T merge(T chosen, final Iterable<T> equivalents, final ApplicationConfiguration config) {
+    public <T extends Content> T merge(T chosen, final Iterable<T> equivalents, final OldApplicationConfiguration config) {
         return chosen.accept(new ContentVisitorAdapter<T>() {
             
             @Override
@@ -117,7 +117,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         };
     }
 
-    private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeIn(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         for (Item notChosenItem : notChosen) {
             for (Clip clip : notChosenItem.getClips()) {
                 chosen.addClip(clip);
@@ -156,7 +156,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
                 }))));
     }
 
-    private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
+    private void mergeFilmProperties(OldApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
         Builder<String> languages = ImmutableSet.<String>builder().addAll(chosen.getLanguages());
         Builder<Certificate> certs = ImmutableSet.<Certificate>builder().addAll(chosen.getCertificates());
@@ -185,7 +185,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     }
 
-    private <T extends Content> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Content> void applyImagePrefs(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
             List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
@@ -201,7 +201,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     }
 
-    private <T extends Item> void mergeVersions(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeVersions(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         // if chosen has broadcasts, merge the set of broadcasts from notChosen
         Set<Broadcast> chosenBroadcasts = Sets.newHashSet(Iterables.concat(Iterables.transform(chosen.getVersions(), Version.TO_BROADCASTS)));
         if (!chosenBroadcasts.isEmpty()) {
@@ -318,7 +318,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     };
 
-    public <T extends Item> void mergeIn(ApplicationConfiguration config, Container chosen, List<Container> notChosen) {
+    public <T extends Item> void mergeIn(OldApplicationConfiguration config, Container chosen, List<Container> notChosen) {
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
         applyImagePrefs(config, chosen, notChosen);

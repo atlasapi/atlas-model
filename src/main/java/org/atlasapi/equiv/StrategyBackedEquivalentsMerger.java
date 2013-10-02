@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.util.Sourceds;
 
@@ -21,7 +21,7 @@ public class StrategyBackedEquivalentsMerger<E extends Equivalent<E>>
     }
 
     @Override
-    public <T extends E> List<T> merge(Iterable<T> equivalents, ApplicationConfiguration config) {
+    public <T extends E> List<T> merge(Iterable<T> equivalents, OldApplicationConfiguration config) {
         if (!config.precedenceEnabled()) {
             return ImmutableList.copyOf(equivalents);
         }
@@ -39,7 +39,7 @@ public class StrategyBackedEquivalentsMerger<E extends Equivalent<E>>
         return sortedEquivalents.isEmpty() || sortedEquivalents.size() == 1;
     }
 
-    private Ordering<Sourced> applicationEquivalentsOrdering(ApplicationConfiguration config) {
+    private Ordering<Sourced> applicationEquivalentsOrdering(OldApplicationConfiguration config) {
         return config.peoplePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
     }
 

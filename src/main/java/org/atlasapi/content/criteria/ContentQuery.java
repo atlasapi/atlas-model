@@ -16,7 +16,7 @@ package org.atlasapi.content.criteria;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.content.criteria.attribute.Attributes;
 import org.atlasapi.media.entity.Publisher;
 
@@ -45,25 +45,25 @@ public class ContentQuery {
 
 	private final Selection selection;
 
-	private final ApplicationConfiguration configuration;
+	private final OldApplicationConfiguration configuration;
     	
 	public ContentQuery(AtomicQuery operand) {
 		this(ImmutableList.of(operand), Selection.ALL);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, Selection.ALL, OldApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, selection, OldApplicationConfiguration.DEFAULT_CONFIGURATION);
 	}
     
-    public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
+    public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, OldApplicationConfiguration configuration) {
 		this(operands, Annotation.standard(), selection, configuration);
 	}
 
-	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, ApplicationConfiguration configuration) {
+	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, OldApplicationConfiguration configuration) {
 		this.operands = ImmutableSet.copyOf(operands);
         this.annotations = ImmutableSet.copyOf(annotations);
 		this.selection = selection;
@@ -106,7 +106,7 @@ public class ContentQuery {
 		return selection;
 	}
 	
-	public ApplicationConfiguration getConfiguration() {
+	public OldApplicationConfiguration getConfiguration() {
 		return configuration;
 	}
 
@@ -148,7 +148,7 @@ public class ContentQuery {
 		return contentQuery;
 	}
 	
-	public ContentQuery copyWithApplicationConfiguration(ApplicationConfiguration configuration){
+	public ContentQuery copyWithApplicationConfiguration(OldApplicationConfiguration configuration){
 		ContentQuery contentQuery = new ContentQuery(operands, getSelection(), configuration);
 		contentQuery.setSoftConstraints(getSoftConstraints());
 		return contentQuery;

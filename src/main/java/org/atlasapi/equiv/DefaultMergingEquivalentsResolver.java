@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.output.Annotation;
 
@@ -27,14 +27,14 @@ public class DefaultMergingEquivalentsResolver<E extends Equivalent<E>>
     
     @Override
     public ListenableFuture<ResolvedEquivalents<E>> resolveIds(Iterable<Id> ids,
-            ApplicationConfiguration config, Set<Annotation> activeAnnotations) {
+            OldApplicationConfiguration config, Set<Annotation> activeAnnotations) {
         ListenableFuture<ResolvedEquivalents<E>> unmerged
             = resolver.resolveIds(ids, config.getEnabledSources(), activeAnnotations);
         return Futures.transform(unmerged, mergeUsing(config));
     }
 
     private Function<ResolvedEquivalents<E>, ResolvedEquivalents<E>> mergeUsing(
-            final ApplicationConfiguration config) {
+            final OldApplicationConfiguration config) {
         return new Function<ResolvedEquivalents<E>, ResolvedEquivalents<E>>() {
             @Override
             public ResolvedEquivalents<E> apply(ResolvedEquivalents<E> input) {
@@ -47,7 +47,7 @@ public class DefaultMergingEquivalentsResolver<E extends Equivalent<E>>
         };
     }
 
-    private Iterable<E> merge(Collection<E> equivs, ApplicationConfiguration config) {
+    private Iterable<E> merge(Collection<E> equivs, OldApplicationConfiguration config) {
         return merger.merge(equivs, config);
     }
 }
