@@ -276,6 +276,9 @@ public abstract class Described extends Identified {
         to.scheduleOnly = from.scheduleOnly;
         to.presentationChannel = from.presentationChannel;
         to.images = from.images;
+        to.shortDescription = from.shortDescription;
+        to.mediumDescription = from.mediumDescription;
+        to.longDescription = from.longDescription;
     }
     
     public abstract Described copy();
