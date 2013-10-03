@@ -17,6 +17,13 @@ public class ApplicationSources {
     private final List<SourceReadEntry> reads;
     private final List<Publisher> writes;
     
+    public static final ApplicationSources EMPTY_SOURCES = ApplicationSources
+            .builder()
+            .withPrecedence(false)
+            .withReads(ImmutableList.<SourceReadEntry>of())
+            .withWrites(ImmutableList.<Publisher>of())
+            .build();
+    
     private static final Function<SourceReadEntry, Publisher> READ_TO_PUBLISHER =  new Function<SourceReadEntry, Publisher>() {
 
         @Override
