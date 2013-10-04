@@ -69,6 +69,7 @@ public enum Publisher {
     YURI("yuri", "yuri.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE),
     COYOTE("coyote", "coyote.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE), 
     BBC_NITRO("BBC Nitro", "nitro.bbc.co.uk", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
+    AMAZON_UNBOX("Amazon Unbox GB (Lovefilm)", "unbox.amazon.co.uk", Countries.GB, SourceStatus.UNAVAILABLE)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
