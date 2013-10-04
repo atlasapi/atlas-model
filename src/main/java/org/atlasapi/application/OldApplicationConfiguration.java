@@ -80,26 +80,7 @@ public class OldApplicationConfiguration {
     public Map<Publisher, SourceStatus> sourceStatuses() {
         return allSourcesStatuses(sourceStatuses);
     }
-    
-    public OldApplicationConfiguration enable(Publisher source) {
-        return withSource(source, statusOf(source).enable());
-    }
-    
-    public OldApplicationConfiguration disable(Publisher source) {
-        return withSource(source, statusOf(source).disable());
-    }
-    
-    public OldApplicationConfiguration request(Publisher source) {
-        return withSource(source, statusOf(source).request());
-    }
-    
-    public OldApplicationConfiguration revoke(Publisher source) {
-        return withSource(source, statusOf(source).revoke());
-    }
-    
-    public OldApplicationConfiguration approve(Publisher source) {
-        return withSource(source, statusOf(source).approve());
-    }
+ 
     
     public OldApplicationConfiguration withSource(Publisher source, SourceStatus status) {
         HashMap<Publisher,SourceStatus> mutableSources = Maps.newHashMap(sourceStatuses);
@@ -124,14 +105,6 @@ public class OldApplicationConfiguration {
 	
     public OldApplicationConfiguration copyWithPrecedence(List<Publisher> publishers) {
         return new OldApplicationConfiguration(sourceStatuses, ImmutableList.copyOf(publishers));
-    }
-    
-    public OldApplicationConfiguration copyWithNullPrecedence() {
-        return new OldApplicationConfiguration(sourceStatuses, null);
-    }
-    
-    public OldApplicationConfiguration copyWithWritableSources(Iterable<Publisher> writable) {
-        return new OldApplicationConfiguration(sourceStatuses, enabledSources, precedence, writable);
     }
     
     public boolean canWrite(Publisher source) {
