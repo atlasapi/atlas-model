@@ -111,6 +111,10 @@ public class ApplicationSources {
                         SOURCEREADS_TO_PUBLISHER));
     }
 
+    public boolean isReadEnabled(Publisher publisher) {
+        return this.getEnabledReadSources().contains(publisher);
+    }
+
     public Builder copy() {
         return builder()
                 .withPrecedence(this.isPrecedenceEnabled())
@@ -147,5 +151,4 @@ public class ApplicationSources {
             return new ApplicationSources(this);
         }
     }
-
 }

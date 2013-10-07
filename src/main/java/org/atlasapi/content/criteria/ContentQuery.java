@@ -189,6 +189,6 @@ public class ContentQuery {
 	}
 
     public boolean allowsSource(Publisher publisher) {
-        return sources.isEnabled(publisher);
+        return sources.isReadEnabled(publisher);
     }
 }
