@@ -141,14 +141,14 @@ public class OldApplicationConfiguration {
         return ImmutableList.of(Publisher.PA, Publisher.BBC, Publisher.C4);
     }
     
-    public boolean imagePrecedenceEnabled() {
-        return imagePrecedence() != null;
-    }
-    
-    public Ordering<Publisher> imagePrecedenceOrdering() {
-//        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
-        return publisherPrecedenceOrdering();
-    }
+//    public boolean imagePrecedenceEnabled() {
+//        return imagePrecedence() != null;
+//    }
+//    
+//    public Ordering<Publisher> imagePrecedenceOrdering() {
+////        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
+//        return publisherPrecedenceOrdering();
+//    }
 
     private List<Publisher> appendMissingPublishersTo(Iterable<Publisher> selected) {
         List<Publisher> publishers = Lists.newArrayList(selected);
@@ -160,15 +160,15 @@ public class OldApplicationConfiguration {
         return publishers;
     }
     
-    private ImmutableList<Publisher> peoplePrecedence() {
-        return ImmutableList.of(Publisher.RADIO_TIMES, Publisher.PA, Publisher.BBC, Publisher.C4, Publisher.ITV);
-    }
-    
-    public boolean peoplePrecedenceEnabled() {
-        return peoplePrecedence() != null;
-    }
-    
-    public Ordering<Publisher> peoplePrecedenceOrdering() {
-        return Ordering.explicit(appendMissingPublishersTo(peoplePrecedence()));
-    }
+//    private ImmutableList<Publisher> peoplePrecedence() {
+//        return ImmutableList.of(Publisher.RADIO_TIMES, Publisher.PA, Publisher.BBC, Publisher.C4, Publisher.ITV);
+//    }
+//    
+//    public boolean peoplePrecedenceEnabled() {
+//        return peoplePrecedence() != null;
+//    }
+//    
+//    public Ordering<Publisher> peoplePrecedenceOrdering() {
+//        return Ordering.explicit(appendMissingPublishersTo(peoplePrecedence()));
+//   }
 }

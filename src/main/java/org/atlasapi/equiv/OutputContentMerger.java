@@ -1,12 +1,10 @@
 package org.atlasapi.equiv;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.Clip;
@@ -43,8 +41,8 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
 
     @SuppressWarnings("unchecked")
     @Deprecated
-    public <T extends Content> List<T> merge(OldApplicationConfiguration config, List<T> contents) {
-        Ordering<Content> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
+    public <T extends Content> List<T> merge(ApplicationSources sources, List<T> contents) {
+        Ordering<Content> contentComparator = toContentOrdering(sources.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
         Set<T> processed = Sets.newHashSet();
@@ -66,10 +64,10 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
             List<T> notChosen = same.subList(1, same.size());
 
             if (chosen instanceof Container) {
-                mergeIn(config, (Container) chosen, (List<Container>) notChosen);
+                mergeIn(sources, (Container) chosen, (List<Container>) notChosen);
             }
             if (chosen instanceof Item) {
-                mergeIn(config, (Item) chosen, (List<Item>) notChosen);
+                mergeIn(sources, (Item) chosen, (List<Item>) notChosen);
             }
             merged.add(chosen);
         }
@@ -78,18 +76,18 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
     
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Content> T merge(T chosen, final Iterable<T> equivalents, final OldApplicationConfiguration config) {
+    public <T extends Content> T merge(T chosen, final Iterable<T> equivalents, final ApplicationSources sources) {
         return chosen.accept(new ContentVisitorAdapter<T>() {
             
             @Override
             protected T visitContainer(Container container) {
-                mergeIn(config, container, (List<Container>) equivalents);
+                mergeIn(sources, container, (List<Container>) equivalents);
                 return (T) container;
             }
             
             @Override
             protected T visitItem(Item item) {
-                mergeIn(config, item, (List<Item>) equivalents);
+                mergeIn(sources, item, (List<Item>) equivalents);
                 return (T) item;
             }
             
@@ -117,18 +115,18 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         };
     }
 
-    private <T extends Item> void mergeIn(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeIn(ApplicationSources sources, T chosen, Iterable<T> notChosen) {
         for (Item notChosenItem : notChosen) {
             for (Clip clip : notChosenItem.getClips()) {
                 chosen.addClip(clip);
             }
         }
-        applyImagePrefs(config, chosen, notChosen);
+        applyImagePrefs(sources, chosen, notChosen);
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
-        mergeVersions(config, chosen, notChosen);
+        mergeVersions(sources, chosen, notChosen);
         if (chosen instanceof Film) {
-            mergeFilmProperties(config, (Film) chosen, Iterables.filter(notChosen, Film.class));
+            mergeFilmProperties(sources, (Film) chosen, Iterables.filter(notChosen, Film.class));
         }
     }
 
@@ -156,7 +154,7 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
                 }))));
     }
 
-    private void mergeFilmProperties(OldApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
+    private void mergeFilmProperties(ApplicationSources sources, Film chosen, Iterable<Film> notChosen) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
         Builder<String> languages = ImmutableSet.<String>builder().addAll(chosen.getLanguages());
         Builder<Certificate> certs = ImmutableSet.<Certificate>builder().addAll(chosen.getCertificates());
@@ -174,9 +172,9 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         chosen.setCertificates(certs.build());
         chosen.setReleaseDates(releases.build());
 
-        if (config.peoplePrecedenceEnabled()) {
+        if (sources.peoplePrecedenceEnabled()) {
             Iterable<Film> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<Film> topFilmMatches = toContentOrdering(config.peoplePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_PEOPLE), 1);
+            List<Film> topFilmMatches = toContentOrdering(sources.peoplePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_PEOPLE), 1);
 
             if (!topFilmMatches.isEmpty()) {
                 Film top = topFilmMatches.get(0);
@@ -185,10 +183,10 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     }
 
-    private <T extends Content> void applyImagePrefs(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
-        if (config.imagePrecedenceEnabled()) {
+    private <T extends Content> void applyImagePrefs(ApplicationSources sources, T chosen, Iterable<T> notChosen) {
+        if (sources.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
+            List<T> topImageMatches = toContentOrdering(sources.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
 
             if (!topImageMatches.isEmpty()) {
                 T top = topImageMatches.get(0);
@@ -201,11 +199,11 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     }
 
-    private <T extends Item> void mergeVersions(OldApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeVersions(ApplicationSources sources, T chosen, Iterable<T> notChosen) {
         // if chosen has broadcasts, merge the set of broadcasts from notChosen
         Set<Broadcast> chosenBroadcasts = Sets.newHashSet(Iterables.concat(Iterables.transform(chosen.getVersions(), Version.TO_BROADCASTS)));
         if (!chosenBroadcasts.isEmpty()) {
-            List<T> notChosenOrdered = toContentOrdering(config.publisherPrecedenceOrdering()).sortedCopy(notChosen);
+            List<T> notChosenOrdered = toContentOrdering(sources.publisherPrecedenceOrdering()).sortedCopy(notChosen);
             for (Broadcast chosenBroadcast : chosenBroadcasts) {
                 matchAndMerge(chosenBroadcast, notChosenOrdered);
             }
@@ -318,10 +316,10 @@ public class OutputContentMerger implements EquivalentsMergeStrategy<Content> {
         }
     };
 
-    public <T extends Item> void mergeIn(OldApplicationConfiguration config, Container chosen, List<Container> notChosen) {
+    public <T extends Item> void mergeIn(ApplicationSources sources, Container chosen, List<Container> notChosen) {
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
-        applyImagePrefs(config, chosen, notChosen);
+        applyImagePrefs(sources, chosen, notChosen);
     }
 
     enum ItemIdStrategy {

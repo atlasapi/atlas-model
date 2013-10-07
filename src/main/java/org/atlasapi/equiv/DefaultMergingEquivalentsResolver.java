@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import org.atlasapi.application.ApplicationSources;
 import org.atlasapi.application.OldApplicationConfiguration;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.output.Annotation;
@@ -27,27 +28,27 @@ public class DefaultMergingEquivalentsResolver<E extends Equivalent<E>>
     
     @Override
     public ListenableFuture<ResolvedEquivalents<E>> resolveIds(Iterable<Id> ids,
-            OldApplicationConfiguration config, Set<Annotation> activeAnnotations) {
+            ApplicationSources sources, Set<Annotation> activeAnnotations) {
         ListenableFuture<ResolvedEquivalents<E>> unmerged
-            = resolver.resolveIds(ids, config.getEnabledSources(), activeAnnotations);
-        return Futures.transform(unmerged, mergeUsing(config));
+            = resolver.resolveIds(ids, sources.getEnabledReadSources(), activeAnnotations);
+        return Futures.transform(unmerged, mergeUsing(sources));
     }
 
     private Function<ResolvedEquivalents<E>, ResolvedEquivalents<E>> mergeUsing(
-            final OldApplicationConfiguration config) {
+            final ApplicationSources sources) {
         return new Function<ResolvedEquivalents<E>, ResolvedEquivalents<E>>() {
             @Override
             public ResolvedEquivalents<E> apply(ResolvedEquivalents<E> input) {
                 ResolvedEquivalents.Builder<E> builder = ResolvedEquivalents.builder();
                 for (Map.Entry<Id, Collection<E>> entry : input.asMap().entrySet()) {
-                    builder.putEquivalents(entry.getKey(), merge(entry.getValue(), config));
+                    builder.putEquivalents(entry.getKey(), merge(entry.getValue(), sources));
                 }
                 return builder.build();
             }
         };
     }
 
-    private Iterable<E> merge(Collection<E> equivs, OldApplicationConfiguration config) {
-        return merger.merge(equivs, config);
+    private Iterable<E> merge(Collection<E> equivs, ApplicationSources sources) {
+        return merger.merge(equivs, sources);
     }
 }
