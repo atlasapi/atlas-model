@@ -1,6 +1,7 @@
 package org.atlasapi.application;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -15,6 +16,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 public class ApplicationSources {
 
@@ -145,7 +147,19 @@ public class ApplicationSources {
         }
 
         public Builder withReads(List<SourceReadEntry> reads) {
-            this.reads = reads;
+            List<SourceReadEntry> readsAll = Lists.newLinkedList();
+            Set<Publisher> publishersSeen = Sets.newHashSet();
+            for (SourceReadEntry read : reads) {
+                readsAll.add(read);
+                publishersSeen.add(read.getPublisher());
+            }            
+            // populate missing publishers
+            for (Publisher source : Publisher.values()) {
+                if (!publishersSeen.contains(source)) {
+                    readsAll.add(new SourceReadEntry(source, source.getDefaultSourceStatus()));
+                }
+            }
+            this.reads = readsAll;
             return this;
         }
 
