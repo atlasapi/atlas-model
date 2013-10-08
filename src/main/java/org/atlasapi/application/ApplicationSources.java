@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.util.Sourceds;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -113,6 +115,11 @@ public class ApplicationSources {
 
     public boolean isReadEnabled(Publisher publisher) {
         return this.getEnabledReadSources().contains(publisher);
+    }
+    
+    public Ordering<Sourced> getSourcedOrdering() {
+        Ordering<Publisher> ordering = ApplicationSources.EMPTY_SOURCES.publisherPrecedenceOrdering();
+        return ordering.onResultOf(Sourceds.toPublisher());
     }
 
     public Builder copy() {
