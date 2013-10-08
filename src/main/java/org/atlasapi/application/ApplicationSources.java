@@ -38,7 +38,9 @@ public class ApplicationSources {
             }
            };
     
-    public static final ApplicationSources EMPTY_SOURCES = ApplicationSources
+    // Build a default configuration, this will get popualated with publishers 
+    // with default source status
+    public static final ApplicationSources DEFAULT_SOURCES = ApplicationSources
             .builder()
             .withPrecedence(false)
             .withReads(ImmutableList.<SourceReadEntry>of())
@@ -128,7 +130,7 @@ public class ApplicationSources {
     }
     
     public Ordering<Sourced> getSourcedReadOrdering() {
-        Ordering<Publisher> ordering = ApplicationSources.EMPTY_SOURCES.publisherPrecedenceOrdering();
+        Ordering<Publisher> ordering = ApplicationSources.DEFAULT_SOURCES.publisherPrecedenceOrdering();
         return ordering.onResultOf(Sourceds.toPublisher());
     }
 

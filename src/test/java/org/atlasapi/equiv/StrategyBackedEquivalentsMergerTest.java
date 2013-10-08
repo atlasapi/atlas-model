@@ -36,9 +36,9 @@ public class StrategyBackedEquivalentsMergerTest {
     private final StrategyBackedEquivalentsMerger<Content> merger
         = new StrategyBackedEquivalentsMerger<Content>(strategy);
     
-    private final ApplicationSources nonMergingSources = ApplicationSources.EMPTY_SOURCES
+    private final ApplicationSources nonMergingSources = ApplicationSources.DEFAULT_SOURCES
             .copy().withPrecedence(false).build();
-    private final ApplicationSources mergingSources = ApplicationSources.EMPTY_SOURCES
+    private final ApplicationSources mergingSources = ApplicationSources.DEFAULT_SOURCES
             .copy().withPrecedence(true)
             .withReads(ImmutableList.of(
                     new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),

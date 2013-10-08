@@ -52,11 +52,11 @@ public class ContentQuery {
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, ApplicationSources.EMPTY_SOURCES);
+		this(operands, Selection.ALL, ApplicationSources.DEFAULT_SOURCES);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, ApplicationSources.EMPTY_SOURCES);
+		this(operands, selection, ApplicationSources.DEFAULT_SOURCES);
 	}
     
     public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationSources sources) {

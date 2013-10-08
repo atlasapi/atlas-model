@@ -34,7 +34,7 @@ public class OutputContentMergerTest {
         two.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(one), EquivalenceRef.valueOf(three)));
         three.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(one)));
         
-        ApplicationSources sources = ApplicationSources.EMPTY_SOURCES
+        ApplicationSources sources = ApplicationSources.DEFAULT_SOURCES
                 .copy().withPrecedence(true)
                 .withReads(ImmutableList.of(
                         new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),
