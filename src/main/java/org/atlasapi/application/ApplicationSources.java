@@ -93,6 +93,10 @@ public class ApplicationSources {
         return Ordering.explicit(publishers);
     }
     
+    public Ordering<Sourced> getSourcedPeoplePrecedenceOrdering() {
+        return peoplePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
+    }
+    
     /**
      * Temporary: these should be persisted and not hardcoded
      */
@@ -107,6 +111,10 @@ public class ApplicationSources {
     public Ordering<Publisher> imagePrecedenceOrdering() {
         return publisherPrecedenceOrdering();
     }
+    
+    public Ordering<Sourced> getSourcedImagePrecedenceOrdering() {
+        return imagePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
+    }
 
     public ImmutableSet<Publisher> getEnabledReadSources() {
         return ImmutableSet.copyOf(
@@ -119,7 +127,7 @@ public class ApplicationSources {
         return this.getEnabledReadSources().contains(publisher);
     }
     
-    public Ordering<Sourced> getSourcedOrdering() {
+    public Ordering<Sourced> getSourcedReadOrdering() {
         Ordering<Publisher> ordering = ApplicationSources.EMPTY_SOURCES.publisherPrecedenceOrdering();
         return ordering.onResultOf(Sourceds.toPublisher());
     }
