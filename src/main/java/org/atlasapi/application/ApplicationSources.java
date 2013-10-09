@@ -126,8 +126,12 @@ public class ApplicationSources {
                         SOURCEREADS_TO_PUBLISHER));
     }
 
-    public boolean isReadEnabled(Publisher publisher) {
-        return this.getEnabledReadSources().contains(publisher);
+    public boolean isReadEnabled(Publisher source) {
+        return this.getEnabledReadSources().contains(source);
+    }
+    
+    public boolean isWriteEnabled(Publisher source) {
+        return this.getWrites().contains(source);
     }
     
     public Ordering<Sourced> getSourcedReadOrdering() {
