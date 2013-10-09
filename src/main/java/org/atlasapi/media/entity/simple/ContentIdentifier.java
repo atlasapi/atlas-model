@@ -216,6 +216,7 @@ public abstract class ContentIdentifier {
         case FILM:
             return new FilmIdentifier(uri, id);
         case ITEM:
+        case SONG:
             return new ItemIdentifier(uri, id);
         case PERSON:
             return new PersonIdentifier(uri, id);
