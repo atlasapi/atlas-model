@@ -10,6 +10,7 @@ import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Publisher;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -190,6 +191,23 @@ public class Application implements Identifiable, Sourced {
         return sourceMap.build();
     }
     
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Application) {
+            Application other = (Application) obj;
+            return Objects.equal(this.getId(), other.getId())
+                    && Objects.equal(this.getSlug(), other.getSlug())
+                    && Objects.equal(this.getTitle(), other.getTitle())
+                    && Objects.equal(this.getDescription(), other.getDescription())
+                    && Objects.equal(this.getCreated(), other.getCreated())
+                    && Objects.equal(this.getCredentials(), other.getCredentials())
+                    && Objects.equal(this.getSources(), other.getSources());
+        }
+        return false;
+    }
+
     public Builder copy() {
         return builder()
                 .withId(this.getId())

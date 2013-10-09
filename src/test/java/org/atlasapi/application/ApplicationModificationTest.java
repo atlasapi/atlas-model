@@ -2,6 +2,7 @@ package org.atlasapi.application;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.atlasapi.application.SourceStatus.SourceState;
@@ -226,5 +227,15 @@ public class ApplicationModificationTest {
               .build();
       Application modified = application.copyWithPrecedenceDisabled();
       assertFalse(modified.getSources().isPrecedenceEnabled());
+  }
+  
+  @Test
+  public void shouldCreateApplication() {
+      assertNotNull(
+              Application.builder()
+              .withSlug("test-slug")
+              .withCredentials(ApplicationCredentials.builder().withApiKey("apiKey").build())
+              .build()
+              );
   }
 }

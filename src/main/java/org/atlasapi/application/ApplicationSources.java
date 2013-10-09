@@ -10,6 +10,7 @@ import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.util.Sourceds;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -132,6 +133,29 @@ public class ApplicationSources {
     public Ordering<Sourced> getSourcedReadOrdering() {
         Ordering<Publisher> ordering = ApplicationSources.DEFAULT_SOURCES.publisherPrecedenceOrdering();
         return ordering.onResultOf(Sourceds.toPublisher());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ApplicationSources) {
+            ApplicationSources other = (ApplicationSources) obj;
+            // If precedence is not switched on, order is not guaranteed by storage
+            boolean readsEqual = false;
+            if (this.isPrecedenceEnabled() == other.isPrecedenceEnabled()) {
+                if (this.isPrecedenceEnabled()) {
+                    // Same items in same order
+                    readsEqual = Objects.equal(this.getReads(), other.getReads());
+                } else {
+                    // Same items in any order
+                    readsEqual = this.getReads().containsAll(other.getReads()) 
+                            && this.getReads().size() == other.getReads().size();
+                }
+                boolean writesEqual = this.getWrites().containsAll(other.getWrites())
+                        && this.getWrites().size() == other.getWrites().size();
+                return readsEqual && writesEqual;
+            }
+        }
+        return false;
     }
 
     public Builder copy() {
