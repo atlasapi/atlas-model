@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.content;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
 import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Schedule;
@@ -11,6 +11,6 @@ import com.google.common.base.Optional;
 @Deprecated
 public interface ScheduleResolver {
 
-    Schedule schedule(DateTime from, DateTime to, Iterable<Channel> channels, Iterable<Publisher> publisher, Optional<OldApplicationConfiguration> mergeConfig);
+    Schedule schedule(DateTime from, DateTime to, Iterable<Channel> channels, Iterable<Publisher> publisher, Optional<ApplicationSources> mergeConfig);
     
 }

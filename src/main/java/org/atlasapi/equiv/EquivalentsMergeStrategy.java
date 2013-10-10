@@ -1,6 +1,6 @@
 package org.atlasapi.equiv;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
 
 /**
  *  Merges a set of equivalents into a single chosen resource.
@@ -14,6 +14,6 @@ public interface EquivalentsMergeStrategy<E extends Equivalent<E>> {
      * @param equivalents - a set of resources equivalent to chosen.
      * @return merged resources.
      */
-    <T extends E> T merge(T chosen, Iterable<T> equivalents, OldApplicationConfiguration config);
+    <T extends E> T merge(T chosen, Iterable<T> equivalents, ApplicationSources sources);
     
 }

@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
 import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.util.Sourceds;
 
@@ -21,26 +21,26 @@ public class StrategyBackedEquivalentsMerger<E extends Equivalent<E>>
     }
 
     @Override
-    public <T extends E> List<T> merge(Iterable<T> equivalents, OldApplicationConfiguration config) {
-        if (!config.precedenceEnabled()) {
+    public <T extends E> List<T> merge(Iterable<T> equivalents, ApplicationSources sources) {
+        if (!sources.isPrecedenceEnabled()) {
             return ImmutableList.copyOf(equivalents);
         }
-        Ordering<Sourced> equivsOrdering = applicationEquivalentsOrdering(config);
+        Ordering<Sourced> equivsOrdering = applicationEquivalentsOrdering(sources);
         ImmutableList<T> sortedEquivalents = equivsOrdering.immutableSortedCopy(equivalents);
         if (trivialMerge(sortedEquivalents)) {
             return sortedEquivalents;
         }
         T chosen = sortedEquivalents.get(0);
         ImmutableList<T> notChosen = sortedEquivalents.subList(1, sortedEquivalents.size());
-        return ImmutableList.of(strategy.merge(chosen, notChosen, config));
+        return ImmutableList.of(strategy.merge(chosen, notChosen, sources));
     }
 
     private boolean trivialMerge(ImmutableList<?> sortedEquivalents) {
         return sortedEquivalents.isEmpty() || sortedEquivalents.size() == 1;
     }
 
-    private Ordering<Sourced> applicationEquivalentsOrdering(OldApplicationConfiguration config) {
-        return config.peoplePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
+    private Ordering<Sourced> applicationEquivalentsOrdering(ApplicationSources sources) {
+        return sources.peoplePrecedenceOrdering().onResultOf(Sourceds.toPublisher());
     }
 
 }

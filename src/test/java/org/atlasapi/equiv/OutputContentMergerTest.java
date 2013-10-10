@@ -5,9 +5,10 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
+import org.atlasapi.application.SourceReadEntry;
+import org.atlasapi.application.SourceStatus;
 import org.atlasapi.media.entity.Brand;
-import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
 import org.junit.Test;
 
@@ -33,13 +34,18 @@ public class OutputContentMergerTest {
         two.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(one), EquivalenceRef.valueOf(three)));
         three.setEquivalentTo(ImmutableSet.of(EquivalenceRef.valueOf(two), EquivalenceRef.valueOf(one)));
         
-        OldApplicationConfiguration config = OldApplicationConfiguration.defaultConfiguration()
-            .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
+        ApplicationSources sources = ApplicationSources.defaults()
+                .copy().withPrecedence(true)
+                .withReadableSources(ImmutableList.of(
+                        new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),
+                        new SourceReadEntry(Publisher.TED, SourceStatus.AVAILABLE_ENABLED)
+                 ))
+                .build();
         
         ImmutableList<Brand> contents = ImmutableList.of(one, two, three);
         
         for (List<Brand> contentList : Collections2.permutations(contents)) {
-            List<Brand> merged = merger.merge(config, contentList);
+            List<Brand> merged = merger.merge(sources, contentList);
             assertThat(merged.size(), is(1));
             if (contentList.get(0).equals(three)) {
                 assertThat(merged.get(0), is(contentList.get(1)));

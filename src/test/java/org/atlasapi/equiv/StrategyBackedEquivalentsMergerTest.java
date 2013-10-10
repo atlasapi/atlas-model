@@ -13,7 +13,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.atlasapi.application.OldApplicationConfiguration;
+import org.atlasapi.application.ApplicationSources;
+import org.atlasapi.application.SourceReadEntry;
+import org.atlasapi.application.SourceStatus;
 import org.atlasapi.media.content.Content;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Publisher;
@@ -34,45 +36,49 @@ public class StrategyBackedEquivalentsMergerTest {
     private final StrategyBackedEquivalentsMerger<Content> merger
         = new StrategyBackedEquivalentsMerger<Content>(strategy);
     
-    private final OldApplicationConfiguration nonmergingConfig 
-        = OldApplicationConfiguration.defaultConfiguration();
-    private final OldApplicationConfiguration mergingConfig 
-        = OldApplicationConfiguration.defaultConfiguration()
-            .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
+    private final ApplicationSources nonMergingSources = ApplicationSources.defaults()
+            .copy().withPrecedence(false).build();
+    private final ApplicationSources mergingSources = ApplicationSources.defaults()
+            .copy().withPrecedence(true)
+            .withReadableSources(ImmutableList.of(
+                    new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),
+                    new SourceReadEntry(Publisher.TED, SourceStatus.AVAILABLE_ENABLED)
+             ))
+            .build();
     
     @Test
     public void testDoesntMergeForNonMergingConfig() {
         List<Content> merged = merger.merge(ImmutableSet.<Content>of(), 
-                nonmergingConfig);
+                nonMergingSources);
         
         assertTrue(merged.isEmpty());
-        veryifyNoMerge(nonmergingConfig);
+        veryifyNoMerge(nonMergingSources);
     }
     
     @Test
     public void testDoesntMergeForEmptyEquivalenceSet() {
         List<Content> merged = merger.merge(ImmutableSet.<Content>of(), 
-                mergingConfig);
+                mergingSources);
         
         assertTrue(merged.isEmpty());
-        veryifyNoMerge(mergingConfig);
+        veryifyNoMerge(mergingSources);
     }
 
     @Test
     public void testDoesntMergeForSingletonEquivalenceSet() {
         Content brand = new Brand();
         List<Content> merged = merger.merge(ImmutableSet.of(brand), 
-                mergingConfig);
+                mergingSources);
         
         assertThat(merged.size(), is(1));
-        veryifyNoMerge(mergingConfig);
+        veryifyNoMerge(mergingSources);
     }
 
-    private void veryifyNoMerge(OldApplicationConfiguration config) {
+    private void veryifyNoMerge(ApplicationSources sources) {
         verify(strategy, never()).merge(
             argThat(any(Content.class)), 
             anyCollectionOf(Content.class), 
-            argThat(is(config))
+            argThat(is(sources))
         );
     }
     
@@ -91,20 +97,20 @@ public class StrategyBackedEquivalentsMergerTest {
             when(strategy.merge(
                 argThat(any(Content.class)), 
                 anyCollectionOf(Content.class), 
-                argThat(is(mergingConfig))
+                argThat(is(mergingSources))
             )).thenReturn(one);
             
-            merger.merge(contentList, mergingConfig);
+            merger.merge(contentList, mergingSources);
             
             if (contentList.get(0).equals(one)) {
                 verify(strategy)
-                    .merge(one, ImmutableList.of(two, three), mergingConfig);
+                    .merge(one, ImmutableList.of(two, three), mergingSources);
             } else if (contentList.get(0).equals(two)) {
                 verify(strategy)
-                    .merge(two, ImmutableList.of(one, three), mergingConfig);
+                    .merge(two, ImmutableList.of(one, three), mergingSources);
             } else {
                 verify(strategy)
-                    .merge(contentList.get(1), ImmutableList.of(contentList.get(2), three), mergingConfig);
+                    .merge(contentList.get(1), ImmutableList.of(contentList.get(2), three), mergingSources);
             }
             
             reset(strategy);

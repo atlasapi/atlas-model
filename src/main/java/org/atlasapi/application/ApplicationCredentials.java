@@ -2,6 +2,8 @@ package org.atlasapi.application;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.base.Objects;
+
 public class ApplicationCredentials {
 
 	private final String apiKey;
@@ -14,7 +16,19 @@ public class ApplicationCredentials {
 		return apiKey;
 	}
 	
-	public Builder copy() {
+	@Override
+    public boolean equals(Object obj) {
+	    if (this == obj) {
+            return true;
+        }
+	    if (obj instanceof ApplicationCredentials) {
+	        ApplicationCredentials other = (ApplicationCredentials) obj;
+	        return this.getApiKey().equals(other.getApiKey());
+	    }
+	    return false;
+    }
+
+    public Builder copy() {
 	    return new Builder().withApiKey(apiKey);
 	}
 	

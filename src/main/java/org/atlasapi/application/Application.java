@@ -10,6 +10,7 @@ import org.atlasapi.media.common.Sourced;
 import org.atlasapi.media.entity.Publisher;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -92,7 +93,7 @@ public class Application implements Identifiable, Sourced {
             writes.add(source);
         }
         ApplicationSources modifiedSources = this
-                    .getSources().copy().withWrites(writes).build();
+                    .getSources().copy().withWritableSources(writes).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -100,7 +101,7 @@ public class Application implements Identifiable, Sourced {
         List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
         writes.remove(source);
         ApplicationSources modifiedSources = this
-                    .getSources().copy().withWrites(writes).build();
+                    .getSources().copy().withWritableSources(writes).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -131,7 +132,7 @@ public class Application implements Identifiable, Sourced {
         List<SourceReadEntry> modifiedReads = changeReadsPreservingOrder(
                 this.getSources().getReads(), source, status);
         ApplicationSources modifiedSources = this.getSources().copy()
-                .withReads(modifiedReads).build();
+                .withReadableSources(modifiedReads).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -176,7 +177,7 @@ public class Application implements Identifiable, Sourced {
         ApplicationSources modifiedSources = this
                     .getSources().copy()
                     .withPrecedence(true)
-                    .withReads(readsWithNewOrder)
+                    .withReadableSources(readsWithNewOrder)
                     .build();
             
         return this.copy().withSources(modifiedSources).build();
@@ -190,6 +191,26 @@ public class Application implements Identifiable, Sourced {
         return sourceMap.build();
     }
     
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Application) {
+            Application other = (Application) obj;
+            return this.getId().equals(other.getId())
+                    && this.getSlug().equals(other.getSlug())
+                    && Objects.equal(this.getTitle(), other.getTitle())
+                    && Objects.equal(this.getDescription(), other.getDescription())
+                    && this.getCreated().equals(other.getCreated())
+                    && this.getCredentials().equals(other.getCredentials())
+                    && this.getSources().equals(other.getSources());
+        }
+        return false;
+    }
+
     public Builder copy() {
         return builder()
                 .withId(this.getId())
@@ -216,7 +237,7 @@ public class Application implements Identifiable, Sourced {
         private ApplicationSources sources;
 
         public Builder() {
-            this.sources = ApplicationSources.EMPTY_SOURCES;
+            this.sources = ApplicationSources.defaults();
         }
 
         public Builder withId(Id id) {
