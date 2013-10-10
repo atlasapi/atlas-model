@@ -21,7 +21,7 @@ import com.google.common.collect.Iterables;
 public class BroadcastMergingTest {
 
     private final OutputContentMerger executor = new OutputContentMerger();
-    private final ApplicationSources sources = ApplicationSources.DEFAULT_SOURCES
+    private final ApplicationSources sources = ApplicationSources.defaults()
             .copy().withPrecedence(true)
             .withReads(ImmutableList.of(
                     new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),

@@ -39,15 +39,6 @@ public class ApplicationSources {
             }
            };
     
-    // Build a default configuration, this will get popualated with publishers 
-    // with default source status
-    public static final ApplicationSources DEFAULT_SOURCES = ApplicationSources
-            .builder()
-            .withPrecedence(false)
-            .withReads(ImmutableList.<SourceReadEntry>of())
-            .withWrites(ImmutableList.<Publisher>of())
-            .build();
-    
     private static final Function<SourceReadEntry, Publisher> READ_TO_PUBLISHER =  new Function<SourceReadEntry, Publisher>() {
 
         @Override
@@ -135,9 +126,20 @@ public class ApplicationSources {
     }
     
     public Ordering<Sourced> getSourcedReadOrdering() {
-        Ordering<Publisher> ordering = ApplicationSources.DEFAULT_SOURCES.publisherPrecedenceOrdering();
+        Ordering<Publisher> ordering = ApplicationSources.defaults().publisherPrecedenceOrdering();
         return ordering.onResultOf(Sourceds.toPublisher());
     }
+    
+    // Build a default configuration, this will get popualated with publishers 
+    // with default source status
+    public static ApplicationSources defaults() {
+        return ApplicationSources.builder()
+                  .withPrecedence(false)
+                  .withReads(ImmutableList.<SourceReadEntry>of())
+                  .withWrites(ImmutableList.<Publisher>of())
+                  .build();
+    }
+    
 
     @Override
     public boolean equals(Object obj) {

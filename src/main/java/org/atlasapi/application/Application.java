@@ -234,7 +234,7 @@ public class Application implements Identifiable, Sourced {
         private ApplicationSources sources;
 
         public Builder() {
-            this.sources = ApplicationSources.DEFAULT_SOURCES;
+            this.sources = ApplicationSources.defaults();
         }
 
         public Builder withId(Id id) {
