@@ -143,6 +143,9 @@ public class ApplicationSources {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj instanceof ApplicationSources) {
             ApplicationSources other = (ApplicationSources) obj;
             // If precedence is not switched on, order is not guaranteed by storage

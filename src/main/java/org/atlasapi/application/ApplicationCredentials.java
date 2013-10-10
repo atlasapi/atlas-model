@@ -18,6 +18,9 @@ public class ApplicationCredentials {
 	
 	@Override
     public boolean equals(Object obj) {
+	    if (this == obj) {
+            return true;
+        }
 	    if (obj instanceof ApplicationCredentials) {
 	        ApplicationCredentials other = (ApplicationCredentials) obj;
 	        return Objects.equal(this.getApiKey(), other.getApiKey());

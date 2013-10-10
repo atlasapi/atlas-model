@@ -195,6 +195,9 @@ public class Application implements Identifiable, Sourced {
     
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj instanceof Application) {
             Application other = (Application) obj;
             return Objects.equal(this.getId(), other.getId())
