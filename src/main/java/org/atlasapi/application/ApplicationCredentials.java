@@ -23,7 +23,7 @@ public class ApplicationCredentials {
         }
 	    if (obj instanceof ApplicationCredentials) {
 	        ApplicationCredentials other = (ApplicationCredentials) obj;
-	        return Objects.equal(this.getApiKey(), other.getApiKey());
+	        return this.getApiKey().equals(other.getApiKey());
 	    }
 	    return false;
     }

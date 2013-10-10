@@ -12,7 +12,6 @@ import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.util.Sourceds;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -26,6 +25,7 @@ public class ApplicationSources {
     private final boolean precedence;
     private final List<SourceReadEntry> reads;
     private final List<Publisher> writes;
+    private final ImmutableSet<Publisher> enabledReadSources;
     
     private static final Predicate<SourceReadEntry> ENABLED_READS_FILTER = new Predicate<SourceReadEntry>() {
         @Override
@@ -58,6 +58,11 @@ public class ApplicationSources {
         this.precedence = builder.precedence;
         this.reads = ImmutableList.copyOf(builder.reads);
         this.writes = ImmutableList.copyOf(builder.writes);
+        this.enabledReadSources = ImmutableSet.copyOf(
+                                    Iterables.transform(
+                                      Iterables.filter(this.getReads(), ENABLED_READS_FILTER), 
+                                      SOURCEREADS_TO_PUBLISHER)
+                                  );;
     }
 
     public boolean isPrecedenceEnabled() {
@@ -119,10 +124,7 @@ public class ApplicationSources {
     }
 
     public ImmutableSet<Publisher> getEnabledReadSources() {
-        return ImmutableSet.copyOf(
-                Iterables.transform(
-                        Iterables.filter(this.getReads(), ENABLED_READS_FILTER), 
-                        SOURCEREADS_TO_PUBLISHER));
+        return this.enabledReadSources;
     }
 
     public boolean isReadEnabled(Publisher source) {
@@ -142,9 +144,6 @@ public class ApplicationSources {
     // with default source status
     public static ApplicationSources defaults() {
         return ApplicationSources.builder()
-                  .withPrecedence(false)
-                  .withReads(ImmutableList.<SourceReadEntry>of())
-                  .withWrites(ImmutableList.<Publisher>of())
                   .build();
     }
     
@@ -157,7 +156,7 @@ public class ApplicationSources {
         if (obj instanceof ApplicationSources) {
             ApplicationSources other = (ApplicationSources) obj;
             if (this.isPrecedenceEnabled() == other.isPrecedenceEnabled()) {
-                boolean readsEqual = Objects.equal(this.getReads(), other.getReads());
+                boolean readsEqual = this.getReads().equals(other.getReads());
                 boolean writesEqual = this.getWrites().containsAll(other.getWrites())
                         && this.getWrites().size() == other.getWrites().size();
                 return readsEqual && writesEqual;
@@ -165,12 +164,24 @@ public class ApplicationSources {
         }
         return false;
     }
+    
+    public ApplicationSources copyWithChangedReadableSourceStatus(Publisher source, SourceStatus status) {
+        List<SourceReadEntry> reads = Lists.newLinkedList();
+        for (SourceReadEntry entry : this.getReads()) {
+            if (entry.getPublisher().equals(source)) {
+                reads.add(new SourceReadEntry(source, status));
+            } else {
+                reads.add(entry);
+            }
+        }
+        return this.copy().withReadableSources(reads).build();
+    }
 
     public Builder copy() {
         return builder()
                 .withPrecedence(this.isPrecedenceEnabled())
-                .withReads(this.getReads())
-                .withWrites(this.getWrites());
+                .withReadableSources(this.getReads())
+                .withWritableSources(this.getWrites());
     }
 
     public static Builder builder() {
@@ -179,38 +190,39 @@ public class ApplicationSources {
 
     public static class Builder {
 
-        public boolean precedence;
-        private List<SourceReadEntry> reads;
-        private List<Publisher> writes;
+        public boolean precedence = false;
+        private List<SourceReadEntry> reads = Lists.newLinkedList();
+        private List<Publisher> writes = Lists.newLinkedList();
 
         public Builder withPrecedence(boolean precedence) {
             this.precedence = precedence;
             return this;
         }
 
-        public Builder withReads(List<SourceReadEntry> reads) {
+        public Builder withReadableSources(List<SourceReadEntry> reads) {
+            this.reads = reads;
+            return this;
+        }
+
+        public Builder withWritableSources(List<Publisher> writes) {
+            this.writes = writes;
+            return this;
+        }
+
+        public ApplicationSources build() {
+            // populate any missing publishers 
             List<SourceReadEntry> readsAll = Lists.newLinkedList();
             Set<Publisher> publishersSeen = Sets.newHashSet();
-            for (SourceReadEntry read : reads) {
+            for (SourceReadEntry read : this.reads) {
                 readsAll.add(read);
                 publishersSeen.add(read.getPublisher());
             }            
-            // populate missing publishers
             for (Publisher source : Publisher.values()) {
                 if (!publishersSeen.contains(source)) {
                     readsAll.add(new SourceReadEntry(source, source.getDefaultSourceStatus()));
                 }
             }
             this.reads = readsAll;
-            return this;
-        }
-
-        public Builder withWrites(List<Publisher> writes) {
-            this.writes = writes;
-            return this;
-        }
-
-        public ApplicationSources build() {
             // If precedence not enabled then sort reads by publisher key order
             if (!this.precedence) {
                 Collections.sort(this.reads, SORT_READS_BY_PUBLISHER);

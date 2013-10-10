@@ -93,7 +93,7 @@ public class Application implements Identifiable, Sourced {
             writes.add(source);
         }
         ApplicationSources modifiedSources = this
-                    .getSources().copy().withWrites(writes).build();
+                    .getSources().copy().withWritableSources(writes).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -101,7 +101,7 @@ public class Application implements Identifiable, Sourced {
         List<Publisher> writes = Lists.newArrayList(this.getSources().getWrites());
         writes.remove(source);
         ApplicationSources modifiedSources = this
-                    .getSources().copy().withWrites(writes).build();
+                    .getSources().copy().withWritableSources(writes).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -132,7 +132,7 @@ public class Application implements Identifiable, Sourced {
         List<SourceReadEntry> modifiedReads = changeReadsPreservingOrder(
                 this.getSources().getReads(), source, status);
         ApplicationSources modifiedSources = this.getSources().copy()
-                .withReads(modifiedReads).build();
+                .withReadableSources(modifiedReads).build();
         return this.copy().withSources(modifiedSources).build();
     }
     
@@ -177,7 +177,7 @@ public class Application implements Identifiable, Sourced {
         ApplicationSources modifiedSources = this
                     .getSources().copy()
                     .withPrecedence(true)
-                    .withReads(readsWithNewOrder)
+                    .withReadableSources(readsWithNewOrder)
                     .build();
             
         return this.copy().withSources(modifiedSources).build();
@@ -200,13 +200,13 @@ public class Application implements Identifiable, Sourced {
         }
         if (obj instanceof Application) {
             Application other = (Application) obj;
-            return Objects.equal(this.getId(), other.getId())
-                    && Objects.equal(this.getSlug(), other.getSlug())
+            return this.getId().equals(other.getId())
+                    && this.getSlug().equals(other.getSlug())
                     && Objects.equal(this.getTitle(), other.getTitle())
                     && Objects.equal(this.getDescription(), other.getDescription())
-                    && Objects.equal(this.getCreated(), other.getCreated())
-                    && Objects.equal(this.getCredentials(), other.getCredentials())
-                    && Objects.equal(this.getSources(), other.getSources());
+                    && this.getCreated().equals(other.getCreated())
+                    && this.getCredentials().equals(other.getCredentials())
+                    && this.getSources().equals(other.getSources());
         }
         return false;
     }

@@ -23,7 +23,7 @@ public class BroadcastMergingTest {
     private final OutputContentMerger executor = new OutputContentMerger();
     private final ApplicationSources sources = ApplicationSources.defaults()
             .copy().withPrecedence(true)
-            .withReads(ImmutableList.of(
+            .withReadableSources(ImmutableList.of(
                     new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),
                     new SourceReadEntry(Publisher.FACEBOOK, SourceStatus.AVAILABLE_ENABLED)
              ))

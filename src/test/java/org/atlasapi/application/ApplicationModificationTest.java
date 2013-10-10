@@ -31,8 +31,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -53,8 +53,8 @@ public class ApplicationModificationTest {
       );
       ApplicationSources modifiedSources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(modifiedReads)
-              .withWrites(modfiedWrites)
+              .withReadableSources(modifiedReads)
+              .withWritableSources(modfiedWrites)
               .build();
       Application modified = application.copyWithSources(modifiedSources);
       //assertEquals(2, modified.getSources().getReads().size());
@@ -70,8 +70,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -97,8 +97,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -122,8 +122,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -145,8 +145,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -168,8 +168,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -190,8 +190,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(false)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))
@@ -214,8 +214,8 @@ public class ApplicationModificationTest {
       List<Publisher> writes = ImmutableList.of(Publisher.KANDL_TOPICS, Publisher.DBPEDIA);
       ApplicationSources sources = ApplicationSources.builder()
               .withPrecedence(true)
-              .withReads(reads)
-              .withWrites(writes)
+              .withReadableSources(reads)
+              .withWritableSources(writes)
               .build();
       Application application = Application.builder()
               .withId(Id.valueOf(5000))

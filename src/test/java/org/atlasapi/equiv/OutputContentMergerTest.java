@@ -36,7 +36,7 @@ public class OutputContentMergerTest {
         
         ApplicationSources sources = ApplicationSources.defaults()
                 .copy().withPrecedence(true)
-                .withReads(ImmutableList.of(
+                .withReadableSources(ImmutableList.of(
                         new SourceReadEntry(Publisher.BBC, SourceStatus.AVAILABLE_ENABLED),
                         new SourceReadEntry(Publisher.TED, SourceStatus.AVAILABLE_ENABLED)
                  ))
