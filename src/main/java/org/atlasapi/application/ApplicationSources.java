@@ -1,5 +1,7 @@
 package org.atlasapi.application;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +46,12 @@ public class ApplicationSources {
         @Override
         public Publisher apply(@Nullable SourceReadEntry input) {
             return input.getPublisher();
+        }};
+        
+    private static final Comparator<SourceReadEntry> SORT_READS_BY_PUBLISHER = new Comparator<SourceReadEntry>() {
+        @Override
+        public int compare(SourceReadEntry a, SourceReadEntry b) {
+            return a.getPublisher().compareTo(b.getPublisher());
         }};
 
     private ApplicationSources(Builder builder) {
@@ -148,17 +156,8 @@ public class ApplicationSources {
         }
         if (obj instanceof ApplicationSources) {
             ApplicationSources other = (ApplicationSources) obj;
-            // If precedence is not switched on, order is not guaranteed by storage
-            boolean readsEqual = false;
             if (this.isPrecedenceEnabled() == other.isPrecedenceEnabled()) {
-                if (this.isPrecedenceEnabled()) {
-                    // Same items in same order
-                    readsEqual = Objects.equal(this.getReads(), other.getReads());
-                } else {
-                    // Same items in any order
-                    readsEqual = this.getReads().containsAll(other.getReads()) 
-                            && this.getReads().size() == other.getReads().size();
-                }
+                boolean readsEqual = Objects.equal(this.getReads(), other.getReads());
                 boolean writesEqual = this.getWrites().containsAll(other.getWrites())
                         && this.getWrites().size() == other.getWrites().size();
                 return readsEqual && writesEqual;
@@ -212,6 +211,10 @@ public class ApplicationSources {
         }
 
         public ApplicationSources build() {
+            // If precedence not enabled then sort reads by publisher key order
+            if (!this.precedence) {
+                Collections.sort(this.reads, SORT_READS_BY_PUBLISHER);
+            }
             return new ApplicationSources(this);
         }
     }
