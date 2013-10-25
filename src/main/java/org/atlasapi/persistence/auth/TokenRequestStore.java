@@ -16,7 +16,8 @@ public interface TokenRequestStore {
     void store(OAuthRequest oauthRequest);
     /** 
      * Looks up an OAuthRequest by public token and namespace.
+     * The token will be removed from the store if found.
      * Returns absent if not found
      */
-    Optional<OAuthRequest> remove(UserNamespace namespace, String token);
+    Optional<OAuthRequest> lookupAndRemove(UserNamespace namespace, String token);
 }

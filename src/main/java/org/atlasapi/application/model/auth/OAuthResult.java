@@ -1,5 +1,7 @@
 package org.atlasapi.application.model.auth;
 
+import com.google.common.base.Preconditions;
+
 
 
 public class OAuthResult {
@@ -8,6 +10,8 @@ public class OAuthResult {
     public final String accessToken;
     
     private OAuthResult(boolean success, OAuthProvider provider, String token) {
+        Preconditions.checkNotNull(provider);
+        Preconditions.checkNotNull(token);
         this.success = success;
         this.provider = provider;
         this.accessToken = token;

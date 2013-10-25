@@ -3,6 +3,7 @@ package org.atlasapi.application.model.auth;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.google.common.base.Preconditions;
 import com.metabroadcast.common.social.model.UserRef.UserNamespace;
 
 
@@ -13,6 +14,10 @@ public class OAuthRequest {
     private final String secret;
     
     private OAuthRequest(URL authUrl, UserNamespace namespace, String token, String secret) {
+        Preconditions.checkNotNull(authUrl);
+        Preconditions.checkNotNull(namespace);
+        Preconditions.checkNotNull(token);
+        Preconditions.checkNotNull(secret);
         this.authUrl = authUrl;
         this.namespace = namespace;
         this.token = token;
@@ -32,7 +37,10 @@ public class OAuthRequest {
     }
     
     /**
-     * Do not output this in JSON
+     * This is the secret part of the Oauth token pair.
+     * This should not be output in a ListWriter object 
+     * as the secret portion should not be passed from
+     * the web app to Atlas.
      * @return
      */
     public String getSecret() {
