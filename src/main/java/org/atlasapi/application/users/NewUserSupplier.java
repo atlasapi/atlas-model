@@ -16,7 +16,7 @@ public class NewUserSupplier implements Supplier<User> {
     
     @Override
     public User get() {
-        return new User(codec.decode(idGenerator.generate()).longValue());
+        return User.builder().withId(codec.decode(idGenerator.generate()).longValue()).build();
     }
 
 }
