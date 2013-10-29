@@ -21,13 +21,14 @@ public class User {
     private final String website;
     private final String profileImage;
     private final Role role;
+    private final boolean profileComplete;
     
     private final Set<String> applicationSlugs;
     private final Set<Publisher> sources;
     
     private User(Long id, UserRef userRef, String screenName, String fullName,
             String company, String email, String website, String profileImage, Role role,
-            Set<String> applicationSlugs, Set<Publisher> publishers) {
+            Set<String> applicationSlugs, Set<Publisher> publishers, boolean profileComplete) {
         this.id = id;
         this.userRef = userRef;
         this.screenName = screenName;
@@ -39,6 +40,7 @@ public class User {
         this.role = role;
         this.applicationSlugs = ImmutableSet.copyOf(applicationSlugs);
         this.sources = ImmutableSet.copyOf(publishers);
+        this.profileComplete = profileComplete;
     }
 
     public UserRef getUserRef() {
@@ -85,6 +87,10 @@ public class User {
         return this.applicationSlugs;
     }
     
+    public boolean isProfileComplete() {
+        return profileComplete;
+    }
+    
     public boolean manages(Application application) {
         return manages(application.getSlug());
     }
@@ -122,7 +128,8 @@ public class User {
                     .withProfileImage(this.getProfileImage())
                     .withApplicationSlugs(this.getApplicationSlugs())
                     .withSources(this.getSources())
-                    .withRole(this.getRole());
+                    .withRole(this.getRole())
+                    .withProfileComplete(this.isProfileComplete());
     }
     
     public static Builder builder() {
@@ -139,9 +146,9 @@ public class User {
         private String website;
         private String profileImage;
         private Role role = Role.REGULAR;
-        
         private Set<String> applicationSlugs = ImmutableSet.of();
         private Set<Publisher> sources = ImmutableSet.of();
+        private boolean profileComplete = false;
         
         public Builder withId(Long id) {
             this.id = id;
@@ -198,11 +205,16 @@ public class User {
             return this;
         }
         
+        public Builder withProfileComplete(boolean profileComplete) {
+            this.profileComplete = profileComplete;
+            return this;
+        }
+        
         public User build() {
             Preconditions.checkNotNull(id);
             return new User(id, userRef, screenName, fullName,
                     company, email, website, profileImage, role,
-                    applicationSlugs, sources);
+                    applicationSlugs, sources, profileComplete);
         }
     }
     
