@@ -3,6 +3,7 @@ package org.atlasapi.application.users;
 import java.util.Set;
 
 import org.atlasapi.application.Application;
+import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Optional;
@@ -12,7 +13,7 @@ import com.metabroadcast.common.social.model.UserRef;
 
 public class User {
 
-    private final Long id;
+    private final Id id;
     private final UserRef userRef;
     private final String screenName;
     private final String fullName;
@@ -26,7 +27,7 @@ public class User {
     private final Set<String> applicationSlugs;
     private final Set<Publisher> sources;
     
-    private User(Long id, UserRef userRef, String screenName, String fullName,
+    private User(Id id, UserRef userRef, String screenName, String fullName,
             String company, String email, String website, String profileImage, Role role,
             Set<String> applicationSlugs, Set<Publisher> publishers, boolean profileComplete) {
         this.id = id;
@@ -103,7 +104,7 @@ public class User {
         return possibleSource.isPresent() && sources.contains(possibleSource.get());
     }
 
-    public Long getId() {
+    public Id getId() {
         return this.id;
     }
 
@@ -137,7 +138,7 @@ public class User {
     }
     
     public static class Builder {
-        private Long id;
+        private Id id;
         private UserRef userRef;
         private String screenName;
         private String fullName;
@@ -150,7 +151,7 @@ public class User {
         private Set<Publisher> sources = ImmutableSet.of();
         private boolean profileComplete = false;
         
-        public Builder withId(Long id) {
+        public Builder withId(Id id) {
             this.id = id;
             return this;
         }
