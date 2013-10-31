@@ -1,5 +1,7 @@
 package org.atlasapi.application.users;
 
+import org.atlasapi.media.common.Id;
+
 import com.google.common.base.Supplier;
 import com.metabroadcast.common.ids.IdGenerator;
 import com.metabroadcast.common.ids.SubstitutionTableNumberCodec;
@@ -16,7 +18,7 @@ public class NewUserSupplier implements Supplier<User> {
     
     @Override
     public User get() {
-        return new User(codec.decode(idGenerator.generate()).longValue());
+        return User.builder().withId(Id.valueOf(codec.decode(idGenerator.generate()))).build();
     }
 
 }
