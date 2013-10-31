@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.atlasapi.application.Application;
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.Identifiable;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Optional;
@@ -11,7 +12,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.metabroadcast.common.social.model.UserRef;
 
-public class User {
+public class User implements Identifiable {
 
     private final Id id;
     private final UserRef userRef;
@@ -111,12 +112,12 @@ public class User {
     public boolean is(Role role) {
         return this.role == role;
     }
-    
+
     public User copyWithAdditionalApplication(Application application) {
         Set<String> applicationSlugs = ImmutableSet.<String>builder().add(application.getSlug()).addAll(this.getApplicationSlugs()).build();
         return this.copy().withApplicationSlugs(applicationSlugs).build();
     }
-    
+
     public Builder copy() {
         return new Builder()
                     .withId(this.getId())
