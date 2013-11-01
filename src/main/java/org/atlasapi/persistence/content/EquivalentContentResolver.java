@@ -2,6 +2,7 @@ package org.atlasapi.persistence.content;
 
 import java.util.Set;
 
+import org.atlasapi.application.ApplicationConfiguration;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.output.Annotation;
 
@@ -18,15 +19,15 @@ public interface EquivalentContentResolver {
      * 
      * @param uris
      *            - requested URI keys of equivalent content.
-     * @param selectedSources
-     *            - sources of the equivalent set to resolve.
+     * @param appConfig
+     *            - configuration used to filter content.
      * @param activeAnnotations
      *            - components of the model to resolve.
      * @param withAliases 
      *            - whether aliases should be resolved or not.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveUris(Iterable<String> uris, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations, boolean withAliases);
+    EquivalentContent resolveUris(Iterable<String> uris, ApplicationConfiguration appConfig, Set<Annotation> activeAnnotations, boolean withAliases);
     
     /**
      * Resolves the equivalent sets of content for a given set of source URIs.
@@ -34,12 +35,12 @@ public interface EquivalentContentResolver {
      * 
      * @param ids
      *            - requested numeric keys of equivalent content.
-     * @param selectedSources
-     *            - sources of the equivalent set to resolve.
+     * @param appConfig
+     *            - configuration used to filter content.
      * @param activeAnnotations
      *            - components of the model to resolve.
      * @return EquivalentContent with an entry for each of the requested URIs.
      */
-    EquivalentContent resolveIds(Iterable<Long> ids, Set<Publisher> selectedSources, Set<Annotation> activeAnnotations);
+    EquivalentContent resolveIds(Iterable<Long> ids, ApplicationConfiguration appConfig, Set<Annotation> activeAnnotations);
 
 }
