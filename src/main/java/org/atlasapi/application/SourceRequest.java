@@ -2,8 +2,9 @@ package org.atlasapi.application;
 
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.common.Identifiable;
 
-public class SourceRequest {
+public class SourceRequest implements Identifiable {
     private final Id id;
     private final Id appId;
     private final Publisher source;

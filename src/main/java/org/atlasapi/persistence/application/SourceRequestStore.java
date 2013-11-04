@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.atlasapi.application.SourceRequest;
 import org.atlasapi.media.common.Id;
+import org.atlasapi.media.common.IdResolver;
 import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Optional;
 
@@ -13,7 +14,7 @@ import com.google.common.base.Optional;
  * @author liam
  *
  */
-public interface SourceRequestStore {
+public interface SourceRequestStore extends IdResolver<SourceRequest> {
     
     /**
      * Save source request to store. SourceRequest should have an ID set.
@@ -48,5 +49,10 @@ public interface SourceRequestStore {
      * @return Source request if it exists
      */
     Optional<SourceRequest> sourceRequestFor(Id id);
+    
+    /**
+     * Returns source requests for given applications
+     */
+    Iterable<SourceRequest> sourceRequestsForApplicationIds(Iterable<Id> applicationIds);
 
 }
