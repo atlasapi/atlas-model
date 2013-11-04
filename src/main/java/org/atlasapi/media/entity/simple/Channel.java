@@ -17,7 +17,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
@@ -33,6 +32,7 @@ public class Channel extends Aliased {
     private String mediaType;
     private Boolean highDefinition;        
     private Boolean regional;
+    private Boolean adult;
     private Long timeshift;
     private List<ChannelNumbering> channelGroups;
     private PublisherDetails broadcaster;
@@ -71,6 +71,10 @@ public class Channel extends Aliased {
     public void setRegional(Boolean regional) {
         this.regional = regional;
     }
+
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
+    }
     
     public void setTimeshift(Long timeshift) {
         this.timeshift = timeshift;
@@ -103,6 +107,10 @@ public class Channel extends Aliased {
     
     public Boolean getRegional() {
         return regional;
+    }
+    
+    public Boolean getAdult() {
+        return adult;
     }
     
     public Long getTimeshift() {
