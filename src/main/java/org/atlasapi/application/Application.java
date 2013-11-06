@@ -25,6 +25,7 @@ public class Application implements Identifiable, Sourced {
     private final DateTime created;
     private final ApplicationCredentials credentials;
     private final ApplicationSources sources;
+    private final boolean revoked;
 
     private Application(Id id, 
             String slug, 
@@ -32,7 +33,8 @@ public class Application implements Identifiable, Sourced {
             String description,
             DateTime created, 
             ApplicationCredentials credentials, 
-            ApplicationSources sources) {
+            ApplicationSources sources,
+            boolean revoked) {
         this.id = id;
         this.slug = slug;
         this.title = title;
@@ -40,6 +42,7 @@ public class Application implements Identifiable, Sourced {
         this.created = created;
         this.credentials = credentials;
         this.sources = sources;
+        this.revoked = revoked;
     }
 
     public Id getId() {
@@ -79,6 +82,10 @@ public class Application implements Identifiable, Sourced {
     @Override
     public Publisher getPublisher() {
         return Publisher.METABROADCAST;
+    }
+    
+    public boolean isRevoked() {
+        return revoked;
     }
     
     public Application copyWithPrecedenceDisabled() {
@@ -206,7 +213,8 @@ public class Application implements Identifiable, Sourced {
                     && Objects.equal(this.getDescription(), other.getDescription())
                     && this.getCreated().equals(other.getCreated())
                     && this.getCredentials().equals(other.getCredentials())
-                    && this.getSources().equals(other.getSources());
+                    && this.getSources().equals(other.getSources())
+                    && this.isRevoked() == other.isRevoked();
         }
         return false;
     }
@@ -219,7 +227,8 @@ public class Application implements Identifiable, Sourced {
                 .withDescription(this.getDescription())
                 .withCreated(this.getCreated())
                 .withCredentials(this.getCredentials())
-                .withSources(this.getSources());
+                .withSources(this.getSources())
+                .withRevoked(this.isRevoked());
     }
     
     public static Builder builder() {
@@ -235,6 +244,7 @@ public class Application implements Identifiable, Sourced {
         private DateTime created;
         private ApplicationCredentials credentials;
         private ApplicationSources sources;
+        private boolean revoked = false;
 
         public Builder() {
             this.sources = ApplicationSources.defaults();
@@ -280,9 +290,14 @@ public class Application implements Identifiable, Sourced {
             this.sources = sources;
             return this;
         }
+        
+        public Builder withRevoked(boolean revoked) {
+            this.revoked = revoked;
+            return this;
+        }
 
         public Application build() {
-            return new Application(id, slug, title, description, created, credentials, sources);
+            return new Application(id, slug, title, description, created, credentials, sources, revoked);
         }
     }
 

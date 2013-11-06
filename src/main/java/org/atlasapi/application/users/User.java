@@ -25,12 +25,12 @@ public class User implements Identifiable {
     private final Role role;
     private final boolean profileComplete;
     
-    private final Set<String> applicationSlugs;
+    private final Set<Id> applicationIds;
     private final Set<Publisher> sources;
     
     private User(Id id, UserRef userRef, String screenName, String fullName,
             String company, String email, String website, String profileImage, Role role,
-            Set<String> applicationSlugs, Set<Publisher> publishers, boolean profileComplete) {
+            Set<Id> applicationIds, Set<Publisher> publishers, boolean profileComplete) {
         this.id = id;
         this.userRef = userRef;
         this.screenName = screenName;
@@ -40,7 +40,7 @@ public class User implements Identifiable {
         this.website = website;
         this.profileImage = profileImage;
         this.role = role;
-        this.applicationSlugs = ImmutableSet.copyOf(applicationSlugs);
+        this.applicationIds = ImmutableSet.copyOf(applicationIds);
         this.sources = ImmutableSet.copyOf(publishers);
         this.profileComplete = profileComplete;
     }
@@ -73,8 +73,8 @@ public class User implements Identifiable {
         return profileImage;
     }
     
-    public Set<String> getApplicationSlugs() {
-        return applicationSlugs;
+    public Set<Id> getApplicationIds() {
+        return applicationIds;
     }
     
     public Set<Publisher> getSources() {
@@ -84,21 +84,17 @@ public class User implements Identifiable {
     public Role getRole() {
         return this.role;
     }
-
-    public Set<String> getApplications() {
-        return this.applicationSlugs;
-    }
     
     public boolean isProfileComplete() {
         return profileComplete;
     }
     
     public boolean manages(Application application) {
-        return manages(application.getSlug());
+        return manages(application.getId());
     }
     
-    public boolean manages(String applicationSlug) {
-        return applicationSlugs.contains(applicationSlug);
+    public boolean manages(Id applicationId) {
+        return applicationIds.contains(applicationIds);
     }
     
     public boolean manages(Optional<Publisher> possibleSource) {
@@ -114,8 +110,8 @@ public class User implements Identifiable {
     }
 
     public User copyWithAdditionalApplication(Application application) {
-        Set<String> applicationSlugs = ImmutableSet.<String>builder().add(application.getSlug()).addAll(this.getApplicationSlugs()).build();
-        return this.copy().withApplicationSlugs(applicationSlugs).build();
+        Set<Id> applicationIds = ImmutableSet.<Id>builder().add(application.getId()).addAll(this.getApplicationIds()).build();
+        return this.copy().withApplicationIds(applicationIds).build();
     }
 
     public Builder copy() {
@@ -128,7 +124,7 @@ public class User implements Identifiable {
                     .withEmail(this.getEmail())
                     .withWebsite(this.getWebsite())
                     .withProfileImage(this.getProfileImage())
-                    .withApplicationSlugs(this.getApplicationSlugs())
+                    .withApplicationIds(this.getApplicationIds())
                     .withSources(this.getSources())
                     .withRole(this.getRole())
                     .withProfileComplete(this.isProfileComplete());
@@ -148,7 +144,7 @@ public class User implements Identifiable {
         private String website;
         private String profileImage;
         private Role role = Role.REGULAR;
-        private Set<String> applicationSlugs = ImmutableSet.of();
+        private Set<Id> applicationIds = ImmutableSet.of();
         private Set<Publisher> sources = ImmutableSet.of();
         private boolean profileComplete = false;
         
@@ -197,8 +193,8 @@ public class User implements Identifiable {
             return this;
         }
         
-        public Builder withApplicationSlugs(Set<String> applicationSlugs) {
-            this.applicationSlugs = applicationSlugs;
+        public Builder withApplicationIds(Set<Id> applicationIds) {
+            this.applicationIds = applicationIds;
             return this;
         }
         
@@ -216,7 +212,7 @@ public class User implements Identifiable {
             Preconditions.checkNotNull(id);
             return new User(id, userRef, screenName, fullName,
                     company, email, website, profileImage, role,
-                    applicationSlugs, sources, profileComplete);
+                    applicationIds, sources, profileComplete);
         }
     }
     

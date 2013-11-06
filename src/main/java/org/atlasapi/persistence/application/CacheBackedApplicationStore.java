@@ -1,6 +1,7 @@
 package org.atlasapi.persistence.application;
 
 import java.util.concurrent.TimeUnit;
+
 import org.atlasapi.application.Application;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.entity.Publisher;
@@ -16,13 +17,14 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
 
-public class CacheBackedApplicationStore implements ApplicationStore {
+public class CacheBackedApplicationStore implements LegacyApplicationStore {
     
     private final ApplicationStore delegate;
     private LoadingCache<Id, Optional<Application>> idCache;
     private LoadingCache<String, Optional<Application>> apiKeyCache;
+    private LoadingCache<String, Optional<Id>> slugCache;
     
-    public CacheBackedApplicationStore(final ApplicationStore delegate, int timeoutMinutes) {
+    public CacheBackedApplicationStore(final LegacyApplicationStore delegate, int timeoutMinutes) {
         this.delegate = delegate;
         this.idCache = CacheBuilder.newBuilder().expireAfterWrite(timeoutMinutes, TimeUnit.MINUTES).build(new CacheLoader<Id, Optional<Application>>() {
 
@@ -37,6 +39,14 @@ public class CacheBackedApplicationStore implements ApplicationStore {
             public Optional<Application> load(String key) throws Exception {
                 return delegate.applicationForKey(key);
             }
+        });
+        this.slugCache = CacheBuilder.newBuilder().expireAfterWrite(timeoutMinutes, TimeUnit.MINUTES).build(new CacheLoader<String, Optional<Id>>() {
+
+            @Override
+            public Optional<Id> load(String key) throws Exception {
+                return delegate.applicationIdForSlug(key);
+            }
+          
         });
     }
 
@@ -97,4 +107,20 @@ public class CacheBackedApplicationStore implements ApplicationStore {
         return apiKeyCache.getUnchecked(apiKey);
     }
 
+    @Override
+    @Deprecated
+    public Optional<Id> applicationIdForSlug(String slug) {
+        return slugCache.getUnchecked(slug);
+    }
+
+    @Override
+    @Deprecated
+    public Iterable<Id> applicationIdsForSlugs(Iterable<String> slugs) {
+        return Iterables.transform(slugs, new Function<String, Id>() {
+            @Override
+            public Id apply(String input) {
+                return slugCache.getUnchecked(input).get();
+            }
+        });
+    }
 }
