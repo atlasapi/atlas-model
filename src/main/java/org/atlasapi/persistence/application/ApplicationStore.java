@@ -1,7 +1,5 @@
 package org.atlasapi.persistence.application;
 
-import java.util.Map;
-
 import org.atlasapi.application.Application;
 import org.atlasapi.media.common.Id;
 import org.atlasapi.media.common.IdResolver;
@@ -70,20 +68,4 @@ public interface ApplicationStore extends IdResolver<Application> {
      * @return Application if found 
      */
     Optional<Application> applicationForKey(String apiKey);
-    
-    /**
-     * Compatibility method for Atlas 3.0 datasets
-     * @param slug
-     * @return Application for slug
-     */
-    @Deprecated
-    Optional<Id> applicationIdForSlug(String slug);
-    
-    /**
-     * Compatibility method for Atlas 3.0 datasets
-     * @param slug
-     * @return Applications for slugs
-     */
-    @Deprecated
-    Iterable<Id> applicationIdsForSlugs(Iterable<String> slugs);
 }

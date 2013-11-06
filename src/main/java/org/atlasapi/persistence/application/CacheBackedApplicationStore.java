@@ -17,14 +17,14 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
 
-public class CacheBackedApplicationStore implements ApplicationStore {
+public class CacheBackedApplicationStore implements LegacyApplicationStore {
     
     private final ApplicationStore delegate;
     private LoadingCache<Id, Optional<Application>> idCache;
     private LoadingCache<String, Optional<Application>> apiKeyCache;
     private LoadingCache<String, Optional<Id>> slugCache;
     
-    public CacheBackedApplicationStore(final ApplicationStore delegate, int timeoutMinutes) {
+    public CacheBackedApplicationStore(final LegacyApplicationStore delegate, int timeoutMinutes) {
         this.delegate = delegate;
         this.idCache = CacheBuilder.newBuilder().expireAfterWrite(timeoutMinutes, TimeUnit.MINUTES).build(new CacheLoader<Id, Optional<Application>>() {
 
