@@ -71,6 +71,7 @@ public enum Publisher {
     BBC_NITRO("BBC Nitro", "nitro.bbc.co.uk", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     METABROADCAST_PICKS("MetaBroadcast Picks", "picks.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE),
     C4_PMLSD("Channel 4 PMLSD", "pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE),
+    WIKIPEDIA("Wikipedia", "wikipedia.org", Countries.ALL, SourceStatus.AVAILABLE_DISABLED),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
