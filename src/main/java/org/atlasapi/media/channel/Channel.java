@@ -44,6 +44,7 @@ public class Channel extends Identified {
         private MediaType mediaType;
         private Boolean regional;
         private Boolean highDefinition;
+        private Boolean adult;
         private Duration timeshift;
         private Set<Publisher> availableFrom = ImmutableSet.of();
         private Set<Long> variations = Sets.newHashSet();
@@ -111,6 +112,11 @@ public class Channel extends Identified {
         
         public Builder withRegional(Boolean regional) {
             this.regional = regional;
+            return this;
+        };
+        
+        public Builder withAdult(Boolean isAdult) {
+            this.adult = isAdult;
             return this;
         };
         
@@ -183,7 +189,7 @@ public class Channel extends Identified {
         }
         
         public Channel build() {
-            return new Channel(source, titles, images, relatedLinks, key, highDefinition, regional, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
+            return new Channel(source, titles, images, relatedLinks, key, highDefinition, regional, adult, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
         }
     }
     
@@ -196,6 +202,7 @@ public class Channel extends Identified {
     private String key;
     private Boolean highDefinition;
     private Boolean regional;
+    private Boolean adult;
     private Duration timeshift;
     private Publisher broadcaster;
     private Set<Publisher> availableFrom;
@@ -207,13 +214,13 @@ public class Channel extends Identified {
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -224,6 +231,7 @@ public class Channel extends Identified {
         this.parent = parent;
         this.key = key;
         this.highDefinition = highDefinition;
+        this.adult = adult;
         this.mediaType = mediaType;
         this.broadcaster = broadcaster;
         this.startDate = startDate;
@@ -260,6 +268,10 @@ public class Channel extends Identified {
     
     public Boolean getRegional() {
         return regional;
+    }
+    
+    public Boolean getAdult() {
+        return adult;
     }
     
     public Duration getTimeshift() {
@@ -373,6 +385,10 @@ public class Channel extends Identified {
 
     public void setRegional(Boolean regional) {
         this.regional = regional;
+    }
+
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
     }
 
     public void setTimeshift(Duration timeshift) {
