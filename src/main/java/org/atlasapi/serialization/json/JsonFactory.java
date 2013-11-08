@@ -58,7 +58,6 @@ public class JsonFactory {
             context.setMixInAnnotations(RelatedLink.class, RelatedLinkConfiguration.class);
             context.setMixInAnnotations(ParentRef.class, ParentRefConfiguration.class);
             context.setMixInAnnotations(ChildRef.class, ChildRefConfiguration.class);
-            context.setMixInAnnotations(EquivalenceSummary.class, EquivalenceSummaryConfiguration.class);
             context.setMixInAnnotations(ContentRef.class, ContentRefConfiguration.class);
         }
     }
