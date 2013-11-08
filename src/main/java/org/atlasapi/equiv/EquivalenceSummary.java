@@ -35,13 +35,9 @@ public class EquivalenceSummary {
     public EquivalenceSummary(String subject, @Nullable String parent, Iterable<String> candidates, Map<Publisher, ContentRef> equivalents) {
         this.subject = checkNotNull(subject);
         this.parent = parent;
-        //handle jackson deserialization passing null values, ugh.
-        this.candidates = candidates != null ? ImmutableList.copyOf(candidates)
-                                             : ImmutableList.<String>of();
-        this.equivalents = equivalents != null ? ImmutableMap.copyOf(equivalents)
-                                               : ImmutableMap.<Publisher,ContentRef>of();
+        this.candidates = ImmutableList.copyOf(candidates);
+        this.equivalents = ImmutableMap.copyOf(equivalents);
     }
-
 
     public String getSubject() {
         return this.subject;
