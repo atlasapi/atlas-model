@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
