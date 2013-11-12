@@ -172,8 +172,12 @@ public class OutputContentMerger {
             );
     }
     
+    private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform, O defaultValue) {
+        return Iterables.getFirst(Iterables.filter(Iterables.transform(is, transform), Predicates.notNull()), defaultValue);
+    }
+    
     private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform) {
-        return Iterables.getFirst(Iterables.filter(Iterables.transform(is, transform), Predicates.notNull()), null);
+        return first(is, transform, null);
     }
     
     private <T extends Content> void mergeContent(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
@@ -217,19 +221,20 @@ public class OutputContentMerger {
     private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
         Builder<String> languages = ImmutableSet.<String>builder().addAll(chosen.getLanguages());
-        Builder<Certificate> certs = ImmutableSet.<Certificate>builder().addAll(chosen.getCertificates());
         Builder<ReleaseDate> releases = ImmutableSet.<ReleaseDate>builder().addAll(chosen.getReleaseDates());
-
+        
+        if (chosen.getCertificates().isEmpty()) {
+            chosen.setCertificates(first(notChosen, TO_CERTIFICATES, ImmutableSet.<Certificate>of()));
+        }
+        
         for (Film film : notChosen) {
             subtitles.addAll(film.getSubtitles());
             languages.addAll(film.getLanguages());
-            certs.addAll(film.getCertificates());
             releases.addAll(film.getReleaseDates());
         }
 
         chosen.setSubtitles(subtitles.build());
         chosen.setLanguages(languages.build());
-        chosen.setCertificates(certs.build());
         chosen.setReleaseDates(releases.build());
 
         if (config.peoplePrecedenceEnabled()) {
@@ -403,6 +408,13 @@ public class OutputContentMerger {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getShortDescription();
+        }
+    };
+    
+    private static final Function<Film, Set<Certificate>> TO_CERTIFICATES = new Function<Film, Set<Certificate>>() {
+        @Override
+        public Set<Certificate> apply(@Nullable Film input) {
+            return input == null || input.getCertificates().isEmpty() ? null : input.getCertificates();
         }
     };
 
