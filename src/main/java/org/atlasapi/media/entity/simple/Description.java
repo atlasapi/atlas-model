@@ -54,6 +54,7 @@ public abstract class Description extends Aliased {
     private Set<Language> languages = Sets.newHashSet();
     private Set<Certificate> certificates = Sets.newHashSet();
     private BrandSummary container;
+    private Boolean genericDescription;
 
     public Description(String uri) {
         super(uri);
@@ -284,7 +285,7 @@ public abstract class Description extends Aliased {
             people.add(person.copy());
         }
         destination.setPeople(people);
-        
+        destination.setGenericDescription(getGenericDescription());
     }
 
     public boolean isScheduleOnly() {
@@ -391,5 +392,13 @@ public abstract class Description extends Aliased {
 
     public void setBrandSummary(BrandSummary brand) {
     	this.container = brand;
+    }
+    
+    public void setGenericDescription(Boolean genericDescription) {
+        this.genericDescription = genericDescription;
+    }
+    
+    public Boolean getGenericDescription() {
+        return genericDescription;
     }
 }
