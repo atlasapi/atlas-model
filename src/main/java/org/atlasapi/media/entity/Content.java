@@ -33,6 +33,7 @@ public abstract class Content extends Described {
     private Set<String> languages = ImmutableSet.of();
     private Set<Certificate> certificates = ImmutableSet.of();
     private Integer year = null;
+    private Boolean genericDescription;
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -116,6 +117,14 @@ public abstract class Content extends Described {
     public void setPeople(List<CrewMember> people) {
         this.people = people;
     }
+    
+    public void setGenericDescription(Boolean genericDescription) {
+        this.genericDescription = genericDescription;
+    }
+    
+    public Boolean getGenericDescription() {
+        return genericDescription;
+    }
 
 
     public static void copyTo(Content from, Content to) {
@@ -129,6 +138,7 @@ public abstract class Content extends Described {
         to.languages = from.languages;
         to.certificates = from.certificates;
         to.year = from.year;
+        to.genericDescription = from.genericDescription;
     }
 
     public void setReadHash(String readHash) {
