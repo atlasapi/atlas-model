@@ -23,6 +23,7 @@ public class Application {
         private ApplicationConfiguration config = ApplicationConfiguration.DEFAULT_CONFIGURATION;
         private ApplicationCredentials creds;
         private Long deerId;
+        private boolean revoked;
 
         public Builder(String slug) {
             this.slug = slug;
@@ -63,11 +64,16 @@ public class Application {
             return this;
         }
         
+        public Builder withRevoked(boolean revoked) {
+            this.revoked = revoked;
+            return this;
+        }
+        
         
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
             Preconditions.checkState(config != null, "Application configuration must be set");
-            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId);
+            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked);
         }
     }
     
@@ -81,8 +87,10 @@ public class Application {
 	private final ApplicationCredentials credentials;
 	
 	private final Long deerId;
+	
+	private final boolean revoked;
 
-	private Application(String slug, String title, String desc, DateTime created, DateTime lastUpdated, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId) {
+	private Application(String slug, String title, String desc, DateTime created, DateTime lastUpdated, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId, boolean revoked) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
@@ -91,6 +99,7 @@ public class Application {
         this.configuration = config;
         this.credentials = creds;
         this.deerId = deerId;
+        this.revoked = revoked;
 	}
 
 	public String getSlug() {
@@ -125,6 +134,10 @@ public class Application {
         return deerId;
     }
     
+    public boolean isRevoked() {
+        return revoked;
+    }
+    
     public Builder copy() {
         return new Builder(slug)
             .withTitle(title)
@@ -133,7 +146,8 @@ public class Application {
             .withLastUpdated(lastUpdated)
             .withConfiguration(configuration)
             .withCredentials(credentials)
-            .withDeerId(deerId);
+            .withDeerId(deerId)
+            .withRevoked(revoked);
     }
 
 	@Override
