@@ -16,7 +16,7 @@ package org.atlasapi.content.criteria;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.content.criteria.attribute.Attributes;
 import org.atlasapi.media.entity.Publisher;
 

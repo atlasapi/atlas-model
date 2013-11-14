@@ -2,7 +2,7 @@ package org.atlasapi.persistence.content;
 
 import java.util.Set;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.output.Annotation;
 
 import com.google.common.base.Optional;

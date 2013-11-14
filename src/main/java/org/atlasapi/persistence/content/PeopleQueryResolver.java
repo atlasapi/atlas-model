@@ -1,6 +1,6 @@
 package org.atlasapi.persistence.content;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
 
