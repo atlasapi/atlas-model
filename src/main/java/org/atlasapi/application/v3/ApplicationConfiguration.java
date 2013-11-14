@@ -1,10 +1,11 @@
-package org.atlasapi.application;
+package org.atlasapi.application.v3;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.atlasapi.application.SourceStatus;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.base.Optional;

@@ -2,7 +2,7 @@ package org.atlasapi.persistence.content;
 
 import java.util.List;
 
-import org.atlasapi.application.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.search.model.SearchQuery;
 
