@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
@@ -80,7 +81,10 @@ public class ChildRef implements Comparable<ChildRef> {
 
     @Override
     public int compareTo(ChildRef comparableTo) {
-        return sortKey.compareTo(comparableTo.sortKey);
+        return ComparisonChain.start()
+                .compare(sortKey, comparableTo.sortKey)
+                .compare(uri, comparableTo.uri)
+                .result();
     }
     
     public static class UpdatedComparator implements Comparator<ChildRef> {
