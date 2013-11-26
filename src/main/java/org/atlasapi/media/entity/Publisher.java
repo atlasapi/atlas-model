@@ -78,6 +78,7 @@ public enum Publisher {
     METABROADCAST_PICKS("MetaBroadcast Picks", "picks.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     C4_PMLSD("Channel 4 PMLSD", "pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     WIKIPEDIA("Wikipedia", "wikipedia.org", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE),
+    C5_TV_CLIPS("Channel 5 TV Clips", "c5tvclips.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
