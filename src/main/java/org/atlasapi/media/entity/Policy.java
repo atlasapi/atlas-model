@@ -222,7 +222,11 @@ public class Policy extends Identified {
 		IOS,
 		YOUVIEW, 
 		TALK_TALK,
-		BTVISION_CARDINAL;
+		BTVISION_CARDINAL,
+		YOUVIEW_IPLAYER,
+		YOUVIEW_ITVPLAYER,
+		YOUVIEW_4OD,
+		YOUVIEW_DEMAND5;
 		
 		
 		public String key() {

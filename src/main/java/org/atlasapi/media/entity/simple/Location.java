@@ -376,9 +376,11 @@ public class Location extends Version {
         if (obj instanceof Location) {
             Location target = (Location) obj;
             if (isEmbed()) {
-                return transportType.equals(target.transportType) && Objects.equal(embedCode, target.embedCode) && Objects.equal(embedId, target.embedId);
+                return Objects.equal(transportType, target.transportType) 
+                        && Objects.equal(embedCode, target.embedCode) 
+                        && Objects.equal(embedId, target.embedId);
             } else if (!Strings.isNullOrEmpty(uri)) {
-                return transportType.equals(target.transportType) 
+                return Objects.equal(transportType, target.transportType) 
                     && Objects.equal(uri, target.uri)
                     && Objects.equal(actualAvailabilityStart, target.actualAvailabilityStart)
                     && Objects.equal(availabilityStart, target.availabilityStart)

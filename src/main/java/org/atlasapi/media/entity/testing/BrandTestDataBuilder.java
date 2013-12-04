@@ -12,7 +12,7 @@ public class BrandTestDataBuilder {
     
     private String uri;
     private String curie;
-    private Set<ChildRef> childRefs;
+    private Set<ChildRef> childRefs = ImmutableSet.of();
     private Publisher publisher;
     private String title;
     
