@@ -1,4 +1,4 @@
-package org.atlasapi.application;
+package org.atlasapi.application.v3;
 
 
 public enum SourceRestriction {

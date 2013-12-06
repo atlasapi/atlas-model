@@ -2,8 +2,8 @@ package org.atlasapi.media.entity;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import org.atlasapi.application.SourceRestriction;
-import org.atlasapi.application.SourceStatus;
+import org.atlasapi.application.v3.SourceRestriction;
+import org.atlasapi.application.v3.SourceStatus;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
