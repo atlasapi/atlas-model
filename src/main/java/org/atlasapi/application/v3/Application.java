@@ -140,7 +140,7 @@ public class Application {
     public DateTime getLastUpdated() {
         return lastUpdated;
     }
-    
+
     public Long getDeerId() {
         return deerId;
     }

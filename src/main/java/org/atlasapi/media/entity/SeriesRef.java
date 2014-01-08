@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
@@ -56,12 +57,11 @@ public class SeriesRef implements Comparable<SeriesRef> {
     }
     
     @Override
-    public int compareTo(SeriesRef comparableTo) {
-        if (seriesNumber != null && comparableTo.seriesNumber != null) {
-            return seriesNumber.compareTo(comparableTo.getSeriesNumber());
-        } else {
-            return title.compareTo(comparableTo.title);
-        }
+    public int compareTo(SeriesRef o) {
+        return ComparisonChain.start()
+            .compare(seriesNumber, o.seriesNumber, Ordering.natural().nullsFirst())
+            .compare(id, o.id)
+            .result();
     }
     
     @Override
