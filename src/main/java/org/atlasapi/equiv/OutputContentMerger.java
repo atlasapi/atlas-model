@@ -189,6 +189,7 @@ public class OutputContentMerger {
         }
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
+        mergeSimilarContent(chosen, notChosen);
     }
 
     private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
@@ -199,6 +200,12 @@ public class OutputContentMerger {
         }
     }
 
+    private <T extends Content> void mergeSimilarContent(T chosen, Iterable<T> notChosen) {
+        if (chosen.getSimilarContent().isEmpty()) {
+            chosen.setSimilarContent(first(notChosen, TO_SIMILAR_CONTENT, ImmutableSet.<ChildRef>of()));
+        }
+    }
+    
     private <T extends Content> void mergeKeyPhrases(T chosen, Iterable<T> notChosen) {
         chosen.setKeyPhrases(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<KeyPhrase>>() {
             @Override
@@ -416,6 +423,15 @@ public class OutputContentMerger {
         public Set<Certificate> apply(@Nullable Film input) {
             return input == null || input.getCertificates().isEmpty() ? null : input.getCertificates();
         }
+    };
+    
+    private static final Function<Content, List<ChildRef>> TO_SIMILAR_CONTENT = new Function<Content, List<ChildRef>>() {
+
+        @Override
+        public List<ChildRef> apply(Content content) {
+            return content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
+        }
+        
     };
 
     public <T extends Item> void mergeIn(ApplicationConfiguration config, Container chosen, List<Container> notChosen) {
