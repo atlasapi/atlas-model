@@ -15,6 +15,8 @@ public class BrandTestDataBuilder {
     private Set<ChildRef> childRefs = ImmutableSet.of();
     private Publisher publisher;
     private String title;
+    private Long id;
+    private Iterable<String> genres;
     
     private BrandTestDataBuilder() {
     }
@@ -33,11 +35,31 @@ public class BrandTestDataBuilder {
         return this;
     }
     
+    public BrandTestDataBuilder withCanonicalUri(String uri) {
+        this.uri = uri;
+        return this;
+    }
+    
+    public BrandTestDataBuilder withGenres(Iterable<String> genres) {
+        this.genres = genres;
+        return this;
+    }
+    
+    public BrandTestDataBuilder withId(long id) {
+        this.id = id;
+        return this;
+    }
+    
     public Brand build() {
         Brand brand = new Brand(uri, curie, publisher);
         
         brand.setTitle(title);
         brand.setChildRefs(childRefs);
+        brand.setId(id);
+        
+        if (genres != null) {
+            brand.setGenres(genres);
+        }
         
         return brand;
     }
