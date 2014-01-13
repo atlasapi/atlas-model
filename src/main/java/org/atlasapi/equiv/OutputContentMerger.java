@@ -429,7 +429,7 @@ public class OutputContentMerger {
 
         @Override
         public List<ChildRef> apply(Content content) {
-            return content.getSimilarContent();
+            return content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
         }
         
     };
