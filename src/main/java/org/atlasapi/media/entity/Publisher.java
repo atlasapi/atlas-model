@@ -80,6 +80,7 @@ public enum Publisher {
     C4_PMLSD_P06("Channel 4 PMLSD", "p06.pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     WIKIPEDIA("Wikipedia", "wikipedia.org", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE),
     C5_TV_CLIPS("Channel 5 TV Clips", "c5tvclips.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
+    METABROADCAST_SIMILAR_CONTENT("MetaBroadcast Similar Content", "similarcontent.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
