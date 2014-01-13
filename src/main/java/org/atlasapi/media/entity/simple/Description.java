@@ -5,8 +5,15 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.ItemIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.PersonIdentifier;
+import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
 import com.google.common.base.Function;
@@ -43,6 +50,7 @@ public abstract class Description extends Aliased {
     private List<RelatedLink> relatedLinks = Lists.newArrayList();
     private List<Product> products = Lists.newArrayList();
     private List<ContentGroup> contentGroups = Lists.newArrayList();
+    private List<ContentIdentifier> similarContent = Lists.newArrayList();
     private Set<String> sameAs = Sets.newHashSet();
     private Set<SameAs> equivalents = Sets.newHashSet();
     private List<Person> people = Lists.newArrayList();
@@ -248,6 +256,23 @@ public abstract class Description extends Aliased {
     
     public void setPeople(Iterable<Person> people) {
         this.people = Lists.newArrayList(people);
+    }
+    
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "similar")
+    @XmlElements({
+        @XmlElement(name = "item", type = ItemIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "episode", type = EpisodeIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "film", type = FilmIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "person", type = PersonIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "series", type = SeriesIdentifier.class, namespace = PLAY_SIMPLE_XML.NS),
+        @XmlElement(name = "brand", type = BrandIdentifier.class, namespace = PLAY_SIMPLE_XML.NS)
+    })
+    public List<ContentIdentifier> getSimilarContent() {
+        return similarContent;
+    }
+    
+    public void setSimilarContent(Iterable<ContentIdentifier> similarContent) {
+        this.similarContent = Lists.newArrayList(similarContent);
     }
 
     protected void copyTo(Description destination) {
