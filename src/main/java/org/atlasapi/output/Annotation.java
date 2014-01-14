@@ -45,7 +45,8 @@ public enum Annotation {
     PUBLISHER,
     AUDIT,
     SERIES,
-    IMAGES;
+    IMAGES,
+    SIMILAR;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
