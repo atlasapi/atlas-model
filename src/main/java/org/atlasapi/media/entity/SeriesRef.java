@@ -60,7 +60,7 @@ public class SeriesRef implements Comparable<SeriesRef> {
     public int compareTo(SeriesRef o) {
         return ComparisonChain.start()
             .compare(seriesNumber, o.seriesNumber, Ordering.natural().nullsFirst())
-            .compare(id, o.id)
+            .compare(id, o.id, Ordering.natural().nullsFirst())
             .result();
     }
     
