@@ -12,6 +12,8 @@ public interface ScheduleResolver {
 
     Schedule schedule(DateTime from, DateTime to, Iterable<Channel> channels, Iterable<Publisher> publisher, Optional<ApplicationConfiguration> mergeConfig);
 
+    Schedule unmergedSchedule(DateTime from, DateTime to, Iterable<Channel> channels, Iterable<Publisher> publisher);
+    
     Schedule schedule(DateTime from, int count, Iterable<Channel> channels, Iterable<Publisher> publisher, Optional<ApplicationConfiguration> mergeConfig);
     
 }
