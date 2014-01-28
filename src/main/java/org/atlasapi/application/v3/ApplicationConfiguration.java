@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.atlasapi.media.entity.Publisher;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -28,6 +29,35 @@ public class ApplicationConfiguration {
     public static final ApplicationConfiguration defaultConfiguration() {
         return DEFAULT_CONFIGURATION;
     }
+    
+    private static final ApplicationConfiguration NO_API_KEY_CONFIG
+        = ApplicationConfiguration.defaultConfiguration()
+            .copyWithSourceStatuses(disabledToEnabled());
+    
+    public static final ApplicationConfiguration forNoApiKey() {
+        return NO_API_KEY_CONFIG;
+    }
+
+    private static Map<Publisher, SourceStatus> disabledToEnabled() {
+        ImmutableMap<Publisher, SourceStatus> defaultStatuses
+            = Maps.toMap(Publisher.all(), new Function<Publisher, SourceStatus>() {
+                @Override
+                public SourceStatus apply(Publisher input) {
+                    return input.getDefaultSourceStatus();
+                }
+            });
+        return Maps.transformValues(defaultStatuses,
+            new Function<SourceStatus, SourceStatus>(){
+                @Override
+                public SourceStatus apply(SourceStatus input) {
+                    if (input.equals(SourceStatus.AVAILABLE_DISABLED)) {
+                        return SourceStatus.AVAILABLE_ENABLED;
+                    }
+                    return input;
+                }
+            }
+        );
+    }
 	
 	private final Map<Publisher, SourceStatus> sourceStatuses;
 	private final Set<Publisher> enabledSources;
@@ -44,8 +74,8 @@ public class ApplicationConfiguration {
         }
         this.writableSources = ImmutableSet.copyOf(writable);
 	}
-	
-	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence) {
+
+    ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence) {
 	    this(sourceStatuses, precedence, ImmutableSet.<Publisher>of());
 	}
 

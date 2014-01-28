@@ -51,11 +51,11 @@ public class ContentQuery {
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, Selection.ALL, ApplicationConfiguration.forNoApiKey());
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, ApplicationConfiguration.DEFAULT_CONFIGURATION);
+		this(operands, selection, ApplicationConfiguration.forNoApiKey());
 	}
     
     public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
