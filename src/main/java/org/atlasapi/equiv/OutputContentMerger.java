@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.atlasapi.application.v3.ApplicationConfiguration;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
@@ -17,6 +18,7 @@ import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Described;
 import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Film;
+import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
@@ -140,6 +142,7 @@ public class OutputContentMerger {
     }
     
     private <T extends Described> void mergeDescribed(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        mergeIdentified(config, chosen, notChosen);
         applyImagePrefs(config, chosen, notChosen);
         chosen.setRelatedLinks(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<RelatedLink>>() {
             @Override
@@ -163,8 +166,17 @@ public class OutputContentMerger {
             chosen.setShortDescription(first(notChosen, TO_SHORT_DESCRIPTION));
         }
     }
+    
+    private <T extends Identified> void mergeIdentified(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+        chosen.setAliases(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Alias>>() {
+            @Override
+            public Iterable<Alias> apply(T input) {
+                return input.getAliases();
+            }
+        }));
+    }
 
-    private <T extends Described, P> Iterable<P> projectFieldFromEquivalents(T chosen,
+    private <T extends Identified, P> Iterable<P> projectFieldFromEquivalents(T chosen,
             Iterable<T> notChosen, Function<T, Iterable<P>> projector) {
         return Iterables.concat(
                 projector.apply(chosen), 
