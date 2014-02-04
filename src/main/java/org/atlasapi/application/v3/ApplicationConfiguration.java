@@ -32,31 +32,19 @@ public class ApplicationConfiguration {
     
     private static final ApplicationConfiguration NO_API_KEY_CONFIG
         = ApplicationConfiguration.defaultConfiguration()
-            .copyWithSourceStatuses(disabledToEnabled());
+            .copyWithSourceStatuses(noAPIKeySourceStatusMap());
     
     public static final ApplicationConfiguration forNoApiKey() {
         return NO_API_KEY_CONFIG;
     }
 
-    private static Map<Publisher, SourceStatus> disabledToEnabled() {
-        ImmutableMap<Publisher, SourceStatus> defaultStatuses
-            = Maps.toMap(Publisher.all(), new Function<Publisher, SourceStatus>() {
-                @Override
-                public SourceStatus apply(Publisher input) {
-                    return input.getDefaultSourceStatus();
-                }
-            });
-        return Maps.transformValues(defaultStatuses,
-            new Function<SourceStatus, SourceStatus>(){
-                @Override
-                public SourceStatus apply(SourceStatus input) {
-                    if (input.equals(SourceStatus.AVAILABLE_DISABLED)) {
-                        return SourceStatus.AVAILABLE_ENABLED;
-                    }
-                    return input;
-                }
+    private static Map<Publisher, SourceStatus> noAPIKeySourceStatusMap() {
+        return Maps.toMap(Publisher.all(), new Function<Publisher, SourceStatus>() {
+            @Override
+            public SourceStatus apply(Publisher input) {
+                return input.enabledWithNoApiKey() ? SourceStatus.AVAILABLE_ENABLED : SourceStatus.UNAVAILABLE;
             }
-        );
+        });
     }
 	
 	private final Map<Publisher, SourceStatus> sourceStatuses;
