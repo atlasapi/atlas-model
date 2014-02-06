@@ -31,7 +31,7 @@ public enum Publisher {
     ICTOMORROW("ICTomorrow", "ictomorrow.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     HBO("HBO", "hbo.com", Countries.US, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ITUNES("iTunes", "itunes.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.ADMIN_ONLY, false),
+    MSN_VIDEO("MSN Video", "video.uk.msn.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     PA("PA", "pressassociation.com", Countries.GB, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE, false),
     PA_SERIES_SUMMARIES("PA Series Summaries", "summaries.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     RADIO_TIMES("Radio Times", "radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
