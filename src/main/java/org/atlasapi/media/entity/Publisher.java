@@ -112,6 +112,7 @@ public enum Publisher {
     ROVI_HI ("ROVI Hindi", "hi.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_HR ("ROVI Croatian", "hr.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_HU ("ROVI Hungarian", "hu.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    ROVI_HY ("ROVI Armenian", "hy.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_IS ("ROVI Icelandic", "is.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_IT ("ROVI Italian", "it.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_IU ("ROVI Inuktitut", "iu.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
