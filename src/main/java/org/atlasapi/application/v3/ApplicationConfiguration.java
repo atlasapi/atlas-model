@@ -111,12 +111,24 @@ public class ApplicationConfiguration {
         return withSource(source, statusOf(source).request());
     }
     
+    public ApplicationConfiguration deny(Publisher source) {
+        return withSource(source, statusOf(source).deny());
+    }
+    
     public ApplicationConfiguration revoke(Publisher source) {
         return withSource(source, statusOf(source).revoke());
     }
     
     public ApplicationConfiguration approve(Publisher source) {
         return withSource(source, statusOf(source).approve());
+    }
+    
+    public ApplicationConfiguration agreeLicense(Publisher source) {
+        return withSource(source, statusOf(source).agreeLicense());
+    }
+    
+    public ApplicationConfiguration reset(Publisher source) {
+        return withSource(source, statusOf(source).reset(source));
     }
     
     public ApplicationConfiguration withSource(Publisher source, SourceStatus status) {
