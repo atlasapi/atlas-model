@@ -1,5 +1,7 @@
 package org.atlasapi.application.v3;
 
+import org.atlasapi.media.entity.Publisher;
+
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 
@@ -10,6 +12,7 @@ public class SourceStatus {
     public static final SourceStatus REQUESTED = new SourceStatus(SourceState.REQUESTED, false);
     public static final SourceStatus AVAILABLE_ENABLED = new SourceStatus(SourceState.AVAILABLE, true);
     public static final SourceStatus AVAILABLE_DISABLED = new SourceStatus(SourceState.AVAILABLE, false);
+    public static final SourceStatus ENABLEABLE = new SourceStatus(SourceState.ENABLEABLE, false);
     
     public static final Predicate<SourceStatus> IS_ENABLED = new Predicate<SourceStatus>(){
 
@@ -23,7 +26,8 @@ public class SourceStatus {
         UNAVAILABLE,
         REQUESTED,
         AVAILABLE,
-        REVOKED
+        REVOKED,
+        ENABLEABLE
         
     }
     
@@ -55,6 +59,11 @@ public class SourceStatus {
         return REQUESTED;
     }
     
+    public SourceStatus deny() {
+        Preconditions.checkState(state == SourceState.REQUESTED);
+        return UNAVAILABLE;
+    }
+    
     public SourceStatus approve() {
         Preconditions.checkState(state == SourceState.REQUESTED);
         return AVAILABLE_DISABLED;
@@ -63,6 +72,19 @@ public class SourceStatus {
     public SourceStatus revoke() {
         Preconditions.checkState(state == SourceState.AVAILABLE);
         return REVOKED;
+    }
+    
+    public SourceStatus agreeLicense() {
+        Preconditions.checkState(state == SourceState.ENABLEABLE);
+        return AVAILABLE_DISABLED;
+    }
+    
+    public SourceStatus reset(Publisher source) {
+        Preconditions.checkState(state == SourceState.REVOKED);
+        SourceStatus defaultSourceStatus = source.getDefaultSourceStatus();
+        Preconditions.checkArgument(defaultSourceStatus.equals(ENABLEABLE) 
+                || defaultSourceStatus.equals(UNAVAILABLE));
+        return defaultSourceStatus;
     }
 
     public boolean isEnabled() {
