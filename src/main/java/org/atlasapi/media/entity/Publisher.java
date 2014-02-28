@@ -39,7 +39,7 @@ public enum Publisher {
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    METABROADCAST("UK Channel Information", "metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
+    METABROADCAST("UK Channel Lineups", "metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
