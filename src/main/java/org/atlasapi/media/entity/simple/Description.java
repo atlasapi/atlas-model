@@ -38,6 +38,7 @@ public abstract class Description extends Aliased {
     private String shortDescription;
     private String mediumDescription;
     private String longDescription;
+    private Set<LocalisedDescription> localisedDescriptions = Sets.newHashSet();
     private PublisherDetails publisher;
     private String image;
     private Set<Image> images = Sets.newHashSet();
@@ -188,6 +189,16 @@ public abstract class Description extends Aliased {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+    
+    public void setLocalisedDescriptions(Set<LocalisedDescription> localisedDescriptions) {
+        this.localisedDescriptions = localisedDescriptions;
+    }
+    
+    @XmlElementWrapper(name = "localised_descriptions")
+    @XmlElement(name = "localised_description")
+    public Set<LocalisedDescription> getLocalisedDescriptions() {
+        return localisedDescriptions;
     }
 
     public ImmutableSet<String> identifiers() {

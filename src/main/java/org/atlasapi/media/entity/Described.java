@@ -37,6 +37,7 @@ public abstract class Described extends Identified {
     private String longDescription;
 	
 	private String description;
+	private Set<LocalisedDescription> localisedDescriptions = ImmutableSet.of();
 		
 	private MediaType mediaType = MediaType.VIDEO;
 	private Specialization specialization;
@@ -259,6 +260,21 @@ public abstract class Described extends Identified {
         relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
     }
     
+    public Set<LocalisedDescription> getLocalisedDescriptions() {
+        return localisedDescriptions;
+    }
+    
+    public void setLocalisedDescriptions(Set<LocalisedDescription> localisedDescriptions) {
+        this.localisedDescriptions = ImmutableSet.copyOf(localisedDescriptions);
+    }
+    
+    public void addLocalisedDescription(LocalisedDescription localisedDescription) {
+        this.localisedDescriptions = ImmutableSet.<LocalisedDescription> builder()
+                .add(localisedDescription)
+                .addAll(localisedDescriptions)
+                .build();
+    }
+
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -279,6 +295,7 @@ public abstract class Described extends Identified {
         to.shortDescription = from.shortDescription;
         to.mediumDescription = from.mediumDescription;
         to.longDescription = from.longDescription;
+        to.localisedDescriptions = ImmutableSet.copyOf(from.localisedDescriptions);
     }
     
     public abstract Described copy();
