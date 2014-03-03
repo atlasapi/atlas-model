@@ -29,7 +29,7 @@ public abstract class Content extends Described {
     private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
     private ImmutableList<TopicRef> topicRefs = ImmutableList.of();
     private ImmutableList<ContentGroupRef> contentGroupRefs = ImmutableList.of();
-    private ImmutableList<ChildRef> similarContent = ImmutableList.of();
+    private ImmutableList<SimilarContentRef> similarContent = ImmutableList.of();
     private List<CrewMember> people = Lists.newArrayList();
     private Set<String> languages = ImmutableSet.of();
     private Set<Certificate> certificates = ImmutableSet.of();
@@ -54,18 +54,18 @@ public abstract class Content extends Described {
         return clips;
     }
 
-    public void setSimilarContent(Iterable<ChildRef> similarContent) {
+    public void setSimilarContent(Iterable<SimilarContentRef> similarContent) {
         this.similarContent = ImmutableList.copyOf(similarContent);
     }
     
-    public void addSimilarContent(ChildRef similarContent) {
-        this.similarContent = ImmutableList.<ChildRef>builder()
+    public void addSimilarContent(SimilarContentRef similarContent) {
+        this.similarContent = ImmutableList.<SimilarContentRef>builder()
                                            .addAll(this.similarContent)
                                            .add(similarContent)
                                            .build();
     }
     
-    public List<ChildRef> getSimilarContent() {
+    public List<SimilarContentRef> getSimilarContent() {
         return similarContent;
     }
     

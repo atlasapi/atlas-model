@@ -27,6 +27,7 @@ import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
+import org.atlasapi.media.entity.SimilarContentRef;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.TopicRef;
 import org.atlasapi.media.entity.Version;
@@ -214,7 +215,10 @@ public class OutputContentMerger {
 
     private <T extends Content> void mergeSimilarContent(T chosen, Iterable<T> notChosen) {
         if (chosen.getSimilarContent().isEmpty()) {
-            chosen.setSimilarContent(first(notChosen, TO_SIMILAR_CONTENT, ImmutableSet.<ChildRef>of()));
+            chosen.setSimilarContent(first(notChosen, 
+                                           TO_SIMILAR_CONTENT, 
+                                           ImmutableSet.<SimilarContentRef>of()
+                                          ));
         }
     }
     
@@ -437,10 +441,10 @@ public class OutputContentMerger {
         }
     };
     
-    private static final Function<Content, List<ChildRef>> TO_SIMILAR_CONTENT = new Function<Content, List<ChildRef>>() {
+    private static final Function<Content, List<SimilarContentRef>> TO_SIMILAR_CONTENT = new Function<Content, List<SimilarContentRef>>() {
 
         @Override
-        public List<ChildRef> apply(Content content) {
+        public List<SimilarContentRef> apply(Content content) {
             return content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
         }
         
