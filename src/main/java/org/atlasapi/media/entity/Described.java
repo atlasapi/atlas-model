@@ -14,7 +14,10 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Locale;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.channel.Channel;
@@ -23,6 +26,9 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
@@ -37,7 +43,9 @@ public abstract class Described extends Identified {
     private String longDescription;
 	
 	private String description;
-	private Set<LocalisedDescription> localisedDescriptions = ImmutableSet.of();
+	
+	private Set<LocalizedDescription> localizedDescriptions = ImmutableSet.of();
+	private Set<LocalizedTitle> localizedTitles = ImmutableSet.of();
 		
 	private MediaType mediaType = MediaType.VIDEO;
 	private Specialization specialization;
@@ -260,18 +268,44 @@ public abstract class Described extends Identified {
         relatedLinks = ImmutableSet.<RelatedLink>builder().add(link).addAll(relatedLinks).build();
     }
     
-    public Set<LocalisedDescription> getLocalisedDescriptions() {
-        return localisedDescriptions;
+    public Set<LocalizedDescription> getLocalizedDescriptions() {
+        return localizedDescriptions;
     }
     
-    public void setLocalisedDescriptions(Set<LocalisedDescription> localisedDescriptions) {
-        this.localisedDescriptions = ImmutableSet.copyOf(localisedDescriptions);
+    public void setLocalizedDescriptions(Iterable<LocalizedDescription> localizedDescriptions) {
+        this.localizedDescriptions = ImmutableSet.copyOf(localizedDescriptions);
     }
     
-    public void addLocalisedDescription(LocalisedDescription localisedDescription) {
-        this.localisedDescriptions = ImmutableSet.<LocalisedDescription> builder()
-                .add(localisedDescription)
-                .addAll(localisedDescriptions)
+    public void addLocalizedDescription(LocalizedDescription localizedDescription) {
+        this.localizedDescriptions = ImmutableSet.<LocalizedDescription> builder()
+                .add(localizedDescription)
+                .addAll(localizedDescriptions)
+                .build();
+    }
+    
+    public Optional<LocalizedDescription> getLocalizedDescription(final Locale locale) {
+        Predicate<Localized> hasLocale = new Predicate<Localized>() {
+            @Override
+            public boolean apply(Localized input) {
+                return locale.equals(input.getLocale());
+            }
+        };
+        
+        return FluentIterable.from(localizedDescriptions).filter(hasLocale).first();
+    }
+    
+    public Set<LocalizedTitle> getLocalizedTitles() {
+        return localizedTitles;
+    }
+    
+    public void setLocalizedTitles(Iterable<LocalizedTitle> localizedTitles) {
+        this.localizedTitles = ImmutableSet.copyOf(localizedTitles);
+    }
+    
+    public void addLocalizedTitle(LocalizedTitle localizedTitle) {
+        this.localizedTitles = ImmutableSet.<LocalizedTitle> builder()
+                .add(localizedTitle)
+                .addAll(localizedTitles)
                 .build();
     }
 
@@ -295,7 +329,8 @@ public abstract class Described extends Identified {
         to.shortDescription = from.shortDescription;
         to.mediumDescription = from.mediumDescription;
         to.longDescription = from.longDescription;
-        to.localisedDescriptions = ImmutableSet.copyOf(from.localisedDescriptions);
+        to.localizedDescriptions = ImmutableSet.copyOf(from.localizedDescriptions);
+        to.localizedTitles = ImmutableSet.copyOf(from.localizedTitles);
     }
     
     public abstract Described copy();

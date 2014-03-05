@@ -1,37 +1,17 @@
 package org.atlasapi.media.entity;
 
-import java.util.Locale;
-
 import com.google.common.base.Objects;
 
 
 /**
- * A Localised description of a piece of content
+ * A localized description of a piece of content
  */
-public class LocalisedDescription {
+public class LocalizedDescription extends Localized {
 
-    private Locale locale;
-    private String title;
     private String description;
     private String shortDescription;
     private String mediumDescription;
     private String longDescription;
-    
-    public Locale getLocale() {
-        return locale;
-    }
-    
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
     
     public String getShortDescription() {
         return shortDescription;
@@ -65,15 +45,15 @@ public class LocalisedDescription {
         this.description = description;
     }
     
-    public LocalisedDescription copy(LocalisedDescription original) {
-        LocalisedDescription copy = new LocalisedDescription();
+    @Override
+    public LocalizedDescription copy() {
+        LocalizedDescription copy = new LocalizedDescription();
+        Localized.copyTo(this, copy);
         
-        copy.setLocale(original.locale);
-        copy.setTitle(original.title);
-        copy.setDescription(original.description);
-        copy.setShortDescription(original.shortDescription);
-        copy.setMediumDescription(original.mediumDescription);
-        copy.setLongDescription(original.longDescription);
+        copy.setDescription(this.description);
+        copy.setShortDescription(this.shortDescription);
+        copy.setMediumDescription(this.mediumDescription);
+        copy.setLongDescription(this.longDescription);
         
         return copy;
     }
@@ -84,15 +64,17 @@ public class LocalisedDescription {
             return true;
         }
         
-        if (that == null || !(that instanceof LocalisedDescription)) {
+        if (that == null || !(that instanceof LocalizedDescription)) {
             return false;
         }
         
-        LocalisedDescription thatDescription = (LocalisedDescription) that;
+        if (!super.equals(that)) {
+            return false;
+        }
         
-        return Objects.equal(this.locale, thatDescription.locale)
-            && Objects.equal(this.title, thatDescription.title)
-            && Objects.equal(this.description, thatDescription.description)
+        LocalizedDescription thatDescription = (LocalizedDescription) that;
+        
+        return Objects.equal(this.description, thatDescription.description)
             && Objects.equal(this.shortDescription, thatDescription.shortDescription)
             && Objects.equal(this.mediumDescription, thatDescription.mediumDescription)
             && Objects.equal(this.longDescription, thatDescription.longDescription);
@@ -100,8 +82,7 @@ public class LocalisedDescription {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(locale,
-                title,
+        return Objects.hashCode(super.hashCode(),
                 description,
                 shortDescription,
                 mediumDescription,

@@ -1,32 +1,14 @@
 package org.atlasapi.media.entity.simple;
 
 
-public class LocalisedDescription {
+public class LocalizedDescription extends Localized {
 
-    private String locale;
-    private String title;
     private String shortDescription;
     private String mediumDescription;
     private String longDescription;
     private String description;
     
-    public LocalisedDescription() {}
-    
-    public String getLocale() {
-        return locale;
-    }
-    
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public LocalizedDescription() {}
     
     public String getShortDescription() {
         return shortDescription;
