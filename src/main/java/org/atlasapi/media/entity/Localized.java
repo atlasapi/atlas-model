@@ -45,10 +45,6 @@ public abstract class Localized {
             return false;
         }
         
-        if (!super.equals(that)) {
-            return false;
-        }
-        
         Localized thatLocalized = (Localized) that;
         
         return Objects.equal(this.locale, thatLocalized.locale);
