@@ -68,13 +68,10 @@ public class LocalizedDescription extends Localized {
             return false;
         }
         
-        if (!super.equals(that)) {
-            return false;
-        }
-        
         LocalizedDescription thatDescription = (LocalizedDescription) that;
         
-        return Objects.equal(this.description, thatDescription.description)
+        return super.equals(that) 
+            && Objects.equal(this.description, thatDescription.description)
             && Objects.equal(this.shortDescription, thatDescription.shortDescription)
             && Objects.equal(this.mediumDescription, thatDescription.mediumDescription)
             && Objects.equal(this.longDescription, thatDescription.longDescription);

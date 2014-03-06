@@ -25,13 +25,9 @@ public class LocalizedTitle extends Localized {
             return false;
         }
         
-        if (!super.equals(that)) {
-            return false;
-        }
-        
         LocalizedTitle thatTitle = (LocalizedTitle) that;
         
-        return Objects.equal(this.title, thatTitle.title);
+        return super.equals(that) && Objects.equal(this.title, thatTitle.title);
     }
     
     @Override

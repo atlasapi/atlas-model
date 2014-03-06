@@ -2,10 +2,20 @@ package org.atlasapi.media.entity;
 
 import java.util.Locale;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 
-
 public abstract class Localized {
+    
+    private final static Function<Localized, String> TO_LANGUAGE_TAG = new Function<Localized, String>() {
+        @Override
+        @Nullable
+        public String apply(Localized localized) {
+            return localized.locale != null ? localized.locale.toLanguageTag() : null;
+        }
+    };
     
     private Locale locale;
     
@@ -18,10 +28,10 @@ public abstract class Localized {
     }
     
     public String getLanguageTag() {
-        return locale == null ? null : locale.toLanguageTag();
+        return TO_LANGUAGE_TAG.apply(this);
     }
     
-    public static void copyTo(Localized from, Localized to) {
+    protected static void copyTo(Localized from, Localized to) {
         to.locale = from.locale;
     }
     

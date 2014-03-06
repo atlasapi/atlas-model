@@ -17,8 +17,6 @@ package org.atlasapi.media.entity;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.vocabulary.DC;
@@ -32,6 +30,7 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.collect.MoreSets;
 import com.metabroadcast.common.text.MoreStrings;
 
 public abstract class Described extends Identified {
@@ -44,8 +43,8 @@ public abstract class Described extends Identified {
 	
 	private String description;
 	
-	private Set<LocalizedDescription> localizedDescriptions = ImmutableSet.of();
-	private Set<LocalizedTitle> localizedTitles = ImmutableSet.of();
+	private ImmutableSet<LocalizedDescription> localizedDescriptions = ImmutableSet.of();
+	private ImmutableSet<LocalizedTitle> localizedTitles = ImmutableSet.of();
 		
 	private MediaType mediaType = MediaType.VIDEO;
 	private Specialization specialization;
@@ -277,10 +276,7 @@ public abstract class Described extends Identified {
     }
     
     public void addLocalizedDescription(LocalizedDescription localizedDescription) {
-        this.localizedDescriptions = ImmutableSet.<LocalizedDescription> builder()
-                .add(localizedDescription)
-                .addAll(localizedDescriptions)
-                .build();
+        this.localizedDescriptions = MoreSets.add(localizedDescriptions, localizedDescription);
     }
     
     public Optional<LocalizedDescription> getLocalizedDescription(final Locale locale) {
@@ -303,10 +299,7 @@ public abstract class Described extends Identified {
     }
     
     public void addLocalizedTitle(LocalizedTitle localizedTitle) {
-        this.localizedTitles = ImmutableSet.<LocalizedTitle> builder()
-                .add(localizedTitle)
-                .addAll(localizedTitles)
-                .build();
+        this.localizedTitles = MoreSets.add(localizedTitles, localizedTitle);
     }
 
     public static void copyTo(Described from, Described to) {
