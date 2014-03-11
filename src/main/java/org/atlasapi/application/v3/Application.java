@@ -26,7 +26,7 @@ public class Application {
         private ApplicationCredentials creds;
         private Long deerId;
         private boolean revoked;
-        private Long numberOfUsers;
+        private Long numberOfUsers = Long.valueOf(1L);
         private Optional<String> stripeCustomerId = Optional.absent();
 
         public Builder(String slug) {
