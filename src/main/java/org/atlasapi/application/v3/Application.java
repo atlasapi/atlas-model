@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.metabroadcast.common.time.DateTimeZones;
 
@@ -25,6 +26,8 @@ public class Application {
         private ApplicationCredentials creds;
         private Long deerId;
         private boolean revoked;
+        private Long numberOfUsers;
+        private Optional<String> stripeCustomerId = Optional.absent();
 
         public Builder(String slug) {
             this.slug = slug;
@@ -76,6 +79,21 @@ public class Application {
             return this;
         }
         
+        public Builder withNumberOfUsers(Long numberOfUsers) {
+            this.numberOfUsers = numberOfUsers;
+            return this;
+        }
+        
+        public Builder withStripeCustomerId(String stripeCustomerId) {
+            this.stripeCustomerId = Optional.fromNullable(stripeCustomerId);
+            return this;
+        }
+        
+        public Builder withStripeCustomerId(Optional<String> stripeCustomerId) {
+            this.stripeCustomerId = stripeCustomerId;
+            return this;
+        }
+        
         
         public Application build() {
             Preconditions.checkState(creds != null, "Application credentials must be set");
@@ -84,7 +102,7 @@ public class Application {
             if (lastUpdated == null) {
                 lastUpdated = DateTime.now(DateTimeZones.UTC);
             }
-            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked);
+            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked, numberOfUsers, stripeCustomerId);
         }
     }
     
@@ -98,10 +116,21 @@ public class Application {
 	private final ApplicationCredentials credentials;
 	
 	private final Long deerId;
-	
 	private final boolean revoked;
+    private final Long numberOfUsers;
+    private final Optional<String> stripeCustomerId;
 
-	private Application(String slug, String title, String desc, DateTime created, DateTime lastUpdated, ApplicationConfiguration config, ApplicationCredentials creds, Long deerId, boolean revoked) {
+	private Application(String slug, 
+	        String title, 
+	        String desc, 
+	        DateTime created, 
+	        DateTime lastUpdated, 
+	        ApplicationConfiguration config, 
+	        ApplicationCredentials creds, 
+	        Long deerId, 
+	        boolean revoked,
+	        Long numberOfUsers,
+	        Optional<String> stripeCustomerId) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
@@ -111,6 +140,8 @@ public class Application {
         this.credentials = creds;
         this.deerId = deerId;
         this.revoked = revoked;
+        this.numberOfUsers = checkNotNull(numberOfUsers);
+        this.stripeCustomerId = checkNotNull(stripeCustomerId);
 	}
 
 	public String getSlug() {
@@ -149,6 +180,13 @@ public class Application {
         return revoked;
     }
     
+    public Long getNumberOfUsers() {
+        return numberOfUsers;
+    }
+    public Optional<String> getStripeCustomerId() {
+        return stripeCustomerId;
+    }
+    
     public Builder copy() {
         return new Builder(slug)
             .withTitle(title)
@@ -158,7 +196,9 @@ public class Application {
             .withConfiguration(configuration)
             .withCredentials(credentials)
             .withDeerId(deerId)
-            .withRevoked(revoked);
+            .withRevoked(revoked)
+            .withNumberOfUsers(numberOfUsers)
+            .withStripeCustomerId(stripeCustomerId);
     }
 
 	@Override
