@@ -92,10 +92,28 @@ public class ScheduleEntry implements Comparable<ScheduleEntry> {
         return interval.getStart().compareTo(entry.interval.getStart());
     }
     
+    /**
+     * @deprecated Use START_TIME_AND_DURATION_ITEM_COMPARATOR instead
+     */
+    @Deprecated
+    
     public final static Comparator<Item> START_TIME_ITEM_COMPARATOR = new Comparator<Item>() {
         @Override
         public int compare(Item item1, Item item2) {
             return BROADCAST.apply(item1).getTransmissionTime().compareTo(BROADCAST.apply(item2).getTransmissionTime());
+        }
+    };
+
+    public final static Comparator<Item> START_TIME_AND_DURATION_ITEM_COMPARATOR = new Comparator<Item>() {
+        @Override
+        public int compare(Item item1, Item item2) {
+            Broadcast broadcast1 = BROADCAST.apply(item1);
+            Broadcast broadcast2 = BROADCAST.apply(item2);
+            
+            return ComparisonChain.start()
+                    .compare(broadcast1.getTransmissionTime(), broadcast2.getTransmissionTime(), Ordering.natural().nullsFirst())
+                    .compare(broadcast1.getBroadcastDuration(), broadcast2.getBroadcastDuration(), Ordering.natural().nullsFirst())
+                    .result();
         }
     };
     
