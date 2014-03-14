@@ -26,8 +26,8 @@ public class Application {
         private ApplicationCredentials creds;
         private Long deerId;
         private boolean revoked;
-        private Long numberOfUsers = Long.valueOf(1L);
         private Optional<String> stripeCustomerId = Optional.absent();
+        private Optional<String> stripeSubscriptionId = Optional.absent();
 
         public Builder(String slug) {
             this.slug = slug;
@@ -79,11 +79,6 @@ public class Application {
             return this;
         }
         
-        public Builder withNumberOfUsers(Long numberOfUsers) {
-            this.numberOfUsers = numberOfUsers;
-            return this;
-        }
-        
         public Builder withStripeCustomerId(String stripeCustomerId) {
             this.stripeCustomerId = Optional.fromNullable(stripeCustomerId);
             return this;
@@ -91,6 +86,16 @@ public class Application {
         
         public Builder withStripeCustomerId(Optional<String> stripeCustomerId) {
             this.stripeCustomerId = stripeCustomerId;
+            return this;
+        }
+        
+        public Builder withStripeSubscriptionId(String stripeSubscriptionId) {
+            this.stripeSubscriptionId = Optional.fromNullable(stripeSubscriptionId);
+            return this;
+        }
+        
+        public Builder withStripeSubscriptionId(Optional<String> stripeSubscriptionId) {
+            this.stripeSubscriptionId = stripeSubscriptionId;
             return this;
         }
         
@@ -102,7 +107,7 @@ public class Application {
             if (lastUpdated == null) {
                 lastUpdated = DateTime.now(DateTimeZones.UTC);
             }
-            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked, numberOfUsers, stripeCustomerId);
+            return new Application(slug, title, desc, created, lastUpdated, config, creds, deerId, revoked, stripeCustomerId, stripeSubscriptionId);
         }
     }
     
@@ -117,8 +122,8 @@ public class Application {
 	
 	private final Long deerId;
 	private final boolean revoked;
-    private final Long numberOfUsers;
     private final Optional<String> stripeCustomerId;
+    private final Optional<String> stripeSubscriptionId;
 
 	private Application(String slug, 
 	        String title, 
@@ -129,8 +134,8 @@ public class Application {
 	        ApplicationCredentials creds, 
 	        Long deerId, 
 	        boolean revoked,
-	        Long numberOfUsers,
-	        Optional<String> stripeCustomerId) {
+	        Optional<String> stripeCustomerId,
+	        Optional<String> stripeSubscriptionId) {
 		this.slug = slug;
         this.title = title;
         this.description = desc;
@@ -140,8 +145,8 @@ public class Application {
         this.credentials = creds;
         this.deerId = deerId;
         this.revoked = revoked;
-        this.numberOfUsers = checkNotNull(numberOfUsers);
         this.stripeCustomerId = checkNotNull(stripeCustomerId);
+        this.stripeSubscriptionId = checkNotNull(stripeSubscriptionId);
 	}
 
 	public String getSlug() {
@@ -180,11 +185,12 @@ public class Application {
         return revoked;
     }
     
-    public Long getNumberOfUsers() {
-        return numberOfUsers;
-    }
     public Optional<String> getStripeCustomerId() {
         return stripeCustomerId;
+    }
+    
+    public Optional<String> getStripeSubscriptionId() {
+        return stripeSubscriptionId;
     }
     
     public Builder copy() {
@@ -197,8 +203,8 @@ public class Application {
             .withCredentials(credentials)
             .withDeerId(deerId)
             .withRevoked(revoked)
-            .withNumberOfUsers(numberOfUsers)
-            .withStripeCustomerId(stripeCustomerId);
+            .withStripeCustomerId(stripeCustomerId)
+            .withStripeSubscriptionId(stripeSubscriptionId);
     }
 
 	@Override
