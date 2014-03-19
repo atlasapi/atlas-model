@@ -27,6 +27,7 @@ import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
+import org.atlasapi.media.entity.Review;
 import org.atlasapi.media.entity.SimilarContentRef;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.TopicRef;
@@ -166,6 +167,13 @@ public class OutputContentMerger {
         if (chosen.getShortDescription() == null) {
             chosen.setShortDescription(first(notChosen, TO_SHORT_DESCRIPTION));
         }
+        
+        chosen.setReviews(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Review>>() {
+            @Override
+            public Iterable<Review> apply(T input) {
+                return input.getReviews();
+            }
+        }));
     }
     
     private <T extends Identified> void mergeIdentified(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
