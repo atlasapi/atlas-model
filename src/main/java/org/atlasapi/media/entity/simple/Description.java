@@ -65,7 +65,7 @@ public abstract class Description extends Aliased {
     private Set<Certificate> certificates = Sets.newHashSet();
     private BrandSummary container;
     private Boolean genericDescription;
-    private Set<Review> reviews;
+    private Set<Review> reviews = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
