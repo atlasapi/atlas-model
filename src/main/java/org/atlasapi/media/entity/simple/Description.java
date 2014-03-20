@@ -65,6 +65,7 @@ public abstract class Description extends Aliased {
     private Set<Certificate> certificates = Sets.newHashSet();
     private BrandSummary container;
     private Boolean genericDescription;
+    private Set<Review> reviews = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -211,6 +212,17 @@ public abstract class Description extends Aliased {
     public Set<LocalizedTitle> getTitles() {
         return titles;
     }
+    
+    public void setReviews(Iterable<Review> reviews) {
+        this.reviews = Sets.newHashSet(reviews);
+    }
+    
+    @XmlElementWrapper(name = "reviews")
+    @XmlElement(name = "review")
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
 
     public ImmutableSet<String> identifiers() {
         Builder<String> ids = ImmutableSet.builder();

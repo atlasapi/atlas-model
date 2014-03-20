@@ -45,6 +45,7 @@ public abstract class Described extends Identified {
 	
 	private ImmutableSet<LocalizedDescription> localizedDescriptions = ImmutableSet.of();
 	private ImmutableSet<LocalizedTitle> localizedTitles = ImmutableSet.of();
+	private ImmutableSet<Review> reviews = ImmutableSet.of();
 		
 	private MediaType mediaType = MediaType.VIDEO;
 	private Specialization specialization;
@@ -301,6 +302,14 @@ public abstract class Described extends Identified {
     public void addLocalizedTitle(LocalizedTitle localizedTitle) {
         this.localizedTitles = MoreSets.add(localizedTitles, localizedTitle);
     }
+    
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+    
+    public void setReviews(Iterable<Review> reviews) {
+        this.reviews = ImmutableSet.copyOf(reviews);
+    }
 
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
@@ -324,6 +333,7 @@ public abstract class Described extends Identified {
         to.longDescription = from.longDescription;
         to.localizedDescriptions = ImmutableSet.copyOf(from.localizedDescriptions);
         to.localizedTitles = ImmutableSet.copyOf(from.localizedTitles);
+        to.reviews = ImmutableSet.copyOf(from.reviews);
     }
     
     public abstract Described copy();
