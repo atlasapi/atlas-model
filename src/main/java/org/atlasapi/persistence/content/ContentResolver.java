@@ -24,6 +24,7 @@ package org.atlasapi.persistence.content;
 public interface ContentResolver {
 
     /**
+     * Find content whose canonical URIs are in the provided collection
      * 
      * @param canonicalUris
      * @return
@@ -31,7 +32,8 @@ public interface ContentResolver {
 	ResolvedContent findByCanonicalUris(Iterable<String> canonicalUris);
 	
 	/**
-	 * Find content which match the provided a canonical URI or alias URI  
+	 * Find content whose canonical URIs or that have alias URIs in the provided collection
+	 *   
 	 * @param uris
 	 * @return
 	 */
