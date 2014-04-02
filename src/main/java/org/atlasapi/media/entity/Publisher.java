@@ -151,7 +151,8 @@ public enum Publisher {
     ROVI_UR ("ROVI Urdu", "ur.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_VI ("ROVI Vietnamese", "vi.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ROVI_ZH ("ROVI Chinese", "zh.rovicorp.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    BBC_LYREBIRD ("BBC Lyrebird", "lyrebird.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
+    BBC_LYREBIRD ("BBC Lyrebird", "lyrebird.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    LYREBIRD_YOUTUBE ("Lyrebird Youtube", "youtube.lyrebird.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false);
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
