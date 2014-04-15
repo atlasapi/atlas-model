@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 
 
@@ -52,6 +53,31 @@ public class SimilarContentRef {
     
     public Set<Publisher> getPublishersWithUpcomingContent() {
         return publishersWithUpcomingContent;
+    }
+    
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof SimilarContentRef) {
+            SimilarContentRef other = (SimilarContentRef) that;
+            return uri.equals(other.uri);
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return uri.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(getClass())
+                .add("uri", uri)
+                .add("score", score)
+                .toString();
     }
     
     public static class Builder {
