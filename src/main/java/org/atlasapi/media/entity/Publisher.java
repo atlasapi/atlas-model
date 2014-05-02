@@ -64,6 +64,7 @@ public enum Publisher {
     BT_FEATURED_CONTENT("BT Featured Content", "featured.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW("YouView", "youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
+    YOUVIEW_STAGE("YouView Stage", "stage.youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     FACEBOOK("Facebook Graph API", "graph.facebook.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
     SCRAPERWIKI("ScraperWiki", "scraperwiki.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     SVERIGES_RADIO("Sveriges Radio", "sverigesradio.se", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
