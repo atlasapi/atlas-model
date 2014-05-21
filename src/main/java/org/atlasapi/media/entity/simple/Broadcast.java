@@ -59,6 +59,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     
     private Channel channel;
     
+    private BlackoutRestriction blackoutRestriction;
+    
     private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
@@ -71,6 +73,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.transmissionEndTime = transmissionEndTime.toDate();
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
 		this.id = id;
+		this.blackoutRestriction = new BlackoutRestriction(false);
 	}
     
     public Broadcast() {
@@ -231,6 +234,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         return aliases;
     }
 
+    public BlackoutRestriction getBlackoutRestriction() {
+        return blackoutRestriction;
+    }
+
+    public void setBlackoutRestriction(BlackoutRestriction blackoutResstriction) {
+        this.blackoutRestriction = blackoutResstriction;
+    }
+
     @Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
@@ -278,6 +289,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
+        copy.setBlackoutRestriction(getBlackoutRestriction());
         
         return copy;
     }
@@ -295,7 +307,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
 	
-	public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
+    public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
         @Override
         public boolean apply(Broadcast input) {
             return new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();

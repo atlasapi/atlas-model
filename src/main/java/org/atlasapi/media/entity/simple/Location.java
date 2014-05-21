@@ -76,6 +76,9 @@ public class Location extends Version {
     private String embedId;
     private String platform;
     private String network;
+    private Service service;
+    private Player player;
+    
 
     private Boolean available;
 
@@ -369,6 +372,22 @@ public class Location extends Version {
     
     public String getNetwork() {
         return network;
+    }
+    
+    public void setService(Service service) {
+        this.service = service;
+    }
+    
+    public Service getService() {
+        return service;
+    }
+    
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    public Player getPlayer() {
+        return player;
     }
     
     @Override

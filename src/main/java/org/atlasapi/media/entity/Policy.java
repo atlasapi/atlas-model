@@ -44,6 +44,10 @@ public class Policy extends Identified {
 	
 	private Platform platform;
 	
+	private Long service;
+	
+	private Long player;
+	
 	private Network network;
 	
 	private DateTime actualAvailabilityStart;
@@ -92,6 +96,22 @@ public class Policy extends Identified {
     @RdfProperty(relation=false)
     public DateTime getActualAvailabilityStart() { 
         return actualAvailabilityStart;
+    }
+    
+    public Long getService() {
+        return service;
+    }
+    
+    public void setService(Long service) {
+        this.service = service;
+    }
+    
+    public Long getPlayer() {
+        return player;
+    }
+    
+    public void setPlayer(Long player) {
+        this.player = player;
     }
     
     public void setAvailabilityEnd(DateTime availabilityEnd) {
