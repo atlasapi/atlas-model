@@ -59,7 +59,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     
     private Channel channel;
     
-    private BlackoutRestriction blackoutResstriction;
+    private BlackoutRestriction blackoutRestriction;
     
     private Set<String> aliases = Sets.newHashSet();
 
@@ -73,6 +73,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.transmissionEndTime = transmissionEndTime.toDate();
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
 		this.id = id;
+		this.blackoutRestriction = new BlackoutRestriction(false);
 	}
     
     public Broadcast() {
@@ -233,12 +234,12 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         return aliases;
     }
 
-    public BlackoutRestriction getBlackoutResstriction() {
-        return blackoutResstriction;
+    public BlackoutRestriction getBlackoutRestriction() {
+        return blackoutRestriction;
     }
 
-    public void setBlackoutResstriction(BlackoutRestriction blackoutResstriction) {
-        this.blackoutResstriction = blackoutResstriction;
+    public void setBlackoutRestriction(BlackoutRestriction blackoutResstriction) {
+        this.blackoutRestriction = blackoutResstriction;
     }
 
     @Override
@@ -288,7 +289,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
-        copy.setBlackoutResstriction(getBlackoutResstriction());
+        copy.setBlackoutRestriction(getBlackoutRestriction());
         
         return copy;
     }

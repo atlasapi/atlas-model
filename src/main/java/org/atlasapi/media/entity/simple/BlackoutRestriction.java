@@ -5,6 +5,10 @@ public class BlackoutRestriction {
 
     private Boolean all = false;
     
+    public BlackoutRestriction(Boolean all) {
+        this.all = all;
+    }
+    
     public Boolean getAll() {
         return all;
     }
