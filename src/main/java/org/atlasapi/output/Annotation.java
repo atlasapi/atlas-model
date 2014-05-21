@@ -48,7 +48,8 @@ public enum Annotation {
     IMAGES,
     SIMILAR,
     V4_ALIASES, 
-    REVIEWS;
+    REVIEWS,
+    CHANNEL_GROUPS_SUMMARY;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
