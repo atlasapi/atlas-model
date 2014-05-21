@@ -118,8 +118,6 @@ public class Channel extends Aliased {
         return timeshift;
     }
 
-    @XmlElementWrapper(name = "groups")
-    @XmlElement(name = "group")
     public void setChannelGroups(List<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
@@ -132,6 +130,8 @@ public class Channel extends Aliased {
         this.groups = ImmutableList.copyOf(aliases);
     }
     
+    @XmlElementWrapper(name = "groups")
+    @XmlElement(name = "group")
     public List<ChannelGroupSummary> getGroups() {
         return groups;
     }
