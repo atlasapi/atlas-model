@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 
 public class Topic extends Described {
     
+    private transient String readHash;
     private Type type;
     private String namespace;
     private String value;
@@ -63,12 +64,21 @@ public class Topic extends Described {
         setMediaType(null);
     }
     
+    public void setReadHash(String readHash) {
+        this.readHash = readHash;
+    }
+    
+    public boolean hashChanged(String newHash) {
+        return readHash == null || !this.readHash.equals(newHash);
+    }
+    
     @Override
     public Topic copy() {
         Topic topic = new Topic(getId());
         topic.type = type;
         topic.namespace = namespace;
         topic.value = value;
+        topic.readHash = readHash;
         Described.copyTo(this, topic);
         return topic;
     }

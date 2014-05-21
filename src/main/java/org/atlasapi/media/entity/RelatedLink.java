@@ -106,6 +106,7 @@ public class RelatedLink {
         FLICKR,
         SIMULCAST,
         ARTICLE,
+        VOD,
         UNKNOWN
     }
     
