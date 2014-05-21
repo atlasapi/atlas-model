@@ -59,6 +59,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     
     private Channel channel;
     
+    private BlackoutRestriction blackoutResstriction;
+    
     private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
@@ -231,6 +233,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         return aliases;
     }
 
+    public BlackoutRestriction getBlackoutResstriction() {
+        return blackoutResstriction;
+    }
+
+    public void setBlackoutResstriction(BlackoutRestriction blackoutResstriction) {
+        this.blackoutResstriction = blackoutResstriction;
+    }
+
     @Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
@@ -278,6 +288,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
+        copy.setBlackoutResstriction(getBlackoutResstriction());
         
         return copy;
     }
@@ -295,7 +306,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
 	
-	public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
+    public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
         @Override
         public boolean apply(Broadcast input) {
             return new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
