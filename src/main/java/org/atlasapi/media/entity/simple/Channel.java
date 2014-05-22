@@ -35,6 +35,7 @@ public class Channel extends Aliased {
     private Boolean adult;
     private Long timeshift;
     private List<ChannelNumbering> channelGroups;
+    private List<ChannelGroupSummary> groups;
     private PublisherDetails broadcaster;
     private Set<PublisherDetails> availableFrom;
     private Channel parent;
@@ -123,6 +124,16 @@ public class Channel extends Aliased {
     
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
+    }
+    
+    public void setGroups(Iterable<ChannelGroupSummary> aliases) {
+        this.groups = ImmutableList.copyOf(aliases);
+    }
+    
+    @XmlElementWrapper(name = "groups")
+    @XmlElement(name = "group")
+    public List<ChannelGroupSummary> getGroups() {
+        return groups;
     }
     
     public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
