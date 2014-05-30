@@ -106,6 +106,11 @@ public class Policy extends Identified {
         this.service = service;
     }
     
+    public Policy withService(Long service) {
+        setService(service);
+        return this;
+    }
+    
     public Long getPlayer() {
         return player;
     }
@@ -114,6 +119,11 @@ public class Policy extends Identified {
         this.player = player;
     }
     
+    public Policy withPlayer(Long player) {
+        setPlayer(player);
+        return this;
+    }
+     
     public void setAvailabilityEnd(DateTime availabilityEnd) {
 		this.availabilityEnd = availabilityEnd;
 	}
