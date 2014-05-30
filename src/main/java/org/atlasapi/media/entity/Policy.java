@@ -243,6 +243,8 @@ public class Policy extends Identified {
 	    copy.platform = platform;
 	    copy.network = network;
 	    copy.actualAvailabilityStart = actualAvailabilityStart;
+	    copy.service = service;
+	    copy.player = player;
 	    return copy;
 	}
 	
