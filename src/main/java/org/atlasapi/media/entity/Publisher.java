@@ -50,6 +50,7 @@ public enum Publisher {
     CANARY("Canary", "canary.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     THESPACE("The Space", "thespace.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     VOILA("Voila", "voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    VOILA_CHANNEL_GROUPS("Voila Channel Groups", "channel-groups.voila.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     MAGPIE("Magpie", "magpie.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     LONDON_ALSO("London ALSO", "london.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_MUSIC("BBC Music","music.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
@@ -62,6 +63,7 @@ public enum Publisher {
     PA_PEOPLE("PA People Profiles", "people.pressassociation.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_FEATURED_CONTENT("BT Featured Content", "featured.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    //BT_VOD("BT VOD Catalogue", "vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW("YouView", "youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     YOUVIEW_STAGE("YouView Stage", "stage.youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
@@ -80,7 +82,7 @@ public enum Publisher {
     AMAZON_UNBOX("Amazon Unbox GB (Lovefilm)", "unbox.amazon.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     METABROADCAST_PICKS("MetaBroadcast Picks", "picks.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     C4_PMLSD("Channel 4 PMLSD", "pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
-    C4_PMLSD_P06("Channel 4 PMLSD", "p06.pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    C4_PMLSD_P06("Channel 4 PMLSD P06", "p06.pmlsd.channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     WIKIPEDIA("Wikipedia", "wikipedia.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     C5_TV_CLIPS("Channel 5 TV Clips", "c5tvclips.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     METABROADCAST_SIMILAR_CONTENT("MetaBroadcast Similar Content", "similarcontent.metabroadcast.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
@@ -158,7 +160,8 @@ public enum Publisher {
     LYREBIRD_YOUTUBE ("Lyrebird Youtube", "youtube.lyrebird.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     PA_FEATURES_IRELAND("PA Features Ireland", "features.pressassociation.com/ireland", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     PA_FEATURES_SOAP_ENTERTAINMENT("PA Features Soap Entertainment", "features.pressassociation.com/soap-entertainment", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
-    RTE("RTE", "rte.ie", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
+    RTE("RTE", "rte.ie", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BARNEY("barney", "barney.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
