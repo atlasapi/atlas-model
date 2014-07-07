@@ -23,6 +23,8 @@ import com.google.common.collect.Sets;
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
 public class Broadcast extends Version implements Comparable<Broadcast> {
 	
+    private static final String TEST_CHANNEL_FOR_BLACKOUT_FLAG = "http://ref.atlasapi.org/channels/nickjr";
+    
     private Date transmissionTime;
 
     private Date transmissionEndTime;
@@ -67,13 +69,18 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         this(broadcastOn, transmissionTime, transmissionEndTime, null);
     }
 
-    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, String id) {
+    public Broadcast(String broadcastOn, DateTime transmissionTime, DateTime transmissionEndTime, String id) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime.toDate();
 		this.transmissionEndTime = transmissionEndTime.toDate();
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
 		this.id = id;
-		this.blackoutRestriction = new BlackoutRestriction(false);
+		
+		boolean blackoutRestrction = TEST_CHANNEL_FOR_BLACKOUT_FLAG.equals(broadcastOn)
+		                                && transmissionTime != null
+		                                && transmissionTime.getHourOfDay() % 2 == 0;
+		                                
+		this.blackoutRestriction = new BlackoutRestriction(blackoutRestrction);
 	}
     
     public Broadcast() {
