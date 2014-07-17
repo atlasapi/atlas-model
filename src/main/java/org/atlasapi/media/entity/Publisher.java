@@ -64,6 +64,7 @@ public enum Publisher {
     BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_FEATURED_CONTENT("BT Featured Content", "featured.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_VOD("BT VOD Catalogue", "vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_TV_CHANNELS("BT TV Channels", "tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW("YouView", "youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     YOUVIEW_STAGE("YouView Stage", "stage.youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
