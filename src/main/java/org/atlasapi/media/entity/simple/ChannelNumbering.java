@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -15,7 +16,25 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
     private Channel channel;
     private ChannelGroup channelGroup;
     private String channelNumber;
+    private Date startDate;
+    private Date endDate;
     private List<HistoricalChannelNumberingEntry> history; 
+    
+    public Date getStartDate() {
+        return startDate;
+    }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public Date getEndDate() {
+        return endDate;
+    }
+    
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
     
     public Channel getChannel() {
         return channel;
@@ -98,6 +117,8 @@ public class ChannelNumbering implements Comparable<ChannelNumbering> {
                 .add("Channel", channel)
                 .add("ChannelGroup", channelGroup)
                 .add("ChannelNumber", channelNumber)
+                .add("StartDate", startDate)
+                .add("EndDate", endDate)
                 .add("History", history)
                 .toString();
     }
