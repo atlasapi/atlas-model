@@ -66,6 +66,8 @@ public abstract class Description extends Aliased {
     private BrandSummary container;
     private Boolean genericDescription;
     private Set<Review> reviews = Sets.newHashSet();
+    private AudienceStatistics audienceStatistics;
+    private Set<Rating> ratings = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -459,5 +461,21 @@ public abstract class Description extends Aliased {
     
     public Boolean getGenericDescription() {
         return genericDescription;
+    }
+
+    public AudienceStatistics getAudienceStatistics() {
+        return audienceStatistics;
+    }
+
+    public void setAudienceStatistics(AudienceStatistics audienceStatistics) {
+        this.audienceStatistics = audienceStatistics;
+    }
+    
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+    
+    public void setRatings(Iterable<Rating> ratings) {
+        this.ratings = Sets.newHashSet(ratings);
     }
 }
