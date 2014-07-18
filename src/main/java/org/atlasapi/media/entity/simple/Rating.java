@@ -1,10 +1,12 @@
 package org.atlasapi.media.entity.simple;
 
+import java.math.BigDecimal;
+
 
 public class Rating {
 
     private PublisherDetails publisherDetails;
-    private float value;
+    private BigDecimal value;
     private String type;
     
     public PublisherDetails getPublisherDetails() {
@@ -15,11 +17,11 @@ public class Rating {
         this.publisherDetails = publisherDetails;
     }
     
-    public float getValue() {
+    public BigDecimal getValue() {
         return value;
     }
     
-    public void setValue(float value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
     
