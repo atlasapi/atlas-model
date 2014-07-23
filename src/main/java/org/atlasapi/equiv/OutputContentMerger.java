@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Alias;
+import org.atlasapi.media.entity.AudienceStatistics;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
 import org.atlasapi.media.entity.ChildRef;
@@ -25,6 +26,7 @@ import org.atlasapi.media.entity.KeyPhrase;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.Rating;
 import org.atlasapi.media.entity.RelatedLink;
 import org.atlasapi.media.entity.ReleaseDate;
 import org.atlasapi.media.entity.Review;
@@ -167,6 +169,15 @@ public class OutputContentMerger {
         if (chosen.getShortDescription() == null) {
             chosen.setShortDescription(first(notChosen, TO_SHORT_DESCRIPTION));
         }
+        if (chosen.getAudienceStatistics() == null) {
+            chosen.setAudienceStatistics(first(notChosen, TO_AUDIENCE_STATISTICS));
+        }
+        chosen.setRatings(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Rating>>() {
+            @Override
+            public Iterable<Rating> apply(T input) {
+                return input.getRatings();
+            }
+        }));
         
         chosen.setReviews(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Review>>() {
             @Override
@@ -441,7 +452,12 @@ public class OutputContentMerger {
             return input == null ? null : input.getShortDescription();
         }
     };
-    
+    private static final Function<Described, AudienceStatistics> TO_AUDIENCE_STATISTICS = new Function<Described, AudienceStatistics>() {
+        @Override
+        public AudienceStatistics apply(@Nullable Described input) {
+            return input == null ? null : input.getAudienceStatistics();
+        }
+    };
     private static final Function<Film, Set<Certificate>> TO_CERTIFICATES = new Function<Film, Set<Certificate>>() {
         @Override
         public Set<Certificate> apply(@Nullable Film input) {

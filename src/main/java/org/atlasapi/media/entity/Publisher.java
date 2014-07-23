@@ -162,7 +162,8 @@ public enum Publisher {
     PA_FEATURES_IRELAND("PA Features Ireland", "features.pressassociation.com/ireland", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     PA_FEATURES_SOAP_ENTERTAINMENT("PA Features Soap Entertainment", "features.pressassociation.com/soap-entertainment", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.NONE, false),
     RTE("RTE", "rte.ie", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    BARNEY("barney", "barney.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
+    BARNEY("barney", "barney.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BBC_AUDIENCE_STATS("BBC Audience Stats", "stats.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
