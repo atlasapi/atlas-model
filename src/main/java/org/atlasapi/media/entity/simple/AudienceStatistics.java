@@ -6,8 +6,8 @@ import java.util.List;
 public class AudienceStatistics {
 
     private PublisherDetails publisher;
-    private long totalViewers;
-    private float viewingShare;
+    private Long totalViewers;
+    private Float viewingShare;
     private List<Demographic> demographics;
     
     public List<Demographic> getDemographics() {
@@ -26,19 +26,19 @@ public class AudienceStatistics {
         this.publisher = publisher;
     }
     
-    public long getTotalViewers() {
+    public Long getTotalViewers() {
         return totalViewers;
     }
     
-    public void setTotalViewers(long totalViewers) {
+    public void setTotalViewers(Long totalViewers) {
         this.totalViewers = totalViewers;
     }
     
-    public float getViewingShare() {
+    public Float getViewingShare() {
         return viewingShare;
     }
     
-    public void setViewingShare(float viewingShare) {
+    public void setViewingShare(Float viewingShare) {
         this.viewingShare = viewingShare;
     }
     

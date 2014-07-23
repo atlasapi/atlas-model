@@ -64,6 +64,9 @@ public abstract class Described extends Identified {
 	private boolean scheduleOnly = false;
     private boolean activelyPublished = true;
 
+    private ImmutableSet<Rating> ratings = ImmutableSet.of();
+    private AudienceStatistics audienceStatistics;
+    
     private String presentationChannel;
 
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
@@ -310,7 +313,23 @@ public abstract class Described extends Identified {
     public void setReviews(Iterable<Review> reviews) {
         this.reviews = ImmutableSet.copyOf(reviews);
     }
-
+    
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+    
+    public void setRatings(Iterable<Rating> ratings) {
+        this.ratings = ImmutableSet.copyOf(ratings);
+    }
+    
+    public AudienceStatistics getAudienceStatistics() {
+        return audienceStatistics;
+    }
+    
+    public void setAudienceStatistics(AudienceStatistics audienceStatistics) {
+        this.audienceStatistics = audienceStatistics;
+    }
+ 
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
         to.description = from.description;
@@ -334,6 +353,8 @@ public abstract class Described extends Identified {
         to.localizedDescriptions = ImmutableSet.copyOf(from.localizedDescriptions);
         to.localizedTitles = ImmutableSet.copyOf(from.localizedTitles);
         to.reviews = ImmutableSet.copyOf(from.reviews);
+        to.ratings = ImmutableSet.copyOf(from.ratings);
+        to.audienceStatistics = from.audienceStatistics;
     }
     
     public abstract Described copy();
