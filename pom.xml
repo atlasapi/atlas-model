@@ -105,5 +105,6 @@
     
     <properties>
         <common.version>1.0-SNAPSHOT</common.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

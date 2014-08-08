@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.atlasapi.media.entity.simple.AudienceStatistics;
 import org.atlasapi.media.entity.simple.BrandSummary;
 import org.atlasapi.media.entity.simple.Broadcast;
 import org.atlasapi.media.entity.simple.Item;
@@ -49,6 +50,7 @@ public class ItemTestDataBuilder {
     private Set<KeyPhrase> keyPhrases;
     private Set<RelatedLink> relatedLinks;
     private Set<Person> people;
+    private AudienceStatistics audienceStatistics;
     
     public static ItemTestDataBuilder item() {
     	return new ItemTestDataBuilder();
@@ -88,6 +90,7 @@ public class ItemTestDataBuilder {
         keyPhrases = ImmutableSet.of();
         relatedLinks = ImmutableSet.of();
         people = ImmutableSet.of();
+        audienceStatistics = null;
     }
     
     private SeriesSummary defaultSeriesSummary() {
@@ -144,6 +147,7 @@ public class ItemTestDataBuilder {
         item.setKeyPhrases(keyPhrases);
         item.setRelatedLinks(relatedLinks);
         item.setPeople(people);
+        item.setAudienceStatistics(audienceStatistics);
         return item;
     }
     
@@ -231,4 +235,9 @@ public class ItemTestDataBuilder {
         this.people = ImmutableSet.copyOf(people);
         return this;
     };
+    
+    public ItemTestDataBuilder withAudienceStatistics(AudienceStatistics audienceStatistics) {
+    	this.audienceStatistics = audienceStatistics;
+    	return this;
+    }
 }
