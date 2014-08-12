@@ -51,7 +51,8 @@ public enum Annotation {
     REVIEWS,
     CHANNEL_GROUPS_SUMMARY,
     AUDIENCE_STATISTICS,
-    RATINGS;
+    RATINGS,
+    EVENTS;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
         DESCRIPTION,
