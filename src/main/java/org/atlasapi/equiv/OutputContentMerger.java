@@ -185,6 +185,15 @@ public class OutputContentMerger {
                 return input.getReviews();
             }
         }));
+        
+        chosen.setGenres(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<String>>() {
+
+            @Override
+            public Iterable<String> apply(T input) {
+                return input.getGenres();
+            }
+        }));
+        
     }
     
     private <T extends Identified> void mergeIdentified(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
