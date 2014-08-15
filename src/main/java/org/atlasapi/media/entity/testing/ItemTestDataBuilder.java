@@ -14,6 +14,7 @@ import org.atlasapi.media.entity.simple.Person;
 import org.atlasapi.media.entity.simple.PublisherDetails;
 import org.atlasapi.media.entity.simple.RelatedLink;
 import org.atlasapi.media.entity.simple.SeriesSummary;
+import org.atlasapi.media.entity.simple.TopicRef;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -50,6 +51,7 @@ public class ItemTestDataBuilder {
     private Set<KeyPhrase> keyPhrases;
     private Set<RelatedLink> relatedLinks;
     private Set<Person> people;
+    private Set<TopicRef> topics;
     private AudienceStatistics audienceStatistics;
     
     public static ItemTestDataBuilder item() {
@@ -90,6 +92,7 @@ public class ItemTestDataBuilder {
         keyPhrases = ImmutableSet.of();
         relatedLinks = ImmutableSet.of();
         people = ImmutableSet.of();
+        topics = ImmutableSet.of();
         audienceStatistics = null;
     }
     
@@ -147,7 +150,8 @@ public class ItemTestDataBuilder {
         item.setKeyPhrases(keyPhrases);
         item.setRelatedLinks(relatedLinks);
         item.setPeople(people);
-        item.setAudienceStatistics(audienceStatistics);
+        item.setTopics(topics);
+        item.setAudienceStatistics(audienceStatistics);        
         return item;
     }
     
@@ -235,6 +239,11 @@ public class ItemTestDataBuilder {
         this.people = ImmutableSet.copyOf(people);
         return this;
     };
+    
+    public ItemTestDataBuilder withTopics(Iterable<TopicRef> topics) {
+        this.topics = ImmutableSet.copyOf(topics);
+        return this;
+    }
     
     public ItemTestDataBuilder withAudienceStatistics(AudienceStatistics audienceStatistics) {
     	this.audienceStatistics = audienceStatistics;
