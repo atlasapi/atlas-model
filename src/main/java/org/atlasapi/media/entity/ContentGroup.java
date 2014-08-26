@@ -79,6 +79,6 @@ public class ContentGroup extends Described implements MutableContentList {
 
     public enum Type {
 
-        FRANCHISE, SEASON, PLAYLIST, PERSON;
+        FRANCHISE, SEASON, PLAYLIST, PERSON, ORGANISATION;
     }
 }

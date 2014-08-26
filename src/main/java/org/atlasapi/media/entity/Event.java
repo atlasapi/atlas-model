@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.joda.time.DateTime;
 
 import com.google.common.base.Function;
@@ -14,28 +16,28 @@ import com.google.common.collect.Iterables;
 
 public class Event extends Identified {
     
-    private final String title;
-    private final Publisher publisher;
-    private final Topic venue;
-    private final DateTime startTime;
-    private final DateTime endTime;
-    private final List<Person> participants;
-    private final List<Organisation> organisations;
-    private final List<Topic> eventGroups;
-    private final List<ChildRef> content;
+    private String title;
+    private Publisher publisher;
+    private Topic venue;
+    private DateTime startTime;
+    private DateTime endTime;
+    private List<Person> participants;
+    private List<Organisation> organisations;
+    private List<Topic> eventGroups;
+    private List<ChildRef> content;
     
     public static Builder builder() {
         return new Builder();
     }
     
-    public Event(String title, Publisher publisher, Topic venue, DateTime startTime, DateTime endTime, 
-            Iterable<Person> participants, Iterable<Organisation> organisations, 
+    public Event(String title, Publisher publisher, @Nullable Topic venue, @Nullable DateTime startTime, 
+            @Nullable DateTime endTime, Iterable<Person> participants, Iterable<Organisation> organisations, 
             Iterable<Topic> eventGroups, Iterable<ChildRef> content) {
                 this.title = checkNotNull(title);
                 this.publisher = checkNotNull(publisher);
-                this.venue = checkNotNull(venue);
-                this.startTime = checkNotNull(startTime);
-                this.endTime = checkNotNull(endTime);
+                this.venue = venue;
+                this.startTime = startTime;
+                this.endTime = endTime;
                 this.participants = ImmutableList.copyOf(participants);
                 this.organisations = ImmutableList.copyOf(organisations);
                 this.eventGroups = ImmutableList.copyOf(eventGroups);
@@ -45,37 +47,73 @@ public class Event extends Identified {
     public String title() {
         return title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
     
     public Publisher publisher() {
         return publisher;
+    }
+    
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public Topic venue() {
         return venue;
     }
 
+    public void setVenue(Topic venue) {
+        this.venue = venue;
+    }
+
     public DateTime startTime() {
         return startTime;
+    }
+
+    public void setStartTime(DateTime startTime) {
+        this.startTime = startTime;
     }
 
     public DateTime endTime() {
         return endTime;
     }
 
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
+    }
+
     public List<Person> participants() {
         return participants;
+    }
+
+    public void setParticipants(Iterable<Person> participants) {
+        this.participants = ImmutableList.copyOf(participants);
     }
 
     public List<Organisation> organisations() {
         return organisations;
     }
 
+    public void setOrganisations(Iterable<Organisation> organisations) {
+        this.organisations = ImmutableList.copyOf(organisations);
+    }
+
     public List<Topic> eventGroups() {
         return eventGroups;
     }
 
+    public void setEventGroups(Iterable<Topic> eventGroups) {
+        this.eventGroups = ImmutableList.copyOf(eventGroups);
+    }
+
     public List<ChildRef> content() {
         return content;
+    }
+
+    public void setContent(Iterable<ChildRef> content) {
+        this.content = ImmutableList.copyOf(content);
     }
     
     @Override

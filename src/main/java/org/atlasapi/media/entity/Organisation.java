@@ -9,7 +9,11 @@ import com.google.common.collect.ImmutableList;
 
 public class Organisation extends ContentGroup {
 
-    private final List<Person> members;
+    private List<Person> members;
+    
+    public Organisation() {
+        this(ImmutableList.<Person>of());
+    }
     
     public Organisation(Iterable<Person> members) {
         this.members = ImmutableList.copyOf(members);
@@ -17,6 +21,10 @@ public class Organisation extends ContentGroup {
     
     public List<Person> members() {
         return members;
+    }
+    
+    public void setMembers(Iterable<Person> members) {
+        this.members = ImmutableList.copyOf(members);
     }
     
     @Override
