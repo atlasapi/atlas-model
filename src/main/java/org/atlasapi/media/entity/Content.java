@@ -35,6 +35,7 @@ public abstract class Content extends Described {
     private Set<Certificate> certificates = ImmutableSet.of();
     private Integer year = null;
     private Boolean genericDescription;
+    private ImmutableList<EventRef> events = ImmutableList.of();
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -141,6 +142,18 @@ public abstract class Content extends Described {
     public Boolean getGenericDescription() {
         return genericDescription;
     }
+    
+    public void setEvents(Iterable<Event> events) {
+        this.events = ImmutableList.copyOf(Iterables.transform(events, EventRef.toEventRef()));
+    }
+    
+    public void setEventRefs(Iterable<EventRef> events) {
+        this.events = ImmutableList.copyOf(events);
+    }
+    
+    public ImmutableList<EventRef> events() {
+        return events;
+    }
 
 
     public static void copyTo(Content from, Content to) {
@@ -156,6 +169,7 @@ public abstract class Content extends Described {
         to.year = from.year;
         to.genericDescription = from.genericDescription;
         to.similarContent = from.similarContent;
+        to.events = ImmutableList.copyOf(Iterables.transform(from.events, EventRef.COPY));
     }
 
     public void setReadHash(String readHash) {
