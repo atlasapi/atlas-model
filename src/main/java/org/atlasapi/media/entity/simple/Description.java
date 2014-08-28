@@ -68,6 +68,7 @@ public abstract class Description extends Aliased {
     private Set<Review> reviews = Sets.newHashSet();
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
+    private Set<Event> events = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -310,7 +311,15 @@ public abstract class Description extends Aliased {
     public void setSimilarContent(Iterable<ContentIdentifier> similarContent) {
         this.similarContent = Lists.newArrayList(similarContent);
     }
-
+    
+    public Set<Event> getEvents() {
+        return events;
+    }
+    
+    public void setEvents(Iterable<Event> events) {
+        this.events = Sets.newHashSet(events);
+    }
+    
     protected void copyTo(Description destination) {
         Preconditions.checkNotNull(destination);
 
@@ -347,6 +356,7 @@ public abstract class Description extends Aliased {
         }
         destination.setPeople(people);
         destination.setGenericDescription(getGenericDescription());
+        destination.setEvents(Iterables.transform(getEvents(), Event.COPY));
     }
 
     public boolean isScheduleOnly() {
