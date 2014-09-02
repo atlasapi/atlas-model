@@ -38,10 +38,14 @@ public class Broadcast extends Identified {
     private final DateTime transmissionTime;
 
     private final DateTime transmissionEndTime;
-
+    
     private final Integer broadcastDuration;
 
     private final String broadcastOn;
+    
+    private DateTime actualTransmissionTime;
+    
+    private DateTime actualTransmissionEndTime;
 
     private LocalDate scheduleDate;
     
@@ -121,10 +125,26 @@ public class Broadcast extends Identified {
     public String getBroadcastOn() {
         return broadcastOn;
     }
-
+    
     @RdfProperty(namespace = PO.NS, relation = false)
     public LocalDate getScheduleDate() {
         return scheduleDate;
+    }
+    
+    public DateTime getActualTransmissionTime() {
+        return actualTransmissionTime;
+    }
+    
+    public DateTime getActualTransmissionEndTime() {
+        return actualTransmissionEndTime;
+    }
+    
+    public void setActualTransmissionTime(DateTime transmissionTime) {
+        this.actualTransmissionTime = transmissionTime;
+    }
+    
+    public void setActualTransmissionEndTime(DateTime transmissionEndTime) {
+        this.actualTransmissionEndTime = transmissionTime;
     }
     
     public String getSourceId() {

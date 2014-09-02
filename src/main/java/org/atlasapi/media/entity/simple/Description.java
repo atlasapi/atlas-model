@@ -68,7 +68,7 @@ public abstract class Description extends Aliased {
     private Set<Review> reviews = Sets.newHashSet();
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
-    private List<Event> events = Lists.newArrayList();
+    private Set<Event> events = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -312,12 +312,12 @@ public abstract class Description extends Aliased {
         this.similarContent = Lists.newArrayList(similarContent);
     }
     
-    public List<Event> getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
     
     public void setEvents(Iterable<Event> events) {
-        this.events = Lists.newArrayList(events);
+        this.events = Sets.newHashSet(events);
     }
     
     protected void copyTo(Description destination) {
