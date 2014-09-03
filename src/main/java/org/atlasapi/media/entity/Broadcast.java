@@ -144,7 +144,7 @@ public class Broadcast extends Identified {
     }
     
     public void setActualTransmissionEndTime(DateTime transmissionEndTime) {
-        this.actualTransmissionEndTime = transmissionTime;
+        this.actualTransmissionEndTime = transmissionEndTime;
     }
     
     public String getSourceId() {
