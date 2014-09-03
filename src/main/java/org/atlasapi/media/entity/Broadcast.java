@@ -284,6 +284,8 @@ public class Broadcast extends Identified {
     public Broadcast copy() {
         Broadcast copy = new Broadcast(broadcastOn, transmissionTime, transmissionEndTime);
         Identified.copyTo(this, copy);
+        copy.actualTransmissionTime = actualTransmissionTime;
+        copy.actualTransmissionEndTime = actualTransmissionEndTime;
         copy.activelyPublished = activelyPublished;
         copy.sourceId = sourceId;
         copy.scheduleDate = scheduleDate;
