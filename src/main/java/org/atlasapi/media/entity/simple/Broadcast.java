@@ -28,6 +28,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Date transmissionTime;
 
     private Date transmissionEndTime;
+    
+    private DateTime actualTransmissionTime;
+    
+    private DateTime actualTransmissionEndTime;
 
     private Integer broadcastDuration;
 
@@ -94,7 +98,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public void setTransmissionEndTime(Date transmissionEndTime) {
 		this.transmissionEndTime = transmissionEndTime;
 	}
-
+	
+	public void setActualTransmissionTime(DateTime actualTransmissionTime) {
+	    this.actualTransmissionTime = actualTransmissionTime;
+	}
+	
+	public void setActualTransmissionEndTime(DateTime actualTransmissionEndTime) {
+	    this.actualTransmissionEndTime = actualTransmissionEndTime;
+	}
+	
 	public void setBroadcastDuration(Integer broadcastDuration) {
 		this.broadcastDuration = broadcastDuration;
 	}
@@ -118,7 +130,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public Date getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
-
+    
+	public DateTime getActualTransmissionTime() {
+        return actualTransmissionTime;
+    }
+    
+    public DateTime getActualTransmissionEndTime() {
+        return actualTransmissionEndTime;
+    }
+	   
 	public Integer getBroadcastDuration() {
 		return broadcastDuration;
 	}
@@ -281,6 +301,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         if (getTransmissionEndTime() != null) {
             copy.setTransmissionEndTime((Date) getTransmissionEndTime().clone());
         }
+        copy.setActualTransmissionTime(getActualTransmissionTime());
+        copy.setActualTransmissionEndTime(getActualTransmissionEndTime());
         copy.setBroadcastDuration(getBroadcastDuration());
         copy.setBroadcastOn(getBroadcastOn());
         copy.setScheduleDate(getScheduleDate());

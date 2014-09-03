@@ -43,6 +43,10 @@ public class Broadcast extends Identified {
 
     private final String broadcastOn;
 
+    private DateTime actualTransmissionTime;
+    
+    private DateTime actualTransmissionEndTime;
+    
     private LocalDate scheduleDate;
     
     private Boolean activelyPublished;
@@ -129,6 +133,22 @@ public class Broadcast extends Identified {
     
     public String getSourceId() {
         return sourceId;
+    }
+    
+    public void setActualTransmissionTime(DateTime actualTransmissionTime) {
+        this.actualTransmissionTime = actualTransmissionTime;
+    }
+    
+    public DateTime getActualTransmissionTime() {
+        return actualTransmissionTime;
+    }
+    
+    public void setActualTransmissionEndTime(DateTime actualTransmissionEndTime) {
+        this.actualTransmissionEndTime = actualTransmissionEndTime;
+    }
+    
+    public DateTime getActualTransmissionEndTime() {
+        return actualTransmissionEndTime;
     }
 
     public void setScheduleDate(LocalDate scheduleDate) {
@@ -264,6 +284,8 @@ public class Broadcast extends Identified {
     public Broadcast copy() {
         Broadcast copy = new Broadcast(broadcastOn, transmissionTime, transmissionEndTime);
         Identified.copyTo(this, copy);
+        copy.actualTransmissionTime = actualTransmissionTime;
+        copy.actualTransmissionEndTime = actualTransmissionEndTime;
         copy.activelyPublished = activelyPublished;
         copy.sourceId = sourceId;
         copy.scheduleDate = scheduleDate;
