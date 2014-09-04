@@ -169,6 +169,7 @@ public enum Publisher {
     GETTY("Getty", "gettyimages.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_EVENTS("BT Events", "events.bt.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     OPTA("Opta", "optasports.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BETTY("Betty", "betty.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
