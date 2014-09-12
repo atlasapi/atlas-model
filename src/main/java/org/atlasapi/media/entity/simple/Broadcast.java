@@ -17,6 +17,7 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -29,9 +30,9 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     private Date transmissionEndTime;
     
-    private DateTime actualTransmissionTime;
+    private Date actualTransmissionTime;
     
-    private DateTime actualTransmissionEndTime;
+    private Date actualTransmissionEndTime;
 
     private Integer broadcastDuration;
 
@@ -99,11 +100,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.transmissionEndTime = transmissionEndTime;
 	}
 	
-	public void setActualTransmissionTime(DateTime actualTransmissionTime) {
+	public void setActualTransmissionTime(Date actualTransmissionTime) {
 	    this.actualTransmissionTime = actualTransmissionTime;
 	}
 	
-	public void setActualTransmissionEndTime(DateTime actualTransmissionEndTime) {
+	public void setActualTransmissionEndTime(Date actualTransmissionEndTime) {
 	    this.actualTransmissionEndTime = actualTransmissionEndTime;
 	}
 	
@@ -131,11 +132,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		return transmissionEndTime;
 	}
     
-	public DateTime getActualTransmissionTime() {
+	public Date getActualTransmissionTime() {
         return actualTransmissionTime;
     }
     
-    public DateTime getActualTransmissionEndTime() {
+    public Date getActualTransmissionEndTime() {
         return actualTransmissionEndTime;
     }
 	   
@@ -325,14 +326,23 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
 	@Override
 	public int compareTo(Broadcast other) {
-		int startTimeComparison = transmissionTime.compareTo(other.transmissionTime);
-		if (startTimeComparison != 0) {
-			return startTimeComparison;
-		}
-		int durationComparison = broadcastDuration.compareTo(other.broadcastDuration);
-		if (durationComparison != 0) {
-			return durationComparison;
-		}
+        int startTimeComparison = transmissionTime.compareTo(other.transmissionTime);
+        if (startTimeComparison != 0) {
+            return startTimeComparison;
+        }
+        int durationComparison = broadcastDuration.compareTo(other.broadcastDuration);
+        if (durationComparison != 0) {
+            return durationComparison;
+        }
+        if (Strings.isNullOrEmpty(broadcastOn) && !Strings.isNullOrEmpty(other.broadcastOn)) {
+            return -1;
+        }
+        if (!Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
+            return 1;
+        }
+        if (Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
+            return 0;
+        }
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
 	
