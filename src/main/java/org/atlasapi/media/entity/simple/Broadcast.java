@@ -17,6 +17,7 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -332,6 +333,12 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		int durationComparison = broadcastDuration.compareTo(other.broadcastDuration);
 		if (durationComparison != 0) {
 			return durationComparison;
+		}
+		if (Strings.isNullOrEmpty(broadcastOn) && !Strings.isNullOrEmpty(other.broadcastOn)) {
+		    return -1 ;
+		}
+		if (!Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
+		    return 1;
 		}
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
