@@ -340,6 +340,9 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		if (!Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
 		    return 1;
 		}
+		if (Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
+		    return 0;
+		}
 		return broadcastOn.compareTo(other.broadcastOn);
 	}
 	
