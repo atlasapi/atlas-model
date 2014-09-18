@@ -46,7 +46,7 @@ public class Broadcast extends Identified {
     private DateTime actualTransmissionTime;
     
     private DateTime actualTransmissionEndTime;
-
+    
     private LocalDate scheduleDate;
     
     private Boolean activelyPublished;
@@ -150,7 +150,7 @@ public class Broadcast extends Identified {
     public String getSourceId() {
         return sourceId;
     }
-
+    
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }

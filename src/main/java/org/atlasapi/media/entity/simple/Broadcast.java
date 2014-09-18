@@ -30,9 +30,9 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     private Date transmissionEndTime;
     
-    private Date actualTransmissionTime;
+    private DateTime actualTransmissionTime;
     
-    private Date actualTransmissionEndTime;
+    private DateTime actualTransmissionEndTime;
 
     private Integer broadcastDuration;
 
@@ -100,23 +100,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.transmissionEndTime = transmissionEndTime;
 	}
 
-    public Date getActualTransmissionTime() {
-        return actualTransmissionTime;
-    }
-
-    public Date getActualTransmissionEndTime() {
-        return actualTransmissionEndTime;
-    }
-
-    public void setActualTransmissionTime(Date actualTransmissionTime) {
-        this.actualTransmissionTime = actualTransmissionTime;
-    }
-    
-    public void setActualTransmissionEndTime(Date actualTransmissionEndTime) {
-        this.actualTransmissionEndTime = actualTransmissionEndTime;
-    }
-
-    public void setBroadcastDuration(Integer broadcastDuration) {
+	public void setActualTransmissionTime(DateTime actualTransmissionTime) {
+	    this.actualTransmissionTime = actualTransmissionTime;
+	}
+	
+	public void setActualTransmissionEndTime(DateTime actualTransmissionEndTime) {
+	    this.actualTransmissionEndTime = actualTransmissionEndTime;
+	}
+	
+	public void setBroadcastDuration(Integer broadcastDuration) {
 		this.broadcastDuration = broadcastDuration;
 	}
 
@@ -139,7 +131,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public Date getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
-
+    
+	public DateTime getActualTransmissionTime() {
+        return actualTransmissionTime;
+    }
+    
+    public DateTime getActualTransmissionEndTime() {
+        return actualTransmissionEndTime;
+    }
+	   
 	public Integer getBroadcastDuration() {
 		return broadcastDuration;
 	}
