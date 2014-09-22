@@ -21,6 +21,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -332,21 +333,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	    return ComparisonChain.start()
 	            .compare(transmissionTime, other.transmissionTime)
 	            .compare(broadcastDuration, other.broadcastDuration)
-	            .compare(broadcastOn, other.broadcastOn, new Comparator<String>() {
-                    @Override
-                    public int compare(String ours, String theirs) {
-                        if (ours == null && theirs == null) {
-                            return 0;
-                        }
-                        if (ours == null) {
-                            return -1;
-                        }
-                        if (theirs == null) {
-                            return 1;
-                        }
-                        return ours.compareTo(theirs);
-                    }
-                }).result();
+	            .compare(broadcastOn, other.broadcastOn, Ordering.natural().nullsFirst())
+                .result();
 	}
 	
     public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
