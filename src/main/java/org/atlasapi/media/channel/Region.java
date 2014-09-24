@@ -17,7 +17,7 @@ public class Region extends ChannelGroup {
     }
 
     @Override
-    ChannelGroup copy() {
+    public ChannelGroup copy() {
         Region region = new Region();
         
         copyTo(this, region);

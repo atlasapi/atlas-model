@@ -32,7 +32,7 @@ public class Platform extends ChannelGroup {
     }
 
     @Override
-    ChannelGroup copy() {
+    public ChannelGroup copy() {
         Platform platform = new Platform();
         
         copyTo(this, platform);
