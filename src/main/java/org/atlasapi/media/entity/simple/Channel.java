@@ -17,6 +17,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
@@ -44,6 +45,7 @@ public class Channel extends Aliased {
     private List<HistoricalChannelEntry> history;
     private Date startDate;
     private Date endDate;
+    private Set<String> genres = Sets.newHashSet();
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
@@ -223,5 +225,13 @@ public class Channel extends Aliased {
         if (endDate != null) {
             this.startDate = endDate.toDate();
         }
+    }
+    
+    public Set<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Iterable<String> genres) {
+        this.genres = Sets.newHashSet(genres);
     }
 }

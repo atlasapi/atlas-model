@@ -18,6 +18,8 @@ public abstract class ChannelGroup extends Identified {
     private Set<TemporalField<String>> titles = Sets.newHashSet();
     private Set<Country> availableCountries = Sets.newHashSet();
     private Set<ChannelNumbering> channelNumberings = ImmutableSet.of();
+    
+    public abstract ChannelGroup copy();
 
     public Publisher getPublisher() {
         return publisher;
@@ -109,5 +111,12 @@ public abstract class ChannelGroup extends Identified {
     
     public void addChannelNumbering(ChannelNumbering channelNumbering) {
         this.channelNumberings = ImmutableSet.<ChannelNumbering>builder().addAll(channelNumberings).add(channelNumbering).build();
+    }
+    
+    public static void copyTo(ChannelGroup from, ChannelGroup to) {
+        to.publisher = from.publisher;
+        to.titles = Sets.newHashSet(from.titles);
+        to.availableCountries = Sets.newHashSet(from.availableCountries);
+        to.channelNumberings = ImmutableSet.copyOf(from.channelNumberings);
     }
 }

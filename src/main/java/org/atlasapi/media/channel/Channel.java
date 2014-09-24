@@ -52,6 +52,7 @@ public class Channel extends Identified {
         private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
         private LocalDate startDate;
         private LocalDate endDate;
+        private Set<String> genres = Sets.newHashSet();
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -188,8 +189,20 @@ public class Channel extends Identified {
             return this;
         }
         
+        public Builder addGenre(String genre) {
+            this.genres.add(genre);
+            return this;
+        }
+        
+        public Builder withGenres(Iterable<String> genres) {
+            this.genres = Sets.newHashSet(genres);
+            return this;
+        }
+        
         public Channel build() {
-            return new Channel(source, titles, images, relatedLinks, key, highDefinition, regional, adult, timeshift, mediaType, uri, broadcaster, availableFrom, variations, parent, channelNumbers, startDate, endDate);
+            return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
+                    regional, adult, timeshift, mediaType, uri, broadcaster, availableFrom, 
+                    variations, parent, channelNumbers, startDate, endDate, genres);
         }
     }
     
@@ -211,16 +224,24 @@ public class Channel extends Identified {
     private Set<ChannelNumbering> channelNumbers = Sets.newHashSet();
     private LocalDate startDate;
     private LocalDate endDate;
+    private ImmutableSet<String> genres = ImmutableSet.of();
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null);
+        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
+                ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, 
+                ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null, 
+                ImmutableSet.<String>of());
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
     
-    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, LocalDate endDate) {
+    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, 
+            Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, 
+            Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, 
+            Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
+            LocalDate endDate, Iterable<String> genres) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -239,6 +260,7 @@ public class Channel extends Identified {
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
         this.variations = Sets.newHashSet(variations);
         this.channelNumbers = Sets.newHashSet(channelNumbers);
+        this.genres = ImmutableSet.copyOf(genres);
     }
     
     public String getUri() {
@@ -347,6 +369,10 @@ public class Channel extends Identified {
         return endDate;
     }
     
+    public Set<String> getGenres() {
+        return this.genres;
+    }
+    
     public void setSource(Publisher source) {
         this.source = source;
     }
@@ -444,6 +470,10 @@ public class Channel extends Identified {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+    
+    public void setGenres(Iterable<String> genres) {
+        this.genres = ImmutableSet.copyOf(genres);
     }
     
     public void addChannelNumber(ChannelGroup channelGroup, String channelNumber, LocalDate startDate, LocalDate endDate) {
