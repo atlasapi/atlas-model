@@ -17,7 +17,8 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
+import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
@@ -99,7 +100,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public void setTransmissionEndTime(Date transmissionEndTime) {
 		this.transmissionEndTime = transmissionEndTime;
 	}
-
+	
 	public void setActualTransmissionTime(Date actualTransmissionTime) {
 	    this.actualTransmissionTime = actualTransmissionTime;
 	}
@@ -326,24 +327,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
 	@Override
 	public int compareTo(Broadcast other) {
-		int startTimeComparison = transmissionTime.compareTo(other.transmissionTime);
-		if (startTimeComparison != 0) {
-			return startTimeComparison;
-		}
-		int durationComparison = broadcastDuration.compareTo(other.broadcastDuration);
-		if (durationComparison != 0) {
-			return durationComparison;
-		}
-		if (Strings.isNullOrEmpty(broadcastOn) && !Strings.isNullOrEmpty(other.broadcastOn)) {
-		    return -1 ;
-		}
-		if (!Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
-		    return 1;
-		}
-		if (Strings.isNullOrEmpty(broadcastOn) && Strings.isNullOrEmpty(other.broadcastOn)) {
-		    return 0;
-		}
-		return broadcastOn.compareTo(other.broadcastOn);
+	    return ComparisonChain.start()
+	            .compare(transmissionTime, other.transmissionTime)
+	            .compare(broadcastDuration, other.broadcastDuration)
+	            .compare(broadcastOn, other.broadcastOn, Ordering.natural().nullsFirst())
+                .result();
 	}
 	
     public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
