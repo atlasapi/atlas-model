@@ -189,7 +189,7 @@ public class Channel extends Identified {
             return this;
         }
         
-        public Builder withGenre(String genre) {
+        public Builder addGenre(String genre) {
             this.genres.add(genre);
             return this;
         }
