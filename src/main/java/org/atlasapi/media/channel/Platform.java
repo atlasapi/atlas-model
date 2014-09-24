@@ -30,4 +30,14 @@ public class Platform extends ChannelGroup {
     public Set<Long> getRegions() {
         return ImmutableSet.copyOf(regions);
     }
+
+    @Override
+    public ChannelGroup copy() {
+        Platform platform = new Platform();
+        
+        copyTo(this, platform);
+        platform.regions = Sets.newHashSet(this.regions);
+        
+        return platform;
+    }
 }
