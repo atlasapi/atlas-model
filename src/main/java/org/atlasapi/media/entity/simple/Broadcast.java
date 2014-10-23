@@ -18,6 +18,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
@@ -25,7 +26,8 @@ import com.google.common.collect.Sets;
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
 public class Broadcast extends Version implements Comparable<Broadcast> {
 	
-    private static final String TEST_CHANNEL_FOR_BLACKOUT_FLAG = "http://ref.atlasapi.org/channels/nickjr";
+    private static final Set<String> TEST_CHANNELS_FOR_BLACKOUT_FLAG = 
+            ImmutableSet.of("http://ref.atlasapi.org/channels/nickjr", "http://ref.atlasapi.org/channels/cartoonito");
     
     private Date transmissionTime;
 
@@ -82,7 +84,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
 		this.id = id;
 		
-		boolean blackoutRestrction = TEST_CHANNEL_FOR_BLACKOUT_FLAG.equals(broadcastOn)
+		boolean blackoutRestrction = TEST_CHANNELS_FOR_BLACKOUT_FLAG.contains(broadcastOn)
 		                                && transmissionTime != null
 		                                && transmissionTime.getHourOfDay() % 2 == 0;
 		                                
