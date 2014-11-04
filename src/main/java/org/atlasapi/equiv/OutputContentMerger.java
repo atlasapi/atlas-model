@@ -394,6 +394,9 @@ public class OutputContentMerger {
         if (chosen.getPremiere() == null && toMerge.getPremiere() != null) {
             chosen.setPremiere(toMerge.getPremiere());
         }
+        if (chosen.getBlackoutRestriction() == null && toMerge.getBlackoutRestriction() != null) {
+            chosen.setBlackoutRestriction(toMerge.getBlackoutRestriction());
+        }
     }
     
     private static final Predicate<Described> HAS_AVAILABLE_IMAGE_SET = new Predicate<Described>() {
