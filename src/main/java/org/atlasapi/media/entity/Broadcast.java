@@ -14,6 +14,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import javax.annotation.Nullable;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
@@ -74,6 +76,8 @@ public class Broadcast extends Identified {
     private Boolean newEpisode;
     
     private Boolean premiere;
+    
+    private BlackoutRestriction blackoutRestriction;
     
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
@@ -254,6 +258,14 @@ public class Broadcast extends Identified {
     
     public Boolean getNewEpisode() {
         return newEpisode;
+    }
+    
+    public BlackoutRestriction getBlackoutRestriction() {
+        return blackoutRestriction;
+    }
+    
+    public void setBlackoutRestriction(BlackoutRestriction blackoutRestriction) {
+        this.blackoutRestriction = blackoutRestriction;
     }
     
     @Override
