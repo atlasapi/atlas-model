@@ -1,6 +1,5 @@
 package org.atlasapi.media.entity.simple;
 
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,11 +14,9 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
-import com.fasterxml.jackson.databind.util.Comparators;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
@@ -29,9 +26,6 @@ import com.google.common.collect.Sets;
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
 public class Broadcast extends Version implements Comparable<Broadcast> {
 	
-    private static final Set<String> TEST_CHANNELS_FOR_BLACKOUT_FLAG = 
-            ImmutableSet.of("http://ref.atlasapi.org/channels/nickjr", "http://ref.atlasapi.org/channels/cartoonito");
-    
     private Date transmissionTime;
 
     private Date transmissionEndTime;
@@ -77,21 +71,16 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
-        this(broadcastOn, transmissionTime, transmissionEndTime, null);
+        this(broadcastOn, transmissionTime, transmissionEndTime, null, null);
     }
 
-    public Broadcast(String broadcastOn, DateTime transmissionTime, DateTime transmissionEndTime, String id) {
+    public Broadcast(String broadcastOn, DateTime transmissionTime, DateTime transmissionEndTime, String id, BlackoutRestriction blackoutRestriction) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime.toDate();
 		this.transmissionEndTime = transmissionEndTime.toDate();
 		this.broadcastDuration = (int) new Duration(transmissionTime, transmissionEndTime).getStandardSeconds();
 		this.id = id;
-		
-		boolean blackoutRestrction = TEST_CHANNELS_FOR_BLACKOUT_FLAG.contains(broadcastOn)
-		                                && transmissionTime != null
-		                                && transmissionTime.getHourOfDay() % 2 == 0;
-		                                
-		this.blackoutRestriction = new BlackoutRestriction(blackoutRestrction);
+		this.blackoutRestriction = blackoutRestriction;
 	}
     
     public Broadcast() {
