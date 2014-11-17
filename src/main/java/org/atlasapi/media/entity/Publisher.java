@@ -164,6 +164,7 @@ public enum Publisher {
     RTE("RTE", "rte.ie", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BARNEY("barney", "barney.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_AUDIENCE_STATS("BBC Audience Stats", "stats.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    KM_BBC_WORLDWIDE("KnowledgeMotion BBC Worldwide", "bbc.knowledgemotion.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     KM_BLOOMBERG("KnowledgeMotion Bloomberg", "bloomberg.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     KM_GLOBALIMAGEWORKS("KnowledgeMotion GlobalImageworks", "globalimageworks.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     GETTY("Getty", "gettyimages.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
