@@ -36,7 +36,7 @@ public class Segment extends Description {
     }
 
     @Override
-    public Description copy() {
+    public Segment copy() {
         Segment copy = new Segment();
         this.copyTo(copy);
         copy.setDescription(this.getDescription());
