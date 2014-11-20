@@ -15,8 +15,8 @@ public class SegmentRef {
     
     private final String identifier;
 
-    public SegmentRef(String identifier) {
-        this.identifier = checkNotNull(identifier);
+    public SegmentRef(String segmentId) {
+        this.identifier = checkNotNull(segmentId);
     }
 
     public String identifier() {

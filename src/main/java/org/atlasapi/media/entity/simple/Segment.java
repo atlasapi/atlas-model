@@ -1,6 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
-public class Segment extends Identified {
+
+public class Segment extends Description {
 
     private String title;
 
@@ -12,6 +13,7 @@ public class Segment extends Identified {
     public String getTitle() {
         return this.title;
     }
+
 
     public String getDescription() {
         return this.description;
@@ -31,6 +33,17 @@ public class Segment extends Identified {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Segment copy() {
+        Segment copy = new Segment();
+        this.copyTo(copy);
+        copy.setDescription(this.getDescription());
+        copy.setDuration(this.getDuration());
+        copy.setTitle(this.title);
+        copy.setSegmentType(this.segmentType);
+        return copy;
     }
 
     public void setSegmentType(String type) {
