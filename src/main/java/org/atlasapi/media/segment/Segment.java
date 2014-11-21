@@ -16,7 +16,7 @@ public class Segment extends Described {
     private Publisher publisher;
 
     public SegmentRef toRef() {
-        return new SegmentRef(checkNotNull(this.getId().toString(),
+        return new SegmentRef(checkNotNull(this.getId(),
                 "Can't create reference for segment without ID"));
     }
 
