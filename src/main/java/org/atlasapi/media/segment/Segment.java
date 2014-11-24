@@ -46,13 +46,12 @@ public class Segment extends Described {
 
     @Override
     public Described copy() {
-        Segment copy = (Segment) this.copy();
+        Segment copy = new Segment();
         copy.setType(this.type);
         copy.setDuration(this.duration);
         copy.setPublisher(this.publisher);
         return copy;
     }
-
 
     public static final Function<Segment, SegmentRef> TO_REF = new Function<Segment, SegmentRef>() {
 
