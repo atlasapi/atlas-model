@@ -6,21 +6,21 @@ import com.google.common.base.Function;
 
 public class SegmentRef {
     
-    public static final Function<SegmentRef, String> TO_ID = new Function<SegmentRef, String>(){
+    public static final Function<SegmentRef, Long> TO_ID = new Function<SegmentRef, Long>(){
         @Override
-        public String apply(SegmentRef input) {
+        public Long apply(SegmentRef input) {
             return input.identifier();
         }
     };
     
-    private final String identifier;
+    private final Long segmentId;
 
-    public SegmentRef(String identifier) {
-        this.identifier = checkNotNull(identifier);
+    public SegmentRef(Long segmentId) {
+        this.segmentId = checkNotNull(segmentId);
     }
 
-    public String identifier() {
-        return identifier;
+    public Long identifier() {
+        return segmentId;
     }
     
     @Override
@@ -30,18 +30,18 @@ public class SegmentRef {
         }
         if (that instanceof SegmentRef) {
             SegmentRef other = (SegmentRef) that;
-            return other.identifier.equals(this.identifier);
+            return other.segmentId.equals(this.segmentId);
         }
         return false;
     }
     
     @Override
     public int hashCode() {
-        return identifier.hashCode();
+        return segmentId.hashCode();
     }
     
     @Override
     public String toString() {
-        return String.format("SegRef %s", identifier);
+        return String.format("SegRef %s", segmentId);
     }
 }
