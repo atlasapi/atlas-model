@@ -74,6 +74,8 @@ public class Encoding extends Identified {
     
     private Integer videoVerticalSize;
 
+    private Boolean audioDescribed;
+
     @RdfProperty(relation = true)
     public Set<Location> getAvailableAt() { 
         return this.availableAt; 
@@ -203,6 +205,11 @@ public class Encoding extends Identified {
         return this.videoVerticalSize;
     }
 
+    @RdfProperty
+    public Boolean getAudioDescribed() {
+        return this.audioDescribed;
+    }
+
     public void setAdvertisingDuration(Integer advertisingDuration) {
         this.advertisingDuration = advertisingDuration;
     }
@@ -273,6 +280,10 @@ public class Encoding extends Identified {
 
     public void setVideoVerticalSize(Integer videoVerticalSize) {
         this.videoVerticalSize = videoVerticalSize;
+    }
+
+    public void setAudioDescribed(Boolean audioDescribed) {
+        this.audioDescribed = audioDescribed;
     }
 
 	public boolean hasVideoCoding(MimeType... mimeTypes) {
@@ -359,6 +370,7 @@ public class Encoding extends Identified {
 	    copy.videoHorizontalSize = videoHorizontalSize;
 	    copy.videoProgressiveScan = videoProgressiveScan;
 	    copy.videoVerticalSize = videoVerticalSize;
+        copy.audioDescribed = audioDescribed;
 	    return copy;
 	}
 	
