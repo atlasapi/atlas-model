@@ -174,6 +174,7 @@ public enum Publisher {
     BETTY("Betty", "betty.metabroadcast.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_BLACKOUT("BT Blackout", "blackout.bt.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     SCRUBBABLES("BBC Scrubbables", "scrubbables.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    SCRUBBABLES_PRODUCER("BBC Scrubbables Producer", "scrubbables-producer.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
