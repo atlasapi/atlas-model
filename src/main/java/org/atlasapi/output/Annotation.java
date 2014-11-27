@@ -54,7 +54,7 @@ public enum Annotation {
     RATINGS,
     EVENTS,
     CONTENT,
-    STATUS_DETAIL,
+    REMOTE_RESPONSES,
     ;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
