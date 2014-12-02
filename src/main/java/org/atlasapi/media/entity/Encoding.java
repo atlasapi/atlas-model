@@ -76,6 +76,8 @@ public class Encoding extends Identified {
 
     private Boolean audioDescribed;
 
+    private Boolean signed;
+
     @RdfProperty(relation = true)
     public Set<Location> getAvailableAt() { 
         return this.availableAt; 
@@ -210,6 +212,11 @@ public class Encoding extends Identified {
         return this.audioDescribed;
     }
 
+    @RdfProperty
+    public Boolean getSigned() {
+        return this.signed;
+    }
+
     public void setAdvertisingDuration(Integer advertisingDuration) {
         this.advertisingDuration = advertisingDuration;
     }
@@ -284,6 +291,10 @@ public class Encoding extends Identified {
 
     public void setAudioDescribed(Boolean audioDescribed) {
         this.audioDescribed = audioDescribed;
+    }
+
+    public void setSigned(Boolean signed) {
+        this.signed = signed;
     }
 
 	public boolean hasVideoCoding(MimeType... mimeTypes) {
@@ -371,6 +382,7 @@ public class Encoding extends Identified {
 	    copy.videoProgressiveScan = videoProgressiveScan;
 	    copy.videoVerticalSize = videoVerticalSize;
         copy.audioDescribed = audioDescribed;
+        copy.signed = signed;
 	    return copy;
 	}
 	
