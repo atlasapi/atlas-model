@@ -64,7 +64,7 @@ public enum Publisher {
     BT("BT", "bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_FEATURED_CONTENT("BT Featured Content", "featured.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_VOD("BT VOD Catalogue", "vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    BT_TV_CHANNELS("BT TV Channels", "tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_TV_CHANNELS("BT TV Channels", "tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, true),
     BT_TV_CHANNELS_TEST1("BT TV Channels Test Env 1", "dev1.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_TEST2("BT TV Channels Test Env 2", "dev2.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_REFERENCE("BT TV Channels Dev Reference Env", "dev3.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
