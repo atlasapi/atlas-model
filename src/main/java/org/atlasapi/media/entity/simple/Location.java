@@ -56,6 +56,8 @@ public class Location extends Version {
     private Integer videoHorizontalSize;
     private Boolean videoProgressiveScan;
     private Integer videoVerticalSize;
+    private Boolean audioDescribed;
+    private Boolean signed;
 
     private Date actualAvailabilityStart;
     private Date availabilityStart;
@@ -258,6 +260,22 @@ public class Location extends Version {
 
     public void setVideoProgressiveScan(Boolean videoProgressiveScan) {
         this.videoProgressiveScan = videoProgressiveScan;
+    }
+
+    public Boolean getAudioDescribed() {
+        return audioDescribed;
+    }
+
+    public void setAudioDescribed(Boolean audioDescribed) {
+        this.audioDescribed = audioDescribed;
+    }
+
+    public Boolean getSigned() {
+        return signed;
+    }
+
+    public void setSigned(Boolean signed) {
+        this.signed = signed;
     }
 
     public Integer getVideoVerticalSize() {
