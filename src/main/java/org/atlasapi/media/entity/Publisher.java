@@ -171,6 +171,7 @@ public enum Publisher {
     KM_BBC_WORLDWIDE("KnowledgeMotion BBC Worldwide", "bbc.knowledgemotion.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     KM_BLOOMBERG("KnowledgeMotion Bloomberg", "bloomberg.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     KM_GLOBALIMAGEWORKS("KnowledgeMotion GlobalImageworks", "globalimageworks.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    KM_MOVIETONE("KnowledgeMotion Movietone", "movietone.knowledgemotion.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     GETTY("Getty", "gettyimages.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_EVENTS("BT Events", "events.bt.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     OPTA("Opta", "optasports.com", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
