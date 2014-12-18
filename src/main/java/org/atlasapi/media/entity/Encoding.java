@@ -358,35 +358,35 @@ public class Encoding extends Identified {
 		setVideoCoding(videoCoding);
 		return this;
 	}
-	
-	public Encoding copy() {
-	    Encoding copy = new Encoding();
-	    Identified.copyTo(this, copy);
-	    copy.advertisingDuration = advertisingDuration;
-	    copy.audioBitRate = audioBitRate;
-	    copy.audioChannels = audioChannels;
-	    copy.audioCoding = audioCoding;
-	    copy.availableAt = Sets.newHashSet(Iterables.transform(availableAt, Location.COPY));
-	    copy.bitRate = bitRate;
-	    copy.containsAdvertising = containsAdvertising;
-	    copy.dataContainerFormat = dataContainerFormat;
-	    copy.dataSize = dataSize;
-	    copy.distributor = distributor;
-	    copy.hasDOG = hasDOG;
-	    copy.source = source;
-	    copy.videoAspectRatio = videoAspectRatio;
-	    copy.videoBitRate = videoBitRate;
-	    copy.videoCoding = videoCoding;
-	    copy.videoFrameRate = videoFrameRate;
-	    copy.videoHorizontalSize = videoHorizontalSize;
-	    copy.videoProgressiveScan = videoProgressiveScan;
-	    copy.videoVerticalSize = videoVerticalSize;
+
+    public Encoding copy() {
+        Encoding copy = new Encoding();
+        Identified.copyTo(this, copy);
+        copy.advertisingDuration = advertisingDuration;
+        copy.audioBitRate = audioBitRate;
+        copy.audioChannels = audioChannels;
+        copy.audioCoding = audioCoding;
+        copy.availableAt = Sets.newHashSet(Iterables.transform(availableAt, Location.COPY));
+        copy.bitRate = bitRate;
+        copy.containsAdvertising = containsAdvertising;
+        copy.dataContainerFormat = dataContainerFormat;
+        copy.dataSize = dataSize;
+        copy.distributor = distributor;
+        copy.hasDOG = hasDOG;
+        copy.source = source;
+        copy.videoAspectRatio = videoAspectRatio;
+        copy.videoBitRate = videoBitRate;
+        copy.videoCoding = videoCoding;
+        copy.videoFrameRate = videoFrameRate;
+        copy.videoHorizontalSize = videoHorizontalSize;
+        copy.videoProgressiveScan = videoProgressiveScan;
+        copy.videoVerticalSize = videoVerticalSize;
         copy.audioDescribed = audioDescribed;
         copy.signed = signed;
-	    return copy;
-	}
-	
-	public static final Function<Encoding, Encoding> COPY = new Function<Encoding, Encoding>() {
+        return copy;
+    }
+
+    public static final Function<Encoding, Encoding> COPY = new Function<Encoding, Encoding>() {
         @Override
         public Encoding apply(Encoding input) {
             return input.copy();
