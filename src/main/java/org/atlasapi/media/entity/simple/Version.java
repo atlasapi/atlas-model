@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.simple;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
@@ -17,6 +18,8 @@ public abstract class Version {
 	private Boolean is3d;
 	private Set<Alias> aliases = Sets.newHashSet();
 	
+  @XmlElementWrapper(name="aliases")
+  @XmlElement(name="alias")
 	public Set<Alias> getAliases() {
 	    return aliases;
 	}
