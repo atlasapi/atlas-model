@@ -18,13 +18,13 @@ public abstract class Version {
 	private Boolean is3d;
 	private Set<Alias> aliases = Sets.newHashSet();
 	
-  @XmlElementWrapper(name="aliases")
-  @XmlElement(name="alias")
-	public Set<Alias> getAliases() {
+    @XmlElementWrapper(name="v4aliases")
+    @XmlElement(name="alias")
+	public Set<Alias> getV4Aliases() {
 	    return aliases;
 	}
 	
-	public void setAliases(Iterable<Alias> aliases) {
+	public void setV4Aliases(Iterable<Alias> aliases) {
 	    this.aliases = ImmutableSet.copyOf(aliases);
 	}
 
@@ -70,6 +70,10 @@ public abstract class Version {
 	        destination.setRestriction(getRestriction().copy());
 	    }
 	    destination.set3d(is3d());
+<<<<<<< HEAD
 	    destination.setAliases(getAliases());
+=======
+	    destination.setV4Aliases(getV4Aliases());
+>>>>>>> alias-on-version
 	}
 }
