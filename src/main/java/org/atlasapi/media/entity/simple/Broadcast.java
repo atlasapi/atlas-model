@@ -67,6 +67,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Channel channel;
     
     private BlackoutRestriction blackoutRestriction;
+    
+    private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null, null);
@@ -245,6 +247,16 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         this.newEpisode = newEpisode;
     }
     
+    public void setAliases(Set<String> aliases) {
+        this.aliases = aliases;
+    }
+    
+    @XmlElementWrapper(name="aliases")
+    @XmlElement(name="alias")
+    public Set<String> getAliases() {
+        return aliases;
+    }
+
     public BlackoutRestriction getBlackoutRestriction() {
         return blackoutRestriction;
     }
@@ -299,6 +311,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setWidescreen(getWidescreen());
         copy.setSurround(getSurround());
         copy.setLive(getLive());
+        copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
         copy.setBlackoutRestriction(getBlackoutRestriction());
