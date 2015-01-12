@@ -70,10 +70,6 @@ public abstract class Version {
 	        destination.setRestriction(getRestriction().copy());
 	    }
 	    destination.set3d(is3d());
-<<<<<<< HEAD
-	    destination.setAliases(getAliases());
-=======
 	    destination.setV4Aliases(getV4Aliases());
->>>>>>> alias-on-version
 	}
 }
