@@ -16,16 +16,16 @@ public abstract class Version {
 	private Integer publishedDuration;
 	private Restriction restriction;
 	private Boolean is3d;
-	private Set<Alias> aliases = Sets.newHashSet();
+	private Set<Alias> v4Aliases = Sets.newHashSet();
 	
     @XmlElementWrapper(name="v4aliases")
     @XmlElement(name="alias")
 	public Set<Alias> getV4Aliases() {
-	    return aliases;
+	    return v4Aliases;
 	}
 	
 	public void setV4Aliases(Iterable<Alias> aliases) {
-	    this.aliases = ImmutableSet.copyOf(aliases);
+	    this.v4Aliases = ImmutableSet.copyOf(aliases);
 	}
 
 	public Integer getDuration() {
