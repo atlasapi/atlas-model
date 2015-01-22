@@ -96,6 +96,11 @@ public class ComplexItemTestDataBuilder {
         return this;
     }
     
+    public ComplexItemTestDataBuilder withPublisher(Publisher publisher) {
+        this.publisher = publisher;
+        return this;
+    }
+    
     public ComplexItemTestDataBuilder withTitle(String title) {
         this.title = title;
         return this;
