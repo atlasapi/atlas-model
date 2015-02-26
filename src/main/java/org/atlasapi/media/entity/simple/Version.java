@@ -1,8 +1,13 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Set;
+
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 
 public abstract class Version {
@@ -11,6 +16,17 @@ public abstract class Version {
 	private Integer publishedDuration;
 	private Restriction restriction;
 	private Boolean is3d;
+	private Set<Alias> v4Aliases = Sets.newHashSet();
+	
+    @XmlElementWrapper(name="v4aliases")
+    @XmlElement(name="alias")
+	public Set<Alias> getV4Aliases() {
+	    return v4Aliases;
+	}
+	
+	public void setV4Aliases(Iterable<Alias> aliases) {
+	    this.v4Aliases = ImmutableSet.copyOf(aliases);
+	}
 
 	public Integer getDuration() {
 		return duration;
@@ -54,5 +70,6 @@ public abstract class Version {
 	        destination.setRestriction(getRestriction().copy());
 	    }
 	    destination.set3d(is3d());
+	    destination.setV4Aliases(getV4Aliases());
 	}
 }
