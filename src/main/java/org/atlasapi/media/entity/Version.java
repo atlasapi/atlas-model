@@ -107,7 +107,11 @@ public class Version extends Identified {
     }
  
     public void setDuration(Duration duration) {
-		this.duration = (int) checkNotNull(duration).getStandardSeconds();
+    	if (duration != null) {
+            this.duration = (int) duration.getStandardSeconds();
+        } else {
+            this.duration = null;
+        }
 	}
 
 	public void setRestriction(Restriction restriction) {
