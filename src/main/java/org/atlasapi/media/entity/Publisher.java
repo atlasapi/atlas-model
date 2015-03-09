@@ -180,7 +180,8 @@ public enum Publisher {
     SCRUBBABLES("BBC Scrubbables", "scrubbables.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     SCRUBBABLES_PRODUCER("BBC Scrubbables Producer", "scrubbables-producer.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     NONAME_TV("NoNameTV", "nonametv", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    THETVDB("TheTVDB.com", "thetvdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false)
+    THETVDB("TheTVDB.com", "thetvdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
+    ITV_INTERLINKING("ITV Interlinking", "interlinking.itv.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
