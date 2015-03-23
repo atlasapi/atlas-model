@@ -36,6 +36,7 @@ public abstract class Content extends Described {
     private Integer year = null;
     private Boolean genericDescription;
     private ImmutableList<EventRef> events = ImmutableList.of();
+    private TermsOfUse termsOfUse;
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -214,4 +215,12 @@ public abstract class Content extends Described {
             return input.getClips();
         }
     };
+
+    public TermsOfUse getTermsOfUse() {
+        return termsOfUse;
+    }
+
+    public void setTermsOfUse(TermsOfUse termsOfUse) {
+        this.termsOfUse = termsOfUse;
+    }
 }
