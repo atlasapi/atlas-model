@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.entity.TermsOfUse;
 import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
@@ -69,6 +70,7 @@ public abstract class Description extends Aliased {
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
     private Set<Event> events = Sets.newHashSet();
+    private TermsOfUse termsOfUse;
 
     public Description(String uri) {
         super(uri);
@@ -487,5 +489,13 @@ public abstract class Description extends Aliased {
     
     public void setRatings(Iterable<Rating> ratings) {
         this.ratings = Sets.newHashSet(ratings);
+    }
+
+    public TermsOfUse getTermsOfUse() {
+        return termsOfUse;
+    }
+
+    public void setTermsOfUse(TermsOfUse termsOfUse) {
+        this.termsOfUse = termsOfUse;
     }
 }

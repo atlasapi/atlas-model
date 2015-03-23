@@ -10,7 +10,7 @@ import com.metabroadcast.common.net.IpRange;
 public class ApplicationCredentials {
 
 	private final String apiKey;
-	private final Set<IpRange> ipAddresses ;
+	private final Set<IpRange> ipAddresses;
 	
 	public ApplicationCredentials(String apiKey, Set<IpRange> ipAddresses) {
         this.apiKey = checkNotNull(apiKey);
