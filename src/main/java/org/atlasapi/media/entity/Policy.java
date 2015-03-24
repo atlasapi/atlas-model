@@ -52,7 +52,7 @@ public class Policy extends Identified {
 	
 	private DateTime actualAvailabilityStart;
 
-    private TermsOfUse termsOfUse;
+    private String termsOfUse;
 
     @RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
     public Set<Country> getAvailableCountries() {
@@ -210,11 +210,11 @@ public class Policy extends Identified {
 		return this;
 	}
 
-    public TermsOfUse getTermsOfUse() {
+    public String getTermsOfUse() {
         return termsOfUse;
     }
 
-    public void setTermsOfUse(TermsOfUse termsOfUse) {
+    public void setTermsOfUse(String termsOfUse) {
         this.termsOfUse = termsOfUse;
     }
 
