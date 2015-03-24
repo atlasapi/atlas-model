@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.media.entity.TermsOfUse;
 import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
