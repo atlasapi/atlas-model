@@ -70,7 +70,6 @@ public abstract class Description extends Aliased {
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
     private Set<Event> events = Sets.newHashSet();
-    private TermsOfUse termsOfUse;
 
     public Description(String uri) {
         super(uri);
@@ -491,11 +490,4 @@ public abstract class Description extends Aliased {
         this.ratings = Sets.newHashSet(ratings);
     }
 
-    public TermsOfUse getTermsOfUse() {
-        return termsOfUse;
-    }
-
-    public void setTermsOfUse(TermsOfUse termsOfUse) {
-        this.termsOfUse = termsOfUse;
-    }
 }

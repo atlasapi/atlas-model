@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.TransportType;
+import org.atlasapi.media.entity.TermsOfUse;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTime;
 
@@ -83,6 +84,8 @@ public class Location extends Version {
     
 
     private Boolean available;
+
+    private TermsOfUse termsOfUse;
 
     public String getUri() {
         return uri;
@@ -542,5 +545,12 @@ public class Location extends Version {
             return input.copy();
         }
     };
-    
+
+    public TermsOfUse getTermsOfUse() {
+        return termsOfUse;
+    }
+
+    public void setTermsOfUse(TermsOfUse termsOfUse) {
+        this.termsOfUse = termsOfUse;
+    }
 }
