@@ -27,6 +27,7 @@ import org.atlasapi.media.vocabulary.PO;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -46,6 +47,7 @@ public class Item extends Content {
     private Boolean blackAndWhite;
     private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private String sortKey;
+    private Set<ReleaseDate> releaseDates = ImmutableSet.of();
 
     public Item(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -187,7 +189,9 @@ public class Item extends Content {
     }
 
     public static void copyTo(Item from, Item to) {
-        copyToWithVersions(from, to, Sets.newHashSet(Iterables.transform(from.versions, Version.COPY)));
+        copyToWithVersions(from,
+            to,
+            Sets.newHashSet(Iterables.transform(from.versions, Version.COPY)));
     }
 
     public static void copyToWithVersions(Item from, Item to, Set<Version> versions) {
@@ -199,6 +203,7 @@ public class Item extends Content {
         to.versions = versions;
         to.blackAndWhite = from.blackAndWhite;
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
+        to.releaseDates = from.releaseDates;
     }
 
     public Item withSortKey(String sortKey) {
@@ -208,6 +213,14 @@ public class Item extends Content {
 
     public String sortKey() {
         return sortKey;
+    }
+
+    public Set<ReleaseDate> getReleaseDates() {
+        return releaseDates;
+    }
+
+    public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
+        this.releaseDates = ImmutableSet.copyOf(releaseDates);
     }
 
     public boolean isChild() {
