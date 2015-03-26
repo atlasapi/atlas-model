@@ -203,6 +203,7 @@ public class Item extends Content {
         to.versions = versions;
         to.blackAndWhite = from.blackAndWhite;
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
+        to.releaseDates = from.releaseDates;
     }
 
     public Item withSortKey(String sortKey) {
