@@ -488,4 +488,5 @@ public abstract class Description extends Aliased {
     public void setRatings(Iterable<Rating> ratings) {
         this.ratings = Sets.newHashSet(ratings);
     }
+
 }

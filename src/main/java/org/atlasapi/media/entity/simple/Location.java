@@ -84,6 +84,8 @@ public class Location extends Version {
 
     private Boolean available;
 
+    private String termsOfUse;
+
     public String getUri() {
         return uri;
     }
@@ -542,5 +544,12 @@ public class Location extends Version {
             return input.copy();
         }
     };
-    
+
+    public String getTermsOfUse() {
+        return termsOfUse;
+    }
+
+    public void setTermsOfUse(String termsOfUse) {
+        this.termsOfUse = termsOfUse;
+    }
 }

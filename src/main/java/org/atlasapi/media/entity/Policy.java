@@ -51,8 +51,10 @@ public class Policy extends Identified {
 	private Network network;
 	
 	private DateTime actualAvailabilityStart;
-    
-	@RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
+
+    private String termsOfUse;
+
+    @RdfProperty(relation = false, namespace=PO.NS, uri="availableCountry")
     public Set<Country> getAvailableCountries() {
 		return availableCountries;
 	}
@@ -207,8 +209,16 @@ public class Policy extends Identified {
 		setPlatform(platform);
 		return this;
 	}
-	
-	public enum RevenueContract {
+
+    public String getTermsOfUse() {
+        return termsOfUse;
+    }
+
+    public void setTermsOfUse(String termsOfUse) {
+        this.termsOfUse = termsOfUse;
+    }
+
+    public enum RevenueContract {
 	    PAY_TO_BUY,
 	    PAY_TO_RENT,
 	    SUBSCRIPTION,
