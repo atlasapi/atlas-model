@@ -10,8 +10,7 @@ public class Film extends Item {
     
     private String websiteUrl = null;
     private Set<Subtitles> subtitles = ImmutableSet.of();
-    private Set<ReleaseDate> releaseDates = ImmutableSet.of();
-    
+
     public Film(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
         setSpecialization(Specialization.FILM);
@@ -37,14 +36,6 @@ public class Film extends Item {
         this.subtitles = ImmutableSet.copyOf(subtitles);
     }
 
-    public Set<ReleaseDate> getReleaseDates() {
-        return releaseDates;
-    }
-
-    public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
-        this.releaseDates = ImmutableSet.copyOf(releaseDates);
-    }
-
     @Override
 	public Film copy() {
 	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
@@ -56,7 +47,6 @@ public class Film extends Item {
 	    Item.copyToWithVersions(this, film, versions);
 	    film.setWebsiteUrl(getWebsiteUrl());
 	    film.setSubtitles(getSubtitles());
-	    film.setReleaseDates(getReleaseDates());
 	    return film;
 	}
 
