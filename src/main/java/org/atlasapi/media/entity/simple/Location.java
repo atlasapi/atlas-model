@@ -58,6 +58,7 @@ public class Location extends Version {
     private Integer videoVerticalSize;
     private Boolean audioDescribed;
     private Boolean signed;
+    private Boolean subtitled;
 
     private Date actualAvailabilityStart;
     private Date availabilityStart;
@@ -213,7 +214,15 @@ public class Location extends Version {
     public void setSource(String source) {
         this.source = source;
     }
+    
+    public Boolean getSubtitled() {
+        return subtitled;
+    }
 
+    public void setSubtitled(Boolean subtitled) {
+        this.subtitled = subtitled;
+    }
+    
     public String getVideoAspectRatio() {
         return videoAspectRatio;
     }

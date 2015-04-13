@@ -77,6 +77,8 @@ public class Encoding extends Identified {
     private Boolean audioDescribed;
 
     private Boolean signed;
+    
+    private Boolean subtitled;
 
     @RdfProperty(relation = true)
     public Set<Location> getAvailableAt() { 
@@ -216,6 +218,11 @@ public class Encoding extends Identified {
     public Boolean getSigned() {
         return this.signed;
     }
+    
+    @RdfProperty
+    public Boolean getSubtitled() {
+        return this.subtitled;
+    }
 
     public void setAdvertisingDuration(Integer advertisingDuration) {
         this.advertisingDuration = advertisingDuration;
@@ -296,6 +303,10 @@ public class Encoding extends Identified {
     public void setSigned(Boolean signed) {
         this.signed = signed;
     }
+    
+    public void setSubtitled(Boolean subtitled) {
+        this.subtitled = subtitled;
+    }
 
 	public boolean hasVideoCoding(MimeType... mimeTypes) {
 		for (MimeType mimeType : mimeTypes) {
@@ -358,7 +369,7 @@ public class Encoding extends Identified {
 		setVideoCoding(videoCoding);
 		return this;
 	}
-
+	
     public Encoding copy() {
         Encoding copy = new Encoding();
         Identified.copyTo(this, copy);
@@ -383,6 +394,7 @@ public class Encoding extends Identified {
         copy.videoVerticalSize = videoVerticalSize;
         copy.audioDescribed = audioDescribed;
         copy.signed = signed;
+        copy.subtitled = subtitled;
         return copy;
     }
 
