@@ -18,6 +18,13 @@ public class ParentRef {
             return parentRefFrom(input);
         }
     };
+    
+    public static Function<ParentRef, String> TO_URI = new Function<ParentRef, String>() {
+        @Override
+        public String apply(ParentRef input) {
+            return input.getUri();
+        }
+    };
 
     private final String uri;
     private final Long id;

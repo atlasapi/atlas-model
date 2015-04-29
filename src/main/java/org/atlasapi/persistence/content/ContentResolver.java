@@ -29,7 +29,7 @@ public interface ContentResolver {
      * @param canonicalUris
      * @return
      */
-	ResolvedContent findByCanonicalUris(Iterable<String> canonicalUris);
+	ResolvedContent findByCanonicalUris(Iterable<? extends String> canonicalUris);
 	
 	/**
 	 * Find content whose canonical URIs or that have alias URIs in the provided collection

@@ -145,7 +145,7 @@ public class ResolvedContent {
         return false;
     }
 
-	public ResolvedContent copyWithAllRequestedUris(Iterable<String> uris) {
+	public ResolvedContent copyWithAllRequestedUris(Iterable<? extends String> uris) {
 		ResolvedContentBuilder builder = ResolvedContent.builder();
 		for (String uri : uris) {
 			Maybe<Identified> result = map.get(uri);
