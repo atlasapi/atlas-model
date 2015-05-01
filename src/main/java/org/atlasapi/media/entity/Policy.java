@@ -14,10 +14,13 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.entity.simple.Pricing;
 import org.atlasapi.media.vocabulary.PO;
 import org.joda.time.DateTime;
 
@@ -41,6 +44,8 @@ public class Policy extends Identified {
 	private RevenueContract revenueContract;
 	
 	private Price price;
+
+	private List<Pricing> pricing = ImmutableList.of();
 	
 	private Platform platform;
 	
@@ -218,7 +223,15 @@ public class Policy extends Identified {
         this.termsOfUse = termsOfUse;
     }
 
-    public enum RevenueContract {
+	public List<Pricing> getPricing() {
+		return pricing;
+	}
+
+	public void setPricing(Iterable<Pricing> pricing) {
+		this.pricing = ImmutableList.copyOf(pricing);
+	}
+
+	public enum RevenueContract {
 	    PAY_TO_BUY,
 	    PAY_TO_RENT,
 	    SUBSCRIPTION,

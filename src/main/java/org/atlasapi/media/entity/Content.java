@@ -36,6 +36,7 @@ public abstract class Content extends Described {
     private Integer year = null;
     private Boolean genericDescription;
     private ImmutableList<EventRef> events = ImmutableList.of();
+    private Integer editorialPriority;
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -215,4 +216,11 @@ public abstract class Content extends Described {
         }
     };
 
+    public Integer getEditorialPriority() {
+        return editorialPriority;
+    }
+
+    public void setEditorialPriority(Integer editorialPriority) {
+        this.editorialPriority = editorialPriority;
+    }
 }
