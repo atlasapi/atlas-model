@@ -80,6 +80,8 @@ public class Encoding extends Identified {
     
     private Boolean subtitled;
 
+    private Boolean hd;
+
     @RdfProperty(relation = true)
     public Set<Location> getAvailableAt() { 
         return this.availableAt; 
@@ -364,6 +366,14 @@ public class Encoding extends Identified {
 		setAudioCoding(audioCoding);
 		return this;
 	}
+
+    public Boolean getHd() {
+        return hd;
+    }
+
+    public void setHd(Boolean hd) {
+        this.hd = hd;
+    }
 	
 	public Encoding withVideoCoding(MimeType videoCoding) {
 		setVideoCoding(videoCoding);
@@ -394,7 +404,7 @@ public class Encoding extends Identified {
         copy.videoVerticalSize = videoVerticalSize;
         copy.audioDescribed = audioDescribed;
         copy.signed = signed;
-        copy.subtitled = subtitled;
+        copy.hd = hd;
         return copy;
     }
 
