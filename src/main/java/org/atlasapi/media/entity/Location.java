@@ -46,7 +46,7 @@ public class Location extends Identified {
     private String embedId;
     
     private Policy policy;
-    
+
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
         return this.policy; 
@@ -149,4 +149,5 @@ public class Location extends Identified {
             return input.getAvailable();
         }
     };
+
 }
