@@ -47,8 +47,6 @@ public class Location extends Identified {
     
     private Policy policy;
 
-    private Boolean hd;
-    
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
         return this.policy; 
@@ -152,11 +150,4 @@ public class Location extends Identified {
         }
     };
 
-    public Boolean getHd() {
-        return hd;
-    }
-
-    public void setHd(Boolean hd) {
-        this.hd = hd;
-    }
 }
