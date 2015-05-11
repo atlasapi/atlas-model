@@ -86,7 +86,7 @@ public class Location extends Version {
 
     private String termsOfUse;
 
-    private Boolean hd;
+    private Boolean highDefinition;
 
     public String getUri() {
         return uri;
@@ -563,11 +563,11 @@ public class Location extends Version {
         this.termsOfUse = termsOfUse;
     }
 
-    public Boolean getHd() {
-        return hd;
+    public Boolean getHighDefinition() {
+        return highDefinition;
     }
 
-    public void setHd(Boolean hd) {
-        this.hd = hd;
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
     }
 }
