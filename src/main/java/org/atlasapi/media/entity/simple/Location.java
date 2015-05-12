@@ -81,11 +81,12 @@ public class Location extends Version {
     private String network;
     private Service service;
     private Player player;
-    
 
     private Boolean available;
 
     private String termsOfUse;
+
+    private Boolean highDefinition;
 
     public String getUri() {
         return uri;
@@ -560,5 +561,13 @@ public class Location extends Version {
 
     public void setTermsOfUse(String termsOfUse) {
         this.termsOfUse = termsOfUse;
+    }
+
+    public Boolean getHighDefinition() {
+        return highDefinition;
+    }
+
+    public void setHighDefinition(Boolean highDefinition) {
+        this.highDefinition = highDefinition;
     }
 }
