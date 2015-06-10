@@ -81,6 +81,10 @@ public class Encoding extends Identified {
     private Boolean subtitled;
 
     private Boolean highDefinition;
+    
+    private Quality quality;
+    
+    private String qualityDetail;
 
     @RdfProperty(relation = true)
     public Set<Location> getAvailableAt() { 
@@ -308,6 +312,22 @@ public class Encoding extends Identified {
     
     public void setSubtitled(Boolean subtitled) {
         this.subtitled = subtitled;
+    }
+    
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+    
+    public Quality getQuality() {
+        return quality;
+    }
+    
+    public void setQualityDetail(String qualityDetail) {
+        this.qualityDetail = qualityDetail;
+    }
+    
+    public String getQualityDetail() {
+        return qualityDetail;
     }
 
 	public boolean hasVideoCoding(MimeType... mimeTypes) {

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.entity.simple.Pricing;
@@ -42,6 +44,8 @@ public class Policy extends Identified {
 	private Integer availabilityLength;
 	
 	private RevenueContract revenueContract;
+	
+	private Set<String> subscriptionPackages = ImmutableSet.of();
 	
 	private Price price;
 
@@ -129,6 +133,14 @@ public class Policy extends Identified {
     public Policy withPlayer(Long player) {
         setPlayer(player);
         return this;
+    }
+    
+    public Set<String> getSubscriptionPackages() {
+        return subscriptionPackages;
+    }
+    
+    public void setSubscriptionPackages(Iterable<String> subscriptionPackages) {
+        this.subscriptionPackages = ImmutableSet.copyOf(subscriptionPackages);
     }
      
     public void setAvailabilityEnd(DateTime availabilityEnd) {
