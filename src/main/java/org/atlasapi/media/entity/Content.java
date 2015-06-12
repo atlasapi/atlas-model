@@ -107,6 +107,12 @@ public abstract class Content extends Described {
         all.add(clip);
         setClips(all);
     }
+    
+    public void addClips(List<Clip> clips) {
+        List<Clip> all = Lists.newArrayList(this.clips);
+        all.addAll(clips);
+        setClips(all);
+    }
 
     public Set<KeyPhrase> getKeyPhrases() {
         return keyPhrases;
