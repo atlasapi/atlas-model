@@ -8,6 +8,26 @@ public class Restriction extends Identified {
 
 	private String message = null;
 
+	private String authority = null;
+    
+    private String rating = null;
+    
+    public String getAuthority() {
+        return authority;
+    }
+    
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+    
+    public String getRating() {
+        return rating;
+    }
+    
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
 	public void setRestricted(Boolean rated) {
 		this.restricted = rated;
 	}
@@ -65,6 +85,14 @@ public class Restriction extends Identified {
 		restriction.setMinimumAge(minimumAge);
 		restriction.setMessage(message);
 		return restriction;
+	}
+	
+	public static Restriction from(String authority, String rating) {
+	    Restriction restriction = new Restriction();
+	    restriction.setRestricted(true);
+	    restriction.setAuthority(authority);
+	    restriction.setRating(rating);
+	    return restriction;
 	}
 	
 	public Restriction copy() {
