@@ -25,6 +25,7 @@ public class Image extends Identified {
         builder.withMimeType(base.mimeType);
         builder.withAvailabilityStart(base.availabilityStart);
         builder.withAvailabilityEnd(base.availabilityEnd);
+        builder.withHasTitleArt(base.hasTitleArt);
         return builder;
     }
     
@@ -44,6 +45,7 @@ public class Image extends Identified {
         private MimeType mimeType;
         private DateTime availabilityStart;
         private DateTime availabilityEnd;
+        private boolean hasTitleArt;
 
         public Builder(String uri) {
             this.uri = uri;
@@ -99,6 +101,11 @@ public class Image extends Identified {
             return this;
         }
 
+        public Builder withHasTitleArt(boolean hasTitleArt) {
+            this.hasTitleArt = hasTitleArt;
+            return this;
+        }
+
         public Image build() {
             Image image = new Image(uri);
             image.setHeight(height);
@@ -110,6 +117,7 @@ public class Image extends Identified {
             image.setMimeType(mimeType);
             image.setAvailabilityStart(availabilityStart);
             image.setAvailabilityEnd(availabilityEnd);
+            image.setHasTitleArt(hasTitleArt);
             return image;
         }
     }
@@ -127,6 +135,7 @@ public class Image extends Identified {
     private MimeType mimeType;
     private DateTime availabilityStart;
     private DateTime availabilityEnd;
+    private boolean hasTitleArt;
     
     public Integer getHeight() {
         return height;
@@ -199,7 +208,15 @@ public class Image extends Identified {
     public void setAvailabilityEnd(DateTime availabilityEnd) {
         this.availabilityEnd = availabilityEnd;
     }
-    
+
+    public boolean hasTitleArt() {
+        return hasTitleArt;
+    }
+
+    public void setHasTitleArt(boolean hasTitleArt) {
+        this.hasTitleArt = hasTitleArt;
+    }
+
     public static final Predicate<Image> IS_AVAILABLE = new Predicate<Image>() {
         @Override
         public boolean apply(Image input) {
