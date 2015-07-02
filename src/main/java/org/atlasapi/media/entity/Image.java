@@ -13,7 +13,7 @@ public class Image extends Identified {
             return input.getType() != null && input.getType().equals(ImageType.PRIMARY);
         }
     };
-    
+
     public static final Builder builder(Image base) {
         Builder builder = new Builder(base.getCanonicalUri());
         builder.withHeight(base.height);
@@ -45,7 +45,7 @@ public class Image extends Identified {
         private MimeType mimeType;
         private DateTime availabilityStart;
         private DateTime availabilityEnd;
-        private boolean hasTitleArt;
+        private Boolean hasTitleArt;
 
         public Builder(String uri) {
             this.uri = uri;
@@ -101,7 +101,7 @@ public class Image extends Identified {
             return this;
         }
 
-        public Builder withHasTitleArt(boolean hasTitleArt) {
+        public Builder withHasTitleArt(Boolean hasTitleArt) {
             this.hasTitleArt = hasTitleArt;
             return this;
         }
@@ -135,7 +135,7 @@ public class Image extends Identified {
     private MimeType mimeType;
     private DateTime availabilityStart;
     private DateTime availabilityEnd;
-    private boolean hasTitleArt;
+    private Boolean hasTitleArt;
     
     public Integer getHeight() {
         return height;
@@ -209,11 +209,11 @@ public class Image extends Identified {
         this.availabilityEnd = availabilityEnd;
     }
 
-    public boolean hasTitleArt() {
+    public Boolean hasTitleArt() {
         return hasTitleArt;
     }
 
-    public void setHasTitleArt(boolean hasTitleArt) {
+    public void setHasTitleArt(Boolean hasTitleArt) {
         this.hasTitleArt = hasTitleArt;
     }
 
