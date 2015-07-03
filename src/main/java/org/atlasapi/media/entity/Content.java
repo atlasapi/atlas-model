@@ -80,7 +80,7 @@ public abstract class Content extends Described {
     }
 
     public void addTopicRefs(Iterable<TopicRef> topicRefs) {
-        this.topicRefs = ImmutableList.<TopicRef>builder().addAll(topicRefs).addAll(topicRefs).build();
+        this.topicRefs = ImmutableList.<TopicRef>builder().addAll(this.topicRefs).addAll(topicRefs).build();
     }
 
     public List<TopicRef> getTopicRefs() {
