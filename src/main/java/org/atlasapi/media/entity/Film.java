@@ -38,16 +38,11 @@ public class Film extends Item {
 
     @Override
 	public Film copy() {
-	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
-	}
-	
-    @Override
-	public Film copyWithVersions(Set<Version> versions) {
-	    Film film = new Film();
-	    Item.copyToWithVersions(this, film, versions);
-	    film.setWebsiteUrl(getWebsiteUrl());
-	    film.setSubtitles(getSubtitles());
-	    return film;
+        Film film = new Film();
+        Item.copyTo(this, film);
+        film.setWebsiteUrl(getWebsiteUrl());
+        film.setSubtitles(getSubtitles());
+        return film;
 	}
 
 }
