@@ -42,7 +42,6 @@ import com.metabroadcast.common.intl.Country;
 public class Item extends Content {
 
     private ParentRef parent;
-    private Set<Version> versions = Sets.newHashSet();
     private boolean isLongForm = false;
     private Boolean blackAndWhite;
     private Set<Country> countriesOfOrigin = Sets.newHashSet();
@@ -81,43 +80,6 @@ public class Item extends Content {
         this.isLongForm = isLongForm;
     }
 
-    public void addVersion(Version version) {
-        if (version.getProvider() == null) {
-            version.setProvider(publisher);
-        }
-        versions.add(version);
-    }
-
-    @RdfProperty(relation = true, uri = "version")
-    public Set<Version> getVersions() {
-        return versions;
-    }
-
-    public Set<Version> nativeVersions() {
-        return Sets.filter(versions, new Predicate<Version>() {
-
-            @Override
-            public boolean apply(Version v) {
-                return publisher.equals(v.getProvider());
-            }
-        });
-    }
-
-    public void setVersions(Set<Version> versions) {
-        this.versions = Sets.newHashSet();
-        addVersions(versions);
-    }
-
-    public void addVersions(Set<Version> versions) {
-        for (Version version : versions) {
-            addVersion(version);
-        }
-    }
-
-    public boolean removeVersion(Version version) {
-        return versions.remove(version);
-    }
-
     public Set<Country> getCountriesOfOrigin() {
         return countriesOfOrigin;
     }
@@ -142,37 +104,6 @@ public class Item extends Content {
         return blackAndWhite;
     }
 
-    public boolean isAvailable() {
-        for (Location location : locations()) {
-            if (location.getAvailable()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isEmbeddable() {
-        for (Location location : locations()) {
-            if (location.getTransportType() != null && TransportType.EMBED.equals(location.getTransportType())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private List<Location> locations() {
-        List<Location> locations = Lists.newArrayList();
-        for (Version version : getVersions()) {
-            for (Encoding encoding : version.getManifestedAs()) {
-                for (Location location : encoding.getAvailableAt()) {
-                    locations.add(location);
-                }
-            }
-        }
-
-        return locations;
-    }
-
     @Override
     public Item copy() {
         Item copy = new Item();
@@ -180,30 +111,16 @@ public class Item extends Content {
         return copy;
     }
 
-    public Item copyWithVersions(Set<Version> versions) {
-        Item copy = new Item();
-
-        Item.copyToWithVersions(this, copy, versions);
-
-        return copy;
-    }
-
-    public static void copyTo(Item from, Item to) {
-        copyToWithVersions(from,
-            to,
-            Sets.newHashSet(Iterables.transform(from.versions, Version.COPY)));
-    }
-
-    public static void copyToWithVersions(Item from, Item to, Set<Version> versions) {
+    protected static void copyTo(Item from, Item to) {
         Content.copyTo(from, to);
         if (from.parent != null) {
             to.parent = from.parent;
         }
         to.isLongForm = from.isLongForm;
-        to.versions = versions;
         to.blackAndWhite = from.blackAndWhite;
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
         to.releaseDates = from.releaseDates;
+
     }
 
     public Item withSortKey(String sortKey) {
@@ -240,31 +157,9 @@ public class Item extends Content {
             return (Item) input.copy();
         }
     };
-    public static final Function<Item, Iterable<Broadcast>> FLATTEN_BROADCASTS = new Function<Item, Iterable<Broadcast>>() {
 
-        @Override
-        public Iterable<Broadcast> apply(Item input) {
-            return input.flattenBroadcasts();
-        }
-    };
-
-    public Iterable<Broadcast> flattenBroadcasts() {
-        return Iterables.concat(Iterables.transform(versions, Version.TO_BROADCASTS));
-    }
-
-    public Iterable<Location> flattenLocations() {
-        return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
-    }
-    
     @Override
     protected String getSortKey() {
         return SortKey.keyFrom(this);
     }
-    
-    public static final Predicate<Item> IS_AVAILABLE = new Predicate<Item>() {
-        @Override
-        public boolean apply(Item input) {
-            return input.isAvailable();
-        }
-    };
 }
