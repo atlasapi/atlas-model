@@ -95,17 +95,13 @@ public class Episode extends Item {
 	
 	@Override
 	public Episode copy() {
-	    return copyWithVersions(Sets.newHashSet(Iterables.transform(this.getVersions(), Version.COPY)));
-	}
-
-	public Episode copyWithVersions(Set<Version> versions) {
-	    Episode episode = new Episode();
-	    Item.copyToWithVersions(this, episode, versions);
-	    episode.episodeNumber = episodeNumber;
-	    episode.seriesNumber = seriesNumber;
-	    episode.seriesRef = seriesRef;
-	    episode.special = special;
-	    return episode;
+		Episode episode = new Episode();
+		Item.copyTo(this,episode);
+		episode.episodeNumber = episodeNumber;
+		episode.seriesNumber = seriesNumber;
+		episode.seriesRef = seriesRef;
+		episode.special = special;
+		return episode;
 	}
 
 }

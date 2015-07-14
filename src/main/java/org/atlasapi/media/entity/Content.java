@@ -17,13 +17,18 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.TransportType;
 
 public abstract class Content extends Described {
 
+    private Set<Version> versions = Sets.newHashSet();
     private transient String readHash;
     private ImmutableList<Clip> clips = ImmutableList.of();
     private Set<KeyPhrase> keyPhrases = ImmutableSet.of();
@@ -181,6 +186,11 @@ public abstract class Content extends Described {
         to.genericDescription = from.genericDescription;
         to.similarContent = from.similarContent;
         to.events = ImmutableList.copyOf(Iterables.transform(from.events, EventRef.COPY));
+        copyToWithVersions(
+                from,
+                to,
+                Sets.newHashSet(Iterables.transform(from.versions, Version.COPY))
+        );
     }
 
     public void setReadHash(String readHash) {
@@ -190,7 +200,95 @@ public abstract class Content extends Described {
     public boolean hashChanged(String newHash) {
         return readHash == null || !this.readHash.equals(newHash);
     }
-    
+
+    public void addVersion(Version version) {
+        if (version.getProvider() == null) {
+            version.setProvider(publisher);
+        }
+        versions.add(version);
+    }
+
+    @RdfProperty(relation = true, uri = "version")
+    public Set<Version> getVersions() {
+        return versions;
+    }
+
+    public Set<Version> nativeVersions() {
+        return Sets.filter(versions, new Predicate<Version>() {
+
+            @Override
+            public boolean apply(Version v) {
+                return publisher.equals(v.getProvider());
+            }
+        });
+    }
+
+    public void setVersions(Set<Version> versions) {
+        this.versions = Sets.newHashSet();
+        addVersions(versions);
+    }
+
+    public void addVersions(Set<Version> versions) {
+        for (Version version : versions) {
+            addVersion(version);
+        }
+    }
+
+    public boolean removeVersion(Version version) {
+        return versions.remove(version);
+    }
+
+    private List<Location> locations() {
+        List<Location> locations = Lists.newArrayList();
+        for (Version version : getVersions()) {
+            for (Encoding encoding : version.getManifestedAs()) {
+                for (Location location : encoding.getAvailableAt()) {
+                    locations.add(location);
+                }
+            }
+        }
+
+        return locations;
+    }
+
+    public boolean isAvailable() {
+        for (Location location : locations()) {
+            if (location.getAvailable()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmbeddable() {
+        for (Location location : locations()) {
+            if (location.getTransportType() != null && TransportType.EMBED.equals(location.getTransportType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Iterable<Broadcast> flattenBroadcasts() {
+        return Iterables.concat(Iterables.transform(versions, Version.TO_BROADCASTS));
+    }
+
+    public Iterable<Location> flattenLocations() {
+        return Iterables.concat(Iterables.transform(Iterables.concat(Iterables.transform(versions, Version.TO_ENCODINGS)), Encoding.TO_LOCATIONS));
+    }
+
+    private static void copyToWithVersions(Content from, Content to, Set<Version> versions) {
+        to.versions = versions;
+    }
+
+    public static final Function<Item, Iterable<Broadcast>> FLATTEN_BROADCASTS = new Function<Item, Iterable<Broadcast>>() {
+
+        @Override
+        public Iterable<Broadcast> apply(Item input) {
+            return input.flattenBroadcasts();
+        }
+    };
+
     protected String getSortKey() {
         return SortKey.DEFAULT.name();
     }
