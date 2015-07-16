@@ -69,6 +69,7 @@ public abstract class Description extends Aliased {
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
     private Set<Event> events = Sets.newHashSet();
+    private Double priority;
 
     public Description(String uri) {
         super(uri);
@@ -203,7 +204,15 @@ public abstract class Description extends Aliased {
     public void setTitles(Set<LocalizedTitle> titles) {
         this.titles = titles;
     }
-    
+
+    public Double getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Double priority) {
+        this.priority = priority;
+    }
+
     @XmlElementWrapper(name = "descriptions")
     @XmlElement(name = "description")
     public Set<LocalizedDescription> getDescriptions() {
@@ -357,6 +366,7 @@ public abstract class Description extends Aliased {
         destination.setPeople(people);
         destination.setGenericDescription(getGenericDescription());
         destination.setEvents(Iterables.transform(getEvents(), Event.COPY));
+        destination.setPriority(getPriority());
     }
 
     public boolean isScheduleOnly() {
