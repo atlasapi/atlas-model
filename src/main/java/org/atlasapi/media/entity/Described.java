@@ -69,6 +69,8 @@ public abstract class Described extends Identified {
     
     private String presentationChannel;
 
+    private Double priority;
+
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	
 	public Described(String uri, String curie, Publisher publisher) {
@@ -88,6 +90,14 @@ public abstract class Described extends Identified {
 	
 	public DateTime getLastFetched() {
         return lastFetched;
+    }
+
+    public Double getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Double priority) {
+        this.priority = priority;
     }
 
     public void setLastFetched(DateTime lastFetched) {
