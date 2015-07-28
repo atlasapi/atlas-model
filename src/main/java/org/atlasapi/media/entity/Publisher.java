@@ -184,7 +184,8 @@ public enum Publisher {
     NONAME_TV("NoNameTV", "nonametv", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     THETVDB("TheTVDB.com", "thetvdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
     ITV_INTERLINKING("ITV Interlinking", "interlinking.itv.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    DOTMEDIA("Dot Media", "dotmedia.nu", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
+    DOTMEDIA("Dot Media", "dotmedia.nu", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    PRIORITIZER("MetaBroadcast Content Prioritizer", "priorities.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
