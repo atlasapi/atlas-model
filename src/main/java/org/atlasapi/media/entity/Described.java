@@ -72,7 +72,6 @@ public abstract class Described extends Identified {
     private Double priority;
 
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
-    private Double priority;
 	
 	public Described(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -120,14 +119,6 @@ public abstract class Described extends Identified {
 	@RdfProperty(relation = true, namespace=PO.NS, uri = "genre")
 	public Set<String> getGenres() {
 		return this.genres;
-	}
-	
-	public Double getPriority() {
-	    return priority;
-	}
-	
-	public void setPriority(Double priority) {
-	    this.priority = priority;
 	}
 	
 	public void setTitle(String title) {

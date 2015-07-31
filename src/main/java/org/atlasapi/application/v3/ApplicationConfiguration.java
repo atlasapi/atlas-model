@@ -220,10 +220,6 @@ public class ApplicationConfiguration {
         return imagePrecedenceEnabled;
     }
     
-    protected Boolean imagePrecedenceEnabledRawValue() {
-        return imagePrecedenceEnabled;
-    }
-    
     public Ordering<Publisher> imagePrecedenceOrdering() {
 //        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
         return publisherPrecedenceOrdering();
@@ -254,17 +250,17 @@ public class ApplicationConfiguration {
     public ApplicationConfiguration withWritableSource(Publisher source) {
     	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
     	mutableWritableSources.add(source);
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled);
     }
     
     public ApplicationConfiguration withWritableSourceRemoved(Publisher source) {
     	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
     	mutableWritableSources.remove(source);
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled);
     }
     
     public ApplicationConfiguration withWritableSource(Set<Publisher> publishers) {
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, publishers);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, publishers, imagePrecedenceEnabled);
     }
     
     public ApplicationConfiguration enableWritableSource(Publisher source) {
