@@ -206,13 +206,13 @@ public abstract class Description extends Aliased {
     }
 
     public Double getPriority() {
-        return this.priority;
+        return priority;
     }
 
     public void setPriority(Double priority) {
         this.priority = priority;
     }
-    
+
     @XmlElementWrapper(name = "descriptions")
     @XmlElement(name = "description")
     public Set<LocalizedDescription> getDescriptions() {
@@ -366,6 +366,7 @@ public abstract class Description extends Aliased {
         destination.setPeople(people);
         destination.setGenericDescription(getGenericDescription());
         destination.setEvents(Iterables.transform(getEvents(), Event.COPY));
+        destination.setPriority(getPriority());
     }
 
     public boolean isScheduleOnly() {

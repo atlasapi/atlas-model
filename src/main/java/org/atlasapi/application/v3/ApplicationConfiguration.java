@@ -51,8 +51,10 @@ public class ApplicationConfiguration {
 	private final Set<Publisher> enabledSources;
 	private final List<Publisher> precedence;
 	private final ImmutableSet<Publisher> writableSources;
+	private final Boolean imagePrecedenceEnabled;
 	
-	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledSources, List<Publisher> precedence, Iterable<Publisher> writable) {
+	private ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, Set<Publisher> enabledSources, List<Publisher> precedence, Iterable<Publisher> writable,
+	        Boolean imagePrecedenceEnabled) {
 	    this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
         this.enabledSources = ImmutableSet.copyOf(enabledSources);
         if(precedence == null) {
@@ -61,14 +63,20 @@ public class ApplicationConfiguration {
             this.precedence = appendMissingPublishersTo(precedence);
         }
         this.writableSources = ImmutableSet.copyOf(writable);
+        this.imagePrecedenceEnabled = imagePrecedenceEnabled;
 	}
 
     ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence) {
-	    this(sourceStatuses, precedence, ImmutableSet.<Publisher>of());
+	    this(sourceStatuses, precedence, ImmutableSet.<Publisher>of(), null);
 	}
+    
+    ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources) {
+        this(sourceStatuses, enabledPublishers(sourceStatuses), precedence, writableSources, null);
+    }
 
-	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources) {
-	    this(sourceStatuses, enabledPublishers(sourceStatuses), precedence, writableSources);
+	ApplicationConfiguration(Map<Publisher, SourceStatus> sourceStatuses, List<Publisher> precedence, Iterable<Publisher> writableSources,
+	        Boolean imagePrecedenceEnabled) {
+	    this(sourceStatuses, enabledPublishers(sourceStatuses), precedence, writableSources, imagePrecedenceEnabled);
 	}
 
     private static Set<Publisher> enabledPublishers(Map<Publisher, SourceStatus> sourceStatuses) {
@@ -142,7 +150,7 @@ public class ApplicationConfiguration {
             mutablePublishers.remove(source);
         }
         
-        return new ApplicationConfiguration(mutableSources, mutablePublishers, precedence, writableSources);
+        return new ApplicationConfiguration(mutableSources, mutablePublishers, precedence, writableSources, imagePrecedenceEnabled);
     }
     
     public ApplicationConfiguration withSources(Map<Publisher, SourceStatus> statuses) {
@@ -161,11 +169,11 @@ public class ApplicationConfiguration {
     }
     
     public ApplicationConfiguration copyWithWritableSources(Iterable<Publisher> writable) {
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writable);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writable, imagePrecedenceEnabled);
     }
     
     public ApplicationConfiguration copyWithSourceStatuses(Map<Publisher, SourceStatus> statuses) {
-        return new ApplicationConfiguration(statuses, precedence, writableSources);
+        return new ApplicationConfiguration(statuses, precedence, writableSources, imagePrecedenceEnabled);
     }
     
     public boolean canWrite(Publisher source) {
@@ -203,7 +211,13 @@ public class ApplicationConfiguration {
     }
     
     public boolean imagePrecedenceEnabled() {
-        return imagePrecedence() != null;
+        // Inverted check to be null-safe and default to true if
+        // imagePrecedenceEnabled is null
+        return !Boolean.FALSE.equals(imagePrecedenceEnabled);
+    }
+    
+    protected Boolean imagePrecedenceEnabledRawValue() {
+        return imagePrecedenceEnabled;
     }
     
     protected Boolean imagePrecedenceEnabledRawValue() {

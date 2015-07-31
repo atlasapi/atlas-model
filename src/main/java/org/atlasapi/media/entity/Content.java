@@ -84,6 +84,10 @@ public abstract class Content extends Described {
         topicRefs = ImmutableList.<TopicRef>builder().add(topicRef).addAll(topicRefs).build();
     }
 
+    public void addTopicRefs(Iterable<TopicRef> topicRefs) {
+        this.topicRefs = ImmutableList.<TopicRef>builder().addAll(this.topicRefs).addAll(topicRefs).build();
+    }
+
     public List<TopicRef> getTopicRefs() {
         return topicRefs;
     }
@@ -110,6 +114,12 @@ public abstract class Content extends Described {
     public void addClip(Clip clip) {
         List<Clip> all = Lists.newArrayList(clips);
         all.add(clip);
+        setClips(all);
+    }
+    
+    public void addClips(List<Clip> clips) {
+        List<Clip> all = Lists.newArrayList(this.clips);
+        all.addAll(clips);
         setClips(all);
     }
 
