@@ -206,6 +206,10 @@ public class ApplicationConfiguration {
         return imagePrecedence() != null;
     }
     
+    protected Boolean imagePrecedenceEnabledRawValue() {
+        return imagePrecedenceEnabled;
+    }
+    
     public Ordering<Publisher> imagePrecedenceOrdering() {
 //        return Ordering.explicit(appendMissingPublishersTo(imagePrecedence()));
         return publisherPrecedenceOrdering();
