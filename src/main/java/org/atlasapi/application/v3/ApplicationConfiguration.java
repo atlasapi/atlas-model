@@ -190,7 +190,7 @@ public class ApplicationConfiguration {
     }
     
     public ApplicationConfiguration copyWithContentHierarchyPrecedence(List<Publisher> contentHierarchyPrecedence) {
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writableSources, imagePrecedenceEnabled, Optional.of(contentHierarchyPrecedence));
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, writableSources, imagePrecedenceEnabled, Optional.fromNullable(contentHierarchyPrecedence));
     }
     
     public ApplicationConfiguration copyWithImagePrecedenceEnabled(Boolean imagePrecedenceEnabled) {
