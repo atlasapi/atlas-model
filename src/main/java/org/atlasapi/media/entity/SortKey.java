@@ -1,13 +1,11 @@
 package org.atlasapi.media.entity;
 
-import java.util.Comparator;
-import java.util.Map;
-
-import com.google.common.base.Optional;
-import org.joda.time.DateTime;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import org.joda.time.DateTime;
+
+import java.util.Comparator;
+import java.util.Map;
 
 public enum SortKey {
     
