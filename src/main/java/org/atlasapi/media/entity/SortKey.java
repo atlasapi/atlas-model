@@ -1,12 +1,11 @@
 package org.atlasapi.media.entity;
 
-import java.util.Comparator;
-import java.util.Map;
-
-import org.joda.time.DateTime;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import org.joda.time.DateTime;
+
+import java.util.Comparator;
+import java.util.Map;
 
 public enum SortKey {
     
@@ -50,7 +49,18 @@ public enum SortKey {
             return null;
         }
     },
-    
+    EPISODE("55") {
+        @Override
+        protected String generateFrom(Item item) {
+            if (item instanceof Episode) {
+                Episode episode = (Episode) item;
+                if (episode.getEpisodeNumber() != null) {
+                    return EPISODE.append(String.format("%010d"));
+                }
+            }
+            return null;
+        }
+    },
     DEFAULT("11") {
 
         @Override
