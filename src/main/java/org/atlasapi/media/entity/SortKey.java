@@ -3,6 +3,7 @@ package org.atlasapi.media.entity;
 import java.util.Comparator;
 import java.util.Map;
 
+import com.google.common.base.Optional;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Strings;
@@ -50,7 +51,18 @@ public enum SortKey {
             return null;
         }
     },
-    
+    EPISODE("55") {
+        @Override
+        protected String generateFrom(Item item) {
+            if (item instanceof Episode) {
+                Episode episode = (Episode) item;
+                if (episode.getEpisodeNumber() != null) {
+                    return EPISODE.append(String.format("%10d"));
+                }
+            }
+            return null;
+        }
+    },
     DEFAULT("11") {
 
         @Override
