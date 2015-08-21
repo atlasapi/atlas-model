@@ -69,7 +69,7 @@ public abstract class Described extends Identified {
     
     private String presentationChannel;
 
-    private Double priority;
+    private Priority priority;
 
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
 	
@@ -92,11 +92,11 @@ public abstract class Described extends Identified {
         return lastFetched;
     }
 
-    public Double getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Double priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
