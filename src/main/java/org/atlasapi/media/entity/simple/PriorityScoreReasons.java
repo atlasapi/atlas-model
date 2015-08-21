@@ -2,11 +2,11 @@ package org.atlasapi.media.entity.simple;
 
 import com.google.common.base.Objects;
 
-public class PriorityScoreReason {
+public class PriorityScoreReasons {
 
     private String reason;
 
-    public PriorityScoreReason(String reason) {
+    public PriorityScoreReasons(String reason) {
         this.reason = reason;
     }
 
@@ -22,7 +22,7 @@ public class PriorityScoreReason {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PriorityScoreReason that = (PriorityScoreReason) o;
+        PriorityScoreReasons that = (PriorityScoreReasons) o;
         return Objects.equal(reason, that.reason);
     }
 

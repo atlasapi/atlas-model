@@ -5,9 +5,9 @@ import java.util.List;
 public class Priority {
 
     private Double score;
-    private List<PriorityScoreReason> reasons;
+    private List<PriorityScoreReasons> reasons;
 
-    public Priority(Double score, List<PriorityScoreReason> reasons) {
+    public Priority(Double score, List<PriorityScoreReasons> reasons) {
         this.score = score;
         this.reasons = reasons;
     }
@@ -20,11 +20,11 @@ public class Priority {
         this.score = score;
     }
 
-    public List<PriorityScoreReason> getReasons() {
+    public List<PriorityScoreReasons> getReasons() {
         return reasons;
     }
 
-    public void setReasons(List<PriorityScoreReason> reasons) {
+    public void setReasons(List<PriorityScoreReasons> reasons) {
         this.reasons = reasons;
     }
 }
