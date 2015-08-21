@@ -6,6 +6,10 @@ public class PriorityScoreReason {
 
     private String reason;
 
+    public PriorityScoreReason(String reason) {
+        this.reason = reason;
+    }
+
     public String getReason() {
         return reason;
     }

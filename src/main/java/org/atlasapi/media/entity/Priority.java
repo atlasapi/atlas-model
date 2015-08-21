@@ -1,14 +1,30 @@
 package org.atlasapi.media.entity;
 
+import java.util.List;
+
 public class Priority {
 
-    private Priority priority;
+    private Double score;
+    private List<PriorityScoreReason> reasons;
 
-    public Priority getPriority() {
-        return priority;
+    public Priority(Double score, List<PriorityScoreReason> reasons) {
+        this.score = score;
+        this.reasons = reasons;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public List<PriorityScoreReason> getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(List<PriorityScoreReason> reasons) {
+        this.reasons = reasons;
     }
 }
