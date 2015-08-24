@@ -69,7 +69,7 @@ public abstract class Description extends Aliased {
     private AudienceStatistics audienceStatistics;
     private Set<Rating> ratings = Sets.newHashSet();
     private Set<Event> events = Sets.newHashSet();
-    private Double priority;
+    private Priority priority;
 
     public Description(String uri) {
         super(uri);
@@ -205,11 +205,11 @@ public abstract class Description extends Aliased {
         this.titles = titles;
     }
 
-    public Double getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Double priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 

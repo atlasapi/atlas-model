@@ -294,17 +294,17 @@ public class ApplicationConfiguration {
     public ApplicationConfiguration withWritableSource(Publisher source) {
     	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
     	mutableWritableSources.add(source);
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled, contentHierarchyPrecedence);
     }
     
     public ApplicationConfiguration withWritableSourceRemoved(Publisher source) {
     	Set<Publisher> mutableWritableSources = Sets.newHashSet(writableSources);
     	mutableWritableSources.remove(source);
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, mutableWritableSources, imagePrecedenceEnabled, contentHierarchyPrecedence);
     }
     
     public ApplicationConfiguration withWritableSource(Set<Publisher> publishers) {
-        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, publishers, imagePrecedenceEnabled);
+        return new ApplicationConfiguration(sourceStatuses, enabledSources, precedence, publishers, imagePrecedenceEnabled, contentHierarchyPrecedence);
     }
     
     public ApplicationConfiguration enableWritableSource(Publisher source) {
