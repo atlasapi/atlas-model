@@ -9,6 +9,10 @@ public class Priority {
     private Double score;
     private List<String> reasons;
 
+    public Priority() {
+
+    }
+
     public Priority(Double score, List<String> reasons) {
         this.score = score;
         this.reasons = reasons;
