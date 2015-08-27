@@ -13,6 +13,8 @@ import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.intl.Country;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum Publisher {
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
@@ -196,6 +198,7 @@ public enum Publisher {
     BT_SPORT_ZEUS("BT Sport Zeus", "zeus.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
+    private static final Logger log = LoggerFactory.getLogger(Publisher.class);
 
     private final String key;
     private final Country country;
@@ -239,6 +242,7 @@ public enum Publisher {
                 return Maybe.just(publisher);
             }
         }
+        log.warn("Not a valid publisher key: {}", key);
         return Maybe.nothing();
     }
 
