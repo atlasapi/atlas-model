@@ -235,7 +235,7 @@ public enum Publisher {
 
     public static Maybe<Publisher> fromKey(String key) {
         for (Publisher publisher : Publisher.values()) {
-            if (key.equals(publisher.key())) {
+            if (publisher.key().equals(key)) {
                 return Maybe.just(publisher);
             }
         }
