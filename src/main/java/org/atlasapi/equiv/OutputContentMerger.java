@@ -1,11 +1,17 @@
 package org.atlasapi.equiv;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.AudienceStatistics;
@@ -25,6 +31,7 @@ import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.KeyPhrase;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.entity.Priority;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Rating;
 import org.atlasapi.media.entity.RelatedLink;
@@ -35,18 +42,10 @@ import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.TopicRef;
 import org.atlasapi.media.entity.Version;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public class OutputContentMerger {
@@ -171,6 +170,9 @@ public class OutputContentMerger {
         }
         if (chosen.getAudienceStatistics() == null) {
             chosen.setAudienceStatistics(first(notChosen, TO_AUDIENCE_STATISTICS));
+        }
+        if (chosen.getPriority() == null) {
+            chosen.setPriority(first(notChosen, TO_PRIORITY));
         }
         chosen.setRatings(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Rating>>() {
             @Override
@@ -484,6 +486,12 @@ public class OutputContentMerger {
             return content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
         }
         
+    };
+    private static final Function<Described, Priority> TO_PRIORITY = new Function<Described, Priority>() {
+        @Override
+        public Priority apply(@Nullable Described input) {
+            return input == null ? null : input.getPriority();
+        }
     };
 
     public <T extends Item> void mergeIn(ApplicationConfiguration config, Container chosen, List<Container> notChosen) {
