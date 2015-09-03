@@ -1,14 +1,5 @@
 package org.atlasapi.equiv;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
-import org.atlasapi.application.v3.ApplicationConfiguration;
-import org.atlasapi.media.entity.*;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -21,6 +12,40 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import org.atlasapi.application.v3.ApplicationConfiguration;
+import org.atlasapi.media.entity.Alias;
+import org.atlasapi.media.entity.AudienceStatistics;
+import org.atlasapi.media.entity.Broadcast;
+import org.atlasapi.media.entity.Certificate;
+import org.atlasapi.media.entity.ChildRef;
+import org.atlasapi.media.entity.Clip;
+import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.ContentGroup;
+import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.Episode;
+import org.atlasapi.media.entity.Film;
+import org.atlasapi.media.entity.Identified;
+import org.atlasapi.media.entity.Image;
+import org.atlasapi.media.entity.Item;
+import org.atlasapi.media.entity.KeyPhrase;
+import org.atlasapi.media.entity.LookupRef;
+import org.atlasapi.media.entity.Person;
+import org.atlasapi.media.entity.Priority;
+import org.atlasapi.media.entity.Publisher;
+import org.atlasapi.media.entity.Rating;
+import org.atlasapi.media.entity.RelatedLink;
+import org.atlasapi.media.entity.ReleaseDate;
+import org.atlasapi.media.entity.Review;
+import org.atlasapi.media.entity.SimilarContentRef;
+import org.atlasapi.media.entity.Subtitles;
+import org.atlasapi.media.entity.TopicRef;
+import org.atlasapi.media.entity.Version;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public class OutputContentMerger {
