@@ -365,6 +365,7 @@ public abstract class Described extends Identified {
         to.reviews = ImmutableSet.copyOf(from.reviews);
         to.ratings = ImmutableSet.copyOf(from.ratings);
         to.audienceStatistics = from.audienceStatistics;
+        to.priority = from.priority;
     }
     
     public abstract Described copy();
