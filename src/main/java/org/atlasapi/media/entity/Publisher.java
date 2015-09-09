@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import org.atlasapi.application.v3.SourceRestriction;
 import org.atlasapi.application.v3.SourceStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
@@ -13,8 +15,6 @@ import com.google.common.collect.Iterables;
 import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.intl.Country;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public enum Publisher {
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
@@ -195,7 +195,9 @@ public enum Publisher {
     ITV_INTERLINKING("ITV Interlinking", "interlinking.itv.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     DOTMEDIA("Dot Media", "dotmedia.nu", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     PRIORITIZER("MetaBroadcast Content Prioritizer", "priorities.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    BT_SPORT_ZEUS("BT Sport Zeus", "zeus.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+    BT_SPORT_ZEUS("BT Sport Zeus", "zeus.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_SPORT_DANTE_VOLTEST("BT Sport Dante Voltest", "voltest.dante.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_SPORT_DANTE("BT Sport Dante", "dante.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
