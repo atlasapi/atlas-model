@@ -196,8 +196,8 @@ public enum Publisher {
     DOTMEDIA("Dot Media", "dotmedia.nu", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     PRIORITIZER("MetaBroadcast Content Prioritizer", "priorities.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_SPORT_ZEUS("BT Sport Zeus", "zeus.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    BT_SPORT_DANTE_VOLTEST("BT Sport Dante Voltest", "voltest.dante.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    BT_SPORT_DANTE("BT Sport Dante", "dante.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+    BT_SPORT_DANTE("BT Sport Dante", "dante.sport.bt.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    UKTV("UKTV", "uktv.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
