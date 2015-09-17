@@ -8,11 +8,15 @@ public class Restriction {
 
 	private String message = null;
 
+	private String authority = null;
+
+	private String rating = null;
+
 	public void setRestricted(Boolean rated) {
 		this.restricted = rated;
 	}
 
-	public Boolean isResctriction() {
+	public Boolean isRestricted() {
 		return restricted;
 	}
 
@@ -31,13 +35,31 @@ public class Restriction {
 	public String getMessage() {
 		return message;
 	}
-	
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
 	public Restriction copy() {
 	    Restriction copy = new Restriction();
 	    
-	    copy.setRestricted(isResctriction());
+	    copy.setRestricted(isRestricted());
 	    copy.setMinimumAge(getMinimumAge());
 	    copy.setMessage(getMessage());
+		copy.setRating(getRating());
+		copy.setAuthority(getAuthority());
 	    
 	    return copy;
 	}
