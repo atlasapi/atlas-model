@@ -26,6 +26,10 @@ public class RelatedLink {
         return relatedLink(LinkType.UNKNOWN, url);
     }
     
+    public static Builder vodLink(String url) {
+        return relatedLink(LinkType.VOD, url);
+    }
+    
     public static Builder relatedLink(LinkType type, String url) {
         return new Builder(checkNotNull(type), checkNotNull(url));
     }
