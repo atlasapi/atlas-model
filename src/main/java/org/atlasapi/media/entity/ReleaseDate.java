@@ -10,7 +10,8 @@ import com.metabroadcast.common.intl.Country;
 public class ReleaseDate {
 
     public enum ReleaseType {
-        GENERAL;
+        GENERAL,
+        FIRST_BROADCAST;
     }
     
     private final LocalDate date;
