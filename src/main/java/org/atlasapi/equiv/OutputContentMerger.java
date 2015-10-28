@@ -210,9 +210,9 @@ public class OutputContentMerger {
     private <T extends Identified, P> Iterable<P> projectFieldFromEquivalents(T chosen,
             Iterable<T> notChosen, Function<T, Iterable<P>> projector) {
         return Iterables.concat(
-                projector.apply(chosen), 
+                projector.apply(chosen),
                 Iterables.concat(Iterables.transform(notChosen, projector))
-            );
+        );
     }
     
     private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform, O defaultValue) {
@@ -238,6 +238,11 @@ public class OutputContentMerger {
     private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         mergeContent(config, chosen, notChosen);
         mergeVersions(config, chosen, notChosen);
+        Builder<ReleaseDate> releases = ImmutableSet.<ReleaseDate>builder().addAll(chosen.getReleaseDates());
+        for (Item item : notChosen) {
+            releases.addAll(item.getReleaseDates());
+        }
+        chosen.setReleaseDates(releases.build());
         if (chosen instanceof Film) {
             mergeFilmProperties(config, (Film) chosen, Iterables.filter(notChosen, Film.class));
         }
@@ -245,10 +250,10 @@ public class OutputContentMerger {
 
     private <T extends Content> void mergeSimilarContent(T chosen, Iterable<T> notChosen) {
         if (chosen.getSimilarContent().isEmpty()) {
-            chosen.setSimilarContent(first(notChosen, 
-                                           TO_SIMILAR_CONTENT, 
-                                           ImmutableSet.<SimilarContentRef>of()
-                                          ));
+            chosen.setSimilarContent(first(notChosen,
+                    TO_SIMILAR_CONTENT,
+                    ImmutableSet.<SimilarContentRef>of()
+            ));
         }
     }
     
