@@ -279,7 +279,6 @@ public class OutputContentMerger {
     private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
         Builder<String> languages = ImmutableSet.<String>builder().addAll(chosen.getLanguages());
-        Builder<ReleaseDate> releases = ImmutableSet.<ReleaseDate>builder().addAll(chosen.getReleaseDates());
         
         if (chosen.getCertificates().isEmpty()) {
             chosen.setCertificates(first(notChosen, TO_CERTIFICATES, ImmutableSet.<Certificate>of()));
@@ -288,12 +287,10 @@ public class OutputContentMerger {
         for (Film film : notChosen) {
             subtitles.addAll(film.getSubtitles());
             languages.addAll(film.getLanguages());
-            releases.addAll(film.getReleaseDates());
         }
 
         chosen.setSubtitles(subtitles.build());
         chosen.setLanguages(languages.build());
-        chosen.setReleaseDates(releases.build());
 
         if (config.peoplePrecedenceEnabled()) {
             Iterable<Film> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
