@@ -70,6 +70,7 @@ public abstract class Description extends Aliased {
     private Set<Rating> ratings = Sets.newHashSet();
     private Set<Event> events = Sets.newHashSet();
     private Priority priority;
+    private Set<EventRef> eventRefs = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -328,7 +329,7 @@ public abstract class Description extends Aliased {
     public void setEvents(Iterable<Event> events) {
         this.events = Sets.newHashSet(events);
     }
-    
+
     protected void copyTo(Description destination) {
         Preconditions.checkNotNull(destination);
 
@@ -497,6 +498,16 @@ public abstract class Description extends Aliased {
     
     public void setRatings(Iterable<Rating> ratings) {
         this.ratings = Sets.newHashSet(ratings);
+    }
+
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "event_refs")
+    @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "eventref")
+    public Set<EventRef> getEventRefs() {
+        return eventRefs;
+    }
+
+    public void setEventRefs(Iterable<EventRef> eventRefs) {
+        this.eventRefs = ImmutableSet.copyOf(eventRefs);
     }
 
 }
