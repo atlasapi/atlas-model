@@ -7,13 +7,13 @@ import java.util.List;
 public class Priority {
 
     private Double score;
-    private List<String> reasons;
+    private PriorityScoreReasons reasons;
 
     public Priority() {
 
     }
 
-    public Priority(Double score, List<String> reasons) {
+    public Priority(Double score, PriorityScoreReasons reasons) {
         this.score = score;
         this.reasons = reasons;
     }
@@ -26,11 +26,11 @@ public class Priority {
         this.score = score;
     }
 
-    public List<String> getReasons() {
+    public PriorityScoreReasons getReasons() {
         return reasons;
     }
 
-    public void setReasons(List<String> reasons) {
+    public void setReasons(PriorityScoreReasons reasons) {
         this.reasons = reasons;
     }
 
