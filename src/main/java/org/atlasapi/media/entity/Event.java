@@ -152,6 +152,10 @@ public class Event extends Identified {
     public static Function<Event, Event> COPY = new Function<Event, Event>() {
         @Override
         public Event apply(Event input) {
+            if (input == null) {
+                return null;
+            }
+            
             Event event = Event.builder()
                     .withTitle(input.title)
                     .withPublisher(input.publisher)
