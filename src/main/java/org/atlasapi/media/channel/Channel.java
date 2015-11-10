@@ -1,5 +1,6 @@
 package org.atlasapi.media.channel;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.atlasapi.media.entity.Identified;
@@ -8,6 +9,7 @@ import org.atlasapi.media.entity.ImageTheme;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
@@ -46,6 +48,7 @@ public class Channel extends Identified {
         private Boolean highDefinition;
         private Boolean adult;
         private Duration timeshift;
+        private DateTime advertiseFrom;
         private Set<Publisher> availableFrom = ImmutableSet.of();
         private Set<Long> variations = Sets.newHashSet();
         private Long parent;
@@ -130,6 +133,11 @@ public class Channel extends Identified {
             this.broadcaster = broadcaster;
             return this;
         };
+
+        public Builder withAdvertiseFrom(DateTime dateTime) {
+            this.advertiseFrom = dateTime;
+            return this;
+        };
         
         public Builder withAvailableFrom(Iterable<Publisher> availableFrom) {
             this.availableFrom = ImmutableSet.copyOf(availableFrom);
@@ -201,7 +209,7 @@ public class Channel extends Identified {
         
         public Channel build() {
             return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
-                    regional, adult, timeshift, mediaType, uri, broadcaster, availableFrom, 
+                    regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
                     variations, parent, channelNumbers, startDate, endDate, genres);
         }
     }
@@ -218,6 +226,7 @@ public class Channel extends Identified {
     private Boolean adult;
     private Duration timeshift;
     private Publisher broadcaster;
+    private DateTime advertiseFrom;
     private Set<Publisher> availableFrom;
     private Set<Long> variations = Sets.newHashSet();
     private Long parent;
@@ -229,8 +238,8 @@ public class Channel extends Identified {
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
         this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
-                ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, 
-                ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null, 
+                ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
+                ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
                 ImmutableSet.<String>of());
     }
     
@@ -239,7 +248,7 @@ public class Channel extends Identified {
     
     private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, 
             Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, 
-            Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, Iterable<Publisher> availableFrom, 
+            Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
             Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
             LocalDate endDate, Iterable<String> genres) {
         super(uri);
@@ -257,6 +266,7 @@ public class Channel extends Identified {
         this.broadcaster = broadcaster;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.advertiseFrom = advertiseFrom;
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
         this.variations = Sets.newHashSet(variations);
         this.channelNumbers = Sets.newHashSet(channelNumbers);
@@ -311,6 +321,8 @@ public class Channel extends Identified {
     public Publisher getBroadcaster() {
         return broadcaster;
     }
+
+    public DateTime getAdvertiseFrom() { return advertiseFrom; }
     
     public Set<Publisher> getAvailableFrom() {
         return availableFrom;
@@ -424,6 +436,8 @@ public class Channel extends Identified {
     public void setBroadcaster(Publisher broadcaster) {
         this.broadcaster = broadcaster;
     }
+
+    public void setAdvertiseFrom(DateTime dateTime) { this.advertiseFrom = dateTime; }
     
     public void setAvailableFrom(Iterable<Publisher> availableOn) {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
