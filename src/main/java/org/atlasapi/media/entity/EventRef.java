@@ -16,14 +16,20 @@ public class EventRef {
     
     private final Long id;
     private Event event;
-    
+    private Publisher publisher;
+
     public EventRef(Long id) {
-        this(id, null);
+        this.id = checkNotNull(id);
     }
     
     public EventRef(Long id, Event event) {
         this.id = checkNotNull(id);
         this.event = event;
+    }
+
+    public EventRef(Long id, Publisher publisher) {
+        this.id = checkNotNull(id);
+        this.publisher = publisher;
     }
     
     public Long id() {
@@ -36,6 +42,14 @@ public class EventRef {
     
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
     
     public static Function<Event, EventRef> toEventRef() {
