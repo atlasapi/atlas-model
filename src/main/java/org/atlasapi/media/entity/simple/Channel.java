@@ -46,6 +46,11 @@ public class Channel extends Aliased {
     private Date startDate;
     private Date endDate;
     private Set<String> genres = Sets.newHashSet();
+    private Date advertisedFrom;
+
+    public Date getAdvertisedFrom() { return advertisedFrom; }
+
+    public void setAdvertisedFrom(Date advertisedFrom) { this.advertisedFrom = advertisedFrom;}
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
