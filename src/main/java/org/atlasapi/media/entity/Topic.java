@@ -26,7 +26,7 @@ public class Topic extends Described {
         
         private final String key;
 
-        private Type(String key) {
+        Type(String key) {
             this.key = key;
         }
 
@@ -62,6 +62,8 @@ public class Topic extends Described {
     public Topic(Long id, String namespace, String value) {
         setId(id);
         setMediaType(null);
+        setNamespace(namespace);
+        setValue(value);
     }
     
     public void setReadHash(String readHash) {
