@@ -13,34 +13,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import org.atlasapi.application.v3.ApplicationConfiguration;
-import org.atlasapi.media.entity.Alias;
-import org.atlasapi.media.entity.AudienceStatistics;
-import org.atlasapi.media.entity.Broadcast;
-import org.atlasapi.media.entity.Certificate;
-import org.atlasapi.media.entity.ChildRef;
-import org.atlasapi.media.entity.Clip;
-import org.atlasapi.media.entity.Container;
-import org.atlasapi.media.entity.Content;
-import org.atlasapi.media.entity.ContentGroup;
-import org.atlasapi.media.entity.Described;
-import org.atlasapi.media.entity.Episode;
-import org.atlasapi.media.entity.Film;
-import org.atlasapi.media.entity.Identified;
-import org.atlasapi.media.entity.Image;
-import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.KeyPhrase;
-import org.atlasapi.media.entity.LookupRef;
-import org.atlasapi.media.entity.Person;
-import org.atlasapi.media.entity.Priority;
-import org.atlasapi.media.entity.Publisher;
-import org.atlasapi.media.entity.Rating;
-import org.atlasapi.media.entity.RelatedLink;
-import org.atlasapi.media.entity.ReleaseDate;
-import org.atlasapi.media.entity.Review;
-import org.atlasapi.media.entity.SimilarContentRef;
-import org.atlasapi.media.entity.Subtitles;
-import org.atlasapi.media.entity.TopicRef;
-import org.atlasapi.media.entity.Version;
+import org.atlasapi.media.entity.*;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -233,6 +206,8 @@ public class OutputContentMerger {
         mergeTopics(chosen, notChosen);
         mergeKeyPhrases(chosen, notChosen);
         mergeSimilarContent(chosen, notChosen);
+        mergeEvents(chosen, notChosen);
+
     }
 
     private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
@@ -272,6 +247,15 @@ public class OutputContentMerger {
         chosen.setTopicRefs(projectFieldFromEquivalents(chosen, notChosen, topicRefsProjector));
     }
 
+    private <T extends Content> void mergeEvents(T chosen, Iterable<T> notChosen) {
+        chosen.setEventRefs(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<EventRef>>() {
+            @Override
+            public Iterable<EventRef> apply(T input) {
+                return input.events();
+            }
+        }));
+    }
+
     private <T extends Item> void mergeReleaseDates(T chosen, Iterable<T> notChosen) {
         Builder<ReleaseDate> releases = ImmutableSet.<ReleaseDate>builder().addAll(chosen.getReleaseDates());
         for (T item : notChosen) {
@@ -279,6 +263,8 @@ public class OutputContentMerger {
         }
         chosen.setReleaseDates(releases.build());
     }
+
+
 
     private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
