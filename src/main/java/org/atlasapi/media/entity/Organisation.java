@@ -16,6 +16,10 @@ public class Organisation extends ContentGroup {
     public Organisation() {
         this(ImmutableList.<Person>of(), ImmutableSet.<String>of());
     }
+
+    public Organisation(Iterable<Person> members) {
+        this.members = ImmutableList.copyOf(members);
+    }
     
     public Organisation(Iterable<Person> members, Iterable<String> alternativeTitles) {
         this.members = ImmutableList.copyOf(members);
