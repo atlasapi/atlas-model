@@ -30,6 +30,9 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.time.DateTimeZones;
@@ -87,6 +90,11 @@ public class Location extends Version {
     private String termsOfUse;
 
     private Boolean highDefinition;
+
+    private Quality quality;
+    private Boolean requiredEncryption;
+    private Set<String> subtitledLanguages;
+    private Integer vat;
 
     public String getUri() {
         return uri;
@@ -419,17 +427,57 @@ public class Location extends Version {
     public Player getPlayer() {
         return player;
     }
-    
+
+    public Integer getVat() {
+        return vat;
+    }
+
+    public void setVat(Integer vat) {
+        this.vat = vat;
+    }
+
+    public Set<String> getSubtitledLanguages() {
+        return subtitledLanguages;
+    }
+
+    public void setSubtitledLanguages(Iterable<String> subtitledLanguages) {
+        this.subtitledLanguages = ImmutableSortedSet.copyOf(subtitledLanguages);
+    }
+
+    public void addSubtitledLanguages(String subtitledLanguage) {
+        addSubtitledLanguages(ImmutableList.of(subtitledLanguage));
+    }
+
+    public void addSubtitledLanguages(Iterable<String> subtitledLanguages) {
+        setSubtitledLanguages(Iterables.concat(this.subtitledLanguages, ImmutableList.copyOf(subtitledLanguages)));
+    }
+
+    public Boolean getRequiredEncryption() {
+        return requiredEncryption;
+    }
+
+    public void setRequiredEncryption(Boolean requiredEncryption) {
+        this.requiredEncryption = requiredEncryption;
+    }
+
+    public Quality getQuality() {
+        return quality;
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Location) {
             Location target = (Location) obj;
             if (isEmbed()) {
-                return Objects.equal(transportType, target.transportType) 
-                        && Objects.equal(embedCode, target.embedCode) 
+                return Objects.equal(transportType, target.transportType)
+                        && Objects.equal(embedCode, target.embedCode)
                         && Objects.equal(embedId, target.embedId);
             } else if (!Strings.isNullOrEmpty(uri)) {
-                return Objects.equal(transportType, target.transportType) 
+                return Objects.equal(transportType, target.transportType)
                     && Objects.equal(uri, target.uri)
                     && Objects.equal(actualAvailabilityStart, target.actualAvailabilityStart)
                     && Objects.equal(availabilityStart, target.availabilityStart)
@@ -520,6 +568,9 @@ public class Location extends Version {
         if (available != null) {
             copy.setAvailable(available);
         }
+        copy.setSubtitledLanguages(getSubtitledLanguages());
+        copy.setVat(getVat());
+        copy.setRequiredEncryption(getRequiredEncryption());
         return copy;
     }
 
