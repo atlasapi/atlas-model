@@ -54,6 +54,8 @@ public class Location extends Identified {
     
     private Policy policy;
 
+    private Quality quality;
+
     private Boolean requiredEncryption;
 
     private Set<String> subtitledLanguages;
@@ -84,6 +86,11 @@ public class Location extends Identified {
     @RdfProperty
     public boolean getAvailable() {
     	return available;
+    }
+
+    @RdfProperty
+    public Quality getQuality() {
+        return quality;
     }
 
     @RdfProperty
@@ -127,6 +134,10 @@ public class Location extends Identified {
     
     public void setPolicy(Policy policy) { 
         this.policy = policy; 
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
     }
 
     public void setTransportIsLive(Boolean transportIsLive) {
