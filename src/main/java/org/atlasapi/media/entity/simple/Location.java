@@ -94,7 +94,7 @@ public class Location extends Version {
     private Quality quality;
     private Boolean requiredEncryption;
     private Set<String> subtitledLanguages;
-    private Integer vat;
+    private Double vat;
 
     public String getUri() {
         return uri;
@@ -428,11 +428,11 @@ public class Location extends Version {
         return player;
     }
 
-    public Integer getVat() {
+    public Double getVat() {
         return vat;
     }
 
-    public void setVat(Integer vat) {
+    public void setVat(Double vat) {
         this.vat = vat;
     }
 

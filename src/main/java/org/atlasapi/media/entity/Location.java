@@ -54,13 +54,13 @@ public class Location extends Identified {
     
     private Policy policy;
 
-    private Quality quality;
-
     private Boolean requiredEncryption;
 
     private Set<String> subtitledLanguages;
 
-    private Integer vat;
+    private Double vat;
+
+    private Quality quality;
 
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
@@ -82,7 +82,6 @@ public class Location extends Identified {
         return this.transportType; 
     }
 
-    
     @RdfProperty
     public boolean getAvailable() {
     	return available;
@@ -94,7 +93,7 @@ public class Location extends Identified {
     }
 
     @RdfProperty
-    public Integer getVat() {
+    public Double getVat() {
         return vat;
     }
 
@@ -124,7 +123,7 @@ public class Location extends Identified {
         setSubtitledLanguages(Iterables.concat(this.subtitledLanguages, ImmutableList.copyOf(subtitledLanguages)));
     }
 
-    public void setVat(Integer vat) {
+    public void setVat(Double vat) {
         this.vat = vat;
     }
 
@@ -134,10 +133,6 @@ public class Location extends Identified {
     
     public void setPolicy(Policy policy) { 
         this.policy = policy; 
-    }
-
-    public void setQuality(Quality quality) {
-        this.quality = quality;
     }
 
     public void setTransportIsLive(Boolean transportIsLive) {
@@ -150,6 +145,10 @@ public class Location extends Identified {
 
     public void setTransportType(TransportType transportType) {
 		this.transportType = transportType; 
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
     }
 
     @RdfProperty(relation=true)
