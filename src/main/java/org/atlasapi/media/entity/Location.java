@@ -58,7 +58,9 @@ public class Location extends Identified {
 
     private Set<String> subtitledLanguages;
 
-    private Integer vat;
+    private Double vat;
+
+    private Quality quality;
 
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
@@ -85,8 +87,12 @@ public class Location extends Identified {
     	return available;
     }
 
+    public Quality getQuality() {
+        return quality;
+    }
+
     @RdfProperty
-    public Integer getVat() {
+    public Double getVat() {
         return vat;
     }
 
@@ -116,7 +122,7 @@ public class Location extends Identified {
         setSubtitledLanguages(Iterables.concat(this.subtitledLanguages, ImmutableList.copyOf(subtitledLanguages)));
     }
 
-    public void setVat(Integer vat) {
+    public void setVat(Double vat) {
         this.vat = vat;
     }
 
