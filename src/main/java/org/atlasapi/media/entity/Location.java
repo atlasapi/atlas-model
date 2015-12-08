@@ -15,6 +15,9 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.List;
+import java.util.Set;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportSubType;
@@ -23,6 +26,10 @@ import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -46,6 +53,12 @@ public class Location extends Identified {
     private String embedId;
     
     private Policy policy;
+
+    private Boolean requiredEncryption;
+
+    private Set<String> subtitledLanguages;
+
+    private Integer vat;
 
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
@@ -72,7 +85,42 @@ public class Location extends Identified {
     public boolean getAvailable() {
     	return available;
     }
-    
+
+    @RdfProperty
+    public Integer getVat() {
+        return vat;
+    }
+
+    @RdfProperty
+    public Set<String> getSubtitledLanguages() {
+        return subtitledLanguages;
+    }
+
+    @RdfProperty
+    public Boolean getRequiredEncryption() {
+        return requiredEncryption;
+    }
+
+    public void setRequiredEncryption(Boolean requiredEncryption) {
+        this.requiredEncryption = requiredEncryption;
+    }
+
+    public void setSubtitledLanguages(Iterable<String> subtitledLanguages) {
+        this.subtitledLanguages = ImmutableSortedSet.copyOf(subtitledLanguages);
+    }
+
+    public void addSubtitledLanguages(String subtitledLanguage) {
+        addSubtitledLanguages(ImmutableList.of(subtitledLanguage));
+    }
+
+    public void addSubtitledLanguages(Iterable<String> subtitledLanguages) {
+        setSubtitledLanguages(Iterables.concat(this.subtitledLanguages, ImmutableList.copyOf(subtitledLanguages)));
+    }
+
+    public void setVat(Integer vat) {
+        this.vat = vat;
+    }
+
     public void setAvailable(boolean available) {
     	this.available = available;
 	}
@@ -133,6 +181,9 @@ public class Location extends Identified {
         copy.transportSubType = transportSubType;
         copy.transportType = transportType;
         copy.uri = uri;
+        copy.requiredEncryption = requiredEncryption;
+        copy.vat = vat;
+        copy.subtitledLanguages = Sets.newHashSet(subtitledLanguages);
         return copy;
     }
     
