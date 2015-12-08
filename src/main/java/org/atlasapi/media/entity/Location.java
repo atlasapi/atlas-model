@@ -126,6 +126,10 @@ public class Location extends Identified {
         this.vat = vat;
     }
 
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
     public void setAvailable(boolean available) {
     	this.available = available;
 	}
