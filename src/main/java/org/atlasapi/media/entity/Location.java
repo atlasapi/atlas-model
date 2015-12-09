@@ -60,8 +60,6 @@ public class Location extends Identified {
 
     private Double vat;
 
-    private Quality quality;
-
     @RdfProperty(relation=true)
     public Policy getPolicy() { 
         return this.policy; 
@@ -85,11 +83,6 @@ public class Location extends Identified {
     @RdfProperty
     public boolean getAvailable() {
     	return available;
-    }
-
-    @RdfProperty
-    public Quality getQuality() {
-        return quality;
     }
 
     @RdfProperty
@@ -145,10 +138,6 @@ public class Location extends Identified {
 
     public void setTransportType(TransportType transportType) {
 		this.transportType = transportType; 
-    }
-
-    public void setQuality(Quality quality) {
-        this.quality = quality;
     }
 
     @RdfProperty(relation=true)

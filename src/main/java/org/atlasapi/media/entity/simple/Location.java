@@ -571,6 +571,7 @@ public class Location extends Version {
         copy.setSubtitledLanguages(getSubtitledLanguages());
         copy.setVat(getVat());
         copy.setRequiredEncryption(getRequiredEncryption());
+        copy.setQuality(getQuality());
         return copy;
     }
 
