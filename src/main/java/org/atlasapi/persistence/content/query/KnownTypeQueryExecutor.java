@@ -43,6 +43,4 @@ public interface KnownTypeQueryExecutor {
     
     Map<String, List<Identified>> executePublisherQuery(Iterable<Publisher> publishers, ContentQuery query);
 
-    Map<String, List<Identified>> executeEventQuery(Iterable<Long> eventIds, ContentQuery query);
-
 }
