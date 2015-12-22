@@ -182,7 +182,9 @@ public class Location extends Identified {
         copy.uri = uri;
         copy.requiredEncryption = requiredEncryption;
         copy.vat = vat;
-        copy.subtitledLanguages = Sets.newHashSet(subtitledLanguages);
+        if(subtitledLanguages != null) {
+            copy.subtitledLanguages = Sets.newHashSet(subtitledLanguages);
+        }
         return copy;
     }
     
