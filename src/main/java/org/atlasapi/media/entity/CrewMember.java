@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -350,7 +351,9 @@ public class CrewMember extends Identified {
     public boolean equals(Object obj) {
         if (obj instanceof CrewMember) {
             CrewMember crew = (CrewMember) obj;
-            return this.getCanonicalUri().equals(crew.getCanonicalUri()) && name.equals(crew.name) && role == crew.role;
+            return  Objects.equal(this.getCanonicalUri(), crew.getCanonicalUri()) &&
+                    Objects.equal(name, crew.name) &&
+                    Objects.equal(role, crew.role);
         }
         return false;
     }
