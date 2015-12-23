@@ -1,10 +1,14 @@
 package org.atlasapi.media.entity;
 
-import com.google.common.base.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 public class Actor extends CrewMember {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public Actor() {
         super();
@@ -62,7 +66,11 @@ public class Actor extends CrewMember {
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;
-            return super.equals(actor) && Objects.equal(character, actor.character);
+            try {
+                return super.equals(actor) && character.equals(character);
+            } catch (NullPointerException e) {
+                log.error("Character - " + character, e);
+            }
         }
         return false;
     }
