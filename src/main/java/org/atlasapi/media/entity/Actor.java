@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
@@ -61,7 +62,7 @@ public class Actor extends CrewMember {
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;
-            return super.equals(actor) && character.equals(character);
+            return super.equals(actor) && Objects.equal(character, actor.character);
         }
         return false;
     }
