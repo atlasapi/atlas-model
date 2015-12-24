@@ -66,7 +66,13 @@ public class Actor extends CrewMember {
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;
-            return super.equals(actor) && character.equals(character);
+            try {
+                return super.equals(actor) && character.equals(character);
+            } catch (NullPointerException e) {
+                log.error("Character - " + character + ", Actor - uri = " + actor.getCanonicalUri()
+                        + ", id = " + actor.getId() + ", name = " + actor.name() + ", character = "
+                        + actor.character() + ", " + actor.character, e);
+            }
         }
         return false;
     }
