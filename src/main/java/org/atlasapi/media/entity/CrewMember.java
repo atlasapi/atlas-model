@@ -354,14 +354,9 @@ public class CrewMember extends Identified {
     public boolean equals(Object obj) {
         if (obj instanceof CrewMember) {
             CrewMember crew = (CrewMember) obj;
-            try {
-                return this.getCanonicalUri().equals(crew.getCanonicalUri())
-                        && name.equals(crew.name)
-                        && role == crew.role;
-            } catch (NullPointerException e) {
-                log.error("Checking if the crew member is equal uri - " + crew.getCanonicalUri()
-                        + ", name - " + crew.name + ", role - " + crew.role, e);
-            }
+            return this.getCanonicalUri().equals(crew.getCanonicalUri())
+                    && name.equals(crew.name)
+                    && role == crew.role;
         }
         return false;
     }
