@@ -40,7 +40,7 @@
                             <goal>report-integration</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${project.basedir}/../target/jacoco-it.exec</dataFile>
+                            <dataFile>${project.basedir}/target/jacoco-it.exec</dataFile>
                         </configuration>
                     </execution>
                 </executions>
