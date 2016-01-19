@@ -68,6 +68,7 @@ public class ChannelImageTest {
         TemporalField<Image> futureNormal = new TemporalField<Image>(createNormalImage("future normal"), now.plusYears(2), now.plusYears(3));
         TemporalField<Image> currentDt = new TemporalField<Image>(createDarkTransparentImage("current dt"), now.minusYears(2), now.plusYears(2));
         TemporalField<Image> currentLt = new TemporalField<Image>(createLightTransparentImage("current lt"), now.minusYears(2), now.plusYears(2));
+        TemporalField<Image> currentLtGeneric = new TemporalField<Image>(createImageWithGenericType("current ltgeneric"), now.minusYears(2), now.plusYears(2));
         
         Channel channel = Channel.builder()
                 .build();
@@ -105,6 +106,16 @@ public class ChannelImageTest {
         image.setType(ImageType.LOGO);
         image.setColor(ImageColor.COLOR);
         
+        return image;
+    }
+
+    private Image createImageWithGenericType(String uri) {
+        Image image = new Image(uri);
+
+        image.setTheme(ImageTheme.LIGHT_TRANSPARENT);
+        image.setType(ImageType.GENERIC);
+        image.setColor(ImageColor.COLOR);
+
         return image;
     }
 }
