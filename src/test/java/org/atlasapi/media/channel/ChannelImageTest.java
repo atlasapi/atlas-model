@@ -73,9 +73,9 @@ public class ChannelImageTest {
         Channel channel = Channel.builder()
                 .build();
         
-        channel.setImages(ImmutableSet.of(pastNormal, currentNormal, futureNormal, currentDt, currentLt));
+        channel.setImages(ImmutableSet.of(pastNormal, currentNormal, futureNormal, currentDt, currentLt, currentLtGeneric));
         
-        assertEquals(ImmutableSet.of(currentNormal.getValue(), currentDt.getValue(), currentLt.getValue()), channel.getImages());
+        assertEquals(ImmutableSet.of(currentNormal.getValue(), currentDt.getValue(), currentLt.getValue(),currentLtGeneric.getValue()), channel.getImages());
         
     }
 
