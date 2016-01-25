@@ -5,8 +5,7 @@ public enum ImageType {
     ADDITIONAL("additional"),
     BOX_ART("box_art"),
     POSTER("poster"),
-    LOGO("logo"),
-    GENERIC("generic");
+    LOGO("logo");
     
     private final String name;
     
