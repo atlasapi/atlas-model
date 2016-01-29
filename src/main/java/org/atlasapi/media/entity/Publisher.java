@@ -207,7 +207,9 @@ public enum Publisher {
     VF_C5("VF C5", "c5.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     VF_VIACOM("VF Viacom", "viacom.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     VF_VUBIQUITY("VF Vubiquity", "vubiquity.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    TMS_EN_GB("TMS GBR", "en-GB-tribunemediaservices.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false );
+    TMS_EN_GB("TMS GBR", "en-GB-tribunemediaservices.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false ),
+    VF_OVERRIDES("VF Overrides", "vfoverrides.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
 
