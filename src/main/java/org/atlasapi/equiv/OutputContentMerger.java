@@ -413,7 +413,8 @@ public class OutputContentMerger {
         String rewrittenUri = imageUri.replace("http://images.atlasapi.org/pa/",
                 "http://images.atlas.metabroadcast.com/pressassociation.com/");
         
-        // If there is a corresponding Image object for this URI, we check its availability
+        // If there is a corresponding Image object for this URI, we check its availability and ensure
+        // that it is not generic.
         for (Image image : images) {
             if (image.getCanonicalUri().equals(rewrittenUri)) {
                return Image.IS_AVAILABLE.apply(image) 
