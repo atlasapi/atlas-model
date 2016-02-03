@@ -298,7 +298,7 @@ public class OutputContentMerger {
     private <T extends Described> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_IMAGE_SET), 1);
+            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_SET), 1);
 
             if (!topImageMatches.isEmpty()) {
                 T top = topImageMatches.get(0);
@@ -395,18 +395,18 @@ public class OutputContentMerger {
         }
     }
     
-    private static final Predicate<Described> HAS_AVAILABLE_IMAGE_SET = new Predicate<Described>() {
+    private static final Predicate<Described> HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_SET = new Predicate<Described>() {
 
         @Override
         public boolean apply(Described content) {
             if (content.getImage() == null) {
                 return false;
             }
-            return isImageAvailable(content.getImage(), content.getImages());
+            return isImageAvailableAndNotGeneric(content.getImage(), content.getImages());
         }
     };
     
-    private static boolean isImageAvailable(String imageUri, Iterable<Image> images) {
+    private static boolean isImageAvailableAndNotGeneric(String imageUri, Iterable<Image> images) {
         
         // Fneh. Image URIs differ between the image attribute and the canonical URI on Images.
         // See PaProgrammeProcessor for why.
@@ -416,7 +416,8 @@ public class OutputContentMerger {
         // If there is a corresponding Image object for this URI, we check its availability
         for (Image image : images) {
             if (image.getCanonicalUri().equals(rewrittenUri)) {
-               return Image.IS_AVAILABLE.apply(image); 
+               return Image.IS_AVAILABLE.apply(image) 
+                       && !ImageType.GENERIC.equals(image.getType()); 
             }
         }
         // Otherwise, we can only assume the image is available as we know no better
