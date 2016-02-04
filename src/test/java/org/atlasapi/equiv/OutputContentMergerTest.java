@@ -1,22 +1,27 @@
 package org.atlasapi.equiv;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
 import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Brand;
+import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
+import org.atlasapi.media.entity.Image;
+import org.atlasapi.media.entity.ImageType;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-
+import com.google.common.collect.Lists;
 
 public class OutputContentMergerTest {
 
@@ -46,6 +51,40 @@ public class OutputContentMergerTest {
                 assertThat(contentList.toString(), merged.get(0), is(contentList.get(0)));
             }
         }
+
+    }
+
+    @Test
+    public void testSourceSettingImagesBetweenGenericAndNonGeneric() {
+        Brand one = brand(1L, "one", Publisher.BBC);
+        Brand two = brand(2L, "two", Publisher.TED);
+
+        Image test1 = new Image("test1");
+        Image test2 = new Image("test2");
+
+        test1.setAvailabilityStart(DateTime.now().minusDays(1));
+        test1.setType(ImageType.GENERIC_IMAGE_CONTENT_PLAYER);
+        test1.setAvailabilityEnd(DateTime.now());
+
+        test2.setAvailabilityStart(DateTime.now().minusDays(1));
+        test2.setAvailabilityEnd(DateTime.now());
+
+        one.setImage(test1.getCanonicalUri());
+        two.setImage(test2.getCanonicalUri());
+
+        one.setImages(ImmutableList.of(test1));
+        two.setImages(ImmutableList.of(test2));
+
+
+        ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
+                .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED)).copyWithImagePrecedenceEnabled(true);
+
+
+        List<Container> notChosen = Lists.newArrayList();
+        notChosen.add(one);
+        merger.mergeIn(config, two, notChosen);
+
+        assertEquals(test2.getCanonicalUri(), Iterables.getOnlyElement(two.getImages()).getCanonicalUri());
 
     }
 
