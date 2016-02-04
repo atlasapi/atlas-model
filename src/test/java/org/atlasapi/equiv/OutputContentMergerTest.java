@@ -55,7 +55,7 @@ public class OutputContentMergerTest {
     }
 
     @Test
-    public void testSourceSettingImages() {
+    public void testSourceSettingImagesBetweenGenericAndNonGeneric() {
         Brand one = brand(1L, "one", Publisher.BBC);
         Brand two = brand(2L, "two", Publisher.TED);
 
@@ -63,7 +63,7 @@ public class OutputContentMergerTest {
         Image test2 = new Image("test2");
 
         test1.setAvailabilityStart(DateTime.now().minusDays(1));
-        test1.setType(ImageType.GENERIC);
+        test1.setType(ImageType.GENERIC_IMAGE_CONTENT_PLAYER);
         test1.setAvailabilityEnd(DateTime.now());
 
         test2.setAvailabilityStart(DateTime.now().minusDays(1));
@@ -84,7 +84,7 @@ public class OutputContentMergerTest {
         notChosen.add(one);
         merger.mergeIn(config, two, notChosen);
 
-        assertEquals(two.getCanonicalUri(), Iterables.getOnlyElement(two.getImages()).getCanonicalUri());
+        assertEquals(test2.getCanonicalUri(), Iterables.getOnlyElement(two.getImages()).getCanonicalUri());
 
     }
 
