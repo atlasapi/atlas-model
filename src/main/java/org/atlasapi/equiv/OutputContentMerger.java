@@ -298,7 +298,8 @@ public class OutputContentMerger {
     private <T extends Described> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_SET), 1);
+            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all,
+                    HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET), 1);
 
             if (!topImageMatches.isEmpty()) {
                 T top = topImageMatches.get(0);
@@ -395,7 +396,7 @@ public class OutputContentMerger {
         }
     }
     
-    private static final Predicate<Described> HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_SET = new Predicate<Described>() {
+    private static final Predicate<Described> HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET = new Predicate<Described>() {
 
         @Override
         public boolean apply(Described content) {
@@ -418,7 +419,7 @@ public class OutputContentMerger {
         for (Image image : images) {
             if (image.getCanonicalUri().equals(rewrittenUri)) {
                return Image.IS_AVAILABLE.apply(image) 
-                       && !ImageType.GENERIC.equals(image.getType()); 
+                       && !ImageType.GENERIC_IMAGE_CONTENT_PLAYER.equals(image.getType());
             }
         }
         // Otherwise, we can only assume the image is available as we know no better
