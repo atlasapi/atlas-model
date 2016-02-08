@@ -3,7 +3,7 @@ package org.atlasapi.media.entity;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Function;
-
+import com.google.common.base.Objects;
 
 public class EventRef {
 
@@ -60,4 +60,17 @@ public class EventRef {
             }
         };
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+        if(obj instanceof EventRef) {
+            EventRef other = (EventRef) obj;
+            return Objects.equal(id, other.id);
+        }
+        return false;
+    }
+
 }
