@@ -6,7 +6,9 @@ public enum ImageType {
     BOX_ART("box_art"),
     POSTER("poster"),
     LOGO("logo"),
-    GENERIC("generic");
+    GENERIC_IMAGE_CONTENT_PLAYER("generic_image_content_player"),
+    GENERIC_IMAGE_CONTENT_ORIGINATOR("generic_image_content_originator")
+    ;
     
     private final String name;
     
