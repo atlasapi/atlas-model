@@ -209,7 +209,7 @@ public enum Publisher {
     VF_VUBIQUITY("VF Vubiquity", "vubiquity.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     TMS_EN_GB("TMS GBR", "en-GB-tribunemediaservices.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false ),
     VF_OVERRIDES("VF Overrides", "vfoverrides.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    REDBEE_BDS("Redbee BDS", "bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+    EBMS_VF_UK("EBMS VF UK", "uk.vf.bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
