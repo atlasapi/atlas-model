@@ -355,6 +355,7 @@ public class CrewMember extends Identified {
     public boolean equals(Object obj) {
         if (obj instanceof CrewMember) {
             CrewMember crew = (CrewMember) obj;
+
             return Objects.equal(this.getCanonicalUri(), crew.getCanonicalUri())
                     && Objects.equal(name, crew.name) && Objects.equal(role, crew.role);
         }

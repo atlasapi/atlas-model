@@ -136,5 +136,5 @@ public class OutputContentMergerTest {
             ImmutableList.copyOf(equivalents), LookupRef.FROM_DESCRIBED)
         ));
     }
-    
+
 }

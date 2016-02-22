@@ -207,16 +207,19 @@ public class OutputContentMerger {
         mergeKeyPhrases(chosen, notChosen);
         mergeSimilarContent(chosen, notChosen);
         mergeEvents(chosen, notChosen);
+
     }
 
     private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
         mergeContent(config, chosen, notChosen);
         mergeVersions(config, chosen, notChosen);
+
         Builder<ReleaseDate> releases = ImmutableSet.<ReleaseDate>builder().addAll(chosen.getReleaseDates());
         for (Item item : notChosen) {
             releases.addAll(item.getReleaseDates());
         }
         chosen.setReleaseDates(releases.build());
+
         if (chosen instanceof Film) {
             mergeFilmProperties(config, (Film) chosen, Iterables.filter(notChosen, Film.class));
         }
@@ -409,6 +412,7 @@ public class OutputContentMerger {
         // that it is not generic.
         for (Image image : images) {
             if (image.getCanonicalUri().equals(rewrittenUri)) {
+
                return Image.IS_AVAILABLE.apply(image)
                        && !ImageType.GENERIC_IMAGE_CONTENT_PLAYER.equals(image.getType());
             }
