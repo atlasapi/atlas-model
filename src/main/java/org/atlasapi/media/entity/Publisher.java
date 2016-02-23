@@ -16,6 +16,13 @@ import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.intl.Country;
 
+/**
+ * Publishers must only ever be added. Once added, the key must never be changed (other attributes
+ * are ok to be changed), and it must never be removed. If a published is no longer required, mark
+ * as @Deprecated.
+ *
+ * There may be API key configuration, or data in the database, which relies on it.
+ */
 public enum Publisher {
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
     C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
