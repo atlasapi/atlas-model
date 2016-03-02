@@ -5,7 +5,10 @@ public enum ImageType {
     ADDITIONAL("additional"),
     BOX_ART("box_art"),
     POSTER("poster"),
-    LOGO("logo");
+    LOGO("logo"),
+    GENERIC_IMAGE_CONTENT_PLAYER("generic_image_content_player"),
+    GENERIC_IMAGE_CONTENT_ORIGINATOR("generic_image_content_originator")
+    ;
     
     private final String name;
     

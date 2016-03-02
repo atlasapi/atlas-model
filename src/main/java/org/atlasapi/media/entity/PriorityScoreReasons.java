@@ -31,4 +31,5 @@ public class PriorityScoreReasons {
     public void setNegative(List<String> negative) {
         this.negative = negative;
     }
+
 }

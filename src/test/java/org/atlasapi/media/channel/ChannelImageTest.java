@@ -68,7 +68,7 @@ public class ChannelImageTest {
         TemporalField<Image> futureNormal = new TemporalField<Image>(createNormalImage("future normal"), now.plusYears(2), now.plusYears(3));
         TemporalField<Image> currentDt = new TemporalField<Image>(createDarkTransparentImage("current dt"), now.minusYears(2), now.plusYears(2));
         TemporalField<Image> currentLt = new TemporalField<Image>(createLightTransparentImage("current lt"), now.minusYears(2), now.plusYears(2));
-        
+
         Channel channel = Channel.builder()
                 .build();
         
@@ -107,4 +107,5 @@ public class ChannelImageTest {
         
         return image;
     }
+
 }
