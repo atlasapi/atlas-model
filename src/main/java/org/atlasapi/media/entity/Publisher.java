@@ -219,8 +219,8 @@ public enum Publisher {
     REDBEE_BDS("Redbee BDS", "bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     EBMS_VF_UK("EBMS VF UK", "uk.vf.bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ARQIVA("Arqiva", "arqiva-momentum-adi.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    TVCHOICE_RELATED_LINKS("TV Choice Related Links", "tv-choice-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
-
+    TVCHOICE_RELATED_LINKS("TV Choice Related Links", "tv-choice-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    INTERNET_VIDEO_ARCHIVE("Internet Video Archive", "internetvideoarchive.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
