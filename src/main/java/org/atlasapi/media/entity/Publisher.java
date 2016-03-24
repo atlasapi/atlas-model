@@ -16,6 +16,13 @@ import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.intl.Countries;
 import com.metabroadcast.common.intl.Country;
 
+/**
+ * Publishers must only ever be added. Once added, the key must never be changed (other attributes
+ * are ok to be changed), and it must never be removed. If a published is no longer required, mark
+ * as @Deprecated.
+ *
+ * There may be API key configuration, or data in the database, which relies on it.
+ */
 public enum Publisher {
     BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
     C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
@@ -210,7 +217,11 @@ public enum Publisher {
     TMS_EN_GB("TMS GBR", "en-GB-tribunemediaservices.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false ),
     VF_OVERRIDES("VF Overrides", "vfoverrides.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     REDBEE_BDS("Redbee BDS", "bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    EBMS_VF_UK("EBMS VF UK", "uk.vf.bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+    EBMS_VF_UK("EBMS VF UK", "uk.vf.bds.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    ARQIVA("Arqiva", "arqiva-momentum-adi.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    TVCHOICE_RELATED_LINKS("TV Choice Related Links", "tv-choice-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    INTERNET_VIDEO_ARCHIVE("Internet Video Archive", "internetvideoarchive.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    DIGITALSPY_RELATED_LINKS("Digital Spy Related Links", "digital-spy-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
