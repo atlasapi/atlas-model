@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.entity.Award;
 import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
@@ -71,6 +72,7 @@ public abstract class Description extends Aliased {
     private Set<Event> events = Sets.newHashSet();
     private Priority priority;
     private Set<EventRef> eventRefs = Sets.newHashSet();
+    private Set<Award> awards = Sets.newHashSet();
 
     public Description(String uri) {
         super(uri);
@@ -509,5 +511,16 @@ public abstract class Description extends Aliased {
     public void setEventRefs(Iterable<EventRef> eventRefs) {
         this.eventRefs = ImmutableSet.copyOf(eventRefs);
     }
+
+    @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "awards")
+    @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "award")
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
+    }
+
 
 }
