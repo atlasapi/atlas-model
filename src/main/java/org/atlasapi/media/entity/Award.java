@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity;
 
+import java.util.Objects;
+
 public class Award {
 
     private String outcome;
@@ -45,26 +47,15 @@ public class Award {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-
         Award award = (Award) o;
-
-        if (!outcome.equals(award.outcome))
-            return false;
-        if (!title.equals(award.title))
-            return false;
-        if (!description.equals(award.description))
-            return false;
-        return year.equals(award.year);
-
+        return Objects.equals(outcome, award.outcome) &&
+                Objects.equals(title, award.title) &&
+                Objects.equals(description, award.description) &&
+                Objects.equals(year, award.year);
     }
 
     @Override
     public int hashCode() {
-        int result = outcome.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + year.hashCode();
-        return result;
+        return Objects.hash(outcome, title, description, year);
     }
-
 }
