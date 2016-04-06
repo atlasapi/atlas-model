@@ -71,6 +71,7 @@ public abstract class Described extends Identified {
 
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
     private Priority priority;
+    private Set<Award> awards = ImmutableSet.of();
 	
 	public Described(String uri, String curie, Publisher publisher) {
 		super(uri, curie);
@@ -338,6 +339,14 @@ public abstract class Described extends Identified {
     public void setAudienceStatistics(AudienceStatistics audienceStatistics) {
         this.audienceStatistics = audienceStatistics;
     }
+
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = ImmutableSet.copyOf(awards);
+    }
  
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
@@ -366,6 +375,7 @@ public abstract class Described extends Identified {
         to.audienceStatistics = from.audienceStatistics;
         to.activelyPublished = from.activelyPublished;
         to.priority = from.priority;
+        to.awards = ImmutableSet.copyOf(from.awards);
     }
     
     public abstract Described copy();
