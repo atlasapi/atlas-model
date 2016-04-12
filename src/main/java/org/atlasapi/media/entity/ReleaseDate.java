@@ -10,8 +10,14 @@ import com.metabroadcast.common.intl.Country;
 public class ReleaseDate {
 
     public enum ReleaseType {
+        ORIGINAL,
         GENERAL,
-        FIRST_BROADCAST;
+        FIRST_BROADCAST,
+        LIMITED,
+        SCREENING,
+        WIDE,
+        EXPANDED,
+        SUBSEQUENT;
     }
     
     private final LocalDate date;
