@@ -17,7 +17,8 @@ public class ReleaseDate {
         SCREENING,
         WIDE,
         EXPANDED,
-        SUBSEQUENT;
+        SUBSEQUENT,
+        SCHEDULED;
     }
     
     private final LocalDate date;
