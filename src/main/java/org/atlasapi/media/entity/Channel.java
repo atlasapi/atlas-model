@@ -19,6 +19,13 @@ import com.metabroadcast.common.base.Maybe;
 import com.metabroadcast.common.model.SelfModelling;
 import com.metabroadcast.common.model.SimpleModel;
 
+/**
+ * This class has been deprecated, however it still might be used by some servies.
+ * Instead of using this class you should write/read Channel by using GsonChannelClient.
+ * @deprecated {@link org.atlasapi.media.entity.simple.Channel}
+ * @deprecated {@link org.atlasapi.media.channel.Channel}
+ */
+@Deprecated
 public class Channel implements SelfModelling {
     // Change this and you have to rebuild the whole schedule index (if you still want to be able to do range queries
     public static final int MAX_KEY_LENGTH = 31;
