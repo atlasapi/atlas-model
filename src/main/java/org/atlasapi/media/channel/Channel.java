@@ -21,7 +21,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.base.MorePredicates;
 
-public class Channel extends Identified {
+public class Channel extends Identified implements ScheduleResolvable {
     
     public static final Predicate<Image> IS_PRIMARY_IMAGE = new Predicate<Image>() {
         @Override

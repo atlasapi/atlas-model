@@ -21,7 +21,7 @@ import com.google.common.collect.Sets;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="Channel", namespace=PLAY_SIMPLE_XML.NS)
-public class Channel extends Aliased {
+public class Channel extends Aliased implements ScheduleResolvable{
 
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
     private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
