@@ -2,13 +2,14 @@ package org.atlasapi.media.channel;
 
 import java.util.Set;
 
+import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.Publisher;
 
 import com.google.common.collect.Sets;
 import org.joda.time.LocalDate;
 
-public class Masterbrand implements ScheduleResolvable {
+public class Masterbrand extends Identified implements ScheduleResolvable {
 
     private String uri;
     private String title;
