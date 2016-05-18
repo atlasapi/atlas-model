@@ -16,7 +16,7 @@ public class ScheduleChannel {
     private String channelUri;
     private String channelTitle;
     private String channelKey;
-    private Channel channel;
+    private ScheduleResolvable channel;
     
     public String getChannelTitle() {
         return channelTitle;
@@ -56,7 +56,7 @@ public class ScheduleChannel {
         this.channel = channel;
     }
     
-    public Channel getChannel() {
+    public ScheduleResolvable getChannel() {
         return channel;
     }
 
