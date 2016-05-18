@@ -47,6 +47,8 @@ public class Channel extends Identified implements ScheduleResolvable {
         private Boolean regional;
         private Boolean highDefinition;
         private Boolean adult;
+        private String description;
+        private String region;
         private Duration timeshift;
         private DateTime advertiseFrom;
         private Set<Publisher> availableFrom = ImmutableSet.of();
@@ -206,11 +208,21 @@ public class Channel extends Identified implements ScheduleResolvable {
             this.genres = Sets.newHashSet(genres);
             return this;
         }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withRegion(String region) {
+            this.region = region;
+            return this;
+        }
         
         public Channel build() {
             return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
                     regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
-                    variations, parent, channelNumbers, startDate, endDate, genres);
+                    variations, parent, channelNumbers, startDate, endDate, genres, description, region);
         }
     }
     
@@ -225,6 +237,8 @@ public class Channel extends Identified implements ScheduleResolvable {
     private Boolean regional;
     private Boolean adult;
     private Duration timeshift;
+    private String description;
+    private String region;
     private Publisher broadcaster;
     private DateTime advertiseFrom;
     private Set<Publisher> availableFrom;
@@ -240,7 +254,7 @@ public class Channel extends Identified implements ScheduleResolvable {
         this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
                 ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
                 ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
-                ImmutableSet.<String>of());
+                ImmutableSet.<String>of(), null, null);
     }
     
     @Deprecated //Required for OldChannel
@@ -250,7 +264,7 @@ public class Channel extends Identified implements ScheduleResolvable {
             Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, 
             Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
             Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
-            LocalDate endDate, Iterable<String> genres) {
+            LocalDate endDate, Iterable<String> genres, String description, String region) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -271,6 +285,8 @@ public class Channel extends Identified implements ScheduleResolvable {
         this.variations = Sets.newHashSet(variations);
         this.channelNumbers = Sets.newHashSet(channelNumbers);
         this.genres = ImmutableSet.copyOf(genres);
+        this.description = description;
+        this.region = region;
     }
     
     public String getUri() {
@@ -527,7 +543,23 @@ public class Channel extends Identified implements ScheduleResolvable {
     public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
         this.relatedLinks = Sets.newHashSet(relatedLinks);
     }
-    
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
