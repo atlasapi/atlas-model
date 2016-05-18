@@ -56,6 +56,11 @@ public class Channel extends Identified {
         private LocalDate startDate;
         private LocalDate endDate;
         private Set<String> genres = Sets.newHashSet();
+        private String shortDescription;
+        private String mediumDescription;
+        private String longDescription;
+        private String region;
+        private ChannelType channelType;
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -206,11 +211,37 @@ public class Channel extends Identified {
             this.genres = Sets.newHashSet(genres);
             return this;
         }
+
+        public Builder withShortDescription(String shortDescription) {
+            this.shortDescription = shortDescription;
+            return this;
+        }
+
+        public Builder withMediumDescription(String mediumDescription) {
+            this.mediumDescription = mediumDescription;
+            return this;
+        }
+
+        public Builder withLongDescription(String longDescription) {
+            this.longDescription = longDescription;
+            return this;
+        }
+
+        public Builder withRegion(String region) {
+            this.region = region;
+            return this;
+        }
+
+        public Builder withChannelType(ChannelType channelType) {
+            this.channelType = channelType;
+            return this;
+        }
         
         public Channel build() {
             return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
                     regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
-                    variations, parent, channelNumbers, startDate, endDate, genres);
+                    variations, parent, channelNumbers, startDate, endDate, genres, shortDescription, mediumDescription,
+                    longDescription, region, channelType);
         }
     }
     
@@ -234,13 +265,18 @@ public class Channel extends Identified {
     private LocalDate startDate;
     private LocalDate endDate;
     private ImmutableSet<String> genres = ImmutableSet.of();
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
+    private String region;
+    private ChannelType channelType;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
         this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
                 ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
                 ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
-                ImmutableSet.<String>of());
+                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL);
     }
     
     @Deprecated //Required for OldChannel
@@ -250,7 +286,8 @@ public class Channel extends Identified {
             Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, 
             Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
             Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
-            LocalDate endDate, Iterable<String> genres) {
+            LocalDate endDate, Iterable<String> genres, String shortDescription, String mediumDescription, String longDescription,
+            String region, ChannelType channelType) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -271,6 +308,11 @@ public class Channel extends Identified {
         this.variations = Sets.newHashSet(variations);
         this.channelNumbers = Sets.newHashSet(channelNumbers);
         this.genres = ImmutableSet.copyOf(genres);
+        this.shortDescription = shortDescription;
+        this.mediumDescription = mediumDescription;
+        this.longDescription = longDescription;
+        this.region = region;
+        this.channelType = channelType;
     }
     
     public String getUri() {
@@ -527,7 +569,47 @@ public class Channel extends Identified {
     public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
         this.relatedLinks = Sets.newHashSet(relatedLinks);
     }
-    
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getMediumDescription() {
+        return mediumDescription;
+    }
+
+    public void setMediumDescription(String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public ChannelType getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(ChannelType channelType) {
+        this.channelType = channelType;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
