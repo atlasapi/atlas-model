@@ -15,23 +15,25 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.segment.SegmentEvent;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
-import org.joda.time.Duration;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import org.joda.time.Duration;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -100,13 +102,14 @@ public class Version extends Identified {
     public void setPublishedDuration(Integer publishedDuration) {
 		this.publishedDuration = publishedDuration;
 	}
-    
+
+    @Nullable
     @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation=false)
     public Integer getDuration() { 
         return this.duration;
     }
  
-    public void setDuration(Duration duration) {
+    public void setDuration(@Nullable Duration duration) {
         if (duration != null) {
             this.duration = (int) duration.getStandardSeconds();
         } else {
