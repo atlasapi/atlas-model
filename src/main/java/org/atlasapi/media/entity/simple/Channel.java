@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.media.channel.ChannelType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -31,7 +33,7 @@ public class Channel extends Aliased {
     private String image;
     private Set<Image> images;
     private String mediaType;
-    private Boolean highDefinition;        
+    private Boolean highDefinition;
     private Boolean regional;
     private Boolean adult;
     private Long timeshift;
@@ -47,44 +49,96 @@ public class Channel extends Aliased {
     private Date endDate;
     private Set<String> genres = Sets.newHashSet();
     private Date advertisedFrom;
+    private String shortDescription;
+    private String mediumDescription;
+    private String longDescription;
+    private String region;
+    private String channelType;
+    private Set<String> targetRegions = Sets.newHashSet();
 
+    @Nullable
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(@Nullable String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    @Nullable
+    public String getMediumDescription() {
+        return mediumDescription;
+    }
+
+    public void setMediumDescription(@Nullable String mediumDescription) {
+        this.mediumDescription = mediumDescription;
+    }
+
+    @Nullable
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(@Nullable String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    @Nullable
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(@Nullable String region) {
+        this.region = region;
+    }
+
+    @Nullable
+    public String getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(@Nullable String channelType) {
+        this.channelType = channelType;
+    }
+
+    @Nullable
     public Date getAdvertisedFrom() { return advertisedFrom; }
 
-    public void setAdvertisedFrom(Date advertisedFrom) { this.advertisedFrom = advertisedFrom;}
+    public void setAdvertisedFrom(@Nullable Date advertisedFrom) { this.advertisedFrom = advertisedFrom;}
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@Nullable String title) {
         this.title = title;
     }
 
-    public void setImage(String image) {
+    public void setImage(@Nullable String image) {
         this.image = image;
     }
 
-    public void setImages(Iterable<Image> images) {
+    public void setImages(@Nullable Iterable<Image> images) {
         this.images = ImmutableSet.copyOf(images);
     }
     
-    public void setMediaType(String mediaType) {
+    public void setMediaType(@Nullable String mediaType) {
         this.mediaType = mediaType;
     }
     
-    public void setHighDefinition(Boolean highDefinition) {
+    public void setHighDefinition(@Nullable Boolean highDefinition) {
         this.highDefinition = highDefinition;
     }
     
-    public void setRegional(Boolean regional) {
+    public void setRegional(@Nullable Boolean regional) {
         this.regional = regional;
     }
 
-    public void setAdult(Boolean adult) {
+    public void setAdult(@Nullable Boolean adult) {
         this.adult = adult;
     }
     
-    public void setTimeshift(Long timeshift) {
+    public void setTimeshift(@Nullable Long timeshift) {
         this.timeshift = timeshift;
     }
 
@@ -93,34 +147,42 @@ public class Channel extends Aliased {
         return this.publisher;
     }
 
+    @Nullable
     public String getTitle() {
         return this.title;
     }
 
+    @Nullable
     public String getImage() {
         return this.image;
     }
 
+    @Nullable
     public Set<Image> getImages() {
         return this.images;
     }
-    
+
+    @Nullable
     public String getMediaType() {
         return this.mediaType;
     }
-    
+
+    @Nullable
     public Boolean getHighDefinition() {
         return highDefinition;
     }
-    
+
+    @Nullable
     public Boolean getRegional() {
         return regional;
     }
-    
+
+    @Nullable
     public Boolean getAdult() {
         return adult;
     }
-    
+
+    @Nullable
     public Long getTimeshift() {
         return timeshift;
     }
@@ -136,7 +198,8 @@ public class Channel extends Aliased {
     public void setGroups(Iterable<ChannelGroupSummary> aliases) {
         this.groups = ImmutableList.copyOf(aliases);
     }
-    
+
+    @Nullable
     @XmlElementWrapper(name = "groups")
     @XmlElement(name = "group")
     public List<ChannelGroupSummary> getGroups() {
@@ -151,12 +214,14 @@ public class Channel extends Aliased {
         return relatedLinks;
     }
 
+    @Nullable
     @XmlElementWrapper(name = "channelGroups")
     @XmlElement(name = "channelNumbering")
     public List<ChannelNumbering> getChannelGroups() {
         return channelGroups;
     }
 
+    @Nullable
     public PublisherDetails getBroadcaster() {
         return broadcaster;
     }
@@ -172,21 +237,24 @@ public class Channel extends Aliased {
     public void setAvailableFrom(Iterable<PublisherDetails> availableFrom) {
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
     }
-    
+
+    @Nullable
     @XmlElementWrapper(name = "availableFrom")
     @XmlElement(name = "publisher")
     public Set<PublisherDetails> getAvailableFrom() {
         return availableFrom;
     }
 
+    @Nullable
     public Channel getParent() {
         return parent;
     }
 
-    public void setParent(Channel parent) {
+    public void setParent(@Nullable Channel parent) {
         this.parent = parent;
     }
 
+    @Nullable
     @XmlElementWrapper(name = "variations")
     @XmlElement(name = "variation")
     public Set<Channel> getVariations() {
@@ -201,37 +269,51 @@ public class Channel extends Aliased {
         this.variations = ImmutableSet.copyOf(variations);
     }
 
+    @Nullable
     @XmlElementWrapper(name = "history")
     @XmlElement(name = "historyEntry")
     public List<HistoricalChannelEntry> getHistory() {
         return history;
     }
 
-    public void setHistory(Iterable<HistoricalChannelEntry> history) {
-        this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+    public void setHistory(@Nullable Iterable<HistoricalChannelEntry> history) {
+        if (history != null) {
+            this.history = HISTORY_ORDERING.immutableSortedCopy(history);
+        }
     }
 
+    @Nullable
     @XmlElement(name = "startDate")    
     public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(@Nullable LocalDate startDate) {
         if (startDate != null) {
             this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
         }
     }
 
+    @Nullable
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(@Nullable LocalDate endDate) {
         if (endDate != null) {
             this.startDate = endDate.toDate();
         }
     }
-    
+
+    public Set<String> getTargetRegions() {
+        return targetRegions;
+    }
+
+    public void setTargetRegions(Set<String> targetRegions) {
+        this.targetRegions = targetRegions;
+    }
+
+    @Nullable
     public Set<String> getGenres() {
         return genres;
     }
