@@ -65,9 +65,9 @@ public class Channel extends Identified {
         private String longDescription;
         private String region;
         private Set<String> targetRegions = Sets.newHashSet();
-        private ChannelType channelType;
         private Boolean interactive = false;
-        
+        private ChannelType channelType = ChannelType.CHANNEL;
+
         public Builder withSource(Publisher source) {
             this.source = source;
             return this;
@@ -239,7 +239,7 @@ public class Channel extends Identified {
         }
 
         public Builder withChannelType(ChannelType channelType) {
-            this.channelType = channelType;
+            this.channelType = checkNotNull(channelType);
             return this;
         }
 
@@ -260,8 +260,7 @@ public class Channel extends Identified {
                     longDescription, region, channelType, targetRegions, interactive);
         }
     }
-    
-    
+
     private Publisher source;
     private Set<TemporalField<String>> titles = Sets.newHashSet();
     private Set<TemporalField<Image>> images = Sets.newHashSet();
@@ -650,13 +649,12 @@ public class Channel extends Identified {
         this.targetRegions = targetRegions;
     }
 
-    @Nullable
     public ChannelType getChannelType() {
         return channelType;
     }
 
-    public void setChannelType(@Nullable ChannelType channelType) {
-        this.channelType = channelType;
+    public void setChannelType(ChannelType channelType) {
+        this.channelType = checkNotNull(channelType);
     }
 
     public Boolean getInteractive() {
