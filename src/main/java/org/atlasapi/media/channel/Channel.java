@@ -62,6 +62,7 @@ public class Channel extends Identified {
         private String mediumDescription;
         private String longDescription;
         private String region;
+        private Set<String> targetRegions = Sets.newHashSet();
         private ChannelType channelType;
         
         public Builder withSource(Publisher source) {
@@ -238,12 +239,17 @@ public class Channel extends Identified {
             this.channelType = channelType;
             return this;
         }
+
+        public Builder withTargetRegions(Set<String> targetRegions) {
+            this.targetRegions = targetRegions;
+            return this;
+        }
         
         public Channel build() {
             return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
                     regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
                     variations, parent, channelNumbers, startDate, endDate, genres, shortDescription, mediumDescription,
-                    longDescription, region, channelType);
+                    longDescription, region, channelType, targetRegions);
         }
     }
     
@@ -272,13 +278,14 @@ public class Channel extends Identified {
     private String longDescription;
     private String region;
     private ChannelType channelType;
+    private Set<String> targetRegions = Sets.newHashSet();
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
         this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
                 ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
                 ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
-                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL);
+                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL, ImmutableSet.<String>of());
     }
     
     @Deprecated //Required for OldChannel
@@ -289,7 +296,7 @@ public class Channel extends Identified {
             Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
             Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
             LocalDate endDate, Iterable<String> genres, String shortDescription, String mediumDescription, String longDescription,
-            String region, ChannelType channelType) {
+            String region, ChannelType channelType, Set<String> targetRegions) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -315,6 +322,7 @@ public class Channel extends Identified {
         this.longDescription = longDescription;
         this.region = region;
         this.channelType = channelType;
+        this.targetRegions = targetRegions;
     }
     
     public String getUri() {
@@ -622,6 +630,14 @@ public class Channel extends Identified {
 
     public void setRegion(@Nullable String region) {
         this.region = region;
+    }
+
+    public Set<String> getTargetRegions() {
+        return targetRegions;
+    }
+
+    public void setTargetRegions(Set<String> targetRegions) {
+        this.targetRegions = targetRegions;
     }
 
     @Nullable

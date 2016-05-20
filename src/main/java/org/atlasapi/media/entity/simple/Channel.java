@@ -54,6 +54,7 @@ public class Channel extends Aliased {
     private String longDescription;
     private String region;
     private String channelType;
+    private Set<String> targetRegions = Sets.newHashSet();
 
     @Nullable
     public String getShortDescription() {
@@ -302,6 +303,14 @@ public class Channel extends Aliased {
         if (endDate != null) {
             this.startDate = endDate.toDate();
         }
+    }
+
+    public Set<String> getTargetRegions() {
+        return targetRegions;
+    }
+
+    public void setTargetRegions(Set<String> targetRegions) {
+        this.targetRegions = targetRegions;
     }
 
     @Nullable
