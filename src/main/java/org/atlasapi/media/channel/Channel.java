@@ -23,6 +23,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class Channel extends Identified {
     
     public static final Predicate<Image> IS_PRIMARY_IMAGE = new Predicate<Image>() {
@@ -63,7 +65,7 @@ public class Channel extends Identified {
         private String longDescription;
         private String region;
         private Set<String> targetRegions = Sets.newHashSet();
-        private ChannelType channelType;
+        private ChannelType channelType = ChannelType.CHANNEL;
         private Boolean interactive;
         
         public Builder withSource(Publisher source) {
@@ -237,7 +239,7 @@ public class Channel extends Identified {
         }
 
         public Builder withChannelType(ChannelType channelType) {
-            this.channelType = channelType;
+            this.channelType = checkNotNull(channelType);
             return this;
         }
 
@@ -652,8 +654,8 @@ public class Channel extends Identified {
         return channelType;
     }
 
-    public void setChannelType(@Nullable ChannelType channelType) {
-        this.channelType = channelType;
+    public void setChannelType(ChannelType channelType) {
+        this.channelType = checkNotNull(channelType);
     }
 
     @Nullable
