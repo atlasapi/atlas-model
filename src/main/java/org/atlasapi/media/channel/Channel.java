@@ -332,7 +332,7 @@ public class Channel extends Identified {
         this.region = region;
         this.channelType = channelType;
         this.targetRegions = targetRegions;
-        this.interactive = interactive;
+        this.interactive = checkNotNull(interactive);
     }
     
     public String getUri() {
@@ -663,8 +663,8 @@ public class Channel extends Identified {
         return interactive;
     }
 
-    public void setInteractive(Boolean interactive) {
-        this.interactive = checkNotNull(interactive);
+    public void setInteractive(@Nullable Boolean interactive) {
+        this.interactive = interactive != null ? interactive : false;
     }
 
     @Override
