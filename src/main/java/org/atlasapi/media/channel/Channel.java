@@ -1,6 +1,5 @@
 package org.atlasapi.media.channel;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -11,9 +10,8 @@ import org.atlasapi.media.entity.ImageTheme;
 import org.atlasapi.media.entity.MediaType;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.RelatedLink;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.joda.time.LocalDate;
+
+import com.metabroadcast.common.base.MorePredicates;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -21,7 +19,11 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.metabroadcast.common.base.MorePredicates;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.LocalDate;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Channel extends Identified {
     
@@ -64,6 +66,7 @@ public class Channel extends Identified {
         private String region;
         private Set<String> targetRegions = Sets.newHashSet();
         private ChannelType channelType;
+        private Boolean interactive = false;
         
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -244,12 +247,17 @@ public class Channel extends Identified {
             this.targetRegions = targetRegions;
             return this;
         }
+
+        public Builder withInteractive(Boolean interactive) {
+            this.interactive = checkNotNull(interactive);
+            return this;
+        }
         
         public Channel build() {
             return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
                     regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
                     variations, parent, channelNumbers, startDate, endDate, genres, shortDescription, mediumDescription,
-                    longDescription, region, channelType, targetRegions);
+                    longDescription, region, channelType, targetRegions, interactive);
         }
     }
     
@@ -279,13 +287,14 @@ public class Channel extends Identified {
     private String region;
     private ChannelType channelType;
     private Set<String> targetRegions = Sets.newHashSet();
+    private Boolean interactive;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
         this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
                 ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
                 ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
-                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL, ImmutableSet.<String>of());
+                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL, ImmutableSet.<String>of(), false);
     }
     
     @Deprecated //Required for OldChannel
@@ -296,7 +305,7 @@ public class Channel extends Identified {
             Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
             Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
             LocalDate endDate, Iterable<String> genres, String shortDescription, String mediumDescription, String longDescription,
-            String region, ChannelType channelType, Set<String> targetRegions) {
+            String region, ChannelType channelType, Set<String> targetRegions, Boolean interactive) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -323,6 +332,7 @@ public class Channel extends Identified {
         this.region = region;
         this.channelType = channelType;
         this.targetRegions = targetRegions;
+        this.interactive = interactive;
     }
     
     public String getUri() {
@@ -647,6 +657,14 @@ public class Channel extends Identified {
 
     public void setChannelType(@Nullable ChannelType channelType) {
         this.channelType = channelType;
+    }
+
+    public Boolean getInteractive() {
+        return interactive;
+    }
+
+    public void setInteractive(Boolean interactive) {
+        this.interactive = checkNotNull(interactive);
     }
 
     @Override
