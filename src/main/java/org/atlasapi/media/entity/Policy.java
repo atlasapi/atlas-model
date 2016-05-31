@@ -17,18 +17,19 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.entity.simple.Pricing;
 import org.atlasapi.media.vocabulary.PO;
-import org.joda.time.DateTime;
 
-import com.google.common.collect.Sets;
 import com.metabroadcast.common.currency.Price;
 import com.metabroadcast.common.intl.Country;
+
+import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import org.joda.time.DateTime;
 
 @RdfClass(namespace = PO.NS)
 public class Policy extends Identified {
@@ -241,6 +242,27 @@ public class Policy extends Identified {
 
 	public void setPricing(Iterable<Pricing> pricing) {
 		this.pricing = ImmutableList.copyOf(pricing);
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+				.add("availabilityStart", availabilityStart)
+				.add("availabilityEnd", availabilityEnd)
+				.add("drmPlayableFrom", drmPlayableFrom)
+				.add("availableCountries", availableCountries)
+				.add("availabilityLength", availabilityLength)
+				.add("revenueContract", revenueContract)
+				.add("subscriptionPackages", subscriptionPackages)
+				.add("price", price)
+				.add("pricing", pricing)
+				.add("platform", platform)
+				.add("service", service)
+				.add("player", player)
+				.add("network", network)
+				.add("actualAvailabilityStart", actualAvailabilityStart)
+				.add("termsOfUse", termsOfUse)
+				.toString();
 	}
 
 	public enum RevenueContract {

@@ -22,6 +22,7 @@ import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 
 /**
@@ -119,7 +120,21 @@ public class Location extends Identified {
     public void setEmbedId(String embedId) {
         this.embedId = embedId;
     }
-    
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("available", available)
+                .add("transportIsLive", transportIsLive)
+                .add("transportSubType", transportSubType)
+                .add("transportType", transportType)
+                .add("uri", uri)
+                .add("embedCode", embedCode)
+                .add("embedId", embedId)
+                .add("policy", policy)
+                .toString();
+    }
+
     public Location copy() {
         Location copy = new Location();
         Identified.copyTo(this, copy);
