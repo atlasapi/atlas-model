@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageTheme;
@@ -67,7 +68,8 @@ public class Channel extends Identified {
         private Set<String> targetRegions = Sets.newHashSet();
         private ChannelType channelType;
         private Boolean interactive = false;
-        
+        private Set<Alias> aliases = ImmutableSet.of();
+
         public Builder withSource(Publisher source) {
             this.source = source;
             return this;
@@ -252,12 +254,44 @@ public class Channel extends Identified {
             this.interactive = checkNotNull(interactive);
             return this;
         }
+
+        public Builder withAliases(Set<Alias> aliases) {
+            this.aliases = aliases;
+            return this;
+        }
         
         public Channel build() {
-            return new Channel(source, titles, images, relatedLinks, key, highDefinition, 
-                    regional, adult, timeshift, mediaType, uri, broadcaster, advertiseFrom, availableFrom,
-                    variations, parent, channelNumbers, startDate, endDate, genres, shortDescription, mediumDescription,
-                    longDescription, region, channelType, targetRegions, interactive);
+            Channel channel = new Channel(
+                    source,
+                    titles,
+                    images,
+                    relatedLinks,
+                    key,
+                    highDefinition,
+                    regional,
+                    adult,
+                    timeshift,
+                    mediaType,
+                    uri,
+                    broadcaster,
+                    advertiseFrom,
+                    availableFrom,
+                    variations,
+                    parent,
+                    channelNumbers,
+                    startDate,
+                    endDate,
+                    genres,
+                    shortDescription,
+                    mediumDescription,
+                    longDescription,
+                    region,
+                    channelType,
+                    targetRegions,
+                    interactive
+            );
+            channel.setAliases(aliases);
+            return channel;
         }
     }
     
