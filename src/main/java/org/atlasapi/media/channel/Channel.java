@@ -31,7 +31,9 @@ public class Channel extends Identified {
     public static final Predicate<Image> IS_PRIMARY_IMAGE = new Predicate<Image>() {
         @Override
         public boolean apply(Image input) {
-            return input.getTheme().equals(ImageTheme.LIGHT_OPAQUE);
+            return input != null &&
+                    input.getTheme() != null &&
+                    input.getTheme().equals(ImageTheme.LIGHT_OPAQUE);
         }
     };
     
