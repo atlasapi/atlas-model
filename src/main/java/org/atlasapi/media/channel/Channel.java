@@ -107,6 +107,14 @@ public class Channel extends Identified {
             this.images.add(new TemporalField<Image>(image, startDate, endDate));
             return this;
         };
+
+        public Builder withImages(Set<Image> images) {
+            this.images.clear();
+            for (Image image : images) {
+                this.images.add(new TemporalField<>(image, null, null));
+            }
+            return this;
+        }
         
         public Builder withRelatedLink(RelatedLink relatedLink) {
             this.relatedLinks.add(relatedLink);
