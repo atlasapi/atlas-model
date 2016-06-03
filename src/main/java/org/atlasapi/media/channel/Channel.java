@@ -108,7 +108,7 @@ public class Channel extends Identified {
             return this;
         };
 
-        public Builder withImages(Set<Image> images) {
+        public Builder withImages(Iterable<Image> images) {
             this.images.clear();
             for (Image image : images) {
                 this.images.add(new TemporalField<>(image, null, null));
