@@ -12,7 +12,6 @@ import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -20,7 +19,7 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 public class ApplicationConfiguration {
-	
+
     /**
      * @deprecated Use {@link ApplicationConfiguration#defaultConfiguration()} instead
      */
@@ -31,23 +30,25 @@ public class ApplicationConfiguration {
     private static final ApplicationConfiguration NO_API_KEY_CONFIG = ApplicationConfiguration
             .defaultConfiguration()
             .copyWithSourceStatuses(noAPIKeySourceStatusMap());
-	
-	private final Map<Publisher, SourceStatus> sourceStatuses;
-	private final Set<Publisher> enabledSources;
-	private final List<Publisher> precedence;
-	private final ImmutableSet<Publisher> writableSources;
-	private final Boolean imagePrecedenceEnabled;
-	private final Optional<List<Publisher>> contentHierarchyPrecedence;
-	
-	private ApplicationConfiguration(
+
+    private final Map<Publisher, SourceStatus> sourceStatuses;
+    private final Set<Publisher> enabledSources;
+    private final List<Publisher> precedence;
+    private final ImmutableSet<Publisher> writableSources;
+    private final Boolean imagePrecedenceEnabled;
+    private final Optional<List<Publisher>> contentHierarchyPrecedence;
+    private final ImmutableSet<ApplicationAccessRole> accessRoles;
+
+    private ApplicationConfiguration(
             Map<Publisher, SourceStatus> sourceStatuses,
             Set<Publisher> enabledSources,
             @Nullable List<Publisher> precedence,
             Iterable<Publisher> writable,
-	        Boolean imagePrecedenceEnabled,
-            Optional<List<Publisher>> contentHierarchyPrecedence
+            @Nullable Boolean imagePrecedenceEnabled,
+            Optional<List<Publisher>> contentHierarchyPrecedence,
+            Set<ApplicationAccessRole> accessRoles
     ) {
-	    this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
+        this.sourceStatuses = ImmutableMap.copyOf(sourceStatuses);
         this.enabledSources = ImmutableSet.copyOf(enabledSources);
         if(precedence == null) {
             this.precedence = null;
@@ -63,44 +64,67 @@ public class ApplicationConfiguration {
         } else {
             this.contentHierarchyPrecedence = Optional.absent();
         }
-	}
+        this.accessRoles = ImmutableSet.copyOf(
+                Sets.union(accessRoles, ApplicationAccessRole.getDefaultRoles())
+        );
+    }
 
+    /**
+     * @deprecated Use {@link ApplicationConfiguration#builder()}
+     */
+    @Deprecated
     ApplicationConfiguration(
             Map<Publisher, SourceStatus> sourceStatuses,
             List<Publisher> precedence
     ) {
-	    this(sourceStatuses, precedence, ImmutableSet.of(), null, Optional.absent());
-	}
-    
+        this(sourceStatuses, precedence, ImmutableSet.of(), null, Optional.absent());
+    }
+
+    /**
+     * @deprecated Use {@link ApplicationConfiguration#builder()}
+     */
+    @Deprecated
     ApplicationConfiguration(
             Map<Publisher, SourceStatus> sourceStatuses,
             List<Publisher> precedence,
             Iterable<Publisher> writableSources
     ) {
-        this(sourceStatuses, 
-             enabledPublishers(sourceStatuses), 
-             precedence, 
-             writableSources, 
-             null, 
-             Optional.absent()
+        this(
+                sourceStatuses,
+                enabledPublishers(sourceStatuses),
+                precedence,
+                writableSources,
+                null,
+                Optional.absent(),
+                ImmutableSet.of()
         );
     }
 
-	ApplicationConfiguration(
+    /**
+     * @deprecated Use {@link ApplicationConfiguration#builder()}
+     */
+    @Deprecated
+    ApplicationConfiguration(
             Map<Publisher, SourceStatus> sourceStatuses,
             List<Publisher> precedence,
             Iterable<Publisher> writableSources,
-	        Boolean imagePrecedenceEnabled,
+            Boolean imagePrecedenceEnabled,
             Optional<List<Publisher>> contentHierarchyPrecedence
     ) {
-	    this(sourceStatuses, 
-	         enabledPublishers(sourceStatuses), 
-	         precedence, 
-	         writableSources, 
-	         imagePrecedenceEnabled, 
-	         contentHierarchyPrecedence
+        this(
+                sourceStatuses,
+                enabledPublishers(sourceStatuses),
+                precedence,
+                writableSources,
+                imagePrecedenceEnabled,
+                contentHierarchyPrecedence,
+                ImmutableSet.of()
         );
-	}
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static ApplicationConfiguration defaultConfiguration() {
         return DEFAULT_CONFIGURATION;
@@ -120,29 +144,29 @@ public class ApplicationConfiguration {
     }
 
     private static Set<Publisher> enabledPublishers(Map<Publisher, SourceStatus> sourceStatuses) {
-	    return ImmutableSet.copyOf(Maps.filterValues(
+        return ImmutableSet.copyOf(Maps.filterValues(
                 allSourcesStatuses(sourceStatuses), SourceStatus.IS_ENABLED).keySet()
         );
     }
 
-	private static Map<Publisher, SourceStatus> allSourcesStatuses(
+    private static Map<Publisher, SourceStatus> allSourcesStatuses(
             Map<Publisher, SourceStatus> configSpecificStatuses
     ) {
-	    Builder<Publisher, SourceStatus> statuses = ImmutableMap.builder();
-	    for (Publisher source : ImmutableSet.copyOf(Publisher.values())) {
-	         statuses.put(
+        ImmutableMap.Builder<Publisher, SourceStatus> statuses = ImmutableMap.builder();
+        for (Publisher source : ImmutableSet.copyOf(Publisher.values())) {
+             statuses.put(
                      source,
                      Optional.fromNullable(configSpecificStatuses.get(source))
                              .or(source.getDefaultSourceStatus())
              );
         }
-	    return statuses.build();
-	}
-	
-	public boolean isEnabled(Publisher source) {
-	    return enabledSources.contains(source);
-	}
-	
+        return statuses.build();
+    }
+
+    public boolean isEnabled(Publisher source) {
+        return enabledSources.contains(source);
+    }
+
     public Set<Publisher> getEnabledSources() {
         return enabledSources;
     }
@@ -200,13 +224,14 @@ public class ApplicationConfiguration {
         }
         
         return new ApplicationConfiguration(
-                        mutableSources, 
-                        mutablePublishers, 
-                        precedence, 
-                        writableSources, 
-                        imagePrecedenceEnabled, 
-                        contentHierarchyPrecedence
-                   );
+                mutableSources,
+                mutablePublishers,
+                precedence,
+                writableSources,
+                imagePrecedenceEnabled,
+                contentHierarchyPrecedence,
+                ImmutableSet.of()
+        );
     }
     
     public ApplicationConfiguration withSources(Map<Publisher, SourceStatus> statuses) {
@@ -215,7 +240,7 @@ public class ApplicationConfiguration {
         
         return new ApplicationConfiguration(mutableSources, precedence);
     }
-	
+
     public ApplicationConfiguration copyWithPrecedence(List<Publisher> publishers) {
         return new ApplicationConfiguration(sourceStatuses, ImmutableList.copyOf(publishers));
     }
@@ -229,7 +254,8 @@ public class ApplicationConfiguration {
                 precedence,
                 writableSources,
                 imagePrecedenceEnabled,
-                Optional.fromNullable(contentHierarchyPrecedence)
+                Optional.fromNullable(contentHierarchyPrecedence),
+                ImmutableSet.of()
         );
     }
     
@@ -240,7 +266,8 @@ public class ApplicationConfiguration {
                 precedence,
                 writableSources,
                 imagePrecedenceEnabled,
-                contentHierarchyPrecedence
+                contentHierarchyPrecedence,
+                ImmutableSet.of()
         );
     }
     
@@ -250,13 +277,14 @@ public class ApplicationConfiguration {
     
     public ApplicationConfiguration copyWithWritableSources(Iterable<Publisher> writable) {
         return new ApplicationConfiguration(
-                        sourceStatuses, 
-                        enabledSources, 
-                        precedence, 
-                        writable, 
-                        imagePrecedenceEnabled, 
-                        contentHierarchyPrecedence
-                   );
+                sourceStatuses,
+                enabledSources,
+                precedence,
+                writable,
+                imagePrecedenceEnabled,
+                contentHierarchyPrecedence,
+                ImmutableSet.of()
+        );
     }
     
     public ApplicationConfiguration copyWithSourceStatuses(Map<Publisher, SourceStatus> statuses) {
@@ -276,30 +304,30 @@ public class ApplicationConfiguration {
     public ImmutableSet<Publisher> writableSources() {
         return writableSources;
     }
-	
-	public Ordering<Publisher> publisherPrecedenceOrdering() {
-		return Ordering.explicit(precedence);
-	}
-	
-	public List<Publisher> precedence() {
-		return precedence;
-	}
-	
-	public boolean precedenceEnabled() {
-		return precedence != null;
-	}
-	
-	public Optional<List<Publisher>> contentHierarchyPrecedence() {
-	    return contentHierarchyPrecedence;
-	}
 
-	public List<Publisher> orderdPublishers() {
-		if (!precedenceEnabled()) {
-			return Publisher.all().asList();
-		}
-		return precedence;
-	}
-	
+    public Ordering<Publisher> publisherPrecedenceOrdering() {
+        return Ordering.explicit(precedence);
+    }
+
+    public List<Publisher> precedence() {
+        return precedence;
+    }
+
+    public boolean precedenceEnabled() {
+        return precedence != null;
+    }
+
+    public Optional<List<Publisher>> contentHierarchyPrecedence() {
+        return contentHierarchyPrecedence;
+    }
+
+    public List<Publisher> orderdPublishers() {
+        if (!precedenceEnabled()) {
+            return Publisher.all().asList();
+        }
+        return precedence;
+    }
+
     /**
      * Temporary: these should be persisted and not hardcoded
      */
@@ -343,5 +371,71 @@ public class ApplicationConfiguration {
     
     public Ordering<Publisher> peoplePrecedenceOrdering() {
         return Ordering.explicit(appendMissingPublishersTo(peoplePrecedence()));
+    }
+
+    public boolean hasAccessRole(ApplicationAccessRole role) {
+        return accessRoles.contains(role);
+    }
+
+    public ImmutableSet<ApplicationAccessRole> getAccessRoles() {
+        return accessRoles;
+    }
+
+    public static class Builder {
+
+        private Map<Publisher, SourceStatus> sourceStatuses;
+        private Set<Publisher> enabledSources;
+        private List<Publisher> precedence;
+        private Iterable<Publisher> writableSources;
+        private Boolean imagePrecedenceEnabled;
+        private Optional<List<Publisher>> contentHierarchyPrecedence;
+        private Set<ApplicationAccessRole> accessRoles = Sets.newHashSet();
+
+        private Builder() { }
+
+        public Builder withSourceStatuses(Map<Publisher, SourceStatus> sourceStatuses) {
+            this.sourceStatuses = sourceStatuses;
+            this.enabledSources = enabledPublishers(sourceStatuses);
+            return this;
+        }
+
+        public Builder withPrecedence(@Nullable List<Publisher> precedence) {
+            this.precedence = precedence;
+            return this;
+        }
+
+        public Builder withWritableSources(Iterable<Publisher> writableSources) {
+            this.writableSources = writableSources;
+            return this;
+        }
+
+        public Builder withImagePrecedenceEnabled(@Nullable Boolean imagePrecedenceEnabled) {
+            this.imagePrecedenceEnabled = imagePrecedenceEnabled;
+            return this;
+        }
+
+        public Builder withContentHierarchyPrecedence(
+                Optional<List<Publisher>> contentHierarchyPrecedence
+        ) {
+            this.contentHierarchyPrecedence = contentHierarchyPrecedence;
+            return this;
+        }
+
+        public Builder withAccessRoles(Set<ApplicationAccessRole> accessRoles) {
+            this.accessRoles = accessRoles;
+            return this;
+        }
+
+        public ApplicationConfiguration build() {
+            return new ApplicationConfiguration(
+                    sourceStatuses,
+                    enabledSources,
+                    precedence,
+                    writableSources,
+                    imagePrecedenceEnabled,
+                    contentHierarchyPrecedence,
+                    accessRoles
+            );
+        }
     }
 }
