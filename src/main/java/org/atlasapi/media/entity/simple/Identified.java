@@ -1,10 +1,13 @@
 package org.atlasapi.media.entity.simple;
 
+import javax.validation.constraints.NotNull;
+
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
 public class Identified {
 
+	@NotNull
 	protected String uri;
 	protected String curie;
 	protected String id;
