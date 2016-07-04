@@ -46,7 +46,7 @@ public class Item extends Description {
 	}
 	
 	public void addLocation(Location location) {
-		locations.add(location);
+		locations .add(location);
 	}
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="locations")

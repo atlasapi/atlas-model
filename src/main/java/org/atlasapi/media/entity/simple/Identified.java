@@ -1,17 +1,10 @@
 package org.atlasapi.media.entity.simple;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
-import static org.atlasapi.media.validation.ValidationConstants.NOT_EMPTY;
-
 public class Identified {
 
-	@NotNull
-	@Pattern(regexp = NOT_EMPTY)
 	protected String uri;
 	protected String curie;
 	protected String id;

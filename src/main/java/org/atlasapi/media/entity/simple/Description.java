@@ -16,7 +16,6 @@ import org.atlasapi.media.entity.simple.ContentIdentifier.PersonIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -449,7 +448,6 @@ public abstract class Description extends Aliased {
         this.year = year;
     }
 
-    @JsonProperty("languages")
     public void setOriginalLanguages(Iterable<Language> languages) {
         this.languages = Sets.newHashSet(languages);
     }
@@ -471,7 +469,6 @@ public abstract class Description extends Aliased {
     }
 
     @XmlElement(namespace = PLAY_SIMPLE_XML.NS, name = "container")
-    @JsonProperty("container")
     public BrandSummary getBrandSummary() {
     	return container;
     }
