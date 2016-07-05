@@ -223,7 +223,9 @@ public enum Publisher {
     INTERNET_VIDEO_ARCHIVE("Internet Video Archive", "internetvideoarchive.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     DIGITALSPY_RELATED_LINKS("Digital Spy Related Links", "digital-spy-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     RADIO_TIMES_UPCOMING("Radio Times Upcoming", "upcoming.radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    AMC_EBS("Amc EBS", "ebs.amc.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false);
+    AMC_EBS("Amc EBS", "ebs.amc.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    TWITCH("Twitch", "twitch.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
+    ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
     private static final Logger log = LoggerFactory.getLogger(Publisher.class);
