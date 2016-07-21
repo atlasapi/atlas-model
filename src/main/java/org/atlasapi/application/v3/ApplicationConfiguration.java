@@ -296,6 +296,18 @@ public class ApplicationConfiguration {
                 contentHierarchyPrecedence
         );
     }
+
+    public ApplicationConfiguration copyWithAccessRoles(Set<ApplicationAccessRole> accessRoles) {
+        return new ApplicationConfiguration(
+                sourceStatuses,
+                enabledSources,
+                precedence,
+                writableSources,
+                imagePrecedenceEnabled,
+                contentHierarchyPrecedence,
+                accessRoles
+        );
+    }
     
     public boolean canWrite(Publisher source) {
         return writableSources.contains(source);
