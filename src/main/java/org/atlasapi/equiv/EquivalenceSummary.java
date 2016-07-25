@@ -2,6 +2,7 @@ package org.atlasapi.equiv;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -11,6 +12,8 @@ import org.atlasapi.media.entity.Publisher;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * Records computed candidates and resultant equivalents of the equivalence
@@ -26,17 +29,17 @@ public class EquivalenceSummary {
     private final String subject;
     private final String parent;
     private final ImmutableList<String> candidates;
-    private final ImmutableMap<Publisher, ContentRef> equivalents;
+    private final ImmutableMultimap<Publisher, ContentRef> equivalents;
 
-    public EquivalenceSummary(String subject, Iterable<String> candidates, Map<Publisher, ContentRef> equivalents) {
+    public EquivalenceSummary(String subject, Iterable<String> candidates, Multimap<Publisher, ContentRef> equivalents) {
         this(checkNotNull(subject), null, candidates, equivalents);
     }
     
-    public EquivalenceSummary(String subject, @Nullable String parent, Iterable<String> candidates, Map<Publisher, ContentRef> equivalents) {
+    public EquivalenceSummary(String subject, @Nullable String parent, Iterable<String> candidates, Multimap<Publisher, ContentRef> equivalents) {
         this.subject = checkNotNull(subject);
         this.parent = parent;
         this.candidates = ImmutableList.copyOf(candidates);
-        this.equivalents = ImmutableMap.copyOf(equivalents);
+        this.equivalents = ImmutableMultimap.copyOf(equivalents);
     }
 
     public String getSubject() {
@@ -51,7 +54,7 @@ public class EquivalenceSummary {
         return this.candidates;
     }
 
-    public ImmutableMap<Publisher, ContentRef> getEquivalents() {
+    public ImmutableMultimap<Publisher, ContentRef> getEquivalents() {
         return this.equivalents;
     }
 
