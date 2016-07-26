@@ -17,6 +17,7 @@ import org.atlasapi.media.entity.simple.ContentIdentifier.PersonIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.SeriesIdentifier;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -63,7 +64,8 @@ public class Playlist extends Description {
     public List<SeriesIdentifier> getSeriesList() {
         return series;
     }
-    
+
+	@JsonProperty("series")
     public void setSeriesList(Iterable<? extends SeriesIdentifier> series) {
         this.series = Lists.newArrayList(series);
     }
