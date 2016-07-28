@@ -1,11 +1,11 @@
 package org.atlasapi.media.entity.simple.response;
 
 
-public class AtlasResponse {
+public class WriteResponse {
 
     private final String id;
 
-    public AtlasResponse(String id) {
+    public WriteResponse(String id) {
         this.id = id;
     }
 
