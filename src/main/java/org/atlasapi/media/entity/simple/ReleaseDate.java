@@ -2,6 +2,8 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ReleaseDate {
 
     private Date release_date;
@@ -20,6 +22,7 @@ public class ReleaseDate {
         return this.release_date;
     }
 
+    @JsonProperty("release_date")
     public void setDate(Date date) {
         this.release_date = date;
     }

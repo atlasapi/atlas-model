@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -46,7 +47,7 @@ public class Item extends Description {
 	}
 	
 	public void addLocation(Location location) {
-		locations .add(location);
+		locations.add(location);
 	}
 	
 	@XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="locations")
@@ -251,6 +252,7 @@ public class Item extends Description {
         this.subtitles = Sets.newHashSet(subtitles);
     }
 
+    @JsonProperty("release_dates")
     public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
         this.releaseDates = Sets.newHashSet(releaseDates);
     }
