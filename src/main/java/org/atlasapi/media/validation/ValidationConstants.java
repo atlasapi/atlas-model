@@ -2,6 +2,9 @@ package org.atlasapi.media.validation;
 
 public class ValidationConstants {
 
-    public static final String NOT_EMPTY = "^\\s*\\S+\\s*$";
+    private ValidationConstants() {
+        // Private to defeat instantiation
+    }
 
+    public static final String NOT_EMPTY = "^\\s*\\S+\\s*$";
 }
