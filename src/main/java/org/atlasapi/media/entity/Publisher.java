@@ -1,20 +1,21 @@
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import org.atlasapi.application.v3.SourceRestriction;
 import org.atlasapi.application.v3.SourceStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.metabroadcast.common.base.Maybe;
+import com.metabroadcast.common.intl.Countries;
+import com.metabroadcast.common.intl.Country;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import com.metabroadcast.common.base.Maybe;
-import com.metabroadcast.common.intl.Countries;
-import com.metabroadcast.common.intl.Country;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Publishers must only ever be added. Once added, the key must never be changed (other attributes
@@ -224,7 +225,8 @@ public enum Publisher {
     DIGITALSPY_RELATED_LINKS("Digital Spy Related Links", "digital-spy-related-links.metabroadcast.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     RADIO_TIMES_UPCOMING("Radio Times Upcoming", "upcoming.radiotimes.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     AMC_EBS("Amc EBS", "ebs.amc.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    TWITCH("Twitch", "twitch.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
+    TWITCH("Twitch", "twitch.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    C4_PRESS("Channel 4 Press", "press.channel4.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
