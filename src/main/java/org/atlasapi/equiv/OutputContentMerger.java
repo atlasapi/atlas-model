@@ -16,6 +16,8 @@ import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.*;
 
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +29,8 @@ public class OutputContentMerger {
 
     @SuppressWarnings("unchecked")
     public <T extends Described> List<T> merge(ApplicationConfiguration config, List<T> contents) {
-        Ordering<Described> contentComparator = toContentOrdering(config.publisherPrecedenceOrdering());
+        Ordering<Described> contentComparator =
+                toContentOrdering(config.publisherPrecedenceOrdering());
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
         Set<T> processed = Sets.newHashSet();
@@ -93,7 +96,11 @@ public class OutputContentMerger {
         };
     }
     
-    private <T extends ContentGroup> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends ContentGroup> void mergeIn(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
         mergeDescribed(config, chosen, notChosen);
         for (ContentGroup contentGroup : notChosen) {
             for (ChildRef childRef : contentGroup.getContents()) {
@@ -107,20 +114,77 @@ public class OutputContentMerger {
             for (Person unchosen : Iterables.filter(notChosen, Person.class)) {
                 quotes.addAll(unchosen.getQuotes());
                 person.withName(person.name() != null ? person.name() : unchosen.name());
-                person.setGivenName(person.getGivenName() != null ? person.getGivenName() : unchosen.getGivenName());
-                person.setFamilyName(person.getFamilyName() != null ? person.getFamilyName() : unchosen.getFamilyName());
-                person.setGender(person.getGender() != null ? person.getGender() : unchosen.getGender());
-                person.setBirthDate(person.getBirthDate() != null ? person.getBirthDate() : unchosen.getBirthDate());
-                person.setBirthPlace(person.getBirthPlace() != null ? person.getBirthPlace() : unchosen.getBirthPlace());
+                person.setGivenName(
+                        person.getGivenName() != null ?
+                        person.getGivenName() :
+                        unchosen.getGivenName()
+                );
+                person.setFamilyName(
+                        person.getFamilyName() != null ?
+                        person.getFamilyName() :
+                        unchosen.getFamilyName()
+                );
+                person.setGender(
+                        person.getGender() != null ?
+                        person.getGender() :
+                        unchosen.getGender()
+                );
+                person.setBirthDate(
+                        person.getBirthDate() != null ?
+                        person.getBirthDate() :
+                        unchosen.getBirthDate()
+                );
+                person.setBirthPlace(
+                        person.getBirthPlace() != null ?
+                        person.getBirthPlace() :
+                        unchosen.getBirthPlace()
+                );
+                person.setPseudoForename(
+                        person.getPseudoForename() != null ?
+                        person.getPseudoForename() :
+                        unchosen.getPseudoForename()
+                );
+                person.setPseudoSurname(
+                        person.getPseudoSurname() != null ?
+                        person.getPseudoSurname() :
+                        unchosen.getPseudoSurname()
+                );
+                person.setAdditionalInfo(
+                        person.getAdditionalInfo() != null ?
+                        person.getAdditionalInfo() :
+                        unchosen.getAdditionalInfo()
+                );
+                person.setBilling(
+                        person.getBilling() != null ?
+                        person.getBilling() :
+                        unchosen.getBilling()
+                );
+                person.setSource(
+                        person.getSource() != null ?
+                        person.getSource() :
+                        unchosen.getSource()
+                );
+                person.setSourceTitle(
+                        person.getSourceTitle() != null ?
+                        person.getSourceTitle() :
+                        unchosen.getSourceTitle()
+                );
             }
             person.setQuotes(quotes.build());
         }
     }
     
-    private <T extends Described> void mergeDescribed(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Described> void mergeDescribed(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
         mergeIdentified(config, chosen, notChosen);
         applyImagePrefs(config, chosen, notChosen);
-        chosen.setRelatedLinks(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<RelatedLink>>() {
+        chosen.setRelatedLinks(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<RelatedLink>>() {
             @Override
             public Iterable<RelatedLink> apply(T input) {
                 return input.getRelatedLinks();
@@ -147,21 +211,38 @@ public class OutputContentMerger {
         if (chosen.getPriority() == null) {
             chosen.setPriority(first(notChosen, TO_PRIORITY));
         }
-        chosen.setRatings(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Rating>>() {
+        if (chosen.getLanguage() == null) {
+            chosen.setLanguage(first(notChosen, TO_LANGUAGE));
+        }
+
+        chosen.setDistributions(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<Distribution>>() {
+            @Override
+            public Iterable<Distribution> apply(T input) {return input.getDistributions(); }
+        }));
+
+        chosen.setRatings(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<Rating>>() {
             @Override
             public Iterable<Rating> apply(T input) {
                 return input.getRatings();
             }
         }));
         
-        chosen.setReviews(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Review>>() {
+        chosen.setReviews(projectFieldFromEquivalents(
+                chosen, notChosen, new Function<T, Iterable<Review>>() {
             @Override
             public Iterable<Review> apply(T input) {
                 return input.getReviews();
             }
         }));
         
-        chosen.setGenres(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<String>>() {
+        chosen.setGenres(projectFieldFromEquivalents(
+                chosen, notChosen, new Function<T, Iterable<String>>() {
 
             @Override
             public Iterable<String> apply(T input) {
@@ -171,8 +252,15 @@ public class OutputContentMerger {
         
     }
     
-    private <T extends Identified> void mergeIdentified(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
-        chosen.setAliases(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<Alias>>() {
+    private <T extends Identified> void mergeIdentified(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
+        chosen.setAliases(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<Alias>>() {
             @Override
             public Iterable<Alias> apply(T input) {
                 return input.getAliases();
@@ -188,15 +276,23 @@ public class OutputContentMerger {
             );
     }
     
-    private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform, O defaultValue) {
-        return Iterables.getFirst(Iterables.filter(Iterables.transform(is, transform), Predicates.notNull()), defaultValue);
+    private <I extends Described, O> O first(
+            Iterable<I> is, Function<? super I, ? extends O> transform, O defaultValue
+    ) {
+        return Iterables.getFirst(Iterables.filter(
+                Iterables.transform(is, transform), Predicates.notNull()
+        ), defaultValue);
     }
     
-    private <I extends Described, O> O first(Iterable<I> is, Function<? super I, ? extends O> transform) {
+    private <I extends Described, O> O first(
+            Iterable<I> is, Function<? super I, ? extends O> transform
+    ) {
         return first(is, transform, null);
     }
     
-    private <T extends Content> void mergeContent(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Content> void mergeContent(
+            ApplicationConfiguration config, T chosen, Iterable<T> notChosen
+    ) {
         mergeDescribed(config, chosen, notChosen);
         for (T notChosenItem : notChosen) {
             for (Clip clip : notChosenItem.getClips()) {
@@ -210,7 +306,11 @@ public class OutputContentMerger {
 
     }
 
-    private <T extends Item> void mergeIn(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeIn(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
         mergeContent(config, chosen, notChosen);
         mergeVersions(config, chosen, notChosen);
         mergeReleaseDates(chosen, notChosen);
@@ -229,7 +329,10 @@ public class OutputContentMerger {
     }
     
     private <T extends Content> void mergeKeyPhrases(T chosen, Iterable<T> notChosen) {
-        chosen.setKeyPhrases(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<KeyPhrase>>() {
+        chosen.setKeyPhrases(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<KeyPhrase>>() {
             @Override
             public Set<KeyPhrase> apply(T input) {
                 return input.getKeyPhrases();
@@ -248,7 +351,10 @@ public class OutputContentMerger {
     }
 
     private <T extends Content> void mergeEvents(T chosen, Iterable<T> notChosen) {
-        chosen.setEventRefs(projectFieldFromEquivalents(chosen, notChosen, new Function<T, Iterable<EventRef>>() {
+        chosen.setEventRefs(projectFieldFromEquivalents(
+                chosen,
+                notChosen,
+                new Function<T, Iterable<EventRef>>() {
             @Override
             public Iterable<EventRef> apply(T input) {
                 return input.events();
@@ -266,7 +372,11 @@ public class OutputContentMerger {
 
 
 
-    private void mergeFilmProperties(ApplicationConfiguration config, Film chosen, Iterable<Film> notChosen) {
+    private void mergeFilmProperties(
+            ApplicationConfiguration config,
+            Film chosen,
+            Iterable<Film> notChosen
+    ) {
         Builder<Subtitles> subtitles = ImmutableSet.<Subtitles>builder().addAll(chosen.getSubtitles());
         Builder<String> languages = ImmutableSet.<String>builder().addAll(chosen.getLanguages());
 
@@ -286,7 +396,8 @@ public class OutputContentMerger {
 
         if (config.peoplePrecedenceEnabled()) {
             Iterable<Film> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<Film> topFilmMatches = toContentOrdering(config.peoplePrecedenceOrdering()).leastOf(Iterables.filter(all, HAS_PEOPLE), 1);
+            List<Film> topFilmMatches = toContentOrdering(config.peoplePrecedenceOrdering())
+                    .leastOf(Iterables.filter(all, HAS_PEOPLE), 1);
 
             if (!topFilmMatches.isEmpty()) {
                 Film top = topFilmMatches.get(0);
@@ -295,11 +406,19 @@ public class OutputContentMerger {
         }
     }
 
-    private <T extends Described> void applyImagePrefs(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Described> void applyImagePrefs(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
         if (config.imagePrecedenceEnabled()) {
             Iterable<T> all = Iterables.concat(ImmutableList.of(chosen), notChosen);
-            List<T> topImageMatches = toContentOrdering(config.imagePrecedenceOrdering()).leastOf(Iterables.filter(all,
-                    HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET), 1);
+            List<T> topImageMatches =
+                    toContentOrdering(config.imagePrecedenceOrdering())
+                            .leastOf(Iterables.filter(
+                                    all,
+                                    HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET
+                            ), 1);
 
             if (!topImageMatches.isEmpty()) {
                 T top = topImageMatches.get(0);
@@ -312,11 +431,18 @@ public class OutputContentMerger {
         }
     }
 
-    private <T extends Item> void mergeVersions(ApplicationConfiguration config, T chosen, Iterable<T> notChosen) {
+    private <T extends Item> void mergeVersions(
+            ApplicationConfiguration config,
+            T chosen,
+            Iterable<T> notChosen
+    ) {
         // if chosen has broadcasts, merge the set of broadcasts from notChosen
-        Set<Broadcast> chosenBroadcasts = Sets.newHashSet(Iterables.concat(Iterables.transform(chosen.getVersions(), Version.TO_BROADCASTS)));
+        Set<Broadcast> chosenBroadcasts = Sets.newHashSet(Iterables.concat(
+                Iterables.transform(chosen.getVersions(), Version.TO_BROADCASTS)
+        ));
         if (!chosenBroadcasts.isEmpty()) {
-            List<T> notChosenOrdered = toContentOrdering(config.publisherPrecedenceOrdering()).sortedCopy(notChosen);
+            List<T> notChosenOrdered =
+                    toContentOrdering(config.publisherPrecedenceOrdering()).sortedCopy(notChosen);
             for (Broadcast chosenBroadcast : chosenBroadcasts) {
                 matchAndMerge(chosenBroadcast, notChosenOrdered);
             }
@@ -333,12 +459,17 @@ public class OutputContentMerger {
     private <T extends Item> void matchAndMerge(final Broadcast chosenBroadcast, List<T> notChosen) {
         List<Broadcast> equivBroadcasts = Lists.newArrayList();
         for (T notChosenItem : notChosen) {
-            Iterable<Broadcast> notChosenBroadcasts = Iterables.concat(Iterables.transform(notChosenItem.getVersions(), Version.TO_BROADCASTS));
-            Optional<Broadcast> matched = Iterables.tryFind(notChosenBroadcasts, new Predicate<Broadcast>() {
+            Iterable<Broadcast> notChosenBroadcasts = Iterables.concat(
+                    Iterables.transform(notChosenItem.getVersions(), Version.TO_BROADCASTS)
+            );
+            Optional<Broadcast> matched = Iterables.tryFind(
+                    notChosenBroadcasts,
+                    new Predicate<Broadcast>() {
                 @Override
                 public boolean apply(Broadcast input) {
                     return chosenBroadcast.getBroadcastOn().equals(input.getBroadcastOn())
-                            && chosenBroadcast.getTransmissionTime().equals(input.getTransmissionTime());
+                            && chosenBroadcast.getTransmissionTime()
+                            .equals(input.getTransmissionTime());
                 }
              });
             if (matched.isPresent()) {
@@ -396,7 +527,8 @@ public class OutputContentMerger {
         }
     }
     
-    private static final Predicate<Described> HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET = new Predicate<Described>() {
+    private static final Predicate<Described>
+            HAS_AVAILABLE_AND_NOT_GENERIC_IMAGE_CONTENT_PLAYER_SET = new Predicate<Described>() {
 
         @Override
         public boolean apply(Described content) {
@@ -414,8 +546,8 @@ public class OutputContentMerger {
         String rewrittenUri = imageUri.replace("http://images.atlasapi.org/pa/",
                 "http://images.atlas.metabroadcast.com/pressassociation.com/");
         
-        // If there is a corresponding Image object for this URI, we check its availability and ensure
-        // that it is not generic.
+        // If there is a corresponding Image object for this URI,
+        // we check its availability and ensure that it is not generic.
         for (Image image : images) {
             if (image.getCanonicalUri().equals(rewrittenUri)) {
                return Image.IS_AVAILABLE.apply(image) 
@@ -439,44 +571,53 @@ public class OutputContentMerger {
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getTitle();
         }};
-    private static final Function<Described, String> TO_DESCRIPTION = new Function<Described, String>() {
+    private static final Function<Described, String> TO_DESCRIPTION =
+            new Function<Described, String>() {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getDescription();
         }
     };
-    private static final Function<Described, String> TO_LONG_DESCRIPTION = new Function<Described, String>() {
+    private static final Function<Described, String> TO_LONG_DESCRIPTION =
+            new Function<Described, String>() {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getLongDescription();
         }
     };
-    private static final Function<Described, String> TO_MEDIUM_DESCRIPTION = new Function<Described, String>() {
+    private static final Function<Described, String> TO_MEDIUM_DESCRIPTION =
+            new Function<Described, String>() {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getMediumDescription();
         }
     };
-    private static final Function<Described, String> TO_SHORT_DESCRIPTION = new Function<Described, String>() {
+    private static final Function<Described, String> TO_SHORT_DESCRIPTION =
+            new Function<Described, String>() {
         @Override
         public String apply(@Nullable Described input) {
             return input == null ? null : input.getShortDescription();
         }
     };
-    private static final Function<Described, AudienceStatistics> TO_AUDIENCE_STATISTICS = new Function<Described, AudienceStatistics>() {
+    private static final Function<Described, AudienceStatistics> TO_AUDIENCE_STATISTICS =
+            new Function<Described, AudienceStatistics>() {
         @Override
         public AudienceStatistics apply(@Nullable Described input) {
             return input == null ? null : input.getAudienceStatistics();
         }
     };
-    private static final Function<Film, Set<Certificate>> TO_CERTIFICATES = new Function<Film, Set<Certificate>>() {
+    private static final Function<Film, Set<Certificate>> TO_CERTIFICATES =
+            new Function<Film, Set<Certificate>>() {
         @Override
         public Set<Certificate> apply(@Nullable Film input) {
-            return input == null || input.getCertificates().isEmpty() ? null : input.getCertificates();
+            return input == null || input.getCertificates().isEmpty() ?
+                   null :
+                   input.getCertificates();
         }
     };
     
-    private static final Function<Content, List<SimilarContentRef>> TO_SIMILAR_CONTENT = new Function<Content, List<SimilarContentRef>>() {
+    private static final Function<Content, List<SimilarContentRef>> TO_SIMILAR_CONTENT =
+            new Function<Content, List<SimilarContentRef>>() {
 
         @Override
         public List<SimilarContentRef> apply(Content content) {
@@ -484,14 +625,26 @@ public class OutputContentMerger {
         }
         
     };
-    private static final Function<Described, Priority> TO_PRIORITY = new Function<Described, Priority>() {
+    private static final Function<Described, Priority> TO_PRIORITY =
+            new Function<Described, Priority>() {
         @Override
         public Priority apply(@Nullable Described input) {
             return input == null ? null : input.getPriority();
         }
     };
+    private static final Function<Described, Language> TO_LANGUAGE =
+            new Function<Described, Language>() {
+        @Override
+        public Language apply(@Nullable Described input) {
+            return input == null ? null : input.getLanguage();
+        }
+    };
 
-    public <T extends Item> void mergeIn(ApplicationConfiguration config, Container chosen, List<Container> notChosen) {
+    public <T extends Item> void mergeIn(
+            ApplicationConfiguration config,
+            Container chosen,
+            List<Container> notChosen
+    ) {
         mergeContent(config, chosen, notChosen);
     }
 
@@ -507,7 +660,8 @@ public class OutputContentMerger {
                     public boolean apply(Item item) {
                         if (item instanceof Episode) {
                             Episode episode = (Episode) item;
-                            return episode.getSeriesNumber() != null && episode.getEpisodeNumber() != null;
+                            return episode.getSeriesNumber() != null &&
+                                    episode.getEpisodeNumber() != null;
                         }
                         return false;
                     }

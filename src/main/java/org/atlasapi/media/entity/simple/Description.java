@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
@@ -73,6 +74,8 @@ public abstract class Description extends Aliased {
     private Priority priority;
     private Set<EventRef> eventRefs = Sets.newHashSet();
     private Set<Award> awards = Sets.newHashSet();
+    private Set<Distribution> distributions = ImmutableSet.of();
+    private Language language;
 
     public Description(String uri) {
         super(uri);
@@ -101,7 +104,27 @@ public abstract class Description extends Aliased {
     public void setTags(Iterable<String> tags) {
         this.tags = Sets.newHashSet(tags);
     }
-    
+
+    @Nullable
+    public void setDistributions(Iterable<Distribution> distributions) {
+        this.distributions = ImmutableSet.copyOf(distributions);
+    }
+
+    @Nullable
+    public Set<Distribution> getDistributions() {
+        return this.distributions;
+    }
+
+    @Nullable
+    public Language getLanguage() {
+        return language;
+    }
+
+    @Nullable
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     public void setImages(Iterable<Image> images) {
         this.images = ImmutableSet.copyOf(images);
     }
@@ -370,6 +393,8 @@ public abstract class Description extends Aliased {
         destination.setGenericDescription(getGenericDescription());
         destination.setEvents(Iterables.transform(getEvents(), Event.COPY));
         destination.setPriority(getPriority());
+        destination.setDistributions(ImmutableSet.copyOf(getDistributions()));
+        destination.setLanguage(getLanguage());
     }
 
     public boolean isScheduleOnly() {
@@ -523,6 +548,4 @@ public abstract class Description extends Aliased {
     public void setAwards(Set<Award> awards) {
         this.awards = awards;
     }
-
-
 }

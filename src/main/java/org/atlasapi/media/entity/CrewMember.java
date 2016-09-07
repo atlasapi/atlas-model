@@ -271,7 +271,7 @@ public class CrewMember extends Identified {
     private Role role;
     protected String name;
     private Publisher publisher;
-    
+
     public CrewMember() {
         super();
     }

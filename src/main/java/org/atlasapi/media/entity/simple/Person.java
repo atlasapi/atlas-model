@@ -3,6 +3,7 @@ package org.atlasapi.media.entity.simple;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
@@ -39,8 +40,70 @@ public class Person extends Description {
     private DateTime birthDate;
     private String birthPlace;
     private Set<String> quotes = ImmutableSet.of();
-	
-	public Person() {
+
+
+    private String pseudoForename;
+    private String pseudoSurname;
+    private String additionalInfo;
+    private String billing;
+    private String source;
+    private String sourceTitle;
+
+    public Person() {
+    }
+
+    @Nullable
+    public String getPseudoForename() {
+        return pseudoForename;
+    }
+
+    public void setPseudoForename(@Nullable String pseudoForename) {
+        this.pseudoForename = pseudoForename;
+    }
+
+    @Nullable
+    public String getPseudoSurname() {
+        return pseudoSurname;
+    }
+
+    public void setPseudoSurname(@Nullable String pseudoSurname) {
+        this.pseudoSurname = pseudoSurname;
+    }
+
+    @Nullable
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(@Nullable String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    @Nullable
+    public String getBilling() {
+        return billing;
+    }
+
+    public void setBilling(@Nullable String billing) {
+        this.billing = billing;
+    }
+
+    @Nullable
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(@Nullable String source) {
+        this.source = source;
+    }
+
+    @Nullable
+    public String getSourceTitle() {
+        return sourceTitle;
+    }
+
+    public void setSourceTitle(@Nullable String sourceTitle) {
+        this.sourceTitle = sourceTitle;
     }
 	
 	public String getName() {
@@ -183,26 +246,32 @@ public class Person extends Description {
     }
 
     public Person copy() {
-	    Person person = new Person();
-	    super.copyTo(person);
-	    person.name = name;
-	    person.profileLink = profileLink;
-	    person.role = role;
-	    person.displayRole = displayRole;
-	    person.character = character;
-	    person.givenName = givenName;
-	    person.familyName = familyName;
-	    person.gender = gender;
-	    person.birthDate = birthDate;
-	    person.birthPlace = birthPlace;
-	    person.quotes = quotes;
-	    return person;
-	}
-	
+        Person person = new Person();
+        super.copyTo(person);
+        person.name = name;
+        person.profileLink = profileLink;
+        person.role = role;
+        person.displayRole = displayRole;
+        person.character = character;
+        person.givenName = givenName;
+        person.familyName = familyName;
+        person.gender = gender;
+        person.birthDate = birthDate;
+        person.birthPlace = birthPlace;
+        person.quotes = quotes;
+        person.pseudoForename = pseudoForename;
+        person.pseudoSurname = pseudoSurname;
+        person.additionalInfo = additionalInfo;
+        person.billing = billing;
+        person.source = source;
+        person.sourceTitle = sourceTitle;
+        return person;
+    }
+
     public String getCharacter() {
         return character;
     }
-    
+
     public void setCharacter(String character) {
         this.character = character;
     }

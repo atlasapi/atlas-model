@@ -1,11 +1,20 @@
 package org.atlasapi.media.entity;
 
-import com.google.common.base.Objects;
-
+import javax.annotation.Nullable;
 
 public class LocalizedTitle extends Localized {
 
     private String title;
+    private String type;
+
+    @Nullable
+    public String getType() {
+        return type;
+    }
+
+    public void setType(@Nullable String type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;
@@ -14,25 +23,27 @@ public class LocalizedTitle extends Localized {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     @Override
-    public boolean equals(Object that) {
-        if (this == that) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        
-        if (that == null || !(that instanceof LocalizedTitle)) {
+        if (!(o instanceof LocalizedTitle)) {
             return false;
         }
-        
-        LocalizedTitle thatTitle = (LocalizedTitle) that;
-        
-        return super.equals(that) && Objects.equal(this.title, thatTitle.title);
+        if (!super.equals(o)) {
+            return false;
+        }
+        LocalizedTitle that = (LocalizedTitle) o;
+        return java.util.Objects.equals(title, that.title) &&
+                java.util.Objects.equals(type, that.type) &&
+                super.equals(that);
     }
-    
+
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), title);
+        return java.util.Objects.hash(super.hashCode(), title, type);
     }
 
     @Override
@@ -41,6 +52,7 @@ public class LocalizedTitle extends Localized {
         Localized.copyTo(this, copy);
         
         copy.title = this.title;
+        copy.type = this.type;
         
         return copy;
     }

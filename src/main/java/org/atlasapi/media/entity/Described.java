@@ -22,6 +22,8 @@ import org.atlasapi.media.channel.Channel;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
+
+import com.google.common.collect.ImmutableList;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Optional;
@@ -72,23 +74,33 @@ public abstract class Described extends Identified {
     protected Set<RelatedLink> relatedLinks = ImmutableSet.of();
     private Priority priority;
     private Set<Award> awards = ImmutableSet.of();
-	
-	public Described(String uri, String curie, Publisher publisher) {
-		super(uri, curie);
-		this.publisher = publisher;
-	}
-	
-	public Described(String uri, String curie) {
-		this(uri, curie, null);
-	}
-	
-	public Described(String uri) {
-		super(uri);
-	}
-	
-	public Described() { /* some legacy code still requires a default constructor */ }
-	
-	public DateTime getLastFetched() {
+    private ImmutableList<Distribution> distributions = ImmutableList.of();
+    private Language language;
+
+    public Described(String uri, String curie, Publisher publisher) {
+        super(uri, curie);
+        this.publisher = publisher;
+    }
+
+    public Described(String uri, String curie) {
+        this(uri, curie, null);
+    }
+
+    public Described(String uri) {
+        super(uri);
+    }
+
+    public Described() { /* some legacy code still requires a default constructor */ }
+
+    public Iterable<Distribution> getDistributions() {
+        return distributions;
+    }
+
+    public void setDistributions(Iterable<Distribution> distributions) {
+        this.distributions = ImmutableList.<Distribution>copyOf(distributions);
+    }
+
+    public DateTime getLastFetched() {
         return lastFetched;
     }
 
@@ -347,6 +359,14 @@ public abstract class Described extends Identified {
     public void setAwards(Set<Award> awards) {
         this.awards = ImmutableSet.copyOf(awards);
     }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
  
     public static void copyTo(Described from, Described to) {
         Identified.copyTo(from, to);
@@ -376,6 +396,8 @@ public abstract class Described extends Identified {
         to.activelyPublished = from.activelyPublished;
         to.priority = from.priority;
         to.awards = ImmutableSet.copyOf(from.awards);
+        to.distributions = ImmutableList.copyOf(from.distributions);
+        to.language = from.language;
     }
     
     public abstract Described copy();
