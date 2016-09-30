@@ -28,21 +28,51 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Channel extends Identified {
     
-    public static final Predicate<Image> IS_PRIMARY_IMAGE = new Predicate<Image>() {
-        @Override
-        public boolean apply(Image input) {
-            return input != null &&
-                    input.getTheme() != null &&
-                    input.getTheme().equals(ImageTheme.LIGHT_OPAQUE);
-        }
-    };
-    
-    public static final Builder builder() {
+    public static final Predicate<Image> IS_PRIMARY_IMAGE = input -> input != null &&
+            input.getTheme() != null &&
+            input.getTheme().equals(ImageTheme.LIGHT_OPAQUE);
+
+    public static Builder builder() {
         return new Builder();
     }
-    
+
+    public static Builder builder(Channel copy) {
+        Builder builder = new Builder();
+
+        builder.source = copy.source;
+        builder.uri = copy.getCanonicalUri();
+        builder.key = copy.key;
+        builder.broadcaster = copy.broadcaster;
+        builder.images = Sets.newHashSet(copy.images);
+        builder.titles = Sets.newHashSet(copy.titles);
+        builder.relatedLinks = Sets.newHashSet(copy.relatedLinks);
+        builder.mediaType = copy.mediaType;
+        builder.regional = copy.regional;
+        builder.highDefinition = copy.highDefinition;
+        builder.adult = copy.adult;
+        builder.timeshift = copy.timeshift;
+        builder.advertiseFrom = copy.advertiseFrom;
+        builder.availableFrom = Sets.newHashSet(copy.availableFrom);
+        builder.variations = Sets.newHashSet(copy.variations);
+        builder.parent = copy.parent;
+        builder.channelNumbers = Sets.newHashSet(copy.channelNumbers);
+        builder.startDate = copy.startDate;
+        builder.endDate = copy.endDate;
+        builder.genres = Sets.newHashSet(copy.genres);
+        builder.shortDescription = copy.shortDescription;
+        builder.mediumDescription = copy.mediumDescription;
+        builder.longDescription = copy.longDescription;
+        builder.region = copy.region;
+        builder.targetRegions = Sets.newHashSet(copy.targetRegions);
+        builder.interactive = copy.interactive;
+        builder.aliases = Sets.newHashSet(copy.getAliases());
+        builder.channelType = copy.channelType;
+
+        return builder;
+    }
+
     public static class Builder {
-        
+
         private Publisher source;
         private String uri;
         private String key;
@@ -75,36 +105,36 @@ public class Channel extends Identified {
         public Builder withSource(Publisher source) {
             this.source = source;
             return this;
-        };
-        
+        }
+
         public Builder withUri(String uri) {
             this.uri = uri;
             return this;
         }
-        
+
         public Builder withTitle(String title) {
             return withTitle(title, null, null);
-        };
-        
+        }
+
         public Builder withTitle(String title, LocalDate startDate) {
             return withTitle(title, startDate, null);
-        };
-        
+        }
+
         public Builder withTitle(String title, LocalDate startDate, LocalDate endDate) {
-            this.titles.add(new TemporalField<String>(title, startDate, endDate));
+            this.titles.add(new TemporalField<>(title, startDate, endDate));
             return this;
-        };
-        
+        }
+
         public Builder withImage(Image image) {
             return withImage(image, null, null);
-        };
-        
+        }
+
         public Builder withImage(Image image, LocalDate startDate) {
             return withImage(image, startDate, endDate);
-        };
-        
+        }
+
         public Builder withImage(Image image, LocalDate startDate, LocalDate endDate) {
-            this.images.add(new TemporalField<Image>(image, startDate, endDate));
+            this.images.add(new TemporalField<>(image, startDate, endDate));
             return this;
         };
 
@@ -115,116 +145,116 @@ public class Channel extends Identified {
             }
             return this;
         }
-        
+
         public Builder withRelatedLink(RelatedLink relatedLink) {
             this.relatedLinks.add(relatedLink);
             return this;
         }
-        
+
         public Builder withMediaType(MediaType mediaType) {
             this.mediaType = mediaType;
             return this;
-        };
-        
+        }
+
         @Deprecated
         public Builder withKey(String key) {
             this.key = key;
             return this;
-        };
-        
+        }
+
         public Builder withHighDefinition(Boolean highDefinition) {
             this.highDefinition = highDefinition;
             return this;
-        };
-        
+        }
+
         public Builder withRegional(Boolean regional) {
             this.regional = regional;
             return this;
-        };
-        
+        }
+
         public Builder withAdult(Boolean isAdult) {
             this.adult = isAdult;
             return this;
-        };
-        
+        }
+
         public Builder withTimeshift(Duration timeshift) {
             this.timeshift = timeshift;
             return this;
-        };
-        
+        }
+
         public Builder withBroadcaster(Publisher broadcaster) {
             this.broadcaster = broadcaster;
             return this;
-        };
+        }
 
         public Builder withAdvertiseFrom(DateTime dateTime) {
             this.advertiseFrom = dateTime;
             return this;
-        };
-        
+        }
+
         public Builder withAvailableFrom(Iterable<Publisher> availableFrom) {
             this.availableFrom = ImmutableSet.copyOf(availableFrom);
             return this;
-        };
-        
+        }
+
         public Builder withVariationIds(Iterable<Long> variationIds) {
             this.variations = Sets.newHashSet(variationIds);
             return this;
-        };
-        
+        }
+
         public Builder withVariations(Iterable<Channel> variations) {
             this.variations.clear();
             for (Channel variation : variations) {
                 withVariation(variation);
             }
             return this;
-        };
-        
+        }
+
         public Builder withVariation(Long variationId) {
             this.variations.add(variationId);
             return this;
-        };
-        
+        }
+
         public Builder withVariation(Channel variation) {
             this.variations.add(variation.getId());
             return this;
-        };
-        
+        }
+
         public Builder withParent(Channel parent) {
             this.parent = parent.getId();
             return this;
         }
-        
+
         public Builder withParent(Long parentId) {
             this.parent = parentId;
             return this;
         }
-        
+
         public Builder withChannelNumbers(Iterable<ChannelNumbering> channelNumbers) {
             this.channelNumbers = Sets.newHashSet(channelNumbers);
             return this;
         }
-        
+
         public Builder withChannelNumber(ChannelNumbering channelNumber) {
             this.channelNumbers.add(channelNumber);
             return this;
         }
-        
+
         public Builder withStartDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
-        
+
         public Builder withEndDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
-        
+
         public Builder addGenre(String genre) {
             this.genres.add(genre);
             return this;
         }
-        
+
         public Builder withGenres(Iterable<String> genres) {
             this.genres = Sets.newHashSet(genres);
             return this;
@@ -269,7 +299,7 @@ public class Channel extends Identified {
             this.aliases = aliases;
             return this;
         }
-        
+
         public Channel build() {
             Channel channel = new Channel(
                     source,
@@ -334,21 +364,69 @@ public class Channel extends Identified {
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
-        this(publisher, ImmutableSet.of(new TemporalField<String>(title, null, null)), ImmutableSet.<TemporalField<Image>>of(), 
-                ImmutableSet.<RelatedLink>of(), key, highDefinition, null, null, null, mediaType, uri, null, null,
-                ImmutableSet.<Publisher>of(), ImmutableSet.<Long>of(), null, ImmutableSet.<ChannelNumbering>of(), null, null,
-                ImmutableSet.<String>of(), null, null, null, null, ChannelType.CHANNEL, ImmutableSet.<String>of(), false);
+        this(
+                publisher,
+                ImmutableSet.of(new TemporalField<>(title, null, null)),
+                ImmutableSet.of(),
+                ImmutableSet.of(),
+                key,
+                highDefinition,
+                null,
+                null,
+                null,
+                mediaType,
+                uri,
+                null,
+                null,
+                ImmutableSet.of(),
+                ImmutableSet.of(),
+                null,
+                ImmutableSet.of(),
+                null,
+                null,
+                ImmutableSet.of(),
+                null,
+                null,
+                null,
+                null,
+                ChannelType.CHANNEL,
+                ImmutableSet.of(),
+                false
+        );
     }
     
     @Deprecated //Required for OldChannel
     protected Channel() { }
-    
-    private Channel(Publisher publisher, Set<TemporalField<String>> titles, Set<TemporalField<Image>> images, 
-            Set<RelatedLink> relatedLinks, String key, Boolean highDefinition, Boolean regional, Boolean adult, 
-            Duration timeshift, MediaType mediaType, String uri, Publisher broadcaster, DateTime advertiseFrom, Iterable<Publisher> availableFrom,
-            Iterable<Long> variations, Long parent, Iterable<ChannelNumbering> channelNumbers, LocalDate startDate, 
-            LocalDate endDate, Iterable<String> genres, String shortDescription, String mediumDescription, String longDescription,
-            String region, ChannelType channelType, Set<String> targetRegions, Boolean interactive) {
+
+    private Channel(
+            Publisher publisher,
+            Set<TemporalField<String>> titles,
+            Set<TemporalField<Image>> images,
+            Set<RelatedLink> relatedLinks,
+            String key,
+            Boolean highDefinition,
+            Boolean regional,
+            Boolean adult,
+            Duration timeshift,
+            MediaType mediaType,
+            String uri,
+            Publisher broadcaster,
+            DateTime advertiseFrom,
+            Iterable<Publisher> availableFrom,
+            Iterable<Long> variations,
+            Long parent,
+            Iterable<ChannelNumbering> channelNumbers,
+            LocalDate startDate,
+            LocalDate endDate,
+            Iterable<String> genres,
+            String shortDescription,
+            String mediumDescription,
+            String longDescription,
+            String region,
+            ChannelType channelType,
+            Set<String> targetRegions,
+            Boolean interactive
+    ) {
         super(uri);
         this.source = publisher;
         this.regional = regional;
@@ -470,7 +548,7 @@ public class Channel extends Identified {
     public Image getImage() {
         Iterable<TemporalField<Image>> primaryImages = Iterables.filter(
             images,
-            MorePredicates.transformingPredicate(TemporalField.<Image>toValueFunction(), IS_PRIMARY_IMAGE)
+            MorePredicates.transformingPredicate(TemporalField.toValueFunction(), IS_PRIMARY_IMAGE)
         );
         return TemporalField.currentOrFutureValue(primaryImages);
     }
@@ -518,8 +596,12 @@ public class Channel extends Identified {
         addTitle(title, startDate, null);
     }
     
-    public void addTitle(@Nullable String title, @Nullable LocalDate startDate, @Nullable LocalDate endDate) {
-        this.titles.add(new TemporalField<String>(title, startDate, endDate));
+    public void addTitle(
+            @Nullable String title,
+            @Nullable LocalDate startDate,
+            @Nullable LocalDate endDate
+    ) {
+        this.titles.add(new TemporalField<>(title, startDate, endDate));
     }
     
     public void addTitle(@Nullable TemporalField<String> title) {
@@ -610,17 +692,22 @@ public class Channel extends Identified {
     public void setGenres(Iterable<String> genres) {
         this.genres = ImmutableSet.copyOf(genres);
     }
-    
-    public void addChannelNumber(ChannelGroup channelGroup, @Nullable String channelNumber, @Nullable LocalDate startDate, @Nullable LocalDate endDate) {
+
+    public void addChannelNumber(
+            ChannelGroup channelGroup,
+            @Nullable String channelNumber,
+            @Nullable LocalDate startDate,
+            @Nullable LocalDate endDate
+    ) {
         ChannelNumbering channelNumbering = ChannelNumbering.builder()
-            .withChannelGroup(channelGroup)
-            .withChannelNumber(channelNumber)
-            .withStartDate(startDate)
-            .withEndDate(endDate)
-            .build();
+                .withChannelGroup(channelGroup)
+                .withChannelNumber(channelNumber)
+                .withStartDate(startDate)
+                .withEndDate(endDate)
+                .build();
         this.channelNumbers.add(channelNumbering);
-    };
-    
+    }
+
     public void addImage(@Nullable Image image) {
         addImage(image, null, null);
     }
@@ -628,9 +715,13 @@ public class Channel extends Identified {
     public void addImage(@Nullable Image image, @Nullable LocalDate startDate) {
         addImage(image, startDate, null);
     }
-    
-    public void addImage(@Nullable Image image, @Nullable LocalDate startDate, @Nullable LocalDate endDate) {
-        this.images.add(new TemporalField<Image>(image, startDate, endDate));
+
+    public void addImage(
+            @Nullable Image image,
+            @Nullable LocalDate startDate,
+            @Nullable LocalDate endDate
+    ) {
+        this.images.add(new TemporalField<>(image, startDate, endDate));
     }
     
     public void addImage(@Nullable TemporalField<Image> image) {
