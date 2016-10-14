@@ -14,24 +14,21 @@
  permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
-import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
-
 import java.util.List;
 import java.util.Set;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.TransportType;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
+
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+
+import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -111,7 +108,7 @@ public class Item extends Content {
         return copy;
     }
 
-    protected static void copyTo(Item from, Item to) {
+    public static void copyTo(Item from, Item to) {
         Content.copyTo(from, to);
         if (from.parent != null) {
             to.parent = from.parent;
@@ -120,7 +117,6 @@ public class Item extends Content {
         to.blackAndWhite = from.blackAndWhite;
         to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
         to.releaseDates = from.releaseDates;
-
     }
 
     public Item withSortKey(String sortKey) {
