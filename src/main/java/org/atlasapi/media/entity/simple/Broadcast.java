@@ -9,18 +9,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Duration;
-import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Duration;
+import org.joda.time.LocalDate;
 
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
@@ -67,6 +66,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     private Channel channel;
     
     private BlackoutRestriction blackoutRestriction;
+
+    private Boolean revisedRepeat;
     
     private Set<String> aliases = Sets.newHashSet();
 
@@ -265,6 +266,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         this.blackoutRestriction = blackoutResstriction;
     }
 
+    public Boolean getRevisedRepeat(){
+        return revisedRepeat;
+    }
+
+    public void setRevisedRepeat(Boolean revisedRepeat){
+        this.revisedRepeat = revisedRepeat;
+    }
+
     @Override
 	public String toString() {
 	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
@@ -315,7 +324,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
         copy.setBlackoutRestriction(getBlackoutRestriction());
-        
+        copy.setRevisedRepeat(getRevisedRepeat());
         return copy;
     }
 
