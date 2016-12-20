@@ -14,20 +14,19 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import javax.annotation.Nullable;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
+
+import com.metabroadcast.common.base.Maybe;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
-
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.metabroadcast.common.base.Maybe;
 
 /**
  * A time and channel at which a Version is/was receivable.
@@ -78,6 +77,8 @@ public class Broadcast extends Identified {
     private Boolean premiere;
     
     private BlackoutRestriction blackoutRestriction;
+
+    private Boolean revisedRepeat;
     
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
 		this.broadcastOn = broadcastOn;
@@ -267,6 +268,14 @@ public class Broadcast extends Identified {
     public void setBlackoutRestriction(BlackoutRestriction blackoutRestriction) {
         this.blackoutRestriction = blackoutRestriction;
     }
+
+    public Boolean getRevisedRepeat(){
+        return revisedRepeat;
+    }
+
+    public void setRevisedRepeat(Boolean revisedRepeat){
+        this.revisedRepeat = revisedRepeat;
+    }
     
     @Override
     public boolean equals(Object object) {
@@ -311,6 +320,7 @@ public class Broadcast extends Identified {
         copy.newEpisode = newEpisode;
         copy.premiere = premiere;
         copy.live = live;
+        copy.revisedRepeat = revisedRepeat;
         return copy;
     }
     
