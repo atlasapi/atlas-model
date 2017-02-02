@@ -53,12 +53,6 @@ public class Segment extends Described {
         return copy;
     }
 
-    public static final Function<Segment, SegmentRef> TO_REF = new Function<Segment, SegmentRef>() {
-
-        @Override
-        public SegmentRef apply(Segment input) {
-            return input.toRef();
-        }
-    };
+    public static final Function<Segment, SegmentRef> TO_REF = Segment::toRef;
 
 }

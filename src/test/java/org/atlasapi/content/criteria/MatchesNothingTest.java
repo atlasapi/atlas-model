@@ -18,16 +18,34 @@ import static org.atlasapi.content.criteria.ContentQueryBuilder.query;
 import static org.atlasapi.content.criteria.MatchesNothing.isEquivalentTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
+import com.metabroadcast.applications.client.model.internal.Application;
+import com.metabroadcast.common.query.Selection;
 import org.atlasapi.content.criteria.attribute.Attributes;
 import org.junit.Test;
+
+import java.util.Collections;
 
 public class MatchesNothingTest {
 
 	@Test
 	public void test() throws Exception {
 		
-		assertTrue(isEquivalentTo(MatchesNothing.asQuery()));
-		assertFalse(isEquivalentTo(query().equalTo(Attributes.DESCRIPTION_GENRE, "test").build()));
+		assertTrue(isEquivalentTo(
+				new ContentQuery(
+					Collections.singleton(MatchesNothing.get()),
+					Selection.ALL,
+					mock(Application.class)
+				)
+		));
+
+		assertFalse(isEquivalentTo(
+				query()
+						.equalTo(Attributes.DESCRIPTION_GENRE, "test")
+						.withApplication(mock(Application.class))
+						.build()
+				)
+		);
 	}
 }

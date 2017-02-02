@@ -3,26 +3,36 @@ package org.atlasapi.equiv;
 import static com.metabroadcast.common.time.DateTimeZones.UTC;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.atlasapi.application.v3.ApplicationConfiguration;
+import com.metabroadcast.applications.client.model.internal.Application;
+import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
 import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Version;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.metabroadcast.common.time.DateTimeZones;
 
 public class BroadcastMergingTest {
 
     private final OutputContentMerger executor = new OutputContentMerger();
-    private final ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
-        .copyWithPrecedence(ImmutableList.of(Publisher.BBC,Publisher.FACEBOOK));
+    private Application application = mock(Application.class);
+
+    @Before
+    public void setUp() {
+        ApplicationConfiguration configuration = ApplicationConfiguration.builder()
+                .withPrecedence(ImmutableList.of(Publisher.BBC, Publisher.FACEBOOK))
+                .withEnabledWriteSources(ImmutableList.of())
+                .build();
+        when(application.getConfiguration()).thenReturn(configuration);
+    }
     
     @Test
     public void testBroadcastMergingNoBroadcasts() {
@@ -44,7 +54,7 @@ public class BroadcastMergingTest {
         chosenItem.addEquivalentTo(notChosenItem);
         notChosenItem.addEquivalentTo(chosenItem);
         
-        executor.merge(config, ImmutableList.of(chosenItem, notChosenItem));
+        executor.merge(application, ImmutableList.of(chosenItem, notChosenItem));
         
         assertTrue(emptyVersion.getBroadcasts().isEmpty());
     }
@@ -73,7 +83,7 @@ public class BroadcastMergingTest {
         chosenItem.addEquivalentTo(notChosenItem);
         notChosenItem.addEquivalentTo(chosenItem);
         
-        executor.merge(config, ImmutableList.of(chosenItem, notChosenItem));
+        executor.merge(application, ImmutableList.of(chosenItem, notChosenItem));
         
         assertTrue(chosenVersion.getBroadcasts().size() == 1);
     }
@@ -110,7 +120,7 @@ public class BroadcastMergingTest {
         chosenItem.addEquivalentTo(notChosenItem);
         notChosenItem.addEquivalentTo(chosenItem);
         
-        executor.merge(config, ImmutableList.of(chosenItem, notChosenItem));
+        executor.merge(application, ImmutableList.of(chosenItem, notChosenItem));
         
         // ensure that the broadcast matched, 
         // and the fields on the non-chosen broadcast 
@@ -173,7 +183,7 @@ public class BroadcastMergingTest {
         notChosenFbItem.addEquivalentTo(chosenItem);
         notChosenFbItem.addEquivalentTo(notChosenBbcItem);
 
-        executor.merge(config, ImmutableList.of(chosenItem, notChosenBbcItem, notChosenFbItem));
+        executor.merge(application, ImmutableList.of(chosenItem, notChosenBbcItem, notChosenFbItem));
         
         // ensure that the broadcast matched, 
         // and the fields on the non-chosen broadcast 
