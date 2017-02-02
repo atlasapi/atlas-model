@@ -223,7 +223,7 @@ public abstract class ContentIdentifier {
         case SERIES:
             return new SeriesIdentifier(uri, seriesNumber, id);
         default:
-            throw new RuntimeException("Can't create content identifier for " + uri);
+            throw new RuntimeException("Can't create content identifier for " + uri);	    
 	    }
 	}
     

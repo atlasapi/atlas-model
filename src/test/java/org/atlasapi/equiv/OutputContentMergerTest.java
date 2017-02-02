@@ -3,14 +3,10 @@ package org.atlasapi.equiv;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.List;
 
-import com.metabroadcast.applications.client.model.internal.Application;
-import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
@@ -30,7 +26,6 @@ import com.google.common.collect.Lists;
 public class OutputContentMergerTest {
 
     private final OutputContentMerger merger = new OutputContentMerger();
-    private Application application = mock(Application.class);
     
     @Test
     public void testSortOfCommonSourceContentIsStable() {
@@ -41,13 +36,14 @@ public class OutputContentMergerTest {
         setEquivalent(one, two, three);
         setEquivalent(two, one, three);
         setEquivalent(three, two, one);
-
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.BBC, Publisher.TED));
-
+        
+        ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
+            .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED));
+        
         ImmutableList<Brand> contents = ImmutableList.of(one, two, three);
         
         for (List<Brand> contentList : Collections2.permutations(contents)) {
-            List<Brand> merged = merger.merge(application, contentList);
+            List<Brand> merged = merger.merge(config, contentList);
             assertThat(merged.size(), is(1));
             if (contentList.get(0).equals(three)) {
                 assertThat(contentList.toString(), merged.get(0), is(contentList.get(1)));
@@ -79,11 +75,14 @@ public class OutputContentMergerTest {
         one.setImages(ImmutableList.of(test1));
         two.setImages(ImmutableList.of(test2));
 
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.BBC, Publisher.TED));
+
+        ApplicationConfiguration config = ApplicationConfiguration.defaultConfiguration()
+                .copyWithPrecedence(ImmutableList.of(Publisher.BBC, Publisher.TED)).copyWithImagePrecedenceEnabled(true);
+
 
         List<Container> notChosen = Lists.newArrayList();
         notChosen.add(one);
-        merger.mergeIn(application, two, notChosen);
+        merger.mergeIn(config, two, notChosen);
 
         assertEquals(test2.getCanonicalUri(), Iterables.getOnlyElement(two.getImages()).getCanonicalUri());
 
@@ -103,11 +102,11 @@ public class OutputContentMergerTest {
         //two is intentionally missing here
         ImmutableList<Brand> contents = ImmutableList.of(one, three);
 
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.BBC, Publisher.TED));
-        mergePermutations(contents, application, one, two.getId());
+        ApplicationConfiguration config = configWithPrecedence(Publisher.BBC, Publisher.TED);
+        mergePermutations(contents, config, one, two.getId());
 
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.TED,Publisher.BBC));
-        mergePermutations(contents, application, three, two.getId());
+        config = configWithPrecedence(Publisher.TED,Publisher.BBC);
+        mergePermutations(contents, config, three, two.getId());
         
     }
 
@@ -117,27 +116,25 @@ public class OutputContentMergerTest {
         return one;
     }
 
-    private void mergePermutations(ImmutableList<Brand> contents, Application application,
+    private void mergePermutations(ImmutableList<Brand> contents, ApplicationConfiguration config,
             Brand expectedContent, long expectedId) {
         for (List<Brand> contentList : Collections2.permutations(contents)) {
-            List<Brand> merged = merger.merge(application, contentList);
+            List<Brand> merged = merger.merge(config, contentList);
             Brand mergedBrand = Iterables.getOnlyElement(merged);
             assertThat(mergedBrand, is(expectedContent));
             assertThat(mergedBrand.getId(), is(expectedId));
         }
     }
-
+    
+    private ApplicationConfiguration configWithPrecedence(Publisher...publishers) {
+        return ApplicationConfiguration.defaultConfiguration()
+            .copyWithPrecedence(ImmutableList.copyOf(publishers));
+    }
+    
     private void setEquivalent(Content receiver, Content...equivalents) {
         receiver.setEquivalentTo(ImmutableSet.copyOf(Iterables.transform(
             ImmutableList.copyOf(equivalents), LookupRef.FROM_DESCRIBED)
         ));
-    }
-
-    private ApplicationConfiguration configWithReads(Publisher... publishers) {
-        return ApplicationConfiguration.builder()
-                .withPrecedence(Arrays.asList(publishers))
-                .withEnabledWriteSources(ImmutableList.of())
-                .build();
     }
 
 }

@@ -17,9 +17,7 @@ package org.atlasapi.content.criteria;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import com.metabroadcast.applications.client.model.internal.Application;
 import org.atlasapi.content.criteria.attribute.QueryFactory;
 import org.atlasapi.content.criteria.operator.Operators;
 import org.joda.time.DateTime;
@@ -32,7 +30,6 @@ public class ContentQueryBuilder {
 
 	private final List<AtomicQuery> queries;
 	private Selection selection = Selection.ALL;
-	private Optional<Application> application;
 	
 	public ContentQueryBuilder(Iterable<AtomicQuery> queries) {
 		this.queries = Lists.newArrayList(queries);
@@ -43,11 +40,7 @@ public class ContentQueryBuilder {
 	}
 	
 	public ContentQuery build() {
-		if(application.isPresent()) {
-			return new ContentQuery(queries, selection, application.get());
-		} else {
-			return new ContentQuery(queries, selection);
-		}
+		return new ContentQuery(queries, selection);
 	}
 	
 	public ContentQueryBuilder withSelection(Selection selection) {
@@ -114,11 +107,6 @@ public class ContentQueryBuilder {
 	
 	public ContentQueryBuilder before(QueryFactory<DateTime> attribute, DateTime... values) {
 		queries.add(attribute.createQuery(Operators.BEFORE, Arrays.asList(values)));
-		return this;
-	}
-
-	public ContentQueryBuilder withApplication(Application application) {
-		this.application = Optional.of(application);
 		return this;
 	}
 }

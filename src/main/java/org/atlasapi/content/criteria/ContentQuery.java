@@ -16,8 +16,7 @@ package org.atlasapi.content.criteria;
 
 import java.util.List;
 
-import com.metabroadcast.applications.client.model.internal.Application;
-import org.atlasapi.application.v3.DefaultApplication;
+import org.atlasapi.application.v3.ApplicationConfiguration;
 import org.atlasapi.content.criteria.attribute.Attributes;
 import org.atlasapi.media.entity.Publisher;
 
@@ -31,6 +30,8 @@ import org.atlasapi.output.Annotation;
 
 public class ContentQuery {
 
+	public static final ContentQuery MATCHES_EVERYTHING = new ContentQuery(ImmutableList.<AtomicQuery>of(), Selection.ALL);
+
     private ImmutableSet<Annotation> annotations;
     
 	private ImmutableSet<AtomicQuery> operands;
@@ -43,29 +44,29 @@ public class ContentQuery {
 
 	private final Selection selection;
 
-	private final Application application;
+	private final ApplicationConfiguration configuration;
     	
 	public ContentQuery(AtomicQuery operand) {
 		this(ImmutableList.of(operand), Selection.ALL);
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands) {
-		this(operands, Selection.ALL, DefaultApplication.createDefault());
+		this(operands, Selection.ALL, ApplicationConfiguration.forNoApiKey());
 	}
 	
 	public ContentQuery(Iterable<AtomicQuery> operands, Selection selection) {
-		this(operands, selection, DefaultApplication.createDefault());
+		this(operands, selection, ApplicationConfiguration.forNoApiKey());
 	}
     
-    public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, Application application) {
-		this(operands, Annotation.defaultAnnotations(), selection, application);
+    public ContentQuery(Iterable<AtomicQuery> operands, Selection selection, ApplicationConfiguration configuration) {
+		this(operands, Annotation.defaultAnnotations(), selection, configuration);
 	}
 
-	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, Application application) {
+	public ContentQuery(Iterable<AtomicQuery> operands, Set<Annotation> annotations, Selection selection, ApplicationConfiguration configuration) {
 		this.operands = ImmutableSet.copyOf(operands);
         this.annotations = ImmutableSet.copyOf(annotations);
 		this.selection = selection;
-		this.application = application;
+		this.configuration = configuration;
 		this.softConstraints = ImmutableSet.of();
 	}
 	
@@ -104,8 +105,8 @@ public class ContentQuery {
 		return selection;
 	}
 	
-	public Application getApplication() {
-		return application;
+	public ApplicationConfiguration getConfiguration() {
+		return configuration;
 	}
 
     public ImmutableSet<Annotation> getAnnotations() {
@@ -113,13 +114,13 @@ public class ContentQuery {
     }
     
     public ContentQuery copyWithAnnotations(Set<Annotation> annotations) {
-		ContentQuery newQuery = new ContentQuery(operands, annotations, selection, application);
+		ContentQuery newQuery = new ContentQuery(operands, annotations, selection, configuration);
         newQuery.setSoftConstraints(softConstraints);
 		return newQuery;
 	}
 
 	public ContentQuery copyWithOperands(Iterable<AtomicQuery> newConjucts) {
-		ContentQuery conjunctiveQuery = new ContentQuery(newConjucts, selection, application);
+		ContentQuery conjunctiveQuery = new ContentQuery(newConjucts, selection, configuration);
 		conjunctiveQuery.setSoftConstraints(softConstraints);
 		return conjunctiveQuery;
 	}
@@ -127,7 +128,7 @@ public class ContentQuery {
 	public static ContentQuery joinTo(ContentQuery original, ContentQuery toAdd) {
 		List<AtomicQuery> allConjucts = Lists.newArrayList(original.operands());
 		allConjucts.addAll(toAdd.operands());
-		ContentQuery contentQuery = new ContentQuery(allConjucts, original.getSelection(), original.getApplication());
+		ContentQuery contentQuery = new ContentQuery(allConjucts, original.getSelection(), original.getConfiguration());
 		contentQuery.setSoftConstraints(Iterables.concat(original.getSoftConstraints(),toAdd.getSoftConstraints()));
 		return contentQuery;
 	}
@@ -141,19 +142,20 @@ public class ContentQuery {
 	}
 
 	public ContentQuery copyWithSelection(Selection newSelection) {
-		ContentQuery contentQuery = new ContentQuery(operands, newSelection, getApplication());
+		ContentQuery contentQuery = new ContentQuery(operands, newSelection, getConfiguration());
 		contentQuery.setSoftConstraints(getSoftConstraints());
 		return contentQuery;
 	}
 	
-	public ContentQuery copyWithApplication(Application application){
-		ContentQuery contentQuery = new ContentQuery(operands, getSelection(), application);
+	public ContentQuery copyWithApplicationConfiguration(ApplicationConfiguration configuration){
+		ContentQuery contentQuery = new ContentQuery(operands, getSelection(), configuration);
 		contentQuery.setSoftConstraints(getSoftConstraints());
 		return contentQuery;
 	}
 	
 	public ContentQuery copyWithSoftConstraintsApplied() {
-		return new ContentQuery(Iterables.concat(operands(),getSoftConstraints()), getSelection(), application);
+		ContentQuery contentQuery = new ContentQuery(Iterables.concat(operands(),getSoftConstraints()), getSelection(), configuration);
+		return contentQuery;
 	}
 	
 	public void setSoftConstraints(Iterable<AtomicQuery> softConstraints) {
@@ -186,6 +188,6 @@ public class ContentQuery {
 	}
 
     public boolean allowsSource(Publisher publisher) {
-        return application.getConfiguration().isReadEnabled(publisher);
+        return configuration.isEnabled(publisher);
     }
 }
