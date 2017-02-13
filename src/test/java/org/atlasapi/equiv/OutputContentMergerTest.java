@@ -1,16 +1,8 @@
 package org.atlasapi.equiv;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.Arrays;
 import java.util.List;
 
-import com.metabroadcast.applications.client.model.internal.Application;
-import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
@@ -18,14 +10,23 @@ import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageType;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
-import org.joda.time.DateTime;
-import org.junit.Test;
+
+import com.metabroadcast.applications.client.model.internal.Application;
+import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class OutputContentMergerTest {
 
@@ -90,7 +91,7 @@ public class OutputContentMergerTest {
     }
 
     @Test
-    public void testMergedContentHasLowestIdOfContentInEquivalenceSet() {
+    public void testMergedContentHasLowestIdOfSelectedContentInEquivalenceSet() {
         
         Brand one = brand(5L, "one", Publisher.BBC);
         Brand two = brand(2L, "two",Publisher.PA);
@@ -100,14 +101,17 @@ public class OutputContentMergerTest {
         setEquivalent(two, one, three);
         setEquivalent(three, two, one);
         
-        //two is intentionally missing here
+        // Two is intentionally missing here. It will be in the `same_as` lists of content one and
+        // two, but not in the filtered list of content that we are passing to the merger
         ImmutableList<Brand> contents = ImmutableList.of(one, three);
 
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.BBC, Publisher.TED));
-        mergePermutations(contents, application, one, two.getId());
+        when(application.getConfiguration())
+                .thenReturn(configWithReads(Publisher.BBC, Publisher.TED));
+        mergePermutations(contents, application, one, one.getId());
 
-        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.TED,Publisher.BBC));
-        mergePermutations(contents, application, three, two.getId());
+        when(application.getConfiguration())
+                .thenReturn(configWithReads(Publisher.TED,Publisher.BBC));
+        mergePermutations(contents, application, three, one.getId());
         
     }
 

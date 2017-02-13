@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
-import com.metabroadcast.applications.client.model.internal.Application;
-import com.metabroadcast.common.stream.MoreCollectors;
 import org.atlasapi.media.entity.AudienceStatistics;
 import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Certificate;
@@ -22,7 +20,6 @@ import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageType;
 import org.atlasapi.media.entity.Item;
-import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Person;
 import org.atlasapi.media.entity.Priority;
 import org.atlasapi.media.entity.Publisher;
@@ -31,6 +28,9 @@ import org.atlasapi.media.entity.SimilarContentRef;
 import org.atlasapi.media.entity.Subtitles;
 import org.atlasapi.media.entity.TopicRef;
 import org.atlasapi.media.entity.Version;
+
+import com.metabroadcast.applications.client.model.internal.Application;
+import com.metabroadcast.common.stream.MoreCollectors;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -72,7 +72,7 @@ public class OutputContentMerger {
 
             T chosen = same.get(0);
 
-            chosen.setId(lowestId(chosen));
+            chosen.setId(lowestId(chosen, same));
 
             // defend against broken transitive equivalence
             if (merged.contains(chosen)) {
@@ -95,12 +95,14 @@ public class OutputContentMerger {
         return merged;
     }
 
-    private <T extends Described> Long lowestId(T chosen) {
+    private <T extends Described> Long lowestId(T chosen, List<T> same) {
+        Ordering<Comparable> ordering = Ordering.natural().nullsLast();
+
         Long lowest = chosen.getId();
-        for (LookupRef ref : chosen.getEquivalentTo()) {
-            Long candidate = ref.id();
-            lowest = Ordering.natural().nullsLast().min(lowest, candidate);
+        for (T equivDescribed : same) {
+            lowest = ordering.min(lowest, equivDescribed.getId());
         }
+
         return lowest;
     }
 
