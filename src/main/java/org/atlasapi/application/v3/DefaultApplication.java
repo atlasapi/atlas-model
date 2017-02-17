@@ -15,7 +15,11 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class DefaultApplication {
+
+    private static final Environment APP_CLIENT_ENV = Environment.parse(checkNotNull(Configurer.get("applications.client.env").get()));
 
     public static Application createDefault() {
         return createInternal(
@@ -38,18 +42,11 @@ public class DefaultApplication {
     private static Application createInternal(
             List<Publisher> reads
     ) {
-        String environment = Configurer.getPlatform();
-
         return Application.builder()
                 .withId(-1L)
                 .withTitle("defaultApplication")
                 .withDescription("Default application")
-                .withEnvironment(
-                        // fix for a test that constructs an Application from an unsupported environment "dev"
-                        "dev".equals(environment) ?
-                            Environment.STAGE :
-                            Environment.parse(environment)
-                )
+                .withEnvironment(APP_CLIENT_ENV)
                 .withCreated(ZonedDateTime.now())
                 .withApiKey("default")
                 .withSources(configWithPrecedence(reads, ImmutableList.of()))
