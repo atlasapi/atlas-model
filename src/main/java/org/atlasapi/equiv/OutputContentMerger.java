@@ -3,7 +3,6 @@ package org.atlasapi.equiv;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.StreamSupport;
 
 import org.atlasapi.media.entity.AudienceStatistics;
 import org.atlasapi.media.entity.Broadcast;
@@ -53,11 +52,10 @@ public class OutputContentMerger {
     @SuppressWarnings("unchecked")
     public <T extends Described> List<T> merge(Application application, List<T> contents) {
 
+
         Ordering<Described> contentComparator = toContentOrdering(
-                getCompleteOrdering(
-                        application,
-                        contents
-                )
+                application.getConfiguration()
+                        .getReadPrecedenceOrdering()
         );
 
         List<T> merged = Lists.newArrayListWithCapacity(contents.size());
@@ -124,32 +122,6 @@ public class OutputContentMerger {
                 return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
             }
         };
-    }
-
-    private Ordering<Publisher> getCompleteOrdering(
-            Application application,
-            Iterable<? extends Described> contents
-    ) {
-
-        List<Publisher> applicationPublishers = application.getConfiguration()
-                .getReadPrecedenceOrdering()
-                .sortedCopy(
-                        application.getConfiguration()
-                                .getEnabledReadSources()
-                                .asList()
-                );
-
-        List<Publisher> otherPublishers = StreamSupport.stream(contents.spliterator(), false)
-                .map(Described::getPublisher)
-                .filter(publisher -> !applicationPublishers.contains(publisher))
-                .collect(MoreCollectors.toImmutableList());
-
-        return Ordering.explicit(ImmutableList.<Publisher>builder()
-                .addAll(applicationPublishers)
-                .addAll(otherPublishers)
-                .build()
-        );
-
     }
 
     private <T extends ContentGroup> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
@@ -361,7 +333,7 @@ public class OutputContentMerger {
         Set<Broadcast> chosenBroadcasts = Sets.newHashSet(Iterables.concat(Iterables.transform(chosen.getVersions(), Version.TO_BROADCASTS)));
         if (!chosenBroadcasts.isEmpty()) {
             List<T> notChosenOrdered =
-                    toContentOrdering(getCompleteOrdering(application, notChosen))
+                    toContentOrdering(application.getConfiguration().getReadPrecedenceOrdering())
                             .sortedCopy(notChosen);
             for (Broadcast chosenBroadcast : chosenBroadcasts) {
                 matchAndMerge(chosenBroadcast, notChosenOrdered);
