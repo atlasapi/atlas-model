@@ -79,7 +79,7 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
         final LocalDate now = new LocalDate();
         Set<T> currentValues = TemporalField.<T>currentValues(values);
         if (!currentValues.isEmpty()) {
-            return Iterables.getOnlyElement(currentValues);
+            return Iterables.getFirst(currentValues, null);
         }
 
         // if no current title, return first future title
