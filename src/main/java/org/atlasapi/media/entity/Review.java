@@ -134,7 +134,7 @@ public class Review {
             return this;
         }
 
-        public Builder withDate(Date date) {
+        public Builder withDate(@Nullable Date date) {
             this.date = date;
             return this;
         }

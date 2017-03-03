@@ -26,8 +26,9 @@ public enum ReviewType {
 
     @Nullable
     public static ReviewType fromKey(String key) {
+
         return Arrays.stream(ReviewType.values())
-                .filter(reviewType -> key.equalsIgnoreCase(reviewType.name()))
+                .filter(reviewType -> reviewType.name().equalsIgnoreCase(key))
                 .findFirst().orElse(null);
     }
 }
