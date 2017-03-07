@@ -8,12 +8,12 @@ public enum ReviewType {
     SHORT_REVIEW,
     FOTD_REVIEW;
 
-    public String lowercase() {
+    public String toKey() {
         return this.name().toLowerCase();
     }
 
     public String authorTag() {
-        return this.equals(NORMAL_REVIEW) ? "review_author" : this.lowercase() + "_author";
+        return this.equals(NORMAL_REVIEW) ? "review_author" : this.toKey() + "_author";
     }
 
     public String authorInitialsTag() {

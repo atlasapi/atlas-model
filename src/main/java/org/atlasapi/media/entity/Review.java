@@ -17,14 +17,14 @@ public class Review {
     private final String authorInitials;
     private final String rating;
     private final Date date;
-    private final ReviewType reviewType;
+    private final String reviewTypeKey;
 
     private Review(Builder builder) {
         this.review = checkNotNull(builder.review);
         this.locale = builder.locale;
         this.author = builder.author;
         this.authorInitials = builder.authorInitials;
-        this.reviewType = builder.type;
+        this.reviewTypeKey = builder.reviewTypeKey;
         this.rating = builder.rating;
         this.date = builder.date;
     }
@@ -38,8 +38,8 @@ public class Review {
     }
 
     @Nullable
-    public ReviewType getReviewType() {
-        return reviewType;
+    public String getReviewTypeKey() {
+        return reviewTypeKey;
     }
 
     @Nullable
@@ -85,12 +85,12 @@ public class Review {
                 && Objects.equal(this.authorInitials, thatReview.authorInitials)
                 && Objects.equal(this.rating, thatReview.rating)
                 && Objects.equal(this.date, thatReview.date)
-                && Objects.equal(this.reviewType, thatReview.reviewType);
+                && Objects.equal(this.reviewTypeKey, thatReview.reviewTypeKey);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(locale, review, author, authorInitials, rating, reviewType, date);
+        return Objects.hashCode(locale, review, author, authorInitials, rating, reviewTypeKey, date);
     }
     
     @Override
@@ -100,7 +100,7 @@ public class Review {
                 .add("review", review)
                 .add("rating", rating)
                 .add("date", date)
-                .add("reviewType", reviewType)
+                .add("reviewTypeKey", reviewTypeKey)
                 .add("author", author)
                 .add("authorInitials", authorInitials)
                 .toString();
@@ -112,7 +112,7 @@ public class Review {
         private String authorInitials;
         private String rating;
         private Date date;
-        private ReviewType type;
+        private String reviewTypeKey;
         private Locale locale;
         private String review;
 
@@ -139,8 +139,8 @@ public class Review {
             return this;
         }
 
-        public Builder withReviewType(@Nullable ReviewType type) {
-            this.type = type;
+        public Builder withReviewTypeKey(@Nullable String reviewTypeKey) {
+            this.reviewTypeKey = reviewTypeKey;
             return this;
         }
 
