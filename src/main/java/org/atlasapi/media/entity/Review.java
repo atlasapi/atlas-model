@@ -22,7 +22,7 @@ public class Review {
 
     private Review(Builder builder) {
         this.review = checkNotNull(builder.review);
-        this.publisherKey = checkNotNull(builder.publisherKey);
+        this.publisherKey = builder.publisherKey;
         this.locale = builder.locale;
         this.author = builder.author;
         this.authorInitials = builder.authorInitials;
@@ -39,6 +39,7 @@ public class Review {
         return review;
     }
 
+    @Nullable
     public String getPublisherKey() {
         return publisherKey;
     }
