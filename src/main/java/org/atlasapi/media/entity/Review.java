@@ -18,9 +18,11 @@ public class Review {
     private final String rating;
     private final Date date;
     private final String reviewTypeKey;
+    private final String publisherKey;
 
     private Review(Builder builder) {
         this.review = checkNotNull(builder.review);
+        this.publisherKey = checkNotNull(builder.publisherKey);
         this.locale = builder.locale;
         this.author = builder.author;
         this.authorInitials = builder.authorInitials;
@@ -35,6 +37,10 @@ public class Review {
 
     public String getReview() {
         return review;
+    }
+
+    public String getPublisherKey() {
+        return publisherKey;
     }
 
     @Nullable
@@ -81,6 +87,7 @@ public class Review {
         
         return Objects.equal(this.locale, thatReview.locale)
                 && Objects.equal(this.review, thatReview.review)
+                && Objects.equal(this.publisherKey, thatReview.publisherKey)
                 && Objects.equal(this.author, thatReview.author)
                 && Objects.equal(this.authorInitials, thatReview.authorInitials)
                 && Objects.equal(this.rating, thatReview.rating)
@@ -115,6 +122,7 @@ public class Review {
         private String reviewTypeKey;
         private Locale locale;
         private String review;
+        private String publisherKey;
 
         private Builder() {
         }
@@ -151,6 +159,11 @@ public class Review {
 
         public Builder withReview(String review) {
             this.review = review;
+            return this;
+        }
+
+        public Builder withPublisherKey(String publisherKey) {
+            this.publisherKey = publisherKey;
             return this;
         }
 
