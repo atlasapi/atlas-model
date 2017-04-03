@@ -80,7 +80,12 @@ public class Broadcast extends Identified {
 
     private Boolean revisedRepeat;
     
-    public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime, Boolean activelyPublished) {
+    public Broadcast(
+            String broadcastOn,
+            DateTime transmissionTime,
+            DateTime transmissionEndTime,
+            Boolean activelyPublished
+    ) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
 		this.transmissionEndTime = transmissionEndTime;
@@ -96,7 +101,12 @@ public class Broadcast extends Identified {
         this(broadcastOn, transmissionTime, duration, true);
     }
     
-    public Broadcast(String broadcastOn,  DateTime transmissionTime, Duration duration, Boolean activelyPublished) {
+    public Broadcast(
+            String broadcastOn,
+            DateTime transmissionTime,
+            Duration duration,
+            Boolean activelyPublished
+    ) {
     	this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime;
 		this.transmissionEndTime = transmissionTime.plus(duration);
@@ -104,12 +114,12 @@ public class Broadcast extends Identified {
 		this.activelyPublished = activelyPublished;
 	}
     
-    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
     public DateTime getTransmissionTime() {
         return this.transmissionTime;
     }
 
-    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
     public DateTime getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
@@ -121,17 +131,17 @@ public class Broadcast extends Identified {
         return Maybe.nothing();
     }
 
-    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, relation = false)
+    @RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS)
     public Integer getBroadcastDuration() {
         return this.broadcastDuration;
     }
 
-    @RdfProperty(namespace = PO.NS, relation = false)
+    @RdfProperty(namespace = PO.NS)
     public String getBroadcastOn() {
         return broadcastOn;
     }
 
-    @RdfProperty(namespace = PO.NS, relation = false)
+    @RdfProperty(namespace = PO.NS)
     public LocalDate getScheduleDate() {
         return scheduleDate;
     }
@@ -286,7 +296,9 @@ public class Broadcast extends Identified {
         if (sourceId != null && broadcast.sourceId != null) {
         	return sourceId.equals(broadcast.sourceId);
         }
-        return broadcastOn.equals(broadcast.broadcastOn) && transmissionTime.equals(broadcast.getTransmissionTime()) && transmissionEndTime.equals(broadcast.getTransmissionEndTime());
+        return broadcastOn.equals(broadcast.broadcastOn) &&
+                transmissionTime.equals(broadcast.getTransmissionTime()) &&
+                transmissionEndTime.equals(broadcast.getTransmissionEndTime());
     }
     
     @Override
@@ -324,24 +336,9 @@ public class Broadcast extends Identified {
         return copy;
     }
     
-    public final static Function<Broadcast, Broadcast> COPY = new Function<Broadcast, Broadcast>() {
-        @Override
-        public Broadcast apply(Broadcast input) {
-            return input.copy();
-        }
-    };
+    public final static Function<Broadcast, Broadcast> COPY = input -> input.copy();
 
-    public static final Predicate<Broadcast> IS_REPEAT = new Predicate<Broadcast>() {
-        @Override
-        public boolean apply(Broadcast input) {
-            return input.repeat != null && input.repeat;
-        }
-    };
+    public static final Predicate<Broadcast> IS_REPEAT = input -> input.repeat != null && input.repeat;
     
-    public static final Function<Broadcast, DateTime> TO_TRANSMISSION_TIME = new Function<Broadcast, DateTime>() {
-        @Override
-        public DateTime apply(Broadcast input) {
-            return input.getTransmissionTime();
-        }
-    };
+    public static final Function<Broadcast, DateTime> TO_TRANSMISSION_TIME = input -> input.getTransmissionTime();
 }
