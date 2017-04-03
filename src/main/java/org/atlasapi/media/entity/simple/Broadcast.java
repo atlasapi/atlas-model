@@ -71,6 +71,10 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     private Set<String> aliases = Sets.newHashSet();
 
+    private Boolean continuation;
+
+    private Boolean newOneOff;
+
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null, null);
     }
@@ -254,6 +258,22 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         this.newEpisode = newEpisode;
     }
 
+    public Boolean getContinuation() {
+        return continuation;
+    }
+
+    public void setContinuation(Boolean continuation) {
+        this.continuation = continuation;
+    }
+
+    public Boolean getNewOneOff() {
+        return newOneOff;
+    }
+
+    public void setNewOneOff(Boolean newOneOff) {
+        this.newOneOff = newOneOff;
+    }
+
     public void setAliases(Set<String> aliases) {
         this.aliases = aliases;
     }
@@ -282,7 +302,12 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     @Override
 	public String toString() {
-	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
+	    return Objects.toStringHelper(this)
+                .addValue(id)
+                .addValue(broadcastOn)
+                .addValue(transmissionTime)
+                .addValue(transmissionEndTime)
+                .toString();
 	}
 
     @Override
@@ -329,6 +354,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
+        copy.setContinuation(getContinuation());
+        copy.setNewOneOff(getNewOneOff());
         copy.setBlackoutRestriction(getBlackoutRestriction());
         copy.setRevisedRepeat(getRevisedRepeat());
         return copy;
@@ -345,5 +372,5 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = input -> new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
 
-    public static final Function<Broadcast, Broadcast> TO_COPY = input -> input.copy();
+    public static final Function<Broadcast, Broadcast> TO_COPY = Broadcast::copy;
 }

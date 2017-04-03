@@ -410,8 +410,14 @@ public class OutputContentMerger {
         if (chosen.getBlackoutRestriction() == null && toMerge.getBlackoutRestriction() != null) {
             chosen.setBlackoutRestriction(toMerge.getBlackoutRestriction());
         }
-        if (chosen.getRevisedRepeat() == null && toMerge.getRevisedRepeat() != null){
+        if (chosen.getRevisedRepeat() == null && toMerge.getRevisedRepeat() != null) {
             chosen.setRevisedRepeat(toMerge.getRevisedRepeat());
+        }
+        if (chosen.getContinuation() == null && toMerge.getContinuation() != null) {
+            chosen.setContinuation(toMerge.getContinuation());
+        }
+        if (chosen.getNewOneOff() == null && toMerge.getNewOneOff() != null) {
+            chosen.setNewEpisode(toMerge.getNewOneOff());
         }
     }
 
