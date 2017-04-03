@@ -79,6 +79,10 @@ public class Broadcast extends Identified {
     private BlackoutRestriction blackoutRestriction;
 
     private Boolean revisedRepeat;
+
+    private Boolean continuation;
+
+    private Boolean newOneOff;
     
     public Broadcast(
             String broadcastOn,
@@ -254,7 +258,23 @@ public class Broadcast extends Identified {
     public Boolean getPremiere() {
         return premiere;
     }
-    
+
+    public void setContinuation(Boolean continuation) {
+        this.continuation = continuation;
+    }
+
+    public Boolean getContinuation() {
+        return continuation;
+    }
+
+    public void setNewOneOff(Boolean newOneOff) {
+        this.newOneOff = newOneOff;
+    }
+
+    public Boolean getNewOneOff() {
+        return newOneOff;
+    }
+
     public void setNewSeries(Boolean newSeries) {
         this.newSeries = newSeries;
     }
@@ -331,14 +351,16 @@ public class Broadcast extends Identified {
         copy.newSeries = newSeries;
         copy.newEpisode = newEpisode;
         copy.premiere = premiere;
+        copy.continuation = continuation;
+        copy.newOneOff = newOneOff;
         copy.live = live;
         copy.revisedRepeat = revisedRepeat;
         return copy;
     }
     
-    public final static Function<Broadcast, Broadcast> COPY = input -> input.copy();
+    public final static Function<Broadcast, Broadcast> COPY = Broadcast::copy;
 
     public static final Predicate<Broadcast> IS_REPEAT = input -> input.repeat != null && input.repeat;
     
-    public static final Function<Broadcast, DateTime> TO_TRANSMISSION_TIME = input -> input.getTransmissionTime();
+    public static final Function<Broadcast, DateTime> TO_TRANSMISSION_TIME = Broadcast::getTransmissionTime;
 }
