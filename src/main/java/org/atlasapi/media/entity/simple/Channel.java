@@ -55,6 +55,7 @@ public class Channel extends Aliased {
     private String region;
     private String channelType;
     private Set<String> targetRegions = Sets.newHashSet();
+    private Boolean interactive;
 
     @Nullable
     public String getShortDescription() {
@@ -99,6 +100,15 @@ public class Channel extends Aliased {
 
     public void setChannelType(@Nullable String channelType) {
         this.channelType = channelType;
+    }
+
+    @Nullable
+    public Boolean getInteractive() {
+        return interactive;
+    }
+
+    public void setInteractive(@Nullable Boolean interactive) {
+        this.interactive = interactive;
     }
 
     @Nullable
