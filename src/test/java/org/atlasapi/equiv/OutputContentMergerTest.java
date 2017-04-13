@@ -3,11 +3,14 @@ package org.atlasapi.equiv;
 import java.util.Arrays;
 import java.util.List;
 
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Brand;
+import org.atlasapi.media.entity.Broadcast;
 import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageType;
+import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
 
@@ -24,7 +27,11 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -113,6 +120,56 @@ public class OutputContentMergerTest {
                 .thenReturn(configWithReads(Publisher.TED,Publisher.BBC));
         mergePermutations(contents, application, three, one.getId());
         
+    }
+
+    @Test
+    public void testBroadcastGetsMergedCorrectly() {
+        DateTime parsedDate = DateTime.parse("2017-04-11");
+
+        Broadcast chosen = new Broadcast("b", parsedDate, parsedDate.plusDays(1));
+        Broadcast toMerge = createBroadcast(parsedDate);
+
+        merger.mergeBroadcast(chosen, toMerge);
+
+        assertFalse(chosen.getAliases().isEmpty());
+        assertFalse(chosen.getAliasUrls().isEmpty());
+        assertTrue(chosen.getRepeat());
+        assertThat(chosen.getScheduleDate(), is(parsedDate.toLocalDate()));
+        assertTrue(chosen.getSubtitled());
+        assertFalse(chosen.getSigned());
+        assertTrue(chosen.getAudioDescribed());
+        assertFalse(chosen.getHighDefinition());
+        assertTrue(chosen.getWidescreen());
+        assertFalse(chosen.getSurround());
+        assertTrue(chosen.getLive());
+        assertFalse(chosen.getNewSeries());
+        assertTrue(chosen.getNewOneOff());
+        assertFalse(chosen.getPremiere());
+        assertTrue(chosen.getContinuation());
+        assertTrue(chosen.getRevisedRepeat());
+    }
+
+    private Broadcast createBroadcast(DateTime parsedDate) {
+        Broadcast toMerge = new Broadcast("a", parsedDate, parsedDate.plusDays(1));
+
+        toMerge.setAliases(ImmutableList.of(new Alias("n", "v")));
+        toMerge.setAliasUrls(ImmutableList.of("urls"));
+        toMerge.setRepeat(true);
+        toMerge.setScheduleDate(parsedDate.toLocalDate());
+        toMerge.setSubtitled(true);
+        toMerge.setSigned(false);
+        toMerge.setAudioDescribed(true);
+        toMerge.setHighDefinition(false);
+        toMerge.setWidescreen(true);
+        toMerge.setSurround(false);
+        toMerge.setLive(true);
+        toMerge.setNewSeries(false);
+        toMerge.setNewOneOff(true);
+        toMerge.setPremiere(false);
+        toMerge.setContinuation(true);
+        toMerge.setRevisedRepeat(true);
+
+        return toMerge;
     }
 
     private Brand brand(long id, String uri, Publisher source) {
