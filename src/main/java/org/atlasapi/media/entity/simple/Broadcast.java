@@ -24,58 +24,49 @@ import org.joda.time.LocalDate;
 @XmlRootElement(namespace=PLAY_SIMPLE_XML.NS)
 @XmlType(name="broadcast", namespace=PLAY_SIMPLE_XML.NS)
 public class Broadcast extends Version implements Comparable<Broadcast> {
-	
-    private Date transmissionTime;
 
+    private Date transmissionTime;
     private Date transmissionEndTime;
-    
     private Date actualTransmissionTime;
-    
     private Date actualTransmissionEndTime;
 
     private Integer broadcastDuration;
-
     private String broadcastOn;
-
     private LocalDate scheduleDate;
-    
     private String id;
-    
-    private Boolean repeat;
-    
-    private Boolean subtitled;
-    
-    private Boolean signed;
-    
-    private Boolean audioDescribed;
-    
-    private Boolean highDefinition;
-    
-    private Boolean widescreen;
-    
-    private Boolean surround;
-    
-    private Boolean live;
-    
-    private Boolean premier;
-    
-    private Boolean newSeries;
-    
-    private Boolean newEpisode;
-    
-    private Channel channel;
-    
-    private BlackoutRestriction blackoutRestriction;
 
+    private Boolean repeat;
+    private Boolean subtitled;
+    private Boolean signed;
+    private Boolean audioDescribed;
+    private Boolean highDefinition;
+    private Boolean widescreen;
+    private Boolean surround;
     private Boolean revisedRepeat;
-    
+
+    private Boolean live;
+    private Boolean premier;
+    private Boolean continuation;
+
+    private Boolean newSeries;
+    private Boolean newEpisode;
+    private Boolean newOneOff;
+
+    private Channel channel;
+    private BlackoutRestriction blackoutRestriction;
     private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null, null);
     }
 
-    public Broadcast(String broadcastOn, DateTime transmissionTime, DateTime transmissionEndTime, String id, BlackoutRestriction blackoutRestriction) {
+    public Broadcast(
+            String broadcastOn,
+            DateTime transmissionTime,
+            DateTime transmissionEndTime,
+            String id,
+            BlackoutRestriction blackoutRestriction
+    ) {
 		this.broadcastOn = broadcastOn;
 		this.transmissionTime = transmissionTime.toDate();
 		this.transmissionEndTime = transmissionEndTime.toDate();
@@ -83,9 +74,9 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 		this.id = id;
 		this.blackoutRestriction = blackoutRestriction;
 	}
-    
+
     public Broadcast() {
-    	
+
     }
 
 	public void setTransmissionTime(Date transmissionTime) {
@@ -95,15 +86,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public void setTransmissionEndTime(Date transmissionEndTime) {
 		this.transmissionEndTime = transmissionEndTime;
 	}
-	
+
 	public void setActualTransmissionTime(Date actualTransmissionTime) {
 	    this.actualTransmissionTime = actualTransmissionTime;
 	}
-	
+
 	public void setActualTransmissionEndTime(Date actualTransmissionEndTime) {
 	    this.actualTransmissionEndTime = actualTransmissionEndTime;
 	}
-	
+
 	public void setBroadcastDuration(Integer broadcastDuration) {
 		this.broadcastDuration = broadcastDuration;
 	}
@@ -115,7 +106,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public void setScheduleDate(LocalDate scheduleDate) {
 		this.scheduleDate = scheduleDate;
 	}
-	
+
 	public void setId(String id) {
 	    this.id = id;
 	}
@@ -127,15 +118,15 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public Date getTransmissionEndTime() {
 		return transmissionEndTime;
 	}
-    
+
 	public Date getActualTransmissionTime() {
         return actualTransmissionTime;
     }
-    
+
     public Date getActualTransmissionEndTime() {
         return actualTransmissionEndTime;
     }
-	   
+
 	public Integer getBroadcastDuration() {
 		return broadcastDuration;
 	}
@@ -147,11 +138,11 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	public LocalDate getScheduleDate() {
 		return scheduleDate;
 	}
-	
+
 	public String getId() {
 	    return id;
 	}
-	
+
 	public Boolean getRepeat() {
         return repeat;
     }
@@ -199,7 +190,7 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     public void setWidescreen(Boolean widescreen) {
         this.widescreen = widescreen;
     }
-    
+
     public void setChannel(Channel channel) {
         this.channel = channel;
     }
@@ -219,39 +210,55 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
     public void setLive(Boolean live) {
         this.live = live;
     }
-    
+
     public Boolean getPremier() {
         return premier;
     }
-    
+
     public void setPremiere(Boolean premier) {
         this.premier = premier;
     }
-    
+
     public Boolean getNewSeries() {
         return newSeries;
     }
-    
+
     public Channel getChannel() {
         return channel;
     }
-    
+
     public void setNewSeries(Boolean newSeries) {
         this.newSeries = newSeries;
     }
-    
+
     public Boolean getNewEpisode() {
         return newEpisode;
     }
-    
+
     public void setNewEpisode(Boolean newEpisode) {
         this.newEpisode = newEpisode;
     }
-    
+
+    public Boolean getContinuation() {
+        return continuation;
+    }
+
+    public void setContinuation(Boolean continuation) {
+        this.continuation = continuation;
+    }
+
+    public Boolean getNewOneOff() {
+        return newOneOff;
+    }
+
+    public void setNewOneOff(Boolean newOneOff) {
+        this.newOneOff = newOneOff;
+    }
+
     public void setAliases(Set<String> aliases) {
         this.aliases = aliases;
     }
-    
+
     @XmlElementWrapper(name="aliases")
     @XmlElement(name="alias")
     public Set<String> getAliases() {
@@ -276,9 +283,14 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 
     @Override
 	public String toString() {
-	    return Objects.toStringHelper(this).addValue(id).addValue(broadcastOn).addValue(transmissionTime).addValue(transmissionEndTime).toString();
+	    return Objects.toStringHelper(this)
+                .addValue(id)
+                .addValue(broadcastOn)
+                .addValue(transmissionTime)
+                .addValue(transmissionEndTime)
+                .toString();
 	}
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -289,17 +301,17 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
             return false;
         }
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hashCode(transmissionTime, broadcastDuration);
     }
-	
+
 	public Broadcast copy() {
         Broadcast copy = new Broadcast();
-        
+
         copyTo(copy);
-        
+
         if (getTransmissionTime() != null) {
             copy.setTransmissionTime((Date) getTransmissionTime().clone());
         }
@@ -323,6 +335,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
         copy.setAliases(getAliases());
         copy.setNewSeries(getNewSeries());
         copy.setNewEpisode(getNewEpisode());
+        copy.setContinuation(getContinuation());
+        copy.setNewOneOff(getNewOneOff());
         copy.setBlackoutRestriction(getBlackoutRestriction());
         copy.setRevisedRepeat(getRevisedRepeat());
         return copy;
@@ -336,18 +350,8 @@ public class Broadcast extends Version implements Comparable<Broadcast> {
 	            .compare(broadcastOn, other.broadcastOn, Ordering.natural().nullsFirst())
                 .result();
 	}
-	
-    public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = new Predicate<Broadcast>() {
-        @Override
-        public boolean apply(Broadcast input) {
-            return new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
-        }
-    };
-    
-    public static final Function<Broadcast, Broadcast> TO_COPY = new Function<Broadcast, Broadcast>() {
-        @Override
-        public Broadcast apply(Broadcast input) {
-            return input.copy();
-        }
-    };
+
+    public static final Predicate<Broadcast> IS_CURRENT_OR_UPCOMING = input -> new DateTime(input.getTransmissionEndTime(), DateTimeZone.UTC).isAfterNow();
+
+    public static final Function<Broadcast, Broadcast> TO_COPY = Broadcast::copy;
 }
