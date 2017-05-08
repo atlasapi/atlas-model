@@ -731,6 +731,10 @@ public class Channel extends Identified {
     public void setImages(Iterable<TemporalField<Image>> images) {
         this.images = Sets.newHashSet(images);
     }
+
+    public void deleteImageByTheme(String theme) {
+        images.removeIf(existingImage -> existingImage.getValue().getTheme().getName().equals(theme));
+    }
     
     public void addRelatedLink(@Nullable RelatedLink relatedLink) {
         this.relatedLinks.add(relatedLink);

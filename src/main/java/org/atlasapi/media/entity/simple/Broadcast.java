@@ -26,54 +26,35 @@ import org.joda.time.LocalDate;
 public class Broadcast extends Version implements Comparable<Broadcast> {
 
     private Date transmissionTime;
-
     private Date transmissionEndTime;
-
     private Date actualTransmissionTime;
-
     private Date actualTransmissionEndTime;
 
     private Integer broadcastDuration;
-
     private String broadcastOn;
-
     private LocalDate scheduleDate;
-
     private String id;
 
     private Boolean repeat;
-
     private Boolean subtitled;
-
     private Boolean signed;
-
     private Boolean audioDescribed;
-
     private Boolean highDefinition;
-
     private Boolean widescreen;
-
     private Boolean surround;
-
-    private Boolean live;
-
-    private Boolean premier;
-
-    private Boolean newSeries;
-
-    private Boolean newEpisode;
-
-    private Channel channel;
-
-    private BlackoutRestriction blackoutRestriction;
-
     private Boolean revisedRepeat;
 
-    private Set<String> aliases = Sets.newHashSet();
-
+    private Boolean live;
+    private Boolean premier;
     private Boolean continuation;
 
+    private Boolean newSeries;
+    private Boolean newEpisode;
     private Boolean newOneOff;
+
+    private Channel channel;
+    private BlackoutRestriction blackoutRestriction;
+    private Set<String> aliases = Sets.newHashSet();
 
     public Broadcast(String broadcastOn,  DateTime transmissionTime, DateTime transmissionEndTime) {
         this(broadcastOn, transmissionTime, transmissionEndTime, null, null);

@@ -367,7 +367,7 @@ public class OutputContentMerger {
         }
     }
 
-    private void mergeBroadcast(Broadcast chosen, Broadcast toMerge) {
+    protected void mergeBroadcast(Broadcast chosen, Broadcast toMerge) {
         chosen.addAliases(toMerge.getAliases());
         chosen.addAliasUrls(toMerge.getAliasUrls());
 
