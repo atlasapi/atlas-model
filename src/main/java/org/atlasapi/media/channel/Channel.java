@@ -1,5 +1,6 @@
 package org.atlasapi.media.channel;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -733,7 +734,7 @@ public class Channel extends Identified {
     }
 
     public void deleteImageByTheme(String theme) {
-        images.removeIf(existingImage -> existingImage.getValue().getTheme().getName().equals(theme));
+        images.removeIf(existingImage -> Objects.equal(existingImage.getValue().getTheme(), ImageTheme.valueOf(theme.toUpperCase())));
     }
     
     public void addRelatedLink(@Nullable RelatedLink relatedLink) {
