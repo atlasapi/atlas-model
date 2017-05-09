@@ -5,11 +5,14 @@ public enum ImageTheme {
     DARK_OPAQUE("dark_opaque"), 
     LIGHT_OPAQUE("light_opaque"), 
     DARK_TRANSPARENT("dark_transparent"),
-    LIGHT_TRANSPARENT("light_transparent");
+    LIGHT_TRANSPARENT("light_transparent"),
+    DARK_MONOCHROME("dark_monochrome"),
+    LIGHT_MONOCHROME("light_monochrome"),
+    YV_MONOCHROME("yv_monochrome");
     
     private final String name;
     
-    private ImageTheme(String name) {
+    ImageTheme(String name) {
         this.name = name;
     }
     

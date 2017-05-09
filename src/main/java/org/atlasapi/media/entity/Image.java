@@ -7,12 +7,7 @@ import com.metabroadcast.common.media.MimeType;
 
 public class Image extends Identified {
     
-    public static final Predicate<Image> IS_PRIMARY = new Predicate<Image>() {
-        @Override
-        public boolean apply(Image input) {
-            return input.getType() != null && input.getType().equals(ImageType.PRIMARY);
-        }
-    };
+    public static final Predicate<Image> IS_PRIMARY = input -> input.getType() != null && input.getType().equals(ImageType.PRIMARY);
 
     public static final Builder builder(Image base) {
         Builder builder = new Builder(base.getCanonicalUri());
