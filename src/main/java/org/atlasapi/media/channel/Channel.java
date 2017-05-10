@@ -1,6 +1,7 @@
 package org.atlasapi.media.channel;
 
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -731,10 +732,6 @@ public class Channel extends Identified {
     
     public void setImages(Iterable<TemporalField<Image>> images) {
         this.images = Sets.newHashSet(images);
-    }
-
-    public void deleteImageByTheme(String theme) {
-        images.removeIf(existingImage -> Objects.equal(existingImage.getValue().getTheme(), ImageTheme.valueOf(theme.toUpperCase())));
     }
     
     public void addRelatedLink(@Nullable RelatedLink relatedLink) {
