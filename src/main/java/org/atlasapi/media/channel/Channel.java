@@ -3,7 +3,10 @@ package org.atlasapi.media.channel;
 import java.util.Set;
 
 import javax.annotation.Nullable;
+import javax.validation.constraints.Null;
 
+import org.atlasapi.equiv.ChannelRef;
+import org.atlasapi.equiv.ContentRef;
 import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Identified;
 import org.atlasapi.media.entity.Image;
@@ -52,6 +55,7 @@ public class Channel extends Identified {
         builder.adult = copy.adult;
         builder.timeshift = copy.timeshift;
         builder.advertiseFrom = copy.advertiseFrom;
+        builder.advertiseTo = copy.advertiseTo;
         builder.availableFrom = Sets.newHashSet(copy.availableFrom);
         builder.variations = Sets.newHashSet(copy.variations);
         builder.parent = copy.parent;
@@ -67,6 +71,7 @@ public class Channel extends Identified {
         builder.interactive = copy.interactive;
         builder.aliases = Sets.newHashSet(copy.getAliases());
         builder.channelType = copy.channelType;
+        builder.sameAs = Sets.newHashSet(copy.getSameAs());
 
         return builder;
     }
@@ -86,6 +91,7 @@ public class Channel extends Identified {
         private Boolean adult;
         private Duration timeshift;
         private DateTime advertiseFrom;
+        private DateTime advertiseTo;
         private Set<Publisher> availableFrom = ImmutableSet.of();
         private Set<Long> variations = Sets.newHashSet();
         private Long parent;
@@ -101,6 +107,7 @@ public class Channel extends Identified {
         private Boolean interactive = false;
         private Set<Alias> aliases = ImmutableSet.of();
         private ChannelType channelType = ChannelType.CHANNEL;
+        private Set<ChannelRef> sameAs = Sets.newHashSet();
 
         public Builder withSource(Publisher source) {
             this.source = source;
@@ -189,6 +196,11 @@ public class Channel extends Identified {
 
         public Builder withAdvertiseFrom(DateTime dateTime) {
             this.advertiseFrom = dateTime;
+            return this;
+        }
+
+        public Builder withAdvertiseTo(DateTime dateTime) {
+            this.advertiseTo = dateTime;
             return this;
         }
 
@@ -300,6 +312,11 @@ public class Channel extends Identified {
             return this;
         }
 
+        public Builder withSameAs(Set<ChannelRef> sameAs) {
+            this.sameAs = sameAs;
+            return this;
+        }
+
         public Channel build() {
             Channel channel = new Channel(
                     source,
@@ -315,6 +332,7 @@ public class Channel extends Identified {
                     uri,
                     broadcaster,
                     advertiseFrom,
+                    advertiseTo,
                     availableFrom,
                     variations,
                     parent,
@@ -328,7 +346,8 @@ public class Channel extends Identified {
                     region,
                     channelType,
                     targetRegions,
-                    interactive
+                    interactive,
+                    sameAs
             );
             channel.setAliases(aliases);
             return channel;
@@ -347,6 +366,7 @@ public class Channel extends Identified {
     private Duration timeshift;
     private Publisher broadcaster;
     private DateTime advertiseFrom;
+    private DateTime advertiseTo;
     private Set<Publisher> availableFrom;
     private Set<Long> variations = Sets.newHashSet();
     private Long parent;
@@ -361,6 +381,7 @@ public class Channel extends Identified {
     private ChannelType channelType;
     private Set<String> targetRegions = Sets.newHashSet();
     private Boolean interactive;
+    private Set<ChannelRef> sameAs;
     
     @Deprecated
     public Channel(Publisher publisher, String title, String key, Boolean highDefinition, MediaType mediaType, String uri) {
@@ -378,6 +399,7 @@ public class Channel extends Identified {
                 uri,
                 null,
                 null,
+                null,
                 ImmutableSet.of(),
                 ImmutableSet.of(),
                 null,
@@ -391,7 +413,8 @@ public class Channel extends Identified {
                 null,
                 ChannelType.CHANNEL,
                 ImmutableSet.of(),
-                false
+                false,
+                ImmutableSet.of()
         );
     }
     
@@ -412,6 +435,7 @@ public class Channel extends Identified {
             String uri,
             Publisher broadcaster,
             DateTime advertiseFrom,
+            DateTime advertiseTo,
             Iterable<Publisher> availableFrom,
             Iterable<Long> variations,
             Long parent,
@@ -425,7 +449,8 @@ public class Channel extends Identified {
             String region,
             ChannelType channelType,
             Set<String> targetRegions,
-            Boolean interactive
+            Boolean interactive,
+            Set<ChannelRef> sameAs
     ) {
         super(uri);
         this.source = publisher;
@@ -443,6 +468,7 @@ public class Channel extends Identified {
         this.startDate = startDate;
         this.endDate = endDate;
         this.advertiseFrom = advertiseFrom;
+        this.advertiseTo = advertiseTo;
         this.availableFrom = ImmutableSet.copyOf(availableFrom);
         this.variations = Sets.newHashSet(variations);
         this.channelNumbers = Sets.newHashSet(channelNumbers);
@@ -454,6 +480,7 @@ public class Channel extends Identified {
         this.channelType = channelType;
         this.targetRegions = targetRegions;
         this.interactive = checkNotNull(interactive);
+        this.sameAs = sameAs;
     }
     
     public String getUri() {
@@ -515,6 +542,9 @@ public class Channel extends Identified {
 
     @Nullable
     public DateTime getAdvertiseFrom() { return advertiseFrom; }
+
+    @Nullable
+    public DateTime getAdvertiseTo() { return advertiseTo; }
     
     public Set<Publisher> getAvailableFrom() {
         return availableFrom;
@@ -640,7 +670,13 @@ public class Channel extends Identified {
         this.broadcaster = broadcaster;
     }
 
-    public void setAdvertiseFrom(@Nullable DateTime dateTime) { this.advertiseFrom = dateTime; }
+    public void setAdvertiseFrom(@Nullable DateTime dateTime) {
+        this.advertiseFrom = dateTime;
+    }
+
+    public void setAdvertiseTo(@Nullable DateTime dateTime) {
+        this.advertiseTo = dateTime;
+    }
     
     public void setAvailableFrom(Iterable<Publisher> availableOn) {
         this.availableFrom = ImmutableSet.copyOf(availableOn);
@@ -800,6 +836,18 @@ public class Channel extends Identified {
         this.interactive = interactive != null ? interactive : false;
     }
 
+    public Set<ChannelRef> getSameAs() {
+        return ImmutableSet.copyOf(sameAs);
+    }
+
+    public void addSameAs(ChannelRef sameAs) {
+        this.sameAs.add(sameAs);
+    }
+
+    public void setSameAs(Set<ChannelRef> sameAs) {
+        this.sameAs = Sets.newHashSet(sameAs);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -824,6 +872,10 @@ public class Channel extends Identified {
                 .addValue(getId())
                 .addValue(getCanonicalUri())
                 .toString();
+    }
+
+    public ChannelRef toChannelRef() {
+        return ChannelRef.fromChannel(this);
     }
     
     public static final Function<Channel, String> TO_KEY = new Function<Channel, String>() {
