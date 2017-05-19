@@ -194,12 +194,12 @@ public class Channel extends Identified {
             return this;
         }
 
-        public Builder withAdvertiseFrom(DateTime dateTime) {
+        public Builder withAdvertiseFrom(@Nullable DateTime dateTime) {
             this.advertiseFrom = dateTime;
             return this;
         }
 
-        public Builder withAdvertiseTo(DateTime dateTime) {
+        public Builder withAdvertiseTo(@Nullable DateTime dateTime) {
             this.advertiseTo = dateTime;
             return this;
         }
