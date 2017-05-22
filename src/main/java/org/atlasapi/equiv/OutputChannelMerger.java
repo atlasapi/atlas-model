@@ -28,16 +28,16 @@ public class OutputChannelMerger {
 
         Map<Publisher, Channel> channelMap = Maps.newHashMap();
 
-            channelMap.put(channel.getSource(), channel);
+        channelMap.put(channel.getSource(), channel);
 
-            StreamSupport.stream(equivalents.spliterator(), false)
-                    .filter(equivalentChannel -> application.getConfiguration()
-                            .getEnabledReadSources()
-                            .contains(equivalentChannel.getSource())
-                    )
-                    .forEach(equivalentChannel ->
-                            channelMap.put(equivalentChannel.getSource(), equivalentChannel)
-                    );
+        StreamSupport.stream(equivalents.spliterator(), false)
+                .filter(equivalentChannel -> application.getConfiguration()
+                        .getEnabledReadSources()
+                        .contains(equivalentChannel.getSource())
+                )
+                .forEach(equivalentChannel ->
+                        channelMap.put(equivalentChannel.getSource(), equivalentChannel)
+                );
 
         Channel mergedChannel = Channel.builder(channel).build();
         mergedChannel.setId(channel.getId());
