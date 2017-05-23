@@ -95,7 +95,7 @@ public class OutputChannelMergerTest {
     }
 
     @Test
-    public void testMergesWithPrecedenceAndUsesExistingAsFallback() throws Exception {
+    public void channelMergesWithPrecedenceAndUsesExistingAsFallback() throws Exception {
 
         Channel requestedChannel = testChannelStore.get(1L);
         Channel expectedEquivalent = testChannelStore.get(4L);
@@ -110,7 +110,7 @@ public class OutputChannelMergerTest {
     }
 
     @Test
-    public void testDoesntMergeOnApplicationWithNoPrecedence() throws Exception {
+    public void channelDoesntMergeOnApplicationWithNoPrecedence() throws Exception {
 
         Channel requestedChannel = testChannelStore.get(1L);
         Iterable<Channel> resolvedEquivalents = resolveSameAs(requestedChannel.getSameAs());
@@ -124,7 +124,7 @@ public class OutputChannelMergerTest {
     }
 
     @Test
-    public void testDatesAreNullWhenNoPrecedenceOnApplication() throws Exception {
+    public void channelAdvertiseDatesAreNullWhenNoPrecedenceOnApplication() throws Exception {
 
         Channel requestedChannel = testChannelStore.get(2L);
         Iterable<Channel> resolvedEquivalents = resolveSameAs(requestedChannel.getSameAs());
@@ -138,7 +138,7 @@ public class OutputChannelMergerTest {
     }
 
     @Test
-    public void testDoesntMergeWhenRequestingEquivalentChannel() throws Exception {
+    public void channelDoesntMergeWhenRequestingEquivalentChannel() throws Exception {
 
         Channel requestedChannel = testChannelStore.get(5L);
         Iterable<Channel> resolvedEquivalents = resolveSameAs(requestedChannel.getSameAs());
