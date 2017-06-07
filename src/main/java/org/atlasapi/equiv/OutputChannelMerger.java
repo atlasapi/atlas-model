@@ -50,10 +50,9 @@ public class OutputChannelMerger {
         return mergedChannel;
     }
 
-    private ImmutableList<Publisher> getOrderedPublishers(
-            com.metabroadcast.applications.client.model.internal.Application application) {
+    private ImmutableList<Publisher> getOrderedPublishers(Application application) {
         Ordering<Publisher> ordering = application.getConfiguration()
-                .getImageReadPrecedenceOrdering();
+                .getReadPrecedenceOrdering();
 
         return application.getConfiguration()
                 .getEnabledReadSources()
