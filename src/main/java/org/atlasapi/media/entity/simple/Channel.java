@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.atlasapi.equiv.ChannelRef;
-import org.atlasapi.media.channel.ChannelType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
