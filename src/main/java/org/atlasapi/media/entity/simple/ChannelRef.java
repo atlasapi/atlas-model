@@ -2,9 +2,13 @@ package org.atlasapi.media.entity.simple;
 
 public class ChannelRef {
 
-    private final String id;
-    private final String uri;
-    private final String publisher;
+    private String id;
+    private String uri;
+    private String publisher;
+
+    public ChannelRef() {
+
+    }
 
     public ChannelRef(String id, String uri, String publisher) {
         this.id = id;
@@ -16,12 +20,24 @@ public class ChannelRef {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getUri() {
         return uri;
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public String getPublisher() {
         return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
 }
