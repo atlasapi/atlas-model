@@ -8,9 +8,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ChannelRef {
 
-    private final long id;
-    private final String uri;
-    private final Publisher publisher;
+    private long id;
+    private String uri;
+    private Publisher publisher;
+
+    public ChannelRef() {
+
+    }
 
     private ChannelRef(long id, String uri, Publisher publisher) {
         this.id = checkNotNull(id);
@@ -30,12 +34,24 @@ public class ChannelRef {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getUri() {
         return uri;
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public Publisher getPublisher() {
         return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     @Override
