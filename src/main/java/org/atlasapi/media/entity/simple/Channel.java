@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.atlasapi.equiv.ChannelRef;
 import org.atlasapi.media.channel.ChannelType;
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import org.joda.time.DateTimeZone;
@@ -49,6 +50,8 @@ public class Channel extends Aliased {
     private Date endDate;
     private Set<String> genres = Sets.newHashSet();
     private Date advertisedFrom;
+    private Date advertisedTo;
+    private Set<ChannelRef> sameAs;
     private String shortDescription;
     private String mediumDescription;
     private String longDescription;
@@ -115,6 +118,23 @@ public class Channel extends Aliased {
     public Date getAdvertisedFrom() { return advertisedFrom; }
 
     public void setAdvertisedFrom(@Nullable Date advertisedFrom) { this.advertisedFrom = advertisedFrom;}
+
+    @Nullable
+    public Date getAdvertisedTo() {
+        return advertisedTo;
+    }
+
+    public void setAdvertisedTo(@Nullable Date advertisedTo) {
+        this.advertisedTo = advertisedTo;
+    }
+
+    public Set<ChannelRef> getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(Set<ChannelRef> sameAs) {
+        this.sameAs = sameAs;
+    }
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
         this.publisher = publisherDetails;
