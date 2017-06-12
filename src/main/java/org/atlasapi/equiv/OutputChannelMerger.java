@@ -99,11 +99,14 @@ public class OutputChannelMerger {
             Channel mergedChannel
     ) {
         for (Publisher publisher : publishers) {
-            channelMap.get(publisher).getAliases().forEach(alias -> {
-                if (!mergedChannel.getAliases().contains(alias)) {
-                    mergedChannel.addAlias(alias);
-                }
-            });
+            Channel channel = channelMap.get(publisher);
+            if (channel != null && channel.getAliases() != null && !channel.getAliases().isEmpty()) {
+                channel.getAliases().forEach(alias -> {
+                    if (!mergedChannel.getAliases().contains(alias)) {
+                        mergedChannel.addAlias(alias);
+                    }
+                });
+            }
         }
     }
 
