@@ -6,10 +6,12 @@ import com.google.common.collect.Ordering;
 import com.metabroadcast.applications.client.model.internal.Application;
 import com.metabroadcast.common.stream.MoreCollectors;
 import org.atlasapi.media.channel.Channel;
+import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Publisher;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 public class OutputChannelMerger {
@@ -46,6 +48,7 @@ public class OutputChannelMerger {
 
         mergeAdvertiseFrom(orderedPublishers, channelMap, mergedChannel);
         mergeAdvertiseTo(orderedPublishers, channelMap, mergedChannel);
+        mergeAliases(orderedPublishers, channelMap, mergedChannel);
 
         return mergedChannel;
     }
@@ -87,6 +90,20 @@ public class OutputChannelMerger {
                 mergedChannel.setAdvertiseTo(channel.getAdvertiseTo());
                 break;
             }
+        }
+    }
+
+    private void mergeAliases(
+            List<Publisher> publishers,
+            Map<Publisher, Channel> channelMap,
+            Channel mergedChannel
+    ) {
+        for (Publisher publisher : publishers) {
+            channelMap.get(publisher).getAliases().forEach(alias -> {
+                if (!mergedChannel.getAliases().contains(alias)) {
+                    mergedChannel.addAlias(alias);
+                }
+            });
         }
     }
 
