@@ -24,7 +24,8 @@ public class OutputChannelMerger {
 
     public Channel merge(Application application, Channel channel, Iterable<Channel> equivalents) {
 
-        if (!application.getConfiguration().isPrecedenceEnabled()) {
+        if (!application.getConfiguration().isPrecedenceEnabled()
+                || channel.getSource() != Publisher.METABROADCAST) {
             return channel;
         }
 
