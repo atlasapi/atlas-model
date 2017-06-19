@@ -227,6 +227,9 @@ public enum Publisher {
     AMC_EBS("Amc EBS", "ebs.amc.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     TWITCH("Twitch", "twitch.tv", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     C4_PRESS("Channel 4 Press", "press.channel4.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BARB_MASTER("Barb Master File", "cdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BARB_TRANSMISSIONS("Barb Transmissions", "txlogs.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    ITV_CPS("ITV CPS", "cps.itv.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
