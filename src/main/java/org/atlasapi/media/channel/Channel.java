@@ -52,6 +52,7 @@ public class Channel extends Identified {
         builder.mediaType = copy.mediaType;
         builder.regional = copy.regional;
         builder.highDefinition = copy.highDefinition;
+        builder.isTimeshifted = copy.isTimeshifted;
         builder.adult = copy.adult;
         builder.timeshift = copy.timeshift;
         builder.advertiseFrom = copy.advertiseFrom;
@@ -88,6 +89,7 @@ public class Channel extends Identified {
         private MediaType mediaType;
         private Boolean regional;
         private Boolean highDefinition;
+        private Boolean isTimeshifted;
         private Boolean adult;
         private Duration timeshift;
         private DateTime advertiseFrom;
@@ -171,6 +173,11 @@ public class Channel extends Identified {
 
         public Builder withHighDefinition(Boolean highDefinition) {
             this.highDefinition = highDefinition;
+            return this;
+        }
+
+        public Builder withTimeshifted(Boolean isTimeshifted) {
+            this.isTimeshifted = isTimeshifted;
             return this;
         }
 
@@ -325,6 +332,7 @@ public class Channel extends Identified {
                     relatedLinks,
                     key,
                     highDefinition,
+                    isTimeshifted,
                     regional,
                     adult,
                     timeshift,
@@ -361,6 +369,7 @@ public class Channel extends Identified {
     private MediaType mediaType;
     private String key;
     private Boolean highDefinition;
+    private Boolean isTimeshifted;
     private Boolean regional;
     private Boolean adult;
     private Duration timeshift;
@@ -392,6 +401,7 @@ public class Channel extends Identified {
                 ImmutableSet.of(),
                 key,
                 highDefinition,
+                null,
                 null,
                 null,
                 null,
@@ -428,6 +438,7 @@ public class Channel extends Identified {
             Set<RelatedLink> relatedLinks,
             String key,
             Boolean highDefinition,
+            Boolean isTimeshifted,
             Boolean regional,
             Boolean adult,
             Duration timeshift,
@@ -462,6 +473,7 @@ public class Channel extends Identified {
         this.parent = parent;
         this.key = key;
         this.highDefinition = highDefinition;
+        this.isTimeshifted = isTimeshifted;
         this.adult = adult;
         this.mediaType = mediaType;
         this.broadcaster = broadcaster;
@@ -524,6 +536,11 @@ public class Channel extends Identified {
     @Nullable
     public Duration getTimeshift() {
         return timeshift;
+    }
+
+    @Nullable
+    public Boolean isTimeshifted() {
+        return isTimeshifted;
     }
 
     @Nullable
@@ -664,6 +681,10 @@ public class Channel extends Identified {
 
     public void setTimeshift(@Nullable Duration timeshift) {
         this.timeshift = timeshift;
+    }
+
+    public void setIsTimeshifted(@Nullable Boolean isTimeshifted) {
+        this.isTimeshifted = isTimeshifted;
     }
     
     public void setBroadcaster(@Nullable Publisher broadcaster) {
