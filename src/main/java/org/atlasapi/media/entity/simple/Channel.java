@@ -33,6 +33,7 @@ public class Channel extends Aliased {
     private Set<Image> images;
     private String mediaType;
     private Boolean highDefinition;
+    private Boolean isTimeshifted;
     private Boolean regional;
     private Boolean adult;
     private Long timeshift;
@@ -157,6 +158,10 @@ public class Channel extends Aliased {
     public void setHighDefinition(@Nullable Boolean highDefinition) {
         this.highDefinition = highDefinition;
     }
+
+    public void setIsTimeshifted(@Nullable Boolean isTimeshifted) {
+        this.isTimeshifted = isTimeshifted;
+    }
     
     public void setRegional(@Nullable Boolean regional) {
         this.regional = regional;
@@ -198,6 +203,11 @@ public class Channel extends Aliased {
     @Nullable
     public Boolean getHighDefinition() {
         return highDefinition;
+    }
+
+    @Nullable
+    public Boolean isTimeshifted() {
+        return isTimeshifted;
     }
 
     @Nullable
