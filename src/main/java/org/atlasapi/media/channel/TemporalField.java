@@ -3,6 +3,8 @@ package org.atlasapi.media.channel;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Nullable;
 
@@ -10,7 +12,6 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -18,13 +19,8 @@ import com.google.common.collect.Ordering;
 
 public class TemporalField<T> implements Comparable<TemporalField<T>> {
     
-    private static final Function<TemporalField<Object>, Object> TO_VALUE = new Function<TemporalField<Object>, Object>() {
-        @Override
-        public Object apply(TemporalField<Object> input) {
-            return input.getValue();
-        }
-    };
-    
+    private static final Function<TemporalField<Object>, Object> TO_VALUE = TemporalField::getValue;
+
     private final T value;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -77,7 +73,7 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
     
     public static <T> T currentOrFutureValue(Iterable<TemporalField<T>> values) {
         final LocalDate now = new LocalDate();
-        Set<T> currentValues = TemporalField.<T>currentValues(values);
+        Set<T> currentValues = TemporalField.currentValues(values);
         if (!currentValues.isEmpty()) {
             return Iterables.getFirst(currentValues, null);
         }
@@ -85,14 +81,9 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
         // if no current title, return first future title
         TemporalField<T> nextValue = Iterables.getFirst(
             Ordering.natural().immutableSortedCopy(Iterables.filter(
-                values, 
-                new Predicate<TemporalField<T>>() {
-                    @Override
-                    public boolean apply(TemporalField<T> input) {
-                        return input.getStartDate() != null && input.getStartDate().isAfter(now);
-                    }
-                }
-            )), 
+                    values,
+                    input -> input.getStartDate() != null && input.getStartDate().isAfter(now)
+            )),
             null
         );
         if (nextValue != null) {
@@ -103,29 +94,25 @@ public class TemporalField<T> implements Comparable<TemporalField<T>> {
 
     public static <T> Set<T> currentValues(Iterable<TemporalField<T>> values) {
         final LocalDate now = new LocalDate();
-        return TemporalField.<T>valuesForDate(values, now);
+        return TemporalField.valuesForDate(values, now);
     }
     
     public static <T> Set<T> valuesForDate(Iterable<TemporalField<T>> values, final LocalDate date) {
-        Iterable<TemporalField<T>> filtered = Iterables.filter(
-                values, 
-                new Predicate<TemporalField<T>>() {
-                    @Override
-                    public boolean apply(TemporalField<T> input) {
-                        if (input.getStartDate() != null) {
-                            if (input.getEndDate() != null) {
-                                return input.getStartDate().compareTo(date) <= 0
+        Iterable<TemporalField<T>> filtered = StreamSupport.stream(values.spliterator(), false)
+                .filter(input -> {
+                    if (input.getStartDate() != null) {
+                        if (input.getEndDate() != null) {
+                            return input.getStartDate().compareTo(date) <= 0
                                     && input.getEndDate().compareTo(date) > 0;
-                            } else {
-                                return input.getStartDate().compareTo(date) <= 0;
-                            }
                         } else {
-                            return true;
+                            return input.getStartDate().compareTo(date) <= 0;
                         }
+                    } else {
+                        return true;
                     }
-                }
-            );
-        return ImmutableSet.copyOf(Iterables.transform(filtered, TemporalField.<T>toValueFunction()));
+                })
+                .collect(Collectors.toList());
+        return ImmutableSet.copyOf(Iterables.transform(filtered, TemporalField.toValueFunction()));
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes" })

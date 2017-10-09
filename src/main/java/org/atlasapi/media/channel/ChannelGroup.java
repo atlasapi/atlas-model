@@ -75,12 +75,9 @@ public abstract class ChannelGroup extends Identified {
 
     @Deprecated
     public Set<Long> getChannels() {
-        return ImmutableSet.copyOf(Iterables.transform(getChannelNumberings(), new Function<ChannelNumbering, Long>() {
-            @Override
-            public Long apply(ChannelNumbering input) {
-                return input.getChannel();
-            }
-        }));
+        return ImmutableSet.copyOf(
+                Iterables.transform(getChannelNumberings(), ChannelNumbering::getChannel)
+        );
     }
 
     @Deprecated
