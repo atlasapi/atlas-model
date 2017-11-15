@@ -315,7 +315,8 @@ public class Policy extends Identified {
 		YOUVIEW_IPLAYER,
 		YOUVIEW_ITVPLAYER,
 		YOUVIEW_4OD,
-		YOUVIEW_DEMAND5;
+		YOUVIEW_DEMAND5,
+		YOUVIEW_AMAZON;
 		
 		
 		public String key() {

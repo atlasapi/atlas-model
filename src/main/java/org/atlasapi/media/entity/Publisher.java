@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * There may be API key configuration, or data in the database, which relies on it.
  */
 public enum Publisher {
-    BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, true),
+    BBC("BBC", "bbc.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
     C4("Channel 4", "channel4.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     HULU("Hulu", "hulu.com", Countries.US, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUTUBE("YouTube", "youtube.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE, false),
@@ -49,7 +49,7 @@ public enum Publisher {
     ARCHIVE_ORG("Archive.org", "archive.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     WORLD_SERVICE("BBC World Service Archive", "wsarchive.bbc.co.uk", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_REDUX("BBC Redux", "bbcredux.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    METABROADCAST("UK Channel Lineups", "metabroadcast.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE, true),
+    METABROADCAST("UK Channel Lineups", "metabroadcast.com", Countries.ALL, SourceStatus.AVAILABLE_DISABLED, SourceRestriction.NONE, false),
     DBPEDIA("DBpedia", "dbpedia.org", Countries.ALL, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     LOVEFILM("LoveFilm", "lovefilm.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BBC_PRODUCTS("BBC Commercial Availability", "products.bbc.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
@@ -82,7 +82,7 @@ public enum Publisher {
     BT_TVE_VOD_VOLD_CONFIG_2("BT MPX VOD Catalogue for TVE (VOLD env, config 2)", "config2.vold.tve-vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TVE_VOD_VOLE_CONFIG_2("BT MPX VOD Catalogue for TVE (VOLE env, config 2)", "config2.vole.tve-vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TVE_VOD_SYSTEST2_CONFIG_2("BT MPX VOD Catalogue for TVE (SYSTEST2 env, config 2)", "config2.systest2.tve-vod.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
-    BT_TV_CHANNELS("BT TV Channels", "tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, true),
+    BT_TV_CHANNELS("BT TV Channels", "tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_TEST1("BT TV Channels Test Env 1", "dev1.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_TEST2("BT TV Channels Test Env 2", "dev2.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_REFERENCE("BT TV Channels Dev Reference Env", "dev3.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
@@ -229,7 +229,8 @@ public enum Publisher {
     C4_PRESS("Channel 4 Press", "press.channel4.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_MASTER("Barb Master File", "cdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_TRANSMISSIONS("Barb Transmissions", "txlogs.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    ITV_CPS("ITV CPS", "cps.itv.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
+    ITV_CPS("ITV CPS", "cps.itv.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    TESTING_MBST("Testing Data Internally on Metabroadcast", "testing.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
