@@ -438,7 +438,7 @@ public class OutputContentMerger {
         // If there is a corresponding Image object for this URI, we check its availability and ensure
         // that it is not generic.
         for (Image image : images) {
-            if (image.getCanonicalUri().equals(rewrittenUri)) {
+            if (rewrittenUri.equals(image.getCanonicalUri())) {
                 return Image.IS_AVAILABLE.apply(image)
                         && !ImageType.GENERIC_IMAGE_CONTENT_PLAYER.equals(image.getType());
             }
