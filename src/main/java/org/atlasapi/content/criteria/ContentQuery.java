@@ -14,6 +14,8 @@ permissions and limitations under the License. */
 
 package org.atlasapi.content.criteria;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.metabroadcast.applications.client.model.internal.Application;
@@ -127,7 +129,10 @@ public class ContentQuery {
 	public static ContentQuery joinTo(ContentQuery original, ContentQuery toAdd) {
 		List<AtomicQuery> allConjucts = Lists.newArrayList(original.operands());
 		allConjucts.addAll(toAdd.operands());
-		ContentQuery contentQuery = new ContentQuery(allConjucts, original.getSelection(), original.getApplication());
+		ImmutableSet.Builder<Annotation> annotations = new ImmutableSet.Builder();
+		annotations.addAll(original.getAnnotations());
+		annotations.addAll(toAdd.getAnnotations());
+		ContentQuery contentQuery = new ContentQuery(allConjucts, annotations.build(), original.getSelection(), original.getApplication());
 		contentQuery.setSoftConstraints(Iterables.concat(original.getSoftConstraints(),toAdd.getSoftConstraints()));
 		return contentQuery;
 	}
