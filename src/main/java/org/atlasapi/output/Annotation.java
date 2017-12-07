@@ -56,6 +56,7 @@ public enum Annotation {
     CONTENT,
     REMOTE_RESPONSES,
     PAYLOAD,
+    RESPECT_API_KEY_FOR_EQUIV_LIST,
     ;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
