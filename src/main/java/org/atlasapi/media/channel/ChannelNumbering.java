@@ -13,22 +13,35 @@ import com.google.common.collect.Iterables;
 
 public class ChannelNumbering {
     
-    public static final Function<ChannelNumbering, Long> TO_CHANNEL_GROUP = input -> input.channelGroup;
+    public static final Function<ChannelNumbering, Long> TO_CHANNEL_GROUP = new Function<ChannelNumbering, Long>() { 
+        @Override
+        public Long apply(ChannelNumbering input) {
+            return input.channelGroup;
+        }
+    };
     
-    public static final Function<ChannelNumbering, Long> TO_CHANNEL = input -> input.channel;
+    public static final Function<ChannelNumbering, Long> TO_CHANNEL = new Function<ChannelNumbering, Long>() { 
+        @Override
+        public Long apply(ChannelNumbering input) {
+            return input.channel;
+        }
+    };
 
     public static Iterable<ChannelNumbering> CURRENT_NUMBERINGS(Iterable<ChannelNumbering> numberings) {
         final LocalDate now = new LocalDate();
-        return Iterables.filter(numberings, input -> {
-            if (input.getStartDate() != null) {
-                if (input.getEndDate() != null) {
-                    return input.getStartDate().compareTo(now) <= 0
-                        && input.getEndDate().compareTo(now) > 0;
+        return Iterables.filter(numberings, new Predicate<ChannelNumbering>() {
+            @Override
+            public boolean apply(ChannelNumbering input) {
+                if (input.getStartDate() != null) {
+                    if (input.getEndDate() != null) {
+                        return input.getStartDate().compareTo(now) <= 0
+                            && input.getEndDate().compareTo(now) > 0;
+                    } else {
+                        return input.getStartDate().compareTo(now) <= 0;
+                    }
                 } else {
-                    return input.getStartDate().compareTo(now) <= 0;
+                    return true;
                 }
-            } else {
-                return true;
             }
         });
     }
@@ -43,13 +56,8 @@ public class ChannelNumbering {
         return new Builder();
     }
 
-    private ChannelNumbering(
-            @Nullable String channelNumber,
-            Long channel,
-            Long channelGroup,
-            @Nullable LocalDate startDate,
-            @Nullable LocalDate endDate
-    ) {
+    private ChannelNumbering(@Nullable String channelNumber, Long channel, Long channelGroup, @Nullable LocalDate startDate,
+            @Nullable LocalDate endDate) {
         this.channel = channel;
         this.channelNumber = channelNumber;
         this.channelGroup = checkNotNull(channelGroup);
