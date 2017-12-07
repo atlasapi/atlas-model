@@ -11,14 +11,12 @@ public enum ChannelGroupType {
     PLATFORM(Platform.class), 
     REGION(Region.class);
     
-    private static Map<String, ChannelGroupType> STRING_LOOKUP = Maps.uniqueIndex(ImmutableList.copyOf(values()), Functions.toStringFunction());
+    private static Map<String, ChannelGroupType> STRING_LOOKUP = Maps.uniqueIndex(
+            ImmutableList.copyOf(values()), Functions.toStringFunction()
+    );
     
-    private static Map<Class<? extends ChannelGroup>, ChannelGroupType> CLASS_LOOKUP = Maps.uniqueIndex(ImmutableList.copyOf(values()), new Function<ChannelGroupType, Class<? extends ChannelGroup>>(){
-        @Override
-        public Class<? extends ChannelGroup> apply(ChannelGroupType input) {
-            return input.modelClass;
-        }
-    });
+    private static Map<Class<? extends ChannelGroup>, ChannelGroupType> CLASS_LOOKUP =
+            Maps.uniqueIndex(ImmutableList.copyOf(values()), input -> input.modelClass);
 
     private final Class<? extends ChannelGroup> modelClass;
     
