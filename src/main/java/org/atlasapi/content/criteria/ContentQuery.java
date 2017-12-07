@@ -147,7 +147,7 @@ public class ContentQuery {
 	}
 	
 	public ContentQuery copyWithApplication(Application application){
-		ContentQuery contentQuery = new ContentQuery(operands, getSelection(), application);
+		ContentQuery contentQuery = new ContentQuery(operands, getAnnotations(), getSelection(), application);
 		contentQuery.setSoftConstraints(getSoftConstraints());
 		return contentQuery;
 	}
