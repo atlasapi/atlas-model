@@ -57,6 +57,7 @@ public enum Annotation {
     REMOTE_RESPONSES,
     PAYLOAD,
     RESPECT_API_KEY_FOR_EQUIV_LIST,
+    ALLOW_MULTIPLE_FROM_SAME_PUBLISHER_IN_EQUIV_LIST,
     ;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(
