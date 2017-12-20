@@ -2,7 +2,11 @@ package org.atlasapi.equiv;
 
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.atlasapi.media.entity.AudienceStatistics;
 import org.atlasapi.media.entity.Broadcast;
@@ -51,8 +55,6 @@ public class OutputContentMerger {
 
     @SuppressWarnings("unchecked")
     public <T extends Described> List<T> merge(Application application, List<T> contents) {
-
-
         Ordering<Described> contentComparator = toContentOrdering(
                 application.getConfiguration()
                         .getReadPrecedenceOrdering()
@@ -68,9 +70,8 @@ public class OutputContentMerger {
             List<T> same = contentComparator.sortedCopy(findSame(content, contents));
             processed.addAll(same);
 
-            T chosen = same.get(0);
-
-            chosen.setId(lowestId(chosen, same));
+            T chosen = same.get(0); //precedent publisher with lowest id.
+            chosen.setId(lowestId(same));
 
             // defend against broken transitive equivalence
             if (merged.contains(chosen)) {
@@ -93,10 +94,10 @@ public class OutputContentMerger {
         return merged;
     }
 
-    private <T extends Described> Long lowestId(T chosen, List<T> same) {
+    private <T extends Described> Long lowestId(List<T> same) {
         Ordering<Comparable> ordering = Ordering.natural().nullsLast();
 
-        Long lowest = chosen.getId();
+        Long lowest = Long.MAX_VALUE;
         for (T equivDescribed : same) {
             lowest = ordering.min(lowest, equivDescribed.getId());
         }
@@ -119,7 +120,12 @@ public class OutputContentMerger {
         return new Ordering<Described>() {
             @Override
             public int compare(Described o1, Described o2) {
-                return byPublisher.compare(o1.getPublisher(), o2.getPublisher());
+                int compare = byPublisher.compare(o1.getPublisher(), o2.getPublisher());
+                if(compare != 0){
+                    return compare;
+                }
+                //if they have the same publisher, pick the one with the lowest id.
+                return Long.compare(o1.getId(), o2.getId());
             }
         };
     }
