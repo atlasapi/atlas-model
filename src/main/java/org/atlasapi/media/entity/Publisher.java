@@ -230,7 +230,8 @@ public enum Publisher {
     BARB_MASTER("Barb Master File", "cdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_TRANSMISSIONS("Barb Transmissions", "txlogs.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ITV_CPS("ITV CPS", "cps.itv.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    TESTING_MBST("Testing Data Internally on Metabroadcast", "testing.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false)
+    TESTING_MBST("Testing Data Internally on Metabroadcast", "testing.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
+    C4_INT("Channel 4 INT", "api.c4int.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
