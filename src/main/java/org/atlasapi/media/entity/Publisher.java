@@ -231,6 +231,7 @@ public enum Publisher {
     BARB_TRANSMISSIONS("Barb Transmissions", "txlogs.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ITV_CPS("ITV CPS", "cps.itv.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     TESTING_MBST("Testing Data Internally on Metabroadcast", "testing.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.NONE, false),
+    BARB_OVERRIDES("Barb Overrides", "barboverrides.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     C4_INT("Channel 4 INT", "api.c4int.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
     ;
 
