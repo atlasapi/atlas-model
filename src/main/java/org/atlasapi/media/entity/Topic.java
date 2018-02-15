@@ -22,6 +22,7 @@ public class Topic extends Described {
         EVENT("event"),
         PRODUCT("product"),
         WORK("work"),
+        GENRE("genre"),
         UNKNOWN("unknown");
         
         private final String key;
