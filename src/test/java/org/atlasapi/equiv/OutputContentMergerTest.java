@@ -10,7 +10,6 @@ import org.atlasapi.media.entity.Container;
 import org.atlasapi.media.entity.Content;
 import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageType;
-import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
 
@@ -30,8 +29,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -57,11 +54,7 @@ public class OutputContentMergerTest {
         for (List<Brand> contentList : Collections2.permutations(contents)) {
             List<Brand> merged = merger.merge(application, contentList);
             assertThat(merged.size(), is(1));
-            if (contentList.get(0).equals(three)) {
-                assertThat(contentList.toString(), merged.get(0), is(contentList.get(1)));
-            } else {
-                assertThat(contentList.toString(), merged.get(0), is(contentList.get(0)));
-            }
+            assertThat(contentList.toString(), merged.get(0), is(one));
         }
 
     }
