@@ -8,7 +8,8 @@ public enum ImageTheme {
     LIGHT_TRANSPARENT("light_transparent"),
     DARK_MONOCHROME("dark_monochrome"),
     LIGHT_MONOCHROME("light_monochrome"),
-    YV_MONOCHROME("yv_monochrome");
+    YV_MONOCHROME("yv_monochrome"),
+    BT_SPORT_COLOR_TRANSPARENT("bt_sport_color_transparent");
     
     private final String name;
     
