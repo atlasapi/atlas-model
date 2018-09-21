@@ -234,7 +234,8 @@ public enum Publisher {
     BARB_OVERRIDES("Barb Overrides", "barboverrides.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     C4_INT("Channel 4 INT", "api.c4int.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     C5_DATA_SUBMISSION("C5 Data Submission API", "datasubmission.channel5.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    BARB_CHANNELS("Barb Channels", "channels.barb.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false)
+    BARB_CHANNELS("Barb Channels", "channels.barb.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BARB_X_MASTER("Barb X Master File", "xcdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
