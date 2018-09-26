@@ -41,7 +41,6 @@ public class Item extends Content {
     private ParentRef parent;
     private boolean isLongForm = false;
     private Boolean blackAndWhite;
-    private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private String sortKey;
     private Set<ReleaseDate> releaseDates = ImmutableSet.of();
 
@@ -77,17 +76,6 @@ public class Item extends Content {
         this.isLongForm = isLongForm;
     }
 
-    public Set<Country> getCountriesOfOrigin() {
-        return countriesOfOrigin;
-    }
-
-    public void setCountriesOfOrigin(Set<Country> countries) {
-        this.countriesOfOrigin = Sets.newHashSet();
-        for (Country country : countries) {
-            countriesOfOrigin.add(country);
-        }
-    }
-
     @RdfProperty(relation = true, uri = "person")
     public List<CrewMember> getPeople() {
         return people();
@@ -115,7 +103,6 @@ public class Item extends Content {
         }
         to.isLongForm = from.isLongForm;
         to.blackAndWhite = from.blackAndWhite;
-        to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
         to.releaseDates = from.releaseDates;
     }
 

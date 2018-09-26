@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.metabroadcast.common.intl.Country;
 import org.atlasapi.media.entity.simple.ContentIdentifier.BrandIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.EpisodeIdentifier;
 import org.atlasapi.media.entity.simple.ContentIdentifier.FilmIdentifier;
@@ -33,6 +34,7 @@ public class Playlist extends Description {
     private Set<ContentIdentifier> availableContent = Sets.newHashSet();
     private Set<ContentIdentifier> recentContent = Sets.newHashSet();
     private List<SeriesIdentifier> series = Lists.newArrayList();
+    private Set<Country> countriesOfOrigin = Sets.newHashSet();
     private Integer totalEpisodes;
     private Integer seriesNumber;
 
@@ -105,6 +107,14 @@ public class Playlist extends Description {
     public void setUpcomingContent(Iterable<ContentIdentifier> filteredRefs) {
         this.upcomingContent = ImmutableSet.copyOf(filteredRefs);
     }
+
+    public Set<Country> getCountriesOfOrigin() {
+		return ImmutableSet.copyOf(countriesOfOrigin);
+	}
+
+    public void setCountriesOfOrigin(Set<Country> countriesOfOrigin) {
+		this.countriesOfOrigin = ImmutableSet.copyOf(countriesOfOrigin);
+	}
 
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="upcoming_content")
     @XmlElements({ 

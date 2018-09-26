@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.metabroadcast.common.intl.Country;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.TransportType;
 
@@ -42,6 +43,7 @@ public abstract class Content extends Described {
     private Boolean genericDescription;
     private ImmutableList<EventRef> events = ImmutableList.of();
     private Integer editorialPriority;
+    private Set<Country> countriesOfOrigin = Sets.newHashSet();
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -171,6 +173,14 @@ public abstract class Content extends Described {
         return events;
     }
 
+    public Set<Country> getCountriesOfOrigin() {
+        return countriesOfOrigin;
+    }
+
+    public void setCountriesOfOrigin(Set<Country> countries) {
+        this.countriesOfOrigin = ImmutableSet.copyOf(countries);
+    }
+
 
     public static void copyTo(Content from, Content to) {
         Described.copyTo(from, to);
@@ -186,6 +196,7 @@ public abstract class Content extends Described {
         to.genericDescription = from.genericDescription;
         to.similarContent = from.similarContent;
         to.events = ImmutableList.copyOf(Iterables.transform(from.events, EventRef.COPY));
+        to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
         copyToWithVersions(
                 from,
                 to,
