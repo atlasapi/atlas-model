@@ -43,7 +43,7 @@ public abstract class Content extends Described {
     private Boolean genericDescription;
     private ImmutableList<EventRef> events = ImmutableList.of();
     private Integer editorialPriority;
-    private Set<Country> countriesOfOrigin = Sets.newHashSet();
+    private Set<Country> countriesOfOrigin = ImmutableSet.of();
 
     public Content(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -196,7 +196,7 @@ public abstract class Content extends Described {
         to.genericDescription = from.genericDescription;
         to.similarContent = from.similarContent;
         to.events = ImmutableList.copyOf(Iterables.transform(from.events, EventRef.COPY));
-        to.countriesOfOrigin = Sets.newHashSet(from.countriesOfOrigin);
+        to.countriesOfOrigin = ImmutableSet.copyOf(from.countriesOfOrigin);
         copyToWithVersions(
                 from,
                 to,
