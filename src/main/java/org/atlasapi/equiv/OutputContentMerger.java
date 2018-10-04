@@ -230,7 +230,7 @@ public class OutputContentMerger {
 
     }
 
-    private <T extends Item> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
+    protected <T extends Item> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
         mergeContent(application, chosen, notChosen);
         mergeVersions(application, chosen, notChosen);
         mergeReleaseDates(chosen, notChosen);
