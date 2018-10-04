@@ -1,19 +1,18 @@
 package org.atlasapi.search.model;
 
-import java.util.Set;
-
-import org.atlasapi.media.entity.Publisher;
-
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.query.Selection;
 import com.metabroadcast.common.url.QueryStringParameters;
-import com.metabroadcast.common.url.UrlEncoding;
-
+import org.atlasapi.media.entity.Publisher;
 import org.atlasapi.media.entity.Specialization;
 
+import java.util.Set;
+
 public class SearchQuery {
+    //Search works funny, we can provide a fake specialization to get more possible results
+    private static final String FAKE_SPECIALIZATION_STRING = "fakeSpecialization";
     
     public static final Builder builder(String query) {
         return new Builder(query);
@@ -24,6 +23,7 @@ public class SearchQuery {
         private final String query;
         private Selection selection = Selection.ALL;
         private Set<Specialization> specializations = ImmutableSet.of();
+        private boolean useFakeSpecialization = false;
         private Set<Publisher> publishers = ImmutableSet.of();
         private float title = 0;
         private float broadcast = 0;
@@ -44,6 +44,12 @@ public class SearchQuery {
         
         public Builder withSpecializations(Iterable<Specialization> specializations) {
             this.specializations = ImmutableSet.copyOf(specializations);
+            return this;
+        }
+
+        //Use this to get more results when the searcher is hiding things from you, will overwrite any given specializations
+        public Builder withFakeSpecialization(boolean useFakeSpecialization) {
+            this.useFakeSpecialization = useFakeSpecialization;
             return this;
         }
         
@@ -83,7 +89,7 @@ public class SearchQuery {
         }
         
         public SearchQuery build() {
-            return new SearchQuery(query, selection, specializations, 
+            return new SearchQuery(query, selection, specializations, useFakeSpecialization,
                 publishers, title, broadcast, catchup, type, topLevelOnly, currentBroadcastsOnly, priorityChannelWeighting);
         }
 
@@ -98,6 +104,7 @@ public class SearchQuery {
 	private final String term;
 	private final Selection selection;
     private final Set<Specialization> includedSpecializations;
+    private final boolean useFakeSpecialization;
 	private final Set<Publisher> includedPublishers;
     private final float titleWeighting;
     private final float broadcastWeighting;
@@ -113,7 +120,7 @@ public class SearchQuery {
      */
     @Deprecated
     public SearchQuery(String term, Selection selection, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
+		this(term, selection, Sets.<Specialization>newHashSet(), false, Sets.<Publisher>newHashSet(), titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
 	}
     
     /**
@@ -121,11 +128,11 @@ public class SearchQuery {
      */
     @Deprecated
 	public SearchQuery(String term, Selection selection, Iterable<Publisher> includedPublishers, float titleWeighting, float broadcastWeighting, float availabilityWeighting) {
-		this(term, selection, Sets.<Specialization>newHashSet(), includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
+		this(term, selection, Sets.<Specialization>newHashSet(), false, includedPublishers, titleWeighting, broadcastWeighting, availabilityWeighting, null, null, null, 1.0f);
 	}
     
     public SearchQuery(String term, Selection selection, 
-       Iterable<Specialization> includedSpecializations, Iterable<Publisher> includedPublishers, 
+       Iterable<Specialization> includedSpecializations, boolean useFakeSpecialization, Iterable<Publisher> includedPublishers,
        float titleWeighting, float broadcastWeighting, float availabilityWeighting, 
        String type, Boolean topLevelOnly, Boolean currentBroadcastsOnly, float priorityChannelWeighting) {
 		this.term = term;
@@ -137,6 +144,7 @@ public class SearchQuery {
         this.topLevelOnly = topLevelOnly;
         this.currentBroadcastsOnly = currentBroadcastsOnly;
         this.includedSpecializations = ImmutableSet.copyOf(includedSpecializations);
+        this.useFakeSpecialization = useFakeSpecialization;
 		this.includedPublishers = ImmutableSet.copyOf(includedPublishers);
 		this.priorityChannelWeighting = priorityChannelWeighting;
 	}
@@ -189,7 +197,9 @@ public class SearchQuery {
         QueryStringParameters params = new QueryStringParameters()
             .add("title", term)
             .addAll(selection.asQueryStringParameters())
-            .add("specializations", CSV.join(includedSpecializations))
+            .add("specializations", useFakeSpecialization
+                    ? FAKE_SPECIALIZATION_STRING
+                    : CSV.join(includedSpecializations))
             .add("publishers", CSV.join(includedPublishers))
             .add("titleWeighting", String.valueOf(titleWeighting))
             .add("broadcastWeighting",  String.valueOf(broadcastWeighting))
