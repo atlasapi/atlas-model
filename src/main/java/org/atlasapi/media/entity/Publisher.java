@@ -86,6 +86,7 @@ public enum Publisher {
     BT_TV_CHANNELS_TEST1("BT TV Channels Test Env 1", "dev1.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_TEST2("BT TV Channels Test Env 2", "dev2.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BT_TV_CHANNELS_REFERENCE("BT TV Channels Dev Reference Env", "dev3.tv-channels.bt.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_TV_CHANNEL_GROUPS("BT TV Channel Groups", "bt-channel-groups.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     NETFLIX("Netflix", "gb.netflix.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW("YouView", "youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW_STAGE("YouView Stage", "stage.youview.com", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
