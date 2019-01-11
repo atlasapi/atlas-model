@@ -75,6 +75,7 @@ public class Location extends Version {
     private String transportSubType;
     private String transportType;
     private String uri;
+    private String canonicalUri;
     private String embedCode;
     private String embedId;
     private String platform;
@@ -94,6 +95,14 @@ public class Location extends Version {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getCanonicalUri() {
+        return canonicalUri;
+    }
+
+    public void setCanonicalUri(String canonicalUri) {
+        this.canonicalUri = canonicalUri;
     }
 
     public String getDataContainerFormat() {
@@ -513,6 +522,7 @@ public class Location extends Version {
         copy.setTransportIsLive(getTransportIsLive());
         copy.setTransportSubType(getTransportSubType());
         copy.setUri(getUri());
+        copy.setCanonicalUri(getCanonicalUri());
         copy.setEmbedCode(getEmbedCode());
         copy.setEmbedId(getEmbedId());
         copy.setPlatform(getPlatform());
