@@ -190,6 +190,20 @@ public class OutputContentMerger {
             Iterable<T> notChosen
     ) {
         chosen.setAliases(projectFieldFromEquivalents(chosen, notChosen, Identified::getAliases));
+        mergeCustomFields(chosen, notChosen);
+    }
+
+    private <T extends Identified> void mergeCustomFields(
+            T chosen,
+            Iterable<T> notChosen
+    ) {
+        for(T identified : notChosen) {
+            for(Map.Entry<String, String> customField : identified.getCustomFields().entrySet()) {
+                if (!chosen.containsCustomFieldKey(customField.getKey())) {
+                    chosen.putCustomField(customField.getKey(), customField.getValue());
+                }
+            }
+        }
     }
 
     private <T extends Identified, P> Iterable<P> projectFieldFromEquivalents(T chosen,
