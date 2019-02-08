@@ -119,12 +119,12 @@ public class OutputContentMergerTest {
         Brand two = brand(2L, "two",Publisher.PA);
         Brand three = brand(3L, "three",Publisher.TED);
 
-        one.putCustomField("customField", "1");
-        two.putCustomField("customField", "2");
-        three.putCustomField("customField", "3");
-        one.putCustomField("additionalField", "1");
-        three.putCustomField("additionalField", "3");
-        three.putCustomField("additionalField2", "3");
+        one.addCustomField("customField", "1");
+        two.addCustomField("customField", "2");
+        three.addCustomField("customField", "3");
+        one.addCustomField("additionalField", "1");
+        three.addCustomField("additionalField", "3");
+        three.addCustomField("additionalField2", "3");
 
         setEquivalent(one, two, three);
         setEquivalent(two, one, three);

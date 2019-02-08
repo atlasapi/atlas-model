@@ -200,7 +200,7 @@ public class OutputContentMerger {
         for(T identified : notChosen) {
             for(Map.Entry<String, String> customField : identified.getCustomFields().entrySet()) {
                 if (!chosen.containsCustomFieldKey(customField.getKey())) {
-                    chosen.putCustomField(customField.getKey(), customField.getValue());
+                    chosen.addCustomField(customField.getKey(), customField.getValue());
                 }
             }
         }

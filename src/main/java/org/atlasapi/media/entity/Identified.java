@@ -189,16 +189,27 @@ public class Identified {
 		this.customFields = checkNotNull(customFields);
 	}
 
-	public void putCustomField(@NotNull String key, @Nullable String value) {
+	/**
+	 * Adds a key-value custom field, if the key already exists it will be overwritten
+	 * Since merging logic will combine all custom fields for everything in the equiv set proper key namespacing
+	 * may be required to avoid a custom field being ignored in favour of a higher precedence sharing the custom field.
+	 * @param key the name of the custom field
+	 * @param value the value of the custom field
+	 */
+	public void addCustomField(@NotNull String key, @Nullable String value) {
 		if(value == null) {
 			return;
 		}
 		customFields.put(checkNotNull(key), value);
 	}
 
-	public void putCustomFields(@NotNull Map<String, String> customFields) {
+	/**
+	 * Adds each key-value entry as a custom field, overwriting existing customFields which share the same key
+	 * @param customFields the map containing the key-value custom fields to add
+	 */
+	public void addCustomFields(@NotNull Map<String, String> customFields) {
 		for(Map.Entry<String, String> entry : customFields.entrySet()) {
-			putCustomField(entry.getKey(), entry.getValue());
+			addCustomField(entry.getKey(), entry.getValue());
 		}
 	}
 
