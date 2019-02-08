@@ -1,7 +1,5 @@
 package org.atlasapi.output;
 
-import java.util.Set;
-
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.BiMap;
@@ -10,6 +8,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.metabroadcast.common.text.MoreStrings;
+
+import java.util.Set;
 
 public enum Annotation {
 
@@ -58,6 +58,7 @@ public enum Annotation {
     PAYLOAD,
     RESPECT_API_KEY_FOR_EQUIV_LIST,
     ALLOW_MULTIPLE_FROM_SAME_PUBLISHER_IN_EQUIV_LIST,
+    CUSTOM_FIELDS
     ;
     
     private static final ImmutableSet<Annotation> defaultAnnotations = ImmutableSet.of(

@@ -1,11 +1,18 @@
 package org.atlasapi.media.entity.simple;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.atlasapi.media.validation.ValidationConstants.NOT_EMPTY;
 
 public class Identified {
@@ -17,6 +24,8 @@ public class Identified {
 	protected String id;
 	protected String type;
 	protected Audit audit;
+
+	protected Map<String, String> customFields = Maps.newHashMap();
 	
 	public Identified(String uri) {
 		this.uri = uri;
@@ -88,6 +97,62 @@ public class Identified {
         this.audit = audit;
     }
 
+	public void setCustomFields(@NotNull Map<String, String> customFields) {
+		this.customFields = checkNotNull(customFields);
+	}
+
+	/**
+	 * Adds a key-value custom field, if the key already exists it will be overwritten
+	 * Since merging logic will combine all custom fields for everything in the equiv set proper key namespacing
+	 * may be required to avoid a custom field being ignored in favour of a higher precedence sharing the custom field.
+	 * @param key the name of the custom field
+	 * @param value the value of the custom field
+	 */
+	public void addCustomField(@NotNull String key, @Nullable String value) {
+		if(value == null) {
+			return;
+		}
+		customFields.put(checkNotNull(key), value);
+	}
+
+	/**
+	 * Adds each key-value entry as a custom field, overwriting existing customFields which share the same key
+	 * @param customFields the map containing the key-value custom fields to add
+	 */
+	public void addCustomFields(@NotNull Map<String, String> customFields) {
+		for(Map.Entry<String, String> entry : customFields.entrySet()) {
+			addCustomField(entry.getKey(), entry.getValue());
+		}
+	}
+
+	@Nullable
+	public String getCustomField(@NotNull String key) {
+		return customFields.getOrDefault(checkNotNull(key), null);
+	}
+
+	public boolean containsCustomFieldKey(@NotNull String key) {
+		return customFields.containsKey(key);
+	}
+
+	public Map<String, String> getCustomFields() {
+		return new HashMap<>(customFields);
+	}
+
+	public Set<String> getCustomFieldKeys() {
+		return getCustomFieldKeys(null);
+	}
+
+	public Set<String> getCustomFieldKeys(@Nullable String regex) {
+		if(regex == null) {
+			return customFields.keySet();
+		}
+		java.util.regex.Pattern regexPattern = java.util.regex.Pattern.compile(regex);
+		return customFields.keySet()
+				.stream()
+				.filter(key -> regexPattern.matcher(key).matches())
+				.collect(Collectors.toSet());
+	}
+
     protected void copyTo(Identified destination) {
         Preconditions.checkNotNull(destination);
         
@@ -95,6 +160,7 @@ public class Identified {
         destination.setCurie(getCurie());
         destination.setId(getId());
         destination.setType(getType());
+        destination.setCustomFields(getCustomFields());
     }
 
     public static final Function<Identified, String> TO_ID = new Function<Identified, String>() {

@@ -1,25 +1,31 @@
 package org.atlasapi.media.entity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
-import org.atlasapi.content.rdf.annotations.RdfProperty;
-import org.atlasapi.media.vocabulary.OWL;
-import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
-import org.joda.time.DateTime;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
+import org.atlasapi.content.rdf.annotations.RdfProperty;
+import org.atlasapi.media.vocabulary.OWL;
+import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
+import org.joda.time.DateTime;
+
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Base type for descriptions of resources.
@@ -47,6 +53,8 @@ public class Identified {
 	private DateTime lastUpdated;
 	
 	private DateTime equivalenceUpdate;
+
+	private Map<String, String> customFields = Maps.newHashMap();
 	
 	public Identified(String uri, String curie) {
 		this.canonicalUri = uri;
@@ -176,7 +184,63 @@ public class Identified {
 	public void setEquivalenceUpdate(DateTime equivalenceUpdate) {
 	    this.equivalenceUpdate = equivalenceUpdate;
 	}
-	
+
+	public void setCustomFields(@NotNull Map<String, String> customFields) {
+		this.customFields = checkNotNull(customFields);
+	}
+
+	/**
+	 * Adds a key-value custom field, if the key already exists it will be overwritten
+	 * Since merging logic will combine all custom fields for everything in the equiv set proper key namespacing
+	 * may be required to avoid a custom field being ignored in favour of a higher precedence sharing the custom field.
+	 * @param key the name of the custom field
+	 * @param value the value of the custom field
+	 */
+	public void addCustomField(@NotNull String key, @Nullable String value) {
+		if(value == null) {
+			return;
+		}
+		customFields.put(checkNotNull(key), value);
+	}
+
+	/**
+	 * Adds each key-value entry as a custom field, overwriting existing customFields which share the same key
+	 * @param customFields the map containing the key-value custom fields to add
+	 */
+	public void addCustomFields(@NotNull Map<String, String> customFields) {
+		for(Map.Entry<String, String> entry : customFields.entrySet()) {
+			addCustomField(entry.getKey(), entry.getValue());
+		}
+	}
+
+	@Nullable
+	public String getCustomField(@NotNull String key) {
+		return customFields.getOrDefault(checkNotNull(key), null);
+	}
+
+	public boolean containsCustomFieldKey(@NotNull String key) {
+		return customFields.containsKey(key);
+	}
+
+	public Map<String, String> getCustomFields() {
+		return new HashMap<>(customFields);
+	}
+
+	public Set<String> getCustomFieldKeys() {
+		return getCustomFieldKeys(null);
+	}
+
+	public Set<String> getCustomFieldKeys(@Nullable String regex) {
+		if(regex == null) {
+			return customFields.keySet();
+		}
+		Pattern regexPattern = Pattern.compile(regex);
+		return customFields.keySet()
+				.stream()
+				.filter(key -> regexPattern.matcher(key).matches())
+				.collect(Collectors.toSet());
+	}
+
 	public static final Function<Identified, String> TO_URI = new Function<Identified, String>() {
 
 		@Override
@@ -231,6 +295,7 @@ public class Identified {
 	    to.equivalentTo = Sets.newHashSet(from.equivalentTo);
 	    to.lastUpdated = from.lastUpdated;
 	    to.id = from.id;
+	    to.customFields = from.customFields;
 	}
 	
 	public static <T extends Identified> List<T> sort(List<T> content, final Iterable<String> orderIterable) {

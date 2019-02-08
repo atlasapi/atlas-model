@@ -1,8 +1,12 @@
 package org.atlasapi.equiv;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.metabroadcast.applications.client.model.internal.Application;
+import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
 import org.atlasapi.media.entity.Alias;
 import org.atlasapi.media.entity.Brand;
 import org.atlasapi.media.entity.Broadcast;
@@ -12,17 +16,11 @@ import org.atlasapi.media.entity.Image;
 import org.atlasapi.media.entity.ImageType;
 import org.atlasapi.media.entity.LookupRef;
 import org.atlasapi.media.entity.Publisher;
-
-import com.metabroadcast.applications.client.model.internal.Application;
-import com.metabroadcast.applications.client.model.internal.ApplicationConfiguration;
-
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -113,6 +111,34 @@ public class OutputContentMergerTest {
                 .thenReturn(configWithReads(Publisher.TED,Publisher.BBC));
         mergePermutations(contents, application, three, one.getId());
         
+    }
+
+    @Test
+    public void testCustomFieldsMergeCorrectly() {
+        Brand one = brand(1L, "one",Publisher.BBC);
+        Brand two = brand(2L, "two",Publisher.PA);
+        Brand three = brand(3L, "three",Publisher.TED);
+
+        one.addCustomField("customField", "1");
+        two.addCustomField("customField", "2");
+        three.addCustomField("customField", "3");
+        one.addCustomField("additionalField", "1");
+        three.addCustomField("additionalField", "3");
+        three.addCustomField("additionalField2", "3");
+
+        setEquivalent(one, two, three);
+        setEquivalent(two, one, three);
+        setEquivalent(three, two, one);
+
+        when(application.getConfiguration()).thenReturn(configWithReads(Publisher.PA, Publisher.BBC, Publisher.TED));
+
+        ImmutableList<Brand> contents = ImmutableList.of(one, two, three);
+
+        List<Brand> merged = merger.merge(application, contents);
+        Brand mergedBrand = Iterables.getOnlyElement(merged);
+        assertThat(mergedBrand.getCustomField("customField"), is("2"));
+        assertThat(mergedBrand.getCustomField("additionalField"), is("1"));
+        assertThat(mergedBrand.getCustomField("additionalField2"), is("3"));
     }
 
     @Test
