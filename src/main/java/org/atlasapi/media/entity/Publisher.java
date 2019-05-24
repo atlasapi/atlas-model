@@ -1,17 +1,15 @@
 package org.atlasapi.media.entity;
 
-import org.atlasapi.application.v3.SourceRestriction;
-import org.atlasapi.application.v3.SourceStatus;
-
-import com.metabroadcast.common.base.Maybe;
-import com.metabroadcast.common.intl.Countries;
-import com.metabroadcast.common.intl.Country;
-
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.metabroadcast.common.base.Maybe;
+import com.metabroadcast.common.intl.Countries;
+import com.metabroadcast.common.intl.Country;
+import org.atlasapi.application.v3.SourceRestriction;
+import org.atlasapi.application.v3.SourceStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -239,7 +237,8 @@ public enum Publisher {
     BARB_X_MASTER("Barb X Master File", "xcdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     IMDB_API("IMDB Api", "imdbapi.net", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_CENSUS("Barb Census", "census.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    BARB_NLE("Barb NLE", "nle.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false)
+    BARB_NLE("Barb NLE", "nle.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BARB_EDITOR_OVERRIDES("Barb Editor Overrides", "barb-editor-overrides.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
