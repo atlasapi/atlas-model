@@ -19,14 +19,10 @@ public class YouViewOutputContentMerger extends OutputContentMerger {
      */
     @Override
     protected <T extends Item> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
-        if (Publisher.AMAZON_UNBOX.equals(chosen.getPublisher())) {
-            if (isNotUhd(chosen)) {
-                // Should be fine
-                return;
-            }
+        if (Publisher.AMAZON_UNBOX.equals(chosen.getPublisher()) && anyVersionIsUhd(chosen)) {
 
             Optional<T> nonUhdItem = StreamSupport.stream(notChosen.spliterator(), false)
-                    .filter(this::isNotUhd)
+                    .filter(item -> !anyVersionIsUhd(item))
                     .filter(item -> !Strings.isNullOrEmpty(item.getDescription()))
                     .findFirst();
 
@@ -36,9 +32,9 @@ public class YouViewOutputContentMerger extends OutputContentMerger {
         super.mergeIn(application, chosen, notChosen);
     }
 
-    private boolean isNotUhd(Item item) {
+    private boolean anyVersionIsUhd(Item item) {
         return item.getVersions().stream()
                 .flatMap(version -> version.getManifestedAs().stream())
-                .noneMatch(enc -> enc.getQuality().equals(Quality.FOUR_K));
+                .anyMatch(enc -> enc.getQuality().equals(Quality.FOUR_K));
     }
 }
