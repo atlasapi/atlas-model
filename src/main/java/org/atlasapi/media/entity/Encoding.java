@@ -426,6 +426,8 @@ public class Encoding extends Identified {
         copy.signed = signed;
         copy.subtitled = subtitled;
         copy.highDefinition = highDefinition;
+        copy.quality = quality;
+        copy.qualityDetail = qualityDetail;
         return copy;
     }
 
