@@ -240,6 +240,7 @@ public enum Publisher {
     BARB_NLE("Barb NLE", "nle.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_EDITOR_OVERRIDES("Barb Editor Overrides", "barb-editor-overrides.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_CDMF_FULL_MASTER("Barb Master Full File", "cdmf.full.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    LAYER3_TXLOGS("Layer3 TX Logs", "txlogs.layer3.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
