@@ -155,7 +155,7 @@ public class OutputContentMerger {
                 projectFieldFromEquivalents(chosen, notChosen, Described::getRelatedLinks)
         );
 
-        if (chosen.getTitle() == null) {
+        if (Strings.isNullOrEmpty(chosen.getTitle())) {
             chosen.setTitle(first(notChosen, TO_TITLE));
         }
         if (chosen.getDescription() == null) {
