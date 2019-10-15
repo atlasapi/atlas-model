@@ -235,12 +235,14 @@ public enum Publisher {
     C5_DATA_SUBMISSION("C5 Data Submission API", "datasubmission.channel5.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_CHANNELS("Barb Channels", "channels.barb.co.uk", Countries.GB, SourceStatus.UNAVAILABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_X_MASTER("Barb X Master File", "xcdmf.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
-    IMDB_API("IMDB Api", "imdbapi.net", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    //unaffiliated with IMDB; had OMDB data, only one ingest done
+    @Deprecated IMDB_API("IMDB Api", "imdbapi.net", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_CENSUS("Barb Census", "census.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_NLE("Barb NLE", "nle.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_EDITOR_OVERRIDES("Barb Editor Overrides", "barb-editor-overrides.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     BARB_CDMF_FULL_MASTER("Barb Master Full File", "cdmf.full.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     LAYER3_TXLOGS("Layer3 TX Logs", "txlogs.layer3.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    IMDB("IMDB", "imdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
