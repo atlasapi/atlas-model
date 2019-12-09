@@ -243,6 +243,7 @@ public enum Publisher {
     BARB_CDMF_FULL_MASTER("Barb Master Full File", "cdmf.full.barb.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     LAYER3_TXLOGS("Layer3 TX Logs", "txlogs.layer3.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     IMDB("IMDB", "imdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    JUSTWATCH("JustWatch", "justwatch.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
