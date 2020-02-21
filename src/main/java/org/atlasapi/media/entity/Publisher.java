@@ -244,6 +244,8 @@ public enum Publisher {
     LAYER3_TXLOGS("Layer3 TX Logs", "txlogs.layer3.co.uk", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     IMDB("IMDB", "imdb.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     JUSTWATCH("JustWatch", "justwatch.com", Countries.ALL, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    VIACOM_18_DATA_SUBMISSION("Viacom 18 Data Submission API", "datasubmission.viacom18.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    VIMN_DATA_SUBMISSION("VIMN Data Submission API", "datasubmission.vimn.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
