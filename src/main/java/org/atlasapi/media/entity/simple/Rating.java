@@ -6,6 +6,7 @@ public class Rating {
     private PublisherDetails publisherDetails;
     private Float value;
     private String type;
+    private long numberOfVotes;
     
     public PublisherDetails getPublisherDetails() {
         return publisherDetails;
@@ -30,5 +31,12 @@ public class Rating {
     public void setType(String type) {
         this.type = type;
     }
-    
+
+    public long getNumberOfVotes() {
+        return numberOfVotes;
+    }
+
+    public void setNumberOfVotes(long numberOfVotes) {
+        this.numberOfVotes = numberOfVotes;
+    }
 }
