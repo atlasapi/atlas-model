@@ -22,7 +22,7 @@ public class Rating {
         this.publisher = checkNotNull(publisher);
         this.numberOfVotes = numberOfVotes;
     }
-    
+
     public float getValue() {
         return value;
     }
@@ -35,7 +35,7 @@ public class Rating {
         return publisher;
     }
 
-    public long getNumberOfVotes() {
+    public Long getNumberOfVotes() {
         return numberOfVotes;
     }
 
