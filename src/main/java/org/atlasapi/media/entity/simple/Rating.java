@@ -1,12 +1,11 @@
 package org.atlasapi.media.entity.simple;
 
-
 public class Rating {
 
     private PublisherDetails publisherDetails;
     private Float value;
     private String type;
-    private long numberOfVotes;
+    private Long numberOfVotes;
     
     public PublisherDetails getPublisherDetails() {
         return publisherDetails;
@@ -39,4 +38,17 @@ public class Rating {
     public void setNumberOfVotes(long numberOfVotes) {
         this.numberOfVotes = numberOfVotes;
     }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof Rating) {
+            Rating other = (Rating) that;
+            return type.equals(other.type) && value.equals(other.value) && numberOfVotes.equals(other.numberOfVotes);
+        }
+        return false;
+    }
+
 }
