@@ -31,4 +31,17 @@ public class Rating {
     public long getNumberOfVotes() {
         return numberOfVotes;
     }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that instanceof Rating) {
+            Rating other = (Rating) that;
+            return type.equals(other.type) && value == other.value && numberOfVotes == other.numberOfVotes);
+        }
+        return false;
+    }
+
 }
