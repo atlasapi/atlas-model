@@ -7,9 +7,16 @@ public class Rating {
     private final float value;
     private final String type;
     private final Publisher publisher;
-    private final long numberOfVotes;
+    private final Long numberOfVotes;
+
+    public Rating(String type, float value, Publisher publisher) {
+        this.type = checkNotNull(type);
+        this.value = value;
+        this.publisher = checkNotNull(publisher);
+        this.numberOfVotes = null;  // field was added later
+    }
     
-    public Rating(String type, float value, Publisher publisher, long numberOfVotes) {
+    public Rating(String type, float value, Publisher publisher, Long numberOfVotes) {
         this.type = checkNotNull(type);
         this.value = value;
         this.publisher = checkNotNull(publisher);
