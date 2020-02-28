@@ -17,6 +17,8 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DC;
@@ -27,6 +29,7 @@ import com.metabroadcast.common.intl.Country;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import org.joda.time.Duration;
 
 import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
@@ -90,13 +93,15 @@ public class Item extends Content {
         return blackAndWhite;
     }
 
-    public Long getDuration() {
-        return duration;
+    public void setDuration(Duration duration) {
+        this.duration = duration != null ? duration.getStandardSeconds() : null;
     }
 
-    public void setDuration(Long duration) {
-        this.duration = duration;
+    @Nullable
+    public Duration getDuration() {
+        return duration != null ? Duration.standardSeconds(duration) : null;
     }
+
 
     @Override
     public Item copy() {

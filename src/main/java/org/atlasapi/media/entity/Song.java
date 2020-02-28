@@ -2,7 +2,6 @@ package org.atlasapi.media.entity;
 
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.media.vocabulary.PO;
-import org.joda.time.Duration;
 
 @RdfClass(namespace = PO.NS)
 public class Song extends Item {
