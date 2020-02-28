@@ -46,7 +46,7 @@ public class Rating {
         }
         if (that instanceof Rating) {
             Rating other = (Rating) that;
-            return type.equals(other.type) && value == other.value && numberOfVotes == other.numberOfVotes;
+            return type.equals(other.type) && value == other.value && numberOfVotes.equals(other.numberOfVotes);
         }
         return false;
     }
