@@ -43,6 +43,7 @@ public class Item extends Content {
     private Boolean blackAndWhite;
     private String sortKey;
     private Set<ReleaseDate> releaseDates = ImmutableSet.of();
+    private Long duration;
 
     public Item(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -89,6 +90,14 @@ public class Item extends Content {
         return blackAndWhite;
     }
 
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
     @Override
     public Item copy() {
         Item copy = new Item();
@@ -104,6 +113,7 @@ public class Item extends Content {
         to.isLongForm = from.isLongForm;
         to.blackAndWhite = from.blackAndWhite;
         to.releaseDates = from.releaseDates;
+        to.duration = from.duration;
     }
 
     public Item withSortKey(String sortKey) {

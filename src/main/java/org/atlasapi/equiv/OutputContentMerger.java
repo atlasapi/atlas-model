@@ -247,6 +247,9 @@ public class OutputContentMerger {
     protected <T extends Item> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
         mergeContent(application, chosen, notChosen);
         mergeVersions(application, chosen, notChosen);
+        if (chosen.getDuration() == null) {
+            chosen.setDuration(first(notChosen, TO_DURATION));
+        }
         mergeReleaseDates(chosen, notChosen);
         if (chosen instanceof Film) {
             mergeFilmProperties(application, (Film) chosen, Iterables.filter(notChosen, Film.class));
@@ -362,6 +365,15 @@ public class OutputContentMerger {
         }
     }
 
+    //TODO
+    private <T extends Item> void mergeDuration(Application application, T chosen, Iterable<T> notChosen) {
+        for (T identified : notChosen) {
+            if(chosen.getDuration() == null && identified.getDuration() != null) {
+                chosen.setDuration(identified.getDuration());
+            }
+        }
+    }
+
     private <T extends Item> void matchAndMerge(final Broadcast chosenBroadcast, List<T> notChosen) {
         List<Broadcast> equivBroadcasts = Lists.newArrayList();
         for (T notChosenItem : notChosen) {
@@ -471,6 +483,7 @@ public class OutputContentMerger {
     private static final Function<Film, Set<Certificate>> TO_CERTIFICATES = input -> input == null || input.getCertificates().isEmpty() ? null : input.getCertificates();
     private static final Function<Content, List<SimilarContentRef>> TO_SIMILAR_CONTENT = content -> content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
     private static final Function<Described, Priority> TO_PRIORITY = input -> input == null ? null : input.getPriority();
+    private static final Function<Item, Long> TO_DURATION = input -> input == null ? null : input.getDuration();
 
     public <T extends Item> void mergeIn(Application application, Container chosen, List<Container> notChosen) {
         mergeContent(application, chosen, notChosen);

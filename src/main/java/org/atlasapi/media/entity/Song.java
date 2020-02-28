@@ -8,7 +8,6 @@ import org.joda.time.Duration;
 public class Song extends Item {
 
 	private String isrc;
-    private Long duration;
 	
     public Song() {
         setMediaType(MediaType.AUDIO);
@@ -29,21 +28,11 @@ public class Song extends Item {
         return isrc;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration != null ? duration.getStandardSeconds() : null;
-    }
-
-    public Duration getDuration() {
-        return duration != null ? Duration.standardSeconds(duration) : null;
-    }
-	
-	
 	@Override
 	public Song copy() {
 	    Song song = new Song();
 	    Item.copyTo(this, song);
 	    song.isrc = isrc;
-        song.duration = duration;
 	    return song;
 	}
 }
