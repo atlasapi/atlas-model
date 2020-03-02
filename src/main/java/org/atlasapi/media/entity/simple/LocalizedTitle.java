@@ -7,7 +7,6 @@ public class LocalizedTitle extends Localized {
     
     public LocalizedTitle() {}
 
-    
     public String getTitle() {
         return title;
     }
