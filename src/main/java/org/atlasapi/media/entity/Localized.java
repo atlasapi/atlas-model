@@ -29,7 +29,7 @@ public abstract class Localized {
      *
      * @see java.util.Locale for more info on the codes.
      */
-    public void setLocale(String languageCode, String regionCode) {
+    public void setLocale(@Nullable String languageCode, @Nullable String regionCode) {
         Locale locale = null;
 
         if (!Strings.isNullOrEmpty(languageCode) && !Strings.isNullOrEmpty(regionCode)) {
