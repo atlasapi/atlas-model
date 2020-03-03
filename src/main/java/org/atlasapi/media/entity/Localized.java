@@ -6,9 +6,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 public abstract class Localized {
-    
+
     private final static Function<Localized, String> TO_LANGUAGE_TAG = new Function<Localized, String>() {
         @Override
         @Nullable
@@ -16,13 +17,38 @@ public abstract class Localized {
             return localized.locale != null ? localized.locale.toLanguageTag() : null;
         }
     };
-    
+
+    public static final String UNDEFINED_LANGUAGE = "und";
+
     private Locale locale;
-    
+
+    /**Constructs & sets the Locale of this object based on a language code, a region code, or both.
+     *
+     * @param languageCode  - preferably a 2 character language code (ISO 639).
+     * @param regionCode    - preferably a 2 character region code (ISO 3166).
+     *
+     * @see java.util.Locale for more info on the codes.
+     */
+    public void setLocale(String languageCode, String regionCode) {
+        Locale locale = null;
+
+        if (!Strings.isNullOrEmpty(languageCode) && !Strings.isNullOrEmpty(regionCode)) {
+            locale = Locale.forLanguageTag(String.join("/", languageCode, regionCode));
+        }
+        else if (!Strings.isNullOrEmpty(languageCode)) {
+            locale = Locale.forLanguageTag(languageCode);   // undefined region is assumed by Locale
+        }
+        else if (!Strings.isNullOrEmpty(regionCode)) {
+            locale = Locale.forLanguageTag(String.join("/", UNDEFINED_LANGUAGE, regionCode));
+        }
+
+        this.locale = locale;
+    }
+
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
-    
+
     public Locale getLocale() {
         return locale;
     }
