@@ -2,10 +2,12 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Locale;
 
+import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class LocalizedTitleTest {
 
@@ -27,5 +29,16 @@ public class LocalizedTitleTest {
 
         Locale secondLocale = new Locale(secondLocalizedTitle.getLanguage(), "");
         assertThat(secondLocale.getDisplayLanguage(), is("Russian"));
+
+        Locale thirdLocale = new Locale("", "");
+        assertThat(thirdLocale, is(notNullValue()));
+
+        Locale fourthLocale = new Locale("it");
+        assertThat(fourthLocale, is(notNullValue()));
+
+        Locale fifthLocale = new Locale("", "RO");
+        assertThat(fifthLocale.getDisplayCountry(), is("Romania"));
+
+        System.out.println(fourthLocale);
     }
 }

@@ -41,5 +41,7 @@ public class LocalizedDescription extends Localized {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    //TODO: add equals method
     
 }
