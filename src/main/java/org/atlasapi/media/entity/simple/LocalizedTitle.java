@@ -5,13 +5,14 @@ import com.google.common.base.Objects;
 public class LocalizedTitle extends Localized {
 
     private String title;
-    
-    public LocalizedTitle() {}
+
+    public LocalizedTitle() {
+    }
 
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -30,5 +31,5 @@ public class LocalizedTitle extends Localized {
 
         return super.equals(that) && Objects.equal(this.title, thatTitle.title);
     }
-    
+
 }

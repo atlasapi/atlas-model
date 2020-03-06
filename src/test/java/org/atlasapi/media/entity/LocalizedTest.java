@@ -1,7 +1,6 @@
 package org.atlasapi.media.entity;
 
 import java.util.Locale;
-import java.util.Objects;
 
 import org.junit.Test;
 

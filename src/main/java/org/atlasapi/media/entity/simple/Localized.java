@@ -8,8 +8,9 @@ public class Localized {
 
     private String language;
     private String region;  // 2-character country code (ISO 3166 alpha-2)
-    
-    public Localized() {}
+
+    public Localized() {
+    }
 
     @Nullable
     public String getLanguage() {
