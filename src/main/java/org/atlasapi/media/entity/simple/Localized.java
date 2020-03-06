@@ -46,4 +46,9 @@ public class Localized {
                 Objects.equal(this.region, thatLocalized.language)
                 ;
     }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(language, region);
+    }
 }

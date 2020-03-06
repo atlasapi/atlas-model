@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity;
 
+import java.util.Objects;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Rating {
@@ -46,9 +48,13 @@ public class Rating {
         }
         if (that instanceof Rating) {
             Rating other = (Rating) that;
-            return type.equals(other.type) && value == other.value && numberOfVotes.equals(other.numberOfVotes);
+            return type.equals(other.type) && value == other.value && Objects.equals(numberOfVotes, other.numberOfVotes);
         }
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, type, publisher, numberOfVotes);
+    }
 }

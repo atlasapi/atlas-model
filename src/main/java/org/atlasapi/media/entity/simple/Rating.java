@@ -1,5 +1,7 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.Objects;
+
 public class Rating {
 
     private PublisherDetails publisherDetails;
@@ -46,9 +48,13 @@ public class Rating {
         }
         if (that instanceof Rating) {
             Rating other = (Rating) that;
-            return type.equals(other.type) && value.equals(other.value) && numberOfVotes.equals(other.numberOfVotes);
+            return type.equals(other.type) && value.equals(other.value) && Objects.equals(numberOfVotes, other.numberOfVotes);
         }
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(publisherDetails, value, type, numberOfVotes);
+    }
 }

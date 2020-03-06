@@ -32,4 +32,8 @@ public class LocalizedTitle extends Localized {
         return super.equals(that) && Objects.equal(this.title, thatTitle.title);
     }
 
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(super.hashCode(), title);
+    }
 }
