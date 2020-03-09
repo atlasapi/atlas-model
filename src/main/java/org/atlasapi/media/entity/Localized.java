@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 
 public abstract class Localized {
 
@@ -19,8 +18,6 @@ public abstract class Localized {
         }
     };
 
-    public static final String UNDEFINED_LANGUAGE = "und";
-
     private Locale locale;
 
     /**
@@ -32,17 +29,7 @@ public abstract class Localized {
      * @see java.util.Locale for more info on the codes.
      */
     public void setLocale(@Nullable String languageCode, @Nullable String regionCode) {
-        Locale locale = null;
-
-        if (!Strings.isNullOrEmpty(languageCode) && !Strings.isNullOrEmpty(regionCode)) {
-            locale = Locale.forLanguageTag(String.join("/", languageCode, regionCode));
-        } else if (!Strings.isNullOrEmpty(languageCode)) {
-            locale = Locale.forLanguageTag(languageCode);   // undefined region is assumed by Locale
-        } else if (!Strings.isNullOrEmpty(regionCode)) {
-            locale = Locale.forLanguageTag(String.join("/", UNDEFINED_LANGUAGE, regionCode));
-        }
-
-        this.locale = locale;
+        this.locale = new Locale.Builder().setLanguage(languageCode).setRegion(regionCode).build();
     }
 
     public void setLocale(Locale locale) {
