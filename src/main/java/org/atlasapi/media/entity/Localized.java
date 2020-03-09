@@ -21,8 +21,7 @@ public abstract class Localized {
     private Locale locale;
 
     /**
-     * Constructs & sets the Locale of this object based on a language code, a region code, or
-     * both.
+     * Constructs & sets the Locale of this object based on a language code, a region code, or both.
      *
      * @param languageCode - preferably a 2 character language code (ISO 639).
      * @param regionCode   - preferably a 2 character region code (ISO 3166).
