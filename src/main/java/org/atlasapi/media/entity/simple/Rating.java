@@ -40,7 +40,7 @@ public class Rating {
         return numberOfVotes;
     }
 
-    public void setNumberOfVotes(Long numberOfVotes) {
+    public void setNumberOfVotes(@Nullable Long numberOfVotes) {
         this.numberOfVotes = numberOfVotes;
     }
 
