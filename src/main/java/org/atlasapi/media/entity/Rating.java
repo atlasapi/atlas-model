@@ -2,6 +2,8 @@ package org.atlasapi.media.entity;
 
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Rating {
@@ -37,6 +39,7 @@ public class Rating {
         return publisher;
     }
 
+    @Nullable
     public Long getNumberOfVotes() {
         return numberOfVotes;
     }

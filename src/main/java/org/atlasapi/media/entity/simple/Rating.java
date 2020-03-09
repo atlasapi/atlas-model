@@ -2,6 +2,8 @@ package org.atlasapi.media.entity.simple;
 
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 public class Rating {
 
     private PublisherDetails publisherDetails;
@@ -33,7 +35,8 @@ public class Rating {
         this.type = type;
     }
 
-    public long getNumberOfVotes() {
+    @Nullable
+    public Long getNumberOfVotes() {
         return numberOfVotes;
     }
 
