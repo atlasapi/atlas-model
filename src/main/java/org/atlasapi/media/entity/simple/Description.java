@@ -40,7 +40,7 @@ public abstract class Description extends Aliased {
     private String mediumDescription;
     private String longDescription;
     private Set<LocalizedDescription> descriptions = Sets.newHashSet();
-    private Set<LocalizedTitle> titles = Sets.newHashSet();
+    private Set<LocalizedTitle> localizedTitles = Sets.newHashSet();
     private PublisherDetails publisher;
     private String image;
     private Set<Image> images = Sets.newHashSet();
@@ -204,8 +204,8 @@ public abstract class Description extends Aliased {
         this.descriptions = descriptions;
     }
     
-    public void setTitles(Set<LocalizedTitle> titles) {
-        this.titles = titles;
+    public void setLocalizedTitles(Set<LocalizedTitle> localizedTitles) {
+        this.localizedTitles = localizedTitles;
     }
 
     public Priority getPriority() {
@@ -222,10 +222,10 @@ public abstract class Description extends Aliased {
         return descriptions;
     }
 
-    @XmlElementWrapper(name = "titles")
-    @XmlElement(name = "title")
-    public Set<LocalizedTitle> getTitles() {
-        return titles;
+    @XmlElementWrapper(name = "localized_titles")
+    @XmlElement(name = "localized_title")
+    public Set<LocalizedTitle> getLocalizedTitles() {
+        return localizedTitles;
     }
     
     public void setReviews(Iterable<Review> reviews) {
