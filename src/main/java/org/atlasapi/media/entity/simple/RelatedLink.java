@@ -10,7 +10,7 @@ public class RelatedLink {
     private String description;
     private String image;
     private String thumbnail;
-    
+
     public String getType() {
         return this.type;
     }
@@ -59,5 +59,5 @@ public class RelatedLink {
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
-    
+
 }

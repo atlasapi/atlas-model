@@ -13,6 +13,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import org.joda.time.Duration;
+
 import com.metabroadcast.applications.client.model.internal.Application;
 import org.atlasapi.media.entity.AudienceStatistics;
 import org.atlasapi.media.entity.Broadcast;
@@ -247,6 +249,7 @@ public class OutputContentMerger {
     protected <T extends Item> void mergeIn(Application application, T chosen, Iterable<T> notChosen) {
         mergeContent(application, chosen, notChosen);
         mergeVersions(application, chosen, notChosen);
+        mergeDuration(application, chosen, notChosen);
         mergeReleaseDates(chosen, notChosen);
         if (chosen instanceof Film) {
             mergeFilmProperties(application, (Film) chosen, Iterables.filter(notChosen, Film.class));
@@ -362,6 +365,21 @@ public class OutputContentMerger {
         }
     }
 
+    private <T extends Item> void mergeDuration(Application application, T chosen, Iterable<T> notChosen) {
+        if(chosen.getDuration() != null && chosen.getDuration().getMillis() != 0) {
+            return;
+        }
+        List<T> notChosenOrdered =
+                toContentOrdering(application.getConfiguration().getReadPrecedenceOrdering())
+                        .sortedCopy(notChosen);
+        for (T item : notChosenOrdered) {
+            if(item.getDuration() != null && item.getDuration().getMillis() != 0) {
+                chosen.setDuration(item.getDuration());
+                return;
+            }
+        }
+    }
+
     private <T extends Item> void matchAndMerge(final Broadcast chosenBroadcast, List<T> notChosen) {
         List<Broadcast> equivBroadcasts = Lists.newArrayList();
         for (T notChosenItem : notChosen) {
@@ -471,6 +489,7 @@ public class OutputContentMerger {
     private static final Function<Film, Set<Certificate>> TO_CERTIFICATES = input -> input == null || input.getCertificates().isEmpty() ? null : input.getCertificates();
     private static final Function<Content, List<SimilarContentRef>> TO_SIMILAR_CONTENT = content -> content.getSimilarContent().isEmpty() ? null : content.getSimilarContent();
     private static final Function<Described, Priority> TO_PRIORITY = input -> input == null ? null : input.getPriority();
+    private static final Function<Item, Long> TO_DURATION = input -> input == null ? null : input.getDuration().getMillis();
 
     public <T extends Item> void mergeIn(Application application, Container chosen, List<Container> notChosen) {
         mergeContent(application, chosen, notChosen);

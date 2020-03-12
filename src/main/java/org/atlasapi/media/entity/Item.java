@@ -17,6 +17,8 @@ package org.atlasapi.media.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DC;
@@ -27,6 +29,7 @@ import com.metabroadcast.common.intl.Country;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import org.joda.time.Duration;
 
 import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
@@ -43,6 +46,7 @@ public class Item extends Content {
     private Boolean blackAndWhite;
     private String sortKey;
     private Set<ReleaseDate> releaseDates = ImmutableSet.of();
+    private Long duration;
 
     public Item(String uri, String curie, Publisher publisher) {
         super(uri, curie, publisher);
@@ -89,6 +93,16 @@ public class Item extends Content {
         return blackAndWhite;
     }
 
+    public void setDuration(Duration duration) {
+        this.duration = duration != null ? duration.getStandardSeconds() : null;
+    }
+
+    @Nullable
+    public Duration getDuration() {
+        return duration != null ? Duration.standardSeconds(duration) : null;
+    }
+
+
     @Override
     public Item copy() {
         Item copy = new Item();
@@ -104,6 +118,7 @@ public class Item extends Content {
         to.isLongForm = from.isLongForm;
         to.blackAndWhite = from.blackAndWhite;
         to.releaseDates = from.releaseDates;
+        to.duration = from.duration;
     }
 
     public Item withSortKey(String sortKey) {

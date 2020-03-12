@@ -15,11 +15,15 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
+import java.util.Locale;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertTrue;
 
+import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 
 /**
@@ -45,5 +49,18 @@ public class EpisodeTest {
 	@Test
 	public void testReturnsFalseForRemoveWhenNoVersionsAdded() throws Exception {
 		assertThat(episode.removeVersion(version), is(false));
+	}
+
+	@Test
+	public void testLocalizedTitles() {
+		LocalizedTitle localizedTitle = new LocalizedTitle();
+		localizedTitle.setTitle("Alt title");
+		localizedTitle.setLocale(new Locale("", "RU"));
+		episode.setLocalizedTitles(ImmutableSet.of(localizedTitle));
+		String country = localizedTitle.getLocale().getCountry();
+		String[] countryCodes = Locale.getISOCountries();
+
+		episode.setId(123L);
+		assertTrue(episode.getLocalizedTitles().contains(localizedTitle));
 	}
 }

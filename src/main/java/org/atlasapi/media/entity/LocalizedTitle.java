@@ -2,7 +2,6 @@ package org.atlasapi.media.entity;
 
 import com.google.common.base.Objects;
 
-
 public class LocalizedTitle extends Localized {
 
     private String title;
