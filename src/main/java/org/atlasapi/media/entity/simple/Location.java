@@ -82,6 +82,7 @@ public class Location extends Version {
     private String network;
     private Service service;
     private Player player;
+    private Provider provider;
 
     private Boolean available;
 
@@ -427,6 +428,14 @@ public class Location extends Version {
     
     public Player getPlayer() {
         return player;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
     
     @Override

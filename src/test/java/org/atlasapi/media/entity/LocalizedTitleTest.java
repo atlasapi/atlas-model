@@ -53,8 +53,6 @@ public class LocalizedTitleTest {
         localizedTitleThree.setTitle("Title");
         localizedTitleThree.setLocale(Locale.forLanguageTag(languageEn + "-" + regionUs));
 
-        System.out.println("Debugging...");
-
         assertEquals(title, localizedTitleTwo);
         assertEquals(localizedTitleTwo, localizedTitleThree);
 
