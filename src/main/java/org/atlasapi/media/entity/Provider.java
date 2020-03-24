@@ -9,6 +9,9 @@ public class Provider {
     private String name;
     private String iconUrl;
 
+    public Provider() {
+    }
+
     public Provider(String name, @Nullable String iconUrl) {
         this.name = name;
         this.iconUrl = iconUrl;
