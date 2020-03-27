@@ -213,8 +213,8 @@ public abstract class Content extends Described {
     }
 
     public void addVersion(Version version) {
-        if (version.getPublisher() == null) {
-            version.setPublisher(publisher);
+        if (version.getProvider() == null) {
+            version.setProvider(publisher);
         }
         versions.add(version);
     }
@@ -229,7 +229,7 @@ public abstract class Content extends Described {
 
             @Override
             public boolean apply(Version v) {
-                return publisher.equals(v.getPublisher());
+                return publisher.equals(v.getProvider());
             }
         });
     }
