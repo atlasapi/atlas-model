@@ -52,18 +52,18 @@ public class Version extends Identified {
 	
 	private Integer duration;
 	
-	private Publisher provider;
+	private Publisher publisher;
 	
 	private Restriction restriction;
 	
 	private Boolean is3d;
 	
-	public void setProvider(Publisher provider) {
-		this.provider = provider;
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 	
-	public Publisher getProvider() {
-		return provider;
+	public Publisher getPublisher() {
+		return publisher;
 	}
 	
 	@RdfProperty(namespace = PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY.NS, uri = "manifestedAs", relation = true)
@@ -143,7 +143,7 @@ public class Version extends Identified {
         copy.broadcasts = broadcasts;
         copy.duration = duration;
         copy.manifestedAs = Sets.newHashSet(Iterables.transform(manifestedAs, Encoding.COPY));
-        copy.provider = provider;
+        copy.publisher = publisher;
         copy.publishedDuration = publishedDuration;
         if (restriction != null) {
             copy.restriction = restriction.copy();
