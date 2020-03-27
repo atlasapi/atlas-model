@@ -49,4 +49,12 @@ public class Provider {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "name='" + name + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                '}';
+    }
 }
