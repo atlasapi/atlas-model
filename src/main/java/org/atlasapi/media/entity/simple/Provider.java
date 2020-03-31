@@ -45,12 +45,13 @@ public class Provider {
             return false;
         }
         Provider provider = (Provider) o;
-        return name.equals(provider.name);
+        return name.equals(provider.name) &&
+                Objects.equals(iconUrl, provider.iconUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, iconUrl);
     }
 
     @Override
