@@ -3,6 +3,9 @@ package org.atlasapi.media.entity.simple;
 import java.util.Objects;
 
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Provider {
 
@@ -12,8 +15,8 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, @Nullable String iconUrl) {
-        this.name = name;
+    public Provider(@NotNull String name, @Nullable String iconUrl) {
+        this.name = checkNotNull(name);
         this.iconUrl = iconUrl;
     }
 
