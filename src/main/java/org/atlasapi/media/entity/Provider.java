@@ -42,8 +42,7 @@ public class Provider {
             return false;
         }
         Provider provider = (Provider) o;
-        return name.equals(provider.name) &&
-                Objects.equals(iconUrl, provider.iconUrl);
+        return name.equals(provider.name);
     }
 
     @Override
