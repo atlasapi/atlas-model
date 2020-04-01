@@ -46,6 +46,8 @@ public class Location extends Identified {
     
     private String embedId;
     
+    private Provider provider;
+
     private Policy policy;
 
     @RdfProperty(relation=true)
@@ -119,6 +121,14 @@ public class Location extends Identified {
     
     public void setEmbedId(String embedId) {
         this.embedId = embedId;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
     @Override

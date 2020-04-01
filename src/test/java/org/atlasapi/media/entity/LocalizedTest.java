@@ -40,8 +40,6 @@ public class LocalizedTest {
         Locale alternativeFifthLocale = Locale.forLanguageTag("und-RO");
         assertEquals(fifthLocale, alternativeFifthLocale);
 
-        System.out.println("Debugging...");
-
     }
 
 }
