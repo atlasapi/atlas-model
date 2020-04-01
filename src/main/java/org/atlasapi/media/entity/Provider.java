@@ -2,7 +2,10 @@ package org.atlasapi.media.entity;
 
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Provider {
 
@@ -12,19 +15,21 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, @Nullable String iconUrl) {
-        this.name = name;
+    public Provider(@Nonnull String name, @Nullable String iconUrl) {
+        this.name = checkNotNull(name);
         this.iconUrl = iconUrl;
     }
 
+    @Nonnull
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = checkNotNull(name);
     }
 
+    @Nullable
     public String getIconUrl() {
         return iconUrl;
     }
