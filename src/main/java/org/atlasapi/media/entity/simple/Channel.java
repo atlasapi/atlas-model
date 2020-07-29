@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
@@ -27,7 +30,7 @@ public class Channel extends Aliased {
     private static final Ordering<HistoricalChannelEntry> HISTORY_ORDERING = Ordering.natural();
     private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
 
-    private PublisherDetails publisher;
+    private PublisherDetails publisherDetails;
     private String title;
     private String image;
     private Set<Image> images;
@@ -136,7 +139,7 @@ public class Channel extends Aliased {
     }
 
     public void setPublisherDetails(PublisherDetails publisherDetails) {
-        this.publisher = publisherDetails;
+        this.publisherDetails = publisherDetails;
     }
 
     public void setTitle(@Nullable String title) {
@@ -150,11 +153,11 @@ public class Channel extends Aliased {
     public void setImages(@Nullable Iterable<Image> images) {
         this.images = ImmutableSet.copyOf(images);
     }
-    
+
     public void setMediaType(@Nullable String mediaType) {
         this.mediaType = mediaType;
     }
-    
+
     public void setHighDefinition(@Nullable Boolean highDefinition) {
         this.highDefinition = highDefinition;
     }
@@ -162,7 +165,7 @@ public class Channel extends Aliased {
     public void setIsTimeshifted(@Nullable Boolean isTimeshifted) {
         this.isTimeshifted = isTimeshifted;
     }
-    
+
     public void setRegional(@Nullable Boolean regional) {
         this.regional = regional;
     }
@@ -170,14 +173,13 @@ public class Channel extends Aliased {
     public void setAdult(@Nullable Boolean adult) {
         this.adult = adult;
     }
-    
+
     public void setTimeshift(@Nullable Long timeshift) {
         this.timeshift = timeshift;
     }
 
-    @XmlElement(name = "publisher")
     public PublisherDetails getPublisherDetails() {
-        return this.publisher;
+        return this.publisherDetails;
     }
 
     @Nullable
@@ -228,7 +230,7 @@ public class Channel extends Aliased {
     public void setChannelGroups(Iterable<ChannelNumbering> channelNumbering) {
         this.channelGroups = NUMBERING_ORDERING.immutableSortedCopy(channelNumbering);
     }
-    
+
     public void setGroups(Iterable<ChannelGroupSummary> aliases) {
         this.groups = ImmutableList.copyOf(aliases);
     }
@@ -239,11 +241,11 @@ public class Channel extends Aliased {
     public List<ChannelGroupSummary> getGroups() {
         return groups;
     }
-    
+
     public void setRelatedLinks(Iterable<RelatedLink> relatedLinks) {
         this.relatedLinks = ImmutableList.copyOf(relatedLinks);
     }
-    
+
     public List<RelatedLink> getRelatedLinks() {
         return relatedLinks;
     }
@@ -314,10 +316,16 @@ public class Channel extends Aliased {
         return startDate;
     }
 
+    @JsonIgnore
     public void setStartDate(@Nullable LocalDate startDate) {
         if (startDate != null) {
             this.startDate = startDate.toDateTimeAtStartOfDay(DateTimeZone.UTC).toDate();
         }
+    }
+
+    @JsonSetter
+    public void setStartDate(@Nullable Date startDate){
+        this.startDate = startDate;
     }
 
     @Nullable
@@ -325,10 +333,16 @@ public class Channel extends Aliased {
         return endDate;
     }
 
+    @JsonIgnore
     public void setEndDate(@Nullable LocalDate endDate) {
         if (endDate != null) {
-            this.startDate = endDate.toDate();
+            this.endDate = endDate.toDate();
         }
+    }
+
+    @JsonSetter
+    public void setEndDate(@Nullable Date endDate){
+        this.endDate = endDate;
     }
 
     public Set<String> getTargetRegions() {
@@ -345,6 +359,6 @@ public class Channel extends Aliased {
     }
 
     public void setGenres(Iterable<String> genres) {
-        this.genres = Sets.newHashSet(genres);
+        this.genres = ImmutableSet.copyOf(genres);
     }
 }
