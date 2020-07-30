@@ -20,7 +20,7 @@ public class ChannelGroup extends Aliased {
     private static final Ordering<HistoricalChannelGroupEntry> HISTORY_ORDERING = Ordering.natural();
     private static final Ordering<ChannelNumbering> NUMBERING_ORDERING = new ChannelNumberingOrdering();
     
-    private PublisherDetails publisher;
+    private PublisherDetails publisherDetails;
     private String title;
     private Set<String> availableCountries;
     private List<ChannelNumbering> channels;
@@ -29,12 +29,12 @@ public class ChannelGroup extends Aliased {
     private List<HistoricalChannelGroupEntry> history;
     
     public PublisherDetails getPublisherDetails() {
-        return this.publisher;
+        return this.publisherDetails;
     }
     
     @XmlElement(name = "publisher")
     public void setPublisherDetails(PublisherDetails publisher) {
-        this.publisher = publisher;
+        this.publisherDetails = publisher;
     }
     
     public String getTitle() {
