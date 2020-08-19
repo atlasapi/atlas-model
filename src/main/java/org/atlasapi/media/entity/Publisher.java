@@ -247,6 +247,7 @@ public enum Publisher {
     VIACOM_18_DATA_SUBMISSION("Viacom 18 Data Submission API", "datasubmission.viacom18.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     VIMN_DATA_SUBMISSION("VIMN Data Submission API", "datasubmission.vimn.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     YOUVIEW_JSON("YouView JSON", "api.youview.tv", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
+    BT_CHANNEL_GROUPS_YOUVIEW("BT Channel Groups (YouView)", "bt-channel-groups-youview.metabroadcast.com", Countries.GB, SourceStatus.ENABLEABLE, SourceRestriction.ADMIN_ONLY, false),
     ;
 
     private static final Splitter CSV_SPLITTER = Splitter.on(',').trimResults();
