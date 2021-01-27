@@ -201,16 +201,16 @@ public class Playlist extends Description {
 		return false;
 	}
 
-	public static final Predicate<Item> HAS_AVAILABLE_LOCATION = new Predicate<Item>() {
+	public static final Predicate<Playlist> HAS_AVAILABLE_LOCATION = new Predicate<Playlist>() {
 		@Override
-		public boolean apply(Item input) {
+		public boolean apply(Playlist input) {
 			return !input.getLocations().isEmpty() && !Iterables.isEmpty(Iterables.filter(input.getLocations(), Location.IS_AVAILABLE));
 		}
 	};
 
-	public static final Predicate<Item> HAS_UPCOMING_LOCATION = new Predicate<Item>() {
+	public static final Predicate<Playlist> HAS_UPCOMING_LOCATION = new Predicate<Playlist>() {
 		@Override
-		public boolean apply(Item input) {
+		public boolean apply(Playlist input) {
 			return !input.getLocations().isEmpty()
 					&& !Sets.filter(input.getLocations(), Location.IS_UPCOMING).isEmpty();
 		}
