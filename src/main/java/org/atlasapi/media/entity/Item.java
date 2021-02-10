@@ -14,22 +14,17 @@
  permissions and limitations under the License. */
 package org.atlasapi.media.entity;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableSet;
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.DC;
 import org.atlasapi.media.vocabulary.PO;
-
-import com.metabroadcast.common.intl.Country;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import org.joda.time.Duration;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Set;
 
 import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
@@ -139,7 +134,7 @@ public class Item extends Content {
     }
 
     public boolean isChild() {
-        return this.parent == null;
+        return this.parent != null;
     }
     public static final Function<Item, ChildRef> TO_CHILD_REF = new Function<Item, ChildRef>() {
 
