@@ -1,13 +1,13 @@
 package org.atlasapi.persistence.content;
 
 
+import com.google.common.collect.ImmutableSet;
 import org.atlasapi.media.entity.Container;
+import org.atlasapi.media.entity.ContentGroup;
 import org.atlasapi.media.entity.Described;
+import org.atlasapi.media.entity.Episode;
 import org.atlasapi.media.entity.Item;
 import org.atlasapi.media.entity.Series;
-
-import com.google.common.collect.ImmutableSet;
-import org.atlasapi.media.entity.ContentGroup;
 
 public enum ContentCategory {
 
@@ -36,7 +36,7 @@ public enum ContentCategory {
     public static ContentCategory categoryFor(Described c) {
         if (c instanceof Item) {
             Item item = (Item) c;
-            if (item.getContainer() != null) {
+            if (item.getContainer() != null || (c instanceof Episode && ((Episode) c).getSeriesRef() != null)) {
                 return ContentCategory.CHILD_ITEM;
             } else {
                 return ContentCategory.TOP_LEVEL_ITEM;
