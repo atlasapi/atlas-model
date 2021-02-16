@@ -15,17 +15,12 @@ permissions and limitations under the License. */
 
 package org.atlasapi.media.entity;
 
-import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
-
-import java.util.Set;
-
 import org.atlasapi.content.rdf.annotations.RdfClass;
 import org.atlasapi.content.rdf.annotations.RdfProperty;
 import org.atlasapi.media.vocabulary.PLAY_USE_IN_RDF_FOR_BACKWARD_COMPATIBILITY;
 import org.atlasapi.media.vocabulary.PO;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
+import static org.atlasapi.media.entity.ParentRef.parentRefFrom;
 
 /**
  * @author Robert Chatley (robert@metabroadcast.com)
@@ -91,6 +86,11 @@ public class Episode extends Item {
 
 	public ParentRef getSeriesRef() {
 		return seriesRef;
+	}
+
+	@Override
+	public boolean isChild() {
+		return this.seriesRef != null || super.isChild();
 	}
 	
 	@Override
