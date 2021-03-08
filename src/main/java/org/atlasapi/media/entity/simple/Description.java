@@ -89,7 +89,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setGenres(Iterable<String> genres) {
-        this.genres = Sets.newHashSet(genres);
+        this.genres = ImmutableSet.copyOf(genres);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "tags")
@@ -99,7 +99,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setTags(Iterable<String> tags) {
-        this.tags = Sets.newHashSet(tags);
+        this.tags = ImmutableSet.copyOf(tags);
     }
     
     public void setImages(Iterable<Image> images) {
@@ -201,11 +201,11 @@ public abstract class Description extends Aliased {
     }
     
     public void setDescriptions(Set<LocalizedDescription> descriptions) {
-        this.descriptions = descriptions;
+        this.descriptions = ImmutableSet.copyOf(descriptions);
     }
     
     public void setLocalizedTitles(Set<LocalizedTitle> localizedTitles) {
-        this.localizedTitles = localizedTitles;
+        this.localizedTitles = ImmutableSet.copyOf(localizedTitles);
     }
 
     public Priority getPriority() {
@@ -229,7 +229,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setReviews(Iterable<Review> reviews) {
-        this.reviews = Sets.newHashSet(reviews);
+        this.reviews = ImmutableSet.copyOf(reviews);
     }
     
     @XmlElementWrapper(name = "reviews")
@@ -329,7 +329,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setEvents(Iterable<Event> events) {
-        this.events = Sets.newHashSet(events);
+        this.events = ImmutableSet.copyOf(events);
     }
 
     protected void copyTo(Description destination) {
@@ -451,11 +451,12 @@ public abstract class Description extends Aliased {
 
     @JsonProperty("languages")
     public void setOriginalLanguages(Iterable<Language> languages) {
-        this.languages = Sets.newHashSet(languages);
+        this.languages = ImmutableSet.copyOf(languages);
     }
 
     public void setCertificates(Iterable<Certificate> certificates) {
-        this.certificates = Sets.newHashSet(certificates);
+        this.certificates = ImmutableSet.copyOf(certificates);
+        //        this.certificates = Sets.newHashSet(certificates);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "languages")
@@ -501,7 +502,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setRatings(Iterable<Rating> ratings) {
-        this.ratings = Sets.newHashSet(ratings);
+        this.ratings = ImmutableSet.copyOf(ratings);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "event_refs")
@@ -521,7 +522,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setAwards(Set<Award> awards) {
-        this.awards = awards;
+        this.awards = ImmutableSet.copyOf(awards);
     }
 
 

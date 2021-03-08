@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import org.atlasapi.media.entity.simple.Alias;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public abstract class Aliased extends Identified {
@@ -22,11 +23,11 @@ public abstract class Aliased extends Identified {
     public Aliased() { /* required for XML/JSON tools */	}
 
     public void setAliases(Set<String> aliases) {
-        this.aliases = aliases;
+        this.aliases = ImmutableSet.copyOf(aliases);
     }
 
     public void setV4Aliases(Set<Alias> v4Aliases) {
-        this.v4Aliases = v4Aliases;
+        this.v4Aliases = ImmutableSet.copyOf(v4Aliases);
     }
 
     @XmlElementWrapper(name="aliases")

@@ -14,6 +14,7 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
@@ -57,7 +58,7 @@ public class Item extends Description {
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
-		this.locations = Sets.newHashSet(locations);
+		this.locations = ImmutableSet.copyOf(locations);
 	}
 	
 	public Integer getEpisodeNumber() {
@@ -148,7 +149,7 @@ public class Item extends Description {
     }
     
     public void setCountriesOfOrigin (Iterable<Country> countries) {
-        this.countriesOfOrigin = Sets.newHashSet(countries);
+        this.countriesOfOrigin = ImmutableSet.copyOf(countries);
     }
     
     public void addCountry(Country country) {
@@ -249,12 +250,12 @@ public class Item extends Description {
     }
 
     public void setSubtitles(Iterable<Subtitles> subtitles) {
-        this.subtitles = Sets.newHashSet(subtitles);
+        this.subtitles = ImmutableSet.copyOf(subtitles);
     }
 
     @JsonProperty("release_dates")
     public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
-        this.releaseDates = Sets.newHashSet(releaseDates);
+        this.releaseDates = ImmutableSet.copyOf(releaseDates);
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="releaseDates")
