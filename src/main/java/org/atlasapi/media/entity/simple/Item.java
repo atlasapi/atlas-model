@@ -14,7 +14,6 @@ import org.atlasapi.media.vocabulary.PLAY_SIMPLE_XML;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.metabroadcast.common.intl.Country;
@@ -58,7 +57,7 @@ public class Item extends Description {
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
-		this.locations = ImmutableSet.copyOf(locations);
+		this.locations = Sets.newLinkedHashSet(locations);
 	}
 	
 	public Integer getEpisodeNumber() {

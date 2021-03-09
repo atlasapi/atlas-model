@@ -1,6 +1,5 @@
 package org.atlasapi.media.entity.simple;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
