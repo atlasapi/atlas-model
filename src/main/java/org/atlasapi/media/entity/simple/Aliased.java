@@ -23,11 +23,11 @@ public abstract class Aliased extends Identified {
     public Aliased() { /* required for XML/JSON tools */	}
 
     public void setAliases(Set<String> aliases) {
-        this.aliases = ImmutableSet.copyOf(aliases);
+        this.aliases = Sets.newLinkedHashSet(aliases);
     }
 
     public void setV4Aliases(Set<Alias> v4Aliases) {
-        this.v4Aliases = ImmutableSet.copyOf(v4Aliases);
+        this.v4Aliases = Sets.newLinkedHashSet(v4Aliases);
     }
 
     @XmlElementWrapper(name="aliases")

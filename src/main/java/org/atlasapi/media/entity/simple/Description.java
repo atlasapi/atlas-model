@@ -1,5 +1,6 @@
 package org.atlasapi.media.entity.simple;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -89,7 +90,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setGenres(Iterable<String> genres) {
-        this.genres = ImmutableSet.copyOf(genres);
+        this.genres = Sets.newLinkedHashSet(genres);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "tags")
@@ -99,7 +100,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setTags(Iterable<String> tags) {
-        this.tags = ImmutableSet.copyOf(tags);
+        this.tags = Sets.newLinkedHashSet(tags);
     }
     
     public void setImages(Iterable<Image> images) {
@@ -201,11 +202,11 @@ public abstract class Description extends Aliased {
     }
     
     public void setDescriptions(Set<LocalizedDescription> descriptions) {
-        this.descriptions = ImmutableSet.copyOf(descriptions);
+        this.descriptions = Sets.newLinkedHashSet(descriptions);
     }
     
     public void setLocalizedTitles(Set<LocalizedTitle> localizedTitles) {
-        this.localizedTitles = ImmutableSet.copyOf(localizedTitles);
+        this.localizedTitles = Sets.newLinkedHashSet(localizedTitles);
     }
 
     public Priority getPriority() {
@@ -229,7 +230,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setReviews(Iterable<Review> reviews) {
-        this.reviews = ImmutableSet.copyOf(reviews);
+        this.reviews = Sets.newLinkedHashSet(reviews);
     }
     
     @XmlElementWrapper(name = "reviews")
@@ -329,7 +330,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setEvents(Iterable<Event> events) {
-        this.events = ImmutableSet.copyOf(events);
+        this.events = Sets.newLinkedHashSet(events);
     }
 
     protected void copyTo(Description destination) {
@@ -451,12 +452,11 @@ public abstract class Description extends Aliased {
 
     @JsonProperty("languages")
     public void setOriginalLanguages(Iterable<Language> languages) {
-        this.languages = ImmutableSet.copyOf(languages);
+        this.languages = Sets.newLinkedHashSet(languages);
     }
 
     public void setCertificates(Iterable<Certificate> certificates) {
-        this.certificates = ImmutableSet.copyOf(certificates);
-        //        this.certificates = Sets.newHashSet(certificates);
+        this.certificates = Sets.newLinkedHashSet(certificates);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "languages")
@@ -502,7 +502,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setRatings(Iterable<Rating> ratings) {
-        this.ratings = ImmutableSet.copyOf(ratings);
+        this.ratings = Sets.newLinkedHashSet(ratings);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "event_refs")
@@ -522,7 +522,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setAwards(Set<Award> awards) {
-        this.awards = ImmutableSet.copyOf(awards);
+        this.awards = Sets.newLinkedHashSet(awards);
     }
 
 

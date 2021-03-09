@@ -149,7 +149,7 @@ public class Item extends Description {
     }
     
     public void setCountriesOfOrigin (Iterable<Country> countries) {
-        this.countriesOfOrigin = ImmutableSet.copyOf(countries);
+        this.countriesOfOrigin = Sets.newLinkedHashSet(countries);
     }
     
     public void addCountry(Country country) {
@@ -250,12 +250,12 @@ public class Item extends Description {
     }
 
     public void setSubtitles(Iterable<Subtitles> subtitles) {
-        this.subtitles = ImmutableSet.copyOf(subtitles);
+        this.subtitles = Sets.newLinkedHashSet(subtitles);
     }
 
     @JsonProperty("release_dates")
     public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
-        this.releaseDates = ImmutableSet.copyOf(releaseDates);
+        this.releaseDates = Sets.newLinkedHashSet(releaseDates);
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="releaseDates")
