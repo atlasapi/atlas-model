@@ -57,7 +57,7 @@ public class Item extends Description {
 	}
 	
 	public void setLocations(Iterable<Location> locations) {
-		this.locations = Sets.newHashSet(locations);
+		this.locations = Sets.newLinkedHashSet(locations);
 	}
 	
 	public Integer getEpisodeNumber() {
@@ -148,7 +148,7 @@ public class Item extends Description {
     }
     
     public void setCountriesOfOrigin (Iterable<Country> countries) {
-        this.countriesOfOrigin = Sets.newHashSet(countries);
+        this.countriesOfOrigin = Sets.newLinkedHashSet(countries);
     }
     
     public void addCountry(Country country) {
@@ -249,12 +249,12 @@ public class Item extends Description {
     }
 
     public void setSubtitles(Iterable<Subtitles> subtitles) {
-        this.subtitles = Sets.newHashSet(subtitles);
+        this.subtitles = Sets.newLinkedHashSet(subtitles);
     }
 
     @JsonProperty("release_dates")
     public void setReleaseDates(Iterable<ReleaseDate> releaseDates) {
-        this.releaseDates = Sets.newHashSet(releaseDates);
+        this.releaseDates = Sets.newLinkedHashSet(releaseDates);
     }
     
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="releaseDates")

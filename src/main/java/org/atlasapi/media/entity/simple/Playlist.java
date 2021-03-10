@@ -129,7 +129,7 @@ public class Playlist extends Description {
 	}
 
 	public void setLocations(Iterable<Location> locations) {
-		this.locations = Sets.newHashSet(locations);
+		this.locations = Sets.newLinkedHashSet(locations);
 	}
 
     @XmlElementWrapper(namespace=PLAY_SIMPLE_XML.NS, name="upcoming_content")

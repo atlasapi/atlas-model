@@ -89,7 +89,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setGenres(Iterable<String> genres) {
-        this.genres = Sets.newHashSet(genres);
+        this.genres = Sets.newLinkedHashSet(genres);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "tags")
@@ -99,7 +99,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setTags(Iterable<String> tags) {
-        this.tags = Sets.newHashSet(tags);
+        this.tags = Sets.newLinkedHashSet(tags);
     }
     
     public void setImages(Iterable<Image> images) {
@@ -229,7 +229,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setReviews(Iterable<Review> reviews) {
-        this.reviews = Sets.newHashSet(reviews);
+        this.reviews = Sets.newLinkedHashSet(reviews);
     }
     
     @XmlElementWrapper(name = "reviews")
@@ -329,7 +329,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setEvents(Iterable<Event> events) {
-        this.events = Sets.newHashSet(events);
+        this.events = Sets.newLinkedHashSet(events);
     }
 
     protected void copyTo(Description destination) {
@@ -451,11 +451,11 @@ public abstract class Description extends Aliased {
 
     @JsonProperty("languages")
     public void setOriginalLanguages(Iterable<Language> languages) {
-        this.languages = Sets.newHashSet(languages);
+        this.languages = Sets.newLinkedHashSet(languages);
     }
 
     public void setCertificates(Iterable<Certificate> certificates) {
-        this.certificates = Sets.newHashSet(certificates);
+        this.certificates = Sets.newLinkedHashSet(certificates);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "languages")
@@ -501,7 +501,7 @@ public abstract class Description extends Aliased {
     }
     
     public void setRatings(Iterable<Rating> ratings) {
-        this.ratings = Sets.newHashSet(ratings);
+        this.ratings = Sets.newLinkedHashSet(ratings);
     }
 
     @XmlElementWrapper(namespace = PLAY_SIMPLE_XML.NS, name = "event_refs")
