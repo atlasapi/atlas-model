@@ -201,11 +201,11 @@ public abstract class Description extends Aliased {
     }
     
     public void setDescriptions(Set<LocalizedDescription> descriptions) {
-        this.descriptions = Sets.newLinkedHashSet(descriptions);
+        this.descriptions = descriptions;
     }
     
     public void setLocalizedTitles(Set<LocalizedTitle> localizedTitles) {
-        this.localizedTitles = Sets.newLinkedHashSet(localizedTitles);
+        this.localizedTitles = localizedTitles;
     }
 
     public Priority getPriority() {
@@ -521,7 +521,7 @@ public abstract class Description extends Aliased {
     }
 
     public void setAwards(Set<Award> awards) {
-        this.awards = Sets.newLinkedHashSet(awards);
+        this.awards = awards;
     }
 
 
